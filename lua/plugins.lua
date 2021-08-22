@@ -19,11 +19,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'ryanoasis/vim-devicons',
-        event = 'VimEnter'
-    }
-
-    use {
         'LionC/nest.nvim',
         config = function()
             require 'plugins.mappings'
@@ -49,6 +44,7 @@ return require('packer').startup(function(use)
 
     use {
         'cappyzawa/trim.nvim',
+        event = 'BufWritePre',
         config = function()
             require('trim').setup({
                 disable = {"json", "javascript", "css"}
@@ -68,8 +64,11 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'nvim-treesitter/playground',
-        disable = true
+        -- 98%.lua
+        'akinsho/toggleterm.nvim',
+        config = function()
+            require 'plugins.term'
+        end
     }
 
     use {
@@ -77,35 +76,7 @@ return require('packer').startup(function(use)
         requires = {
             { 'nvim-lua/plenary.nvim' }
         },
-        -- cmd = 'Telescope',
-        config = function()
-            require 'plugins.telescope'
-        end
-    }
-
-    use {
-        'tpope/vim-commentary',
-        event = 'BufRead'
-    }
-
-    use {
-        'wellle/targets.vim',
-        event = 'BufRead'
-    }
-
-    use {
-        'tpope/vim-surround',
-        event = 'BufRead'
-    }
-
-    use {
-        'Jorengarenar/vim-MvVis',
-        event = 'CursorMoved'
-    }
-
-    use {
-        'romainl/vim-cool',
-        event = 'VimEnter'
+        config = require('plugins.telescope').config
     }
 
     use {
@@ -114,6 +85,36 @@ return require('packer').startup(function(use)
         config = function()
             require 'plugins.tabnine'
         end
+    }
+
+    use {
+        'nvim-treesitter/playground',
+        disable = true
+    }
+
+    use {
+        'ryanoasis/vim-devicons',
+        event = 'VimEnter'
+    }
+
+    use {
+        'tpope/vim-commentary'
+    }
+
+    use {
+        'wellle/targets.vim'
+    }
+
+    use {
+        'tpope/vim-surround'
+    }
+
+    use {
+        'Jorengarenar/vim-MvVis'
+    }
+
+    use {
+        'romainl/vim-cool'
     }
 
 end)

@@ -49,7 +49,7 @@ set.splitright = true
 set.splitbelow = true
 
 set.timeout = true
-set.timeoutlen = 150
+set.timeoutlen = 200
 set.ttimeout = true
 set.ttimeoutlen = 10
 set.updatetime = 500

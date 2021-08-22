@@ -99,34 +99,36 @@ _G.packer_plugins = {
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\tabnine-vim"
   },
   ["targets.vim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\targets.vim"
+    loaded = true,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\targets.vim"
   },
   ["telescope.nvim"] = {
-    config = { "\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22plugins.telescope\frequire\0" },
+    config = { "\27LJ\2\nœ\2\0\0\b\0\23\0\0286\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\1\3\0015\3\21\0005\4\5\0005\5\4\0=\5\6\0045\5\14\0005\6\b\0009\a\a\0=\a\t\0069\a\n\0=\a\v\0069\a\f\0=\a\r\6=\6\15\0055\6\17\0009\a\16\0=\a\18\6=\6\19\5=\5\20\4=\4\22\3B\1\2\1K\0\1\0\rdefaults\1\0\0\rmappings\6n\n<Esc>\1\0\0\nclose\6i\1\0\0\n<c-j>\24move_selection_next\n<c-k>\28move_selection_previous\n<c-d>\1\0\0\18delete_buffer\25file_ignore_patterns\1\0\1\18prompt_prefix\a> \1\2\0\0\v.git/*\nsetup\14telescope\22telescope.actions\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    config = { "\27LJ\2\n,\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\17plugins.term\frequire\0" },
+    loaded = true,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\toggleterm.nvim"
+  },
   ["trim.nvim"] = {
     config = { "\27LJ\2\na\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\fdisable\1\0\0\1\4\0\0\tjson\15javascript\bcss\nsetup\ttrim\frequire\0" },
-    loaded = true,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\trim.nvim"
+    loaded = false,
+    needs_bufread = false,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\trim.nvim"
   },
   ["vim-MvVis"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-MvVis"
+    loaded = true,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-MvVis"
   },
   ["vim-commentary"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-commentary"
+    loaded = true,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-commentary"
   },
   ["vim-cool"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-cool"
+    loaded = true,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-cool"
   },
   ["vim-devicons"] = {
     loaded = false,
@@ -140,33 +142,32 @@ _G.packer_plugins = {
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-sneak"
   },
   ["vim-surround"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-surround"
+    loaded = true,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-surround"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: trim.nvim
-time([[Config for trim.nvim]], true)
-try_loadstring("\27LJ\2\na\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\fdisable\1\0\0\1\4\0\0\tjson\15javascript\bcss\nsetup\ttrim\frequire\0", "config", "trim.nvim")
-time([[Config for trim.nvim]], false)
--- Config for: nest.nvim
-time([[Config for nest.nvim]], true)
-try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.mappings\frequire\0", "config", "nest.nvim")
-time([[Config for nest.nvim]], false)
 -- Config for: coc.nvim
 time([[Config for coc.nvim]], true)
 try_loadstring("\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16plugins.coc\frequire\0", "config", "coc.nvim")
 time([[Config for coc.nvim]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
-try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22plugins.telescope\frequire\0", "config", "telescope.nvim")
+try_loadstring("\27LJ\2\nœ\2\0\0\b\0\23\0\0286\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\1\3\0015\3\21\0005\4\5\0005\5\4\0=\5\6\0045\5\14\0005\6\b\0009\a\a\0=\a\t\0069\a\n\0=\a\v\0069\a\f\0=\a\r\6=\6\15\0055\6\17\0009\a\16\0=\a\18\6=\6\19\5=\5\20\4=\4\22\3B\1\2\1K\0\1\0\rdefaults\1\0\0\rmappings\6n\n<Esc>\1\0\0\nclose\6i\1\0\0\n<c-j>\24move_selection_next\n<c-k>\28move_selection_previous\n<c-d>\1\0\0\18delete_buffer\25file_ignore_patterns\1\0\1\18prompt_prefix\a> \1\2\0\0\v.git/*\nsetup\14telescope\22telescope.actions\frequire\0", "config", "telescope.nvim")
 time([[Config for telescope.nvim]], false)
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
 try_loadstring("\27LJ\2\n^\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\foptions\1\0\0\1\0\1\ntheme\rcodedark\nsetup\flualine\frequire\0", "config", "lualine.nvim")
 time([[Config for lualine.nvim]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+try_loadstring("\27LJ\2\n,\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\17plugins.term\frequire\0", "config", "toggleterm.nvim")
+time([[Config for toggleterm.nvim]], false)
+-- Config for: nest.nvim
+time([[Config for nest.nvim]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21plugins.mappings\frequire\0", "config", "nest.nvim")
+time([[Config for nest.nvim]], false)
 -- Keymap lazy-loads
 time([[Defining lazy-load keymaps]], true)
 vim.cmd [[noremap <silent> S <cmd>lua require("packer.load")({'vim-sneak'}, { keys = "S", prefix = "" }, _G.packer_plugins)<cr>]]
@@ -177,9 +178,8 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'targets.vim', 'vim-commentary', 'vim-surround'}, { event = "BufRead *" }, _G.packer_plugins)]]
-vim.cmd [[au CursorMoved * ++once lua require("packer.load")({'vim-MvVis'}, { event = "CursorMoved *" }, _G.packer_plugins)]]
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-devicons', 'vim-cool', 'tabnine-vim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vim-devicons', 'tabnine-vim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au BufWritePre * ++once lua require("packer.load")({'trim.nvim'}, { event = "BufWritePre *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
