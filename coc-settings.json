@@ -9,6 +9,9 @@
     "diagnostic.warningSign": "",
     "diagnostic.infoSign": "",
     "diagnostic.hintSign": "",
+    "diagnostic.refreshOnInsertMode": false,
+    "diagnostic.enableMessage": "never",
+    "diagnostic.checkCurrentLine": true,
     "explorer.keyMappings.global": {
         "d": "delete",
         "r": "rename",
