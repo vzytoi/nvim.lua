@@ -492,7 +492,7 @@ endif
 
 if version >= 703
   " Highlighted screen columns
-  call s:HL('ColorColumn',  s:none, s:color_column)
+  call s:HL('ColorColumn',  s:yellow, s:none)
 
   " Concealed element: \lambda → λ
   call s:HL('Conceal', s:blue, s:none)
@@ -545,7 +545,7 @@ hi! link WarningMsg GruvboxRedBold
 call s:HL('LineNr', s:bg4, s:number_column)
 
 " Column where signs are displayed
-call s:HL('SignColumn', s:none, s:sign_column)
+call s:HL('SignColumn', s:none, s:none)
 
 " Line used for closed folds
 call s:HL('Folded', s:gray, s:bg1, s:italic)
