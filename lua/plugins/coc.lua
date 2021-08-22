@@ -11,7 +11,8 @@ function M.setup()
                 { 'd', '<Plug>(coc-definition)', options = { noremap = false } },
                 { 'f', '<Plug>(coc-references)', options = { noremap = false } },
                 { 'r', '<Plug>(coc-rename)', options = { noremap = false } },
-            }}
+            }},
+            { 'e', ':CocCommand explorer<cr>' }
         }}
     }
 

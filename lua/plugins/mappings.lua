@@ -12,7 +12,7 @@ nest.defaults = {
 }
 
 local setups = {
-    'telescope', 'coc' }
+    'telescope', 'coc', 'term' }
 
 local setJ = {}
 
@@ -33,13 +33,6 @@ nest.applyKeymaps {
         { 'b', {
             { 'd', ':normal gg=G<cr><c-o>' },
         }},
-        { 't', {
-            { 'f', ':ToggleTerm direction=float<cr>' },
-            { 'h', ':ToggleTerm direction=horizontal<cr>' },
-            { 'v', ':ToggleTerm direction=vertical<cr>' }
-        }},
-        { 't', ':ToggleTerm direction=window<cr>' },
-        { 'e', ':CocCommand explorer<cr>' },
         { 'o', 'o<Esc>' },
         { 'O', 'O<Esc>' },
     }},
