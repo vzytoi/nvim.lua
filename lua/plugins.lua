@@ -13,12 +13,14 @@ return require('packer').startup(function(use)
     use { 'wbthomason/packer.nvim' }
 
     use {
+        -- 0%.lua
         'justinmk/vim-sneak',
         opt = true,
         keys = { 'S', 's' }
     }
 
     use {
+        -- 100%.lua
         'LionC/nest.nvim',
         config = function()
             require 'plugins.mappings'
@@ -31,6 +33,14 @@ return require('packer').startup(function(use)
         disable = true,
         config = function()
             require 'plugins.treesitter'
+        end
+    }
+
+    use {
+        'hoob3rt/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        config = function()
+            require 'plugins.ll'.config()
         end
     }
 
@@ -53,13 +63,11 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'hoob3rt/lualine.nvim',
+        -- 99.3%.lua
+        'lewis6991/gitsigns.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
         config = function()
-            require('lualine').setup {
-                options = {
-                    theme = 'codedark'
-                }
-            }
+            require('gitsigns').setup()
         end
     }
 
@@ -83,7 +91,7 @@ return require('packer').startup(function(use)
         'codota/tabnine-vim',
         event = 'VimEnter',
         config = function()
-            require 'plugins.tabnine'
+            require('plugins.tabnine')
         end
     }
 
@@ -98,23 +106,28 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'tpope/vim-commentary'
+        'tpope/vim-commentary',
+        event = 'VimEnter'
     }
 
     use {
-        'wellle/targets.vim'
+        'wellle/targets.vim',
+        event = 'VimEnter'
     }
 
     use {
-        'tpope/vim-surround'
+        'tpope/vim-surround',
+        event = 'VimEnter'
     }
 
     use {
-        'Jorengarenar/vim-MvVis'
+        'Jorengarenar/vim-MvVis',
+        event = 'VimEnter'
     }
 
     use {
-        'romainl/vim-cool'
+        'romainl/vim-cool',
+        event = 'VimEnter'
     }
 
 end)
