@@ -41,7 +41,7 @@ set.termguicolors = true
 
 set.wrap = false
 
-set.smartcase = true
+set.ignorecase = true
 
 set.mouse = 'a'
 
