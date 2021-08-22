@@ -37,11 +37,14 @@ set.rnu = true
 set.nu = true
 
 vim.cmd [[ colorscheme spacecamp ]]
+
 set.termguicolors = true
+set.background = 'dark'
 
 set.wrap = false
 
 set.ignorecase = true
+set.smartcase = true
 
 set.mouse = 'a'
 
@@ -60,3 +63,14 @@ set.lazyredraw = true
 set.scrolloff = 8
 
 vim.cmd [[ let g:loaded_python_provider = 0 ]]
+
+set.formatoptions = set.formatoptions
+  - "a"
+  - "t"
+  + "c"
+  + "q"
+  - "o"
+  + "r"
+  + "n"
+  + "j"
+  - "2"
