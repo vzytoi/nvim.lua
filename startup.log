@@ -1,0 +1,79 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.030  000.030: --- NVIM STARTING ---
+016.793  016.763: locale set
+017.518  000.724: inits 1
+017.598  000.081: window checked
+017.608  000.009: parsing arguments
+017.713  000.105: expanding arguments
+017.785  000.072: inits 2
+020.042  002.258: init highlight
+020.047  000.005: waiting for UI
+027.721  007.674: done waiting for UI
+027.776  000.055: initialized screen early for UI
+033.293  004.222  004.222: sourcing C:\Users\Cyprien\AppData\Local\nvim\lua\autocommands.lua
+046.215  012.374  012.374: sourcing C:\Users\Cyprien\AppData\Local\nvim\colors\spacecamp.vim
+046.299  012.831  000.457: sourcing C:\Users\Cyprien\AppData\Local\nvim\lua\options.lua
+052.744  006.240  006.240: sourcing C:\Users\Cyprien\AppData\Local\nvim\lua\plugins.lua
+053.620  000.458  000.458: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\lua\man.lua
+054.834  000.150  000.150: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\nest.nvim\lua\nest.lua
+055.609  000.631  000.631: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\packer.nvim\lua\packer.lua
+055.898  000.131  000.131: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\plenary.nvim\lua\say.lua
+056.284  027.725  003.062: sourcing C:\Users\Cyprien\AppData\Local\nvim\init.vim
+056.299  000.798: sourcing vimrc file(s)
+068.705  012.141  012.141: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\filetype.vim
+069.811  000.114  000.114: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\ftplugin.vim
+070.889  000.104  000.104: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\indent.vim
+075.370  000.616  000.616: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\syntax\syncolor.vim
+077.149  000.295  000.295: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\syntax\syncolor.vim
+087.903  015.501  014.589: sourcing C:\Users\Cyprien\AppData\Local\nvim\colors\spacecamp.vim
+088.031  015.907  000.406: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\syntax\synload.vim
+088.183  016.419  000.512: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\syntax\syntax.vim
+093.906  000.087  000.087: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\gzip.vim
+094.168  000.086  000.086: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\health.vim
+094.506  000.179  000.179: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\man.vim
+094.749  000.083  000.083: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\matchit.vim
+094.991  000.075  000.075: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\matchparen.vim
+095.230  000.080  000.080: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\netrwPlugin.vim
+095.973  000.067  000.067: sourcing C:\Users\Cyprien\AppData\Local\nvim-data/rplugin.vim
+095.996  000.613  000.546: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\rplugin.vim
+096.334  000.179  000.179: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\shada.vim
+096.659  000.077  000.077: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\spellfile.vim
+096.971  000.098  000.098: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\tarPlugin.vim
+097.240  000.086  000.086: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\tohtml.vim
+097.513  000.109  000.109: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\tutor.vim
+097.765  000.091  000.091: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\plugin\zipPlugin.vim
+117.251  018.937  018.937: sourcing C:\Users\Cyprien\AppData\Local\nvim\plugin\packer_compiled.lua
+118.156  012.299: loading plugins
+120.249  000.167  000.167: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\coc.nvim\autoload\coc\rpc.vim
+121.378  000.708  000.708: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\coc.nvim\autoload\coc\util.vim
+128.423  000.290  000.290: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\coc.nvim\autoload\coc\client.vim
+198.543  079.046  077.881: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\coc.nvim\plugin\coc.vim
+200.331  000.178  000.178: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\plenary.nvim\plugin\plenary.vim
+201.481  000.364  000.364: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\telescope.nvim\plugin\telescope.vim
+202.358  004.615: loading packages
+202.831  000.473: loading after plugins
+202.875  000.044: inits 3
+209.994  007.119: reading ShaDa
+210.122  000.128: opening buffers
+210.142  000.019: BufEnter autocommands
+210.146  000.005: editing files in windows
+212.894  000.168  000.168: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\autoload\provider\pythonx.vim
+351.660  000.300  000.300: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\autoload\remote\host.vim
+351.778  139.617  139.148: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\autoload\provider\python3.vim
+353.026  000.816  000.816: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\opt\tabnine-vim\autoload\youcompleteme.vim
+353.756  000.107  000.107: sourcing C:\Users\Cyprien\OneDrive\Images\Documents\Neovim\share\nvim\runtime\autoload\provider.vim
+607.980  396.468  255.928: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\opt\tabnine-vim\plugin\youcompleteme.vim
+609.934  000.273  000.273: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\opt\vim-cool\plugin\cool.vim
+613.308  002.013  002.013: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\opt\vim-devicons\plugin\webdevicons.vim
+613.937  005.036: VimEnter autocommands
+613.944  000.007: UIEnter autocommands
+613.948  000.004: before starting main loop
+615.082  000.197  000.197: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\opt\vim-MvVis\plugin\MvVis.vim
+617.107  001.046  001.046: sourcing C:\Users\Cyprien\AppData\Local\nvim-data\site\pack\packer\start\coc.nvim\autoload\coc\float.vim
+618.856  003.665: first screen update
+618.865  000.009: --- NVIM STARTED ---

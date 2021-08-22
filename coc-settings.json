@@ -1,0 +1,31 @@
+{
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 100,
+    "prettier.singleQuote": true,
+    "prettier.bracketSpacing": false,
+    "coc.preferences.formatOnSaveFiletypes": ["css", "json", "javascript"],
+    "coc.preferences.formatOnType": false,
+    "diagnostic.errorSign": "",
+    "diagnostic.warningSign": "",
+    "diagnostic.infoSign": "",
+    "diagnostic.hintSign": "",
+    "explorer.keyMappings.global": {
+        "d": "delete",
+        "r": "rename",
+        ".": "ToggleHidden",
+        "s": "open:split",
+        "v": "open:vsplit",
+        "t": "open:tab",
+        "f": "search",
+        "q": "quit",
+        "?": "help",
+        "a": "addFile",
+        "A": "addDirectory",
+        "o": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"],
+        "e": ["wait", "expandable?", ["expanded?", "collapse", "expand"], "open"]
+    },
+    "explorer.position": "right",
+    "explorer.width": 30,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.file.showHiddenFiles": true
+}
