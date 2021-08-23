@@ -20,7 +20,6 @@ for _, s in ipairs(setups) do
     table.insert(setJ, require('plugins.' .. s).setup()[1])
 end
 
-
 nest.applyKeymaps {
     setJ,
     { '<c-h>', '<c-w>W' },
@@ -35,6 +34,11 @@ nest.applyKeymaps {
         }},
         { 'o', 'o<Esc>' },
         { 'O', 'O<Esc>' },
+        { 'g', {
+            { 's', ':G<cr>' },
+            { 'c', ':G commit<cr>' },
+            { 'p', ':G push<cr>' }
+        }}
     }},
     { mode  = 'v', {
         { 'H', '<Plug>(MvVisLeft)', options = { noremap = false } },
@@ -46,7 +50,8 @@ nest.applyKeymaps {
     }},
     { '<c-', {
         { 'q>', ':x<cr>' }
-    }}
+    }},
+    { 'U', '<c-r>' },
 }
 
 function _G.termMap()
