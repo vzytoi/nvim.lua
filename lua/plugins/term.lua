@@ -5,7 +5,6 @@ function M.setup()
     local map = {
 
         { '<leader>', {
-
             { 't', {
                 { 'f', ':ToggleTerm direction=float<cr>' },
                 { 'h', ':ToggleTerm direction=horizontal<cr>' },
