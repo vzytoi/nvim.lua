@@ -8,24 +8,10 @@ set.smartindent = true
 set.shiftwidth = 4
 
 local plug_buitlins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit",
+    "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", "gzip",
+    "zip", "zipPlugin", "tar", "tarPlugin", "getscript",
+    "getscriptPlugin", "vimball", "vimballPlugin", "2html_plugin",
+    "logipat", "rrhelper", "spellfile_plugin", "matchit",
     "matchparen",
 }
 
