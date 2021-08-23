@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
     }
 
     use {
+        -- 41.2%.lua / 1.8%.vim
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
         disable = true,
@@ -37,6 +38,7 @@ return require('packer').startup(function(use)
     }
 
     use {
+        -- 99.8%.lua
         'hoob3rt/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
         config = function()
@@ -53,6 +55,7 @@ return require('packer').startup(function(use)
     }
 
     use {
+        -- 100%.lua
         'cappyzawa/trim.nvim',
         event = 'BufWritePre',
         config = function()
@@ -67,7 +70,7 @@ return require('packer').startup(function(use)
         'lewis6991/gitsigns.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
-            require('gitsigns').setup()
+            require('plugins.gitsigns').config()
         end
     }
 
@@ -75,11 +78,12 @@ return require('packer').startup(function(use)
         -- 98%.lua
         'akinsho/toggleterm.nvim',
         config = function()
-            require 'plugins.term'
+            require 'plugins.term'.config()
         end
     }
 
     use {
+        -- 99.1%.lua
         'nvim-telescope/telescope.nvim',
         requires = {
             { 'nvim-lua/plenary.nvim' }
@@ -88,6 +92,7 @@ return require('packer').startup(function(use)
     }
 
     use {
+        -- 7.2%.lua
         'codota/tabnine-vim',
         event = 'VimEnter',
         config = function()
@@ -111,6 +116,7 @@ return require('packer').startup(function(use)
     }
 
     use {
+        -- 98.1%.lua
         'wellle/targets.vim',
         event = 'VimEnter'
     }
