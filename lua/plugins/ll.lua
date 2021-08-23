@@ -3,7 +3,8 @@ local M = {}
 function M.config()
 
     local t = {
-        { 'spacecamp', 'codedark' }
+        { 'spacecamp', 'codedark' },
+        { 'gruvbox', 'gruvbox' }
     }
 
     local c
