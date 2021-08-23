@@ -38,6 +38,14 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        config = function()
+            require('nvim-autopairs').setup{}
+        end
+    }
+
+    use {
         -- 99.8%.lua
         'hoob3rt/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
