@@ -32,6 +32,12 @@ function M.config()
         end
     }
 
+    function _G.set_terminal_keymaps()
+        local opts = {noremap = true}
+        vim.api.nvim_buf_set_keymap(0, 't', '<leader>t', [[<C-\><C-n>:q!<cr>]], opts)
+        vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+    end
+
 end
 
 return M
