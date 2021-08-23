@@ -119,7 +119,7 @@ call <sid>hi('StorageClass', s:spaceGold, s:none, 'none')
 call <sid>hi('String', s:spaceGreen, s:none, 'none')
 call <sid>hi('Tag', s:spaceGold, s:none, 'none')
 call <sid>hi('Title', s:none, s:none, 'bold')
-call <sid>hi('Todo', s:spaceGray3, s:none, 'inverse,bold')
+call <sid>hi('Todo', s:spaceViolet, s:none, 'bold')
 call <sid>hi('Type', s:none, s:none, 'none')
 call <sid>hi('Underlined', s:none, s:none, 'underline')
 call <sid>hi('WarningMsg', s:spaceWhite, s:spaceRed, 'none')
@@ -136,6 +136,9 @@ else
   call <sid>hi('DiffDelete', s:spaceRed2, s:none, 'none')
   call <sid>hi('DiffText', s:spaceSteel, s:spaceBlue, 'none')
 endif
+
+" COC
+hi CocUnusedHighlight guibg=none guifg=none gui=underline
 
 " ------------
 " Languages
