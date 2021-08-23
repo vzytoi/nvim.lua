@@ -1,5 +1,8 @@
 local set = vim.opt
 
+set.rnu = true
+set.nu = true
+
 set.softtabstop = 4
 set.tabstop = 4
 set.expandtab = true
@@ -18,9 +21,6 @@ local plug_buitlins = {
 for _, p in pairs(plug_buitlins) do
     vim.g["loaded_" .. p] = 1
 end
-
-set.rnu = true
-set.nu = true
 
 vim.cmd [[ colorscheme spacecamp ]]
 
