@@ -1,9 +1,5 @@
 local M = {}
 
-function M.t()
-    print('salut!')
-end
-
 function M.setup()
 
     local map = {
@@ -34,7 +30,8 @@ function M.config()
                 i = {
                     ["<c-d>"] = actions.delete_buffer,
                     ["<c-k>"] = actions.move_selection_previous,
-                    ["<c-j>"] = actions.move_selection_next
+                    ["<c-j>"] = actions.move_selection_next,
+                    ["<Esc>"] = actions.close
                 },
                 n = {
                     ["<Esc>"] = actions.close
