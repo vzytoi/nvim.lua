@@ -51,12 +51,6 @@ set.scrolloff = 8
 vim.cmd [[ let g:loaded_python_provider = 0 ]]
 
 set.formatoptions = set.formatoptions
-  - "a"
-  - "t"
-  + "c"
-  + "q"
-  - "o"
-  + "r"
-  + "n"
-  + "j"
-  - "2"
+    - "c"
+    - "r"
+    - "o"
