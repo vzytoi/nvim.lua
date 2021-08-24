@@ -28,6 +28,8 @@ nest.applyKeymaps {
     { '<c-l>', '<c-w>w' },
     { '<', '<<' },
     { '>', '>>' },
+    { '<Tab>', ':tabnext' },
+    { '<S-Tab>', ':tabprevious' },
     { '<leader>', {
         { 'b', {
             { 'd', ':normal gg=G<cr><c-o>' },
@@ -35,7 +37,7 @@ nest.applyKeymaps {
         { 'o', 'o<Esc>' },
         { 'O', 'O<Esc>' },
         { 'g', {
-            { 's', ':G<cr>' },
+            { 's', ':G|20wincmd_<cr>' },
             { 'c', ':G commit<cr>' },
             { 'p', ':G push<cr>' }
         }}
