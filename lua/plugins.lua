@@ -20,6 +20,11 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'tpope/vim-fugitive',
+        event = 'VimEnter',
+    }
+
+    use {
         -- 100%.lua
         'LionC/nest.nvim',
         config = function()
@@ -38,11 +43,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        config = function()
-            require('nvim-autopairs').setup{}
-        end
+        'jiangmiao/auto-pairs',
+        event = 'InsertEnter'
     }
 
     use {
