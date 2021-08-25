@@ -40,7 +40,7 @@ nest.applyKeymaps {
         { 'O', 'O<Esc>' },
         { 'g', {
             { 's', ':G|20wincmd_<cr>' },
-            { 'c', ':G commit<cr>' },
+            { 'c', ':G commit|star<cr>' },
             { 'p', ':G push<cr>' },
             { 'l', ':G log<cr>' }
         }}
