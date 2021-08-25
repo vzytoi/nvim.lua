@@ -21,7 +21,7 @@ return require('packer').startup(function(use)
 
     use {
         'tpope/vim-fugitive',
-        event = 'VimEnter',
+        cmd = 'G'
     }
 
     use {
@@ -61,6 +61,7 @@ return require('packer').startup(function(use)
     use {
         -- 99.8%.lua
         'hoob3rt/lualine.nvim',
+        event = 'VimEnter',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
         config = function()
             require 'plugins.ll'.config()
@@ -89,6 +90,7 @@ return require('packer').startup(function(use)
     use {
         -- 99.3%.lua
         'lewis6991/gitsigns.nvim',
+        event = 'BufRead',
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('plugins.gitsigns').config()
@@ -107,6 +109,7 @@ return require('packer').startup(function(use)
     use {
         -- 99.1%.lua
         'nvim-telescope/telescope.nvim',
+        cmd = 'Telescope',
         requires = {
             { 'nvim-lua/plenary.nvim' }
         },
@@ -116,7 +119,7 @@ return require('packer').startup(function(use)
     use {
         -- 7.2%.lua
         'codota/tabnine-vim',
-        event = 'VimEnter',
+        event = 'InsertEnter',
         config = function()
             require('plugins.tabnine')
         end
@@ -128,23 +131,26 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'tpope/vim-commentary'
+        'tpope/vim-commentary',
+        event = 'BufRead'
     }
 
     use {
         -- 98.1%.lua
         'wellle/targets.vim',
-        event = 'VimEnter'
+        event = 'BufRead'
     }
 
     use {
         'tpope/vim-surround',
-        event = 'VimEnter'
+        event = 'BufRead'
     }
 
     use {
         'Jorengarenar/vim-MvVis',
-        event = 'VimEnter'
+        keys = {
+            'H', 'J', 'K', 'L'
+        }
     }
 
     use {
