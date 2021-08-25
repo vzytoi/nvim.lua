@@ -32,14 +32,17 @@ nest.applyKeymaps {
     { '<S-Tab>', ':tabprevious' },
     { '<leader>', {
         { 'b', {
-            { 'd', ':normal gg=G<cr><c-o>' },
+            { 'k', ':b#<cr>' },
+            { 'h', ':bNext<cr>' },
+            { 'l', ':bprevious<cr>' }
         }},
         { 'o', 'o<Esc>' },
         { 'O', 'O<Esc>' },
         { 'g', {
             { 's', ':G|20wincmd_<cr>' },
             { 'c', ':G commit<cr>' },
-            { 'p', ':G push<cr>' }
+            { 'p', ':G push<cr>' },
+            { 'l', ':G log<cr>' }
         }}
     }},
     { mode  = 'v', {
