@@ -35,6 +35,17 @@ return require('packer').startup(function(use)
     use {
         -- 41.2%.lua / 1.8%.vim
         'nvim-treesitter/nvim-treesitter',
+        requires = {
+            { 'windwp/nvim-autopairs',
+                config = function()
+                    require('nvim-autopairs').setup({
+                        check_ts = true,
+                        enable_check_bracket_line = true
+                    })
+                end
+            },
+            { 'RRethy/nvim-treesitter-textobjects' }
+        },
         run = ':TSUpdate',
         config = function()
             require 'plugins.treesitter'
@@ -43,7 +54,8 @@ return require('packer').startup(function(use)
 
     use {
         'jiangmiao/auto-pairs',
-        event = 'InsertEnter'
+        event = 'InsertEnter',
+        disable = true
     }
 
     use {
@@ -86,6 +98,7 @@ return require('packer').startup(function(use)
     use {
         -- 98%.lua
         'akinsho/toggleterm.nvim',
+        cmd = "ToggleTerm",
         config = function()
             require 'plugins.term'.config()
         end
@@ -107,10 +120,6 @@ return require('packer').startup(function(use)
         config = function()
             require('plugins.tabnine')
         end
-    }
-
-    use {
-        'nvim-treesitter/playground',
     }
 
     use {
