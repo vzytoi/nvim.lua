@@ -3,7 +3,7 @@ local M = {}
 function M.config()
 
     local t = {
-        { 'spacecamp', 'codedark' },
+        { 'spacecamp', require('lualine.spacecamp') },
         { 'gruvbox', 'gruvbox' }
     }
 
@@ -21,7 +21,9 @@ function M.config()
 
     require('lualine').setup {
         options = {
-            theme = c
+            theme = c,
+            section_separators = '',
+            component_separators = ''
         }
     }
 
