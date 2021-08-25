@@ -128,8 +128,7 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'tpope/vim-commentary',
-        event = 'VimEnter'
+        'tpope/vim-commentary'
     }
 
     use {
