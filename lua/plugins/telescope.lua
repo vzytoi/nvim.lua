@@ -28,7 +28,6 @@ function M.config()
             prompt_prefix = '> ',
             mappings = {
                 i = {
-                    ["<c-d>"] = actions.delete_buffer,
                     ["<c-k>"] = actions.move_selection_previous,
                     ["<c-j>"] = actions.move_selection_next,
                     ["<Esc>"] = actions.close
@@ -37,7 +36,7 @@ function M.config()
                     ["<Esc>"] = actions.close
                 }
             }
-        },
+        }
     }
 
 end
