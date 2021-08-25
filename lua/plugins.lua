@@ -36,7 +36,6 @@ return require('packer').startup(function(use)
         -- 41.2%.lua / 1.8%.vim
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
-        disable = true,
         config = function()
             require 'plugins.treesitter'
         end
@@ -112,7 +111,6 @@ return require('packer').startup(function(use)
 
     use {
         'nvim-treesitter/playground',
-        disable = true
     }
 
     use {

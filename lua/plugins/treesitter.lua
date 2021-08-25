@@ -13,5 +13,3 @@ require('nvim-treesitter.configs').setup({
         enable = true
     }
 })
-
-require('nvim-treesitter.install').compilers = { "clang", "gcc" }
