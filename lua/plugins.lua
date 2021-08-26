@@ -35,34 +35,31 @@ return require('packer').startup(function(use)
     use {
         -- 41.2%.lua / 1.8%.vim
         'nvim-treesitter/nvim-treesitter',
-        requires = {
-            { 'windwp/nvim-autopairs',
-                config = function()
-                    require('nvim-autopairs').setup({
-                        check_ts = true,
-                        enable_check_bracket_line = true
-                    })
-                end
-            },
-            { 'RRethy/nvim-treesitter-textobjects' }
-        },
+        event = 'BufRead',
         run = ':TSUpdate',
         config = function()
             require 'plugins.treesitter'
-        end
+        end,
     }
 
     use {
-        'jiangmiao/auto-pairs',
-        event = 'InsertEnter',
-        disable = true
+        'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup({
+                check_ts = true,
+                enable_check_bracket_line = true
+            })
+        end,
+        after = 'nvim-treesitter'
+    }
+
+    use {
+        'tpope/vim-commentary'
     }
 
     use {
         -- 99.8%.lua
         'hoob3rt/lualine.nvim',
-        event = 'VimEnter',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
         config = function()
             require 'plugins.ll'.config()
         end
@@ -91,6 +88,9 @@ return require('packer').startup(function(use)
         -- 99.3%.lua
         'lewis6991/gitsigns.nvim',
         event = 'BufRead',
+        cond = function()
+            return vim.fn.isdirectory ".git" == 1
+        end,
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('plugins.gitsigns').config()
@@ -131,11 +131,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'tpope/vim-commentary',
-        event = 'BufRead'
-    }
-
-    use {
         -- 98.1%.lua
         'wellle/targets.vim',
         event = 'BufRead'
@@ -148,14 +143,24 @@ return require('packer').startup(function(use)
 
     use {
         'Jorengarenar/vim-MvVis',
-        keys = {
-            'H', 'J', 'K', 'L'
-        }
+        event = 'BufRead'
     }
 
     use {
         'romainl/vim-cool',
         event = 'VimEnter'
+    }
+
+    use {
+        'rmagatti/auto-session'
+    }
+
+    use {
+        'karb94/neoscroll.nvim',
+        event = "WinScrolled",
+        config = function()
+            require("neoscroll").setup()
+        end
     }
 
 end)
