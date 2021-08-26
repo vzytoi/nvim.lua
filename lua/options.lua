@@ -15,6 +15,8 @@ for _, p in pairs(plug_buitlins) do
     vim.g["loaded_" .. p] = 1
 end
 
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
+
 local set = vim.opt
 
 set.rnu = true
@@ -56,4 +58,4 @@ set.scrolloff = 8
 set.formatoptions = set.formatoptions
     - "c"
     - "r"
-- "o"
+    - "o"
