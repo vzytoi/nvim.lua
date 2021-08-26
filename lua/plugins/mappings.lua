@@ -69,44 +69,39 @@ function _G.termMap()
 
 end
 
-function _G.resize_window(d)
+function _G.resize_window(k)
+
     local wcount = vim.fn.winnr('$')
-
-    if wcount <= 1 then
-        return false
-    end
-
     local wcurr = vim.fn.winnr()
 
-    function v_resize(c)
-        vim.api.nvim_command('vertical resize ' .. c)
+    local sl = {}
+    sl.left = '-'
+    sl.right = '+'
+
+    function reverse(s)
+        return (s == '-' and '+' or '-')
     end
 
-    function h_resize(c)
-        vim.api.nvim_command('resize' .. c)
+    function exec(d, s)
+        local c = d .. 'res ' .. s .. '3'
+        vim.api.nvim_command(c)
     end
 
-   if d == 'left' or d == 'right' then
-        if wcurr > wcount then
-            if d == 'left' then
-                v_resize('-5')
-            else
-                v_resize('+5')
-            end
-        elseif wcurr == wcount then
-            if d == 'left' then
-                v_resize('+5')
-            else
-                v_resize('-5')
-            end
-       end
-    else
-        if d == 'up' then
-            h_resize('+5')
+    local s
+
+    if sl[k] ~= nil then
+        if wcurr == wcount then
+            s = reverse(sl[k])
         else
-            h_resize('-5')
+            s = sl[k]
         end
+        exec('vert ', s)
+    else
+        sl.up = sl.right
+        sl.down = sl.left
+        exec('', sl[k])
     end
+
 end
 
 vim.api.nvim_set_keymap('n', '<a-h>', ':lua resize_window("left")<cr>', {noremap = true})
