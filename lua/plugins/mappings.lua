@@ -37,6 +37,9 @@ nest.applyKeymaps {
             { 'h', ':bNext<cr>' },
             { 'l', ':bprevious<cr>' }
         }},
+        { 'i', {
+            { 'n', ':normal! gg=G<cr><c-o>'}
+        }},
         { 'o', 'o<Esc>' },
         { 'O', 'O<Esc>' },
         { 'g', {

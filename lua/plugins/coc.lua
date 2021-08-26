@@ -4,10 +4,10 @@ function M.setup()
 
     local map = {
         { '<leader>', {
-            { 'b', {
+            { 'i', {
                 { 'c', ':CocCommand prettier.formatFile<cr>' }
             }},
-            { 'g', {
+            { 'c', {
                 { 'd', '<Plug>(coc-definition)', options = { noremap = false } },
                 { 'f', '<Plug>(coc-references)', options = { noremap = false } },
                 { 'r', '<Plug>(coc-rename)', options = { noremap = false } },
@@ -23,8 +23,8 @@ end
 function M.config()
 
     vim.cmd [[
-        let g:coc_global_extensions = [ 'coc-marketplace',
-        \ 'coc-lua', 'coc-tsserver', 'coc-prettier', 'coc-json', 'coc-explorer']
+    let g:coc_global_extensions = [ 'coc-marketplace',
+    \ 'coc-lua', 'coc-tsserver', 'coc-prettier', 'coc-json', 'coc-explorer']
     ]]
 
 end
