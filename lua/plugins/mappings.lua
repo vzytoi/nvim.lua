@@ -78,25 +78,38 @@ function _G.resize_window(d)
 
     local wcurr = vim.fn.winnr()
 
-    function resize(c)
+    function v_resize(c)
         vim.api.nvim_command('vertical resize ' .. c)
     end
 
-    if wcurr == 1 then
-        if d == 'left' or wcurr < wcout then
-            resize('-10')
-        else
-            resize('+10')
-        end
-    elseif wcurr == wcount then
-        if d == 'left' then
-            resize('+10')
-        else
-            resize('-10')
-        end
+    function h_resize(c)
+        vim.api.nvim_command('resize' .. c)
     end
 
+   if d == 'left' or d == 'right' then
+        if wcurr > wcount then
+            if d == 'left' then
+                v_resize('-5')
+            else
+                v_resize('+5')
+            end
+        elseif wcurr == wcount then
+            if d == 'left' then
+                v_resize('+5')
+            else
+                v_resize('-5')
+            end
+       end
+    else
+        if d == 'up' then
+            h_resize('+5')
+        else
+            h_resize('-5')
+        end
+    end
 end
 
-vim.api.nvim_set_keymap('n', '<left>', ':lua resize_window("left")<cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<right>', ':lua resize_window("right")<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<a-h>', ':lua resize_window("left")<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<a-l>', ':lua resize_window("right")<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<a-k>', ':lua resize_window("up")<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<a-j>', ':lua resize_window("down")<cr>', {noremap = true})
