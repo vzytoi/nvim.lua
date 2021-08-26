@@ -155,12 +155,4 @@ return require('packer').startup(function(use)
         'rmagatti/auto-session'
     }
 
-    use {
-        'karb94/neoscroll.nvim',
-        event = "WinScrolled",
-        config = function()
-            require("neoscroll").setup()
-        end
-    }
-
 end)
