@@ -29,8 +29,8 @@ nest.applyKeymaps {
     { '<c-c>', '<esc>' },
     { '<', '<<' },
     { '>', '>>' },
-    { '<Tab>', ':tabnext' },
-    { '<S-Tab>', ':tabprevious' },
+    { '<Tab>', ':tabNext<cr>' },
+    { '<S-Tab>', ':tabprevious<cr>' },
     { '<leader>', {
         { 'b', {
             { 'k', ':b#<cr>' },
@@ -107,7 +107,9 @@ function _G.resize_window(k)
 
 end
 
-vim.api.nvim_set_keymap('n', '<a-h>', ':lua resize_window("left")<cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<a-l>', ':lua resize_window("right")<cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<a-k>', ':lua resize_window("up")<cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<a-j>', ':lua resize_window("down")<cr>', {noremap = true})
+local opts = { noremap = true }
+
+vim.api.nvim_set_keymap('n', '<a-h>', ':lua resize_window("left")<cr>', opts)
+vim.api.nvim_set_keymap('n', '<a-l>', ':lua resize_window("right")<cr>', opts)
+vim.api.nvim_set_keymap('n', '<a-k>', ':lua resize_window("up")<cr>', opts)
+vim.api.nvim_set_keymap('n', '<a-j>', ':lua resize_window("down")<cr>', opts)
