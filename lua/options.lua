@@ -31,8 +31,8 @@ set.shiftwidth = 4
 
 vim.cmd [[ colorscheme spacecamp ]]
 
-set.termguicolors = true
-set.background = 'dark'
+vim.o.termguicolors = true
+vim.o.background = 'dark'
 
 set.wrap = false
 
