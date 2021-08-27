@@ -31,7 +31,7 @@ function M.config()
                 i = {
                     ["<c-k>"] = actions.move_selection_previous,
                     ["<c-j>"] = actions.move_selection_next,
-                    ["<Esc>"] = actions.close
+
                 },
                 n = {
                     ["<Esc>"] = actions.close
