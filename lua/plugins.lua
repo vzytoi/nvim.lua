@@ -25,6 +25,14 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'projekt0n/github-nvim-theme',
+        config = function()
+            require("github-theme").setup()
+        end,
+        disable = true
+    }
+
+    use {
         -- 100%.lua
         'LionC/nest.nvim',
         config = function()
@@ -54,6 +62,21 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        after = 'nvim-treesitter'
+    }
+
+    use {
+        'nvim-treesitter/playground',
+        after = 'nvim-treesitter'
+    }
+
+    use {
+        'RRethy/nvim-treesitter-textsubjects',
+        after = 'nvim-treesitter'
+    }
+
+    use {
         'tpope/vim-commentary'
     }
 
@@ -79,7 +102,7 @@ return require('packer').startup(function(use)
         event = 'BufWritePre',
         config = function()
             require('trim').setup({
-                disable = {"json", "javascript", "css"}
+                disable = {"json", "javascript", "css"},
             })
         end
     }
@@ -152,7 +175,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'rmagatti/auto-session'
+        'rmagatti/auto-session',
+        disable = true
     }
 
 end)
