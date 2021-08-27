@@ -139,6 +139,7 @@ endif
 
 " COC
 hi CocUnusedHighlight guibg=none guifg=none gui=underline
+hi CocHintHighlight cterm=undercurl guisp=#000000
 
 " ------------
 " Languages
