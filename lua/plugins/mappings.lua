@@ -81,11 +81,11 @@ function _G.resize_window(k)
     sl.left = '-'
     sl.right = '+'
 
-    function reverse(s)
+    function Reverse(s)
         return (s == '-' and '+' or '-')
     end
 
-    function exec(d, s)
+    function Exec(d, s)
         local c = d .. 'res ' .. s .. '3'
         vim.api.nvim_command(c)
     end
@@ -94,15 +94,15 @@ function _G.resize_window(k)
 
     if sl[k] ~= nil then
         if wcurr == wcount then
-            s = reverse(sl[k])
+            s = Reverse(sl[k])
         else
             s = sl[k]
         end
-        exec('vert ', s)
+        Exec('vert ', s)
     else
         sl.up = sl.right
         sl.down = sl.left
-        exec('', sl[k])
+        Exec('', sl[k])
     end
 
 end
