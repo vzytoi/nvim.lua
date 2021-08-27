@@ -19,8 +19,9 @@ require('nvim-treesitter.configs').setup({
                 ["if"] = "@function.inner",
                 ["al"] = "@loop.outer",
                 ["il"] = "@loop.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner"
+                ["ic"] = "@conditional.inner",
+                ["an"] = "@conditional.outer",
+                ["a/"] = "@comment.outer"
             },
         },
         swap = {
@@ -32,5 +33,12 @@ require('nvim-treesitter.configs').setup({
                 ["<leader>A"] = "@parameter.inner",
             },
         },
+    },
+    textsubjects = {
+        enable = true,
+        keymaps = {
+            ['.'] = 'textsubjects-smart',
+            [';'] = 'textsubjects-container-outer',
+        }
     },
 })
