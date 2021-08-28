@@ -11,30 +11,44 @@ nest.defaults = {
     }
 }
 
-local setups = {
-    "telescope",
-    "coc",
-    "term"
-}
+function QueryMapping()
 
-local setJ = {}
+    local setups = {
+        "telescope",
+        "coc",
+        "term"
+    }
 
-for _, s in ipairs(setups) do
-    table.insert(setJ, require("plugins." .. s).setup()[1])
+    local map = {}
+
+    for _, s in ipairs(setups) do
+        table.insert(map, require("plugins." .. s).setup()[1])
+    end
+
+    return map
+
 end
 
 nest.applyKeymaps {
-    setJ,
-    { '<c-h>', '<c-w>W' },
-    { '<c-j>', '<c-w>j' },
-    { '<c-k>', '<c-w>k' },
-    { '<c-l>', '<c-w>w' },
-    { '<c-c>', '<esc>' },
+
+    { '<c-', {
+        { 'h>', '<c-w>W' },
+        { 'j>', '<c-w>j' },
+        { 'k>', '<c-w>k' },
+        { 'l>', '<c-w>w' },
+    }},
+
     { '<', '<<' },
     { '>', '>>' },
     { '<Tab>', ':tabNext<cr>' },
     { '<S-Tab>', ':tabprevious<cr>' },
     { '<leader>', {
+        { 'q', {
+            { 'o', ':copen<cr>' },
+            { 'c', ':cclose<cr>' },
+            { 'k', ':cprev<cr>' },
+            { 'j', ':cnext<cr>' }
+        }},
         { 'b', {
             { 'k', ':b#<cr>' },
             { 'h', ':bNext<cr>' },
@@ -62,9 +76,9 @@ nest.applyKeymaps {
     }},
     { '<c-', {
         { 'q>', ':x<cr>' },
-        { 'c>', '<esc>' }
     }},
     { 'U', '<c-r>' },
+    QueryMapping(),
 }
 
 function _G.termMap()
