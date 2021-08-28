@@ -19,7 +19,7 @@ function RI()
         function R() require(f.n) end
 
         if not pcall(R) then
-            print('error loading' .. f.n)
+            print('unable to require ' .. f.n)
         end
 
         ::endl::
