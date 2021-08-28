@@ -61,19 +61,23 @@ nest.applyKeymaps {
         { '>', '>gv' },
     }},
     { '<c-', {
-        { 'q>', ':x<cr>' }
+        { 'q>', ':x<cr>' },
+        { 'c>', '<esc>' }
     }},
     { 'U', '<c-r>' },
 }
 
 function _G.termMap()
+
     local opts = {noremap = true}
 
     vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
     vim.api.nvim_buf_set_keymap(0, "t", "<leader>t", [[<C-\><C-n>:q!<cr>]], opts)
+
 end
 
 function _G.resize_window(k)
+
     local wcount = vim.fn.winnr("$")
     local wcurr = vim.fn.winnr()
 
@@ -104,6 +108,7 @@ function _G.resize_window(k)
         sl.down = sl.left
         Exec("", sl[k])
     end
+
 end
 
 local opts = {noremap = true}

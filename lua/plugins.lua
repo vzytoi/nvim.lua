@@ -28,7 +28,7 @@ return require('packer').startup(function(use)
         -- 100%.lua
         'LionC/nest.nvim',
         config = function()
-            require 'plugins.mappings'
+            require 'mappings'
         end
     }
 
@@ -89,7 +89,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 100%.lua
         'cappyzawa/trim.nvim',
         event = 'BufWritePre',
         config = function()
