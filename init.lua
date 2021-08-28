@@ -1,22 +1,25 @@
 function RI()
 
     local files = {
-        { 'example', false},
-        { 'options' },
-        { 'autocmd' },
-        { 'plugins' }
+        {
+            n = 'example',
+            d = true
+        },
+        { n = 'options' },
+        { n = 'autocmd' },
+        { n = 'plugins' }
     }
 
     for _, f in pairs(files) do
 
-        if f[2] ~= nil and not f[2] then
+        if f.d ~= nil and f.d then
             goto endl
         end
 
-        function T() require(f[1]) end
+        function R() require(f.n) end
 
-        if not pcall(T) then
-            print('error loading ' .. f[1])
+        if not pcall(R) then
+            print('error loading' .. f.n)
         end
 
         ::endl::
