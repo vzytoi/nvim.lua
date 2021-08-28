@@ -18,6 +18,7 @@ function M.setup()
 end
 
 function M.config()
+
     local actions = require "telescope.actions"
 
     require("telescope").setup {
@@ -37,6 +38,7 @@ function M.config()
             }
         }
     }
+
 end
 
 return M
