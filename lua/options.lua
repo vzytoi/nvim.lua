@@ -55,7 +55,4 @@ set.lazyredraw = true
 
 set.scrolloff = 8
 
-set.formatoptions = set.formatoptions
-    - "c"
-    - "r"
-    - "o"
+set.undofile = true
