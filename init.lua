@@ -11,6 +11,7 @@ function RI()
     }
 
     for _, f in pairs(files) do
+
         if f.d ~= nil and f.d then
             goto endl
         end
@@ -24,6 +25,7 @@ function RI()
         end
 
         ::endl::
+
     end
 
 end
