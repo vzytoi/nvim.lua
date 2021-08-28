@@ -25,14 +25,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'projekt0n/github-nvim-theme',
-        config = function()
-            require("github-theme").setup()
-        end,
-        disable = true
-    }
-
-    use {
         -- 100%.lua
         'LionC/nest.nvim',
         config = function()
@@ -103,6 +95,12 @@ return require('packer').startup(function(use)
         config = function()
             require('trim').setup({
                 disable = {"json", "javascript", "css"},
+                patterns = {
+                    [[%s/\s\+$//e]],
+                    [[%s/\($\n\s*\)\+\%$//]],
+                    [[%s/\%^\n\+//]],
+                    [[%s/\(\n\n\)\n\+/\1/]],
+                }
             })
         end
     }

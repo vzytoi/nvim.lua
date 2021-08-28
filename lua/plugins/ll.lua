@@ -4,7 +4,6 @@ function M.config()
 
     local t = {
         { 'spacecamp', require('lualine.spacecamp') },
-        { 'github', 'github' }
     }
 
     local c
