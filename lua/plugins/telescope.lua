@@ -18,20 +18,18 @@ function M.setup()
 end
 
 function M.config()
+    local actions = require "telescope.actions"
 
-    local actions = require 'telescope.actions'
-
-    require('telescope').setup {
+    require("telescope").setup {
         defaults = {
             file_ignore_patterns = {
                 ".git/*"
             },
-            prompt_prefix = '> ',
+            prompt_prefix = "> ",
             mappings = {
                 i = {
                     ["<c-k>"] = actions.move_selection_previous,
-                    ["<c-j>"] = actions.move_selection_next,
-
+                    ["<c-j>"] = actions.move_selection_next
                 },
                 n = {
                     ["<Esc>"] = actions.close
@@ -39,7 +37,6 @@ function M.config()
             }
         }
     }
-
 end
 
 return M

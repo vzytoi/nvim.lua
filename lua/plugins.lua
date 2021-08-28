@@ -173,8 +173,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'rmagatti/auto-session',
-        disable = true
+        'mhartington/formatter.nvim',
+        config = require('plugins.formatter').config()
     }
 
 end)

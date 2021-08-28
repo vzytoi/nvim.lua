@@ -1,23 +1,26 @@
-local nest = require('nest')
+local nest = require("nest")
 
-vim.g.mapleader =  ' '
+vim.g.mapleader = " "
 
 nest.defaults = {
-    mode = 'n',
-    prefix = '',
+    mode = "n",
+    prefix = "",
     options = {
         noremap = true,
-        silent = true,
-    },
+        silent = true
+    }
 }
 
 local setups = {
-    'telescope', 'coc', 'term' }
+    "telescope",
+    "coc",
+    "term"
+}
 
 local setJ = {}
 
 for _, s in ipairs(setups) do
-    table.insert(setJ, require('plugins.' .. s).setup()[1])
+    table.insert(setJ, require("plugins." .. s).setup()[1])
 end
 
 nest.applyKeymaps {
@@ -64,29 +67,26 @@ nest.applyKeymaps {
 }
 
 function _G.termMap()
+    local opts = {noremap = true}
 
-    local opts = { noremap = true }
-
-    vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-    vim.api.nvim_buf_set_keymap(0, 't', '<leader>t', [[<C-\><C-n>:q!<cr>]], opts)
-
+    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+    vim.api.nvim_buf_set_keymap(0, "t", "<leader>t", [[<C-\><C-n>:q!<cr>]], opts)
 end
 
 function _G.resize_window(k)
-
-    local wcount = vim.fn.winnr('$')
+    local wcount = vim.fn.winnr("$")
     local wcurr = vim.fn.winnr()
 
     local sl = {}
-    sl.left = '-'
-    sl.right = '+'
+    sl.left = "-"
+    sl.right = "+"
 
     function Reverse(s)
-        return (s == '-' and '+' or '-')
+        return (s == "-" and "+" or "-")
     end
 
     function Exec(d, s)
-        local c = d .. 'res ' .. s .. '3'
+        local c = d .. "res " .. s .. "5"
         vim.api.nvim_command(c)
     end
 
@@ -98,18 +98,17 @@ function _G.resize_window(k)
         else
             s = sl[k]
         end
-        Exec('vert ', s)
+        Exec("vert ", s)
     else
         sl.up = sl.right
         sl.down = sl.left
-        Exec('', sl[k])
+        Exec("", sl[k])
     end
-
 end
 
-local opts = { noremap = true }
+local opts = {noremap = true}
 
-vim.api.nvim_set_keymap('n', '<a-h>', ':lua resize_window("left")<cr>', opts)
-vim.api.nvim_set_keymap('n', '<a-l>', ':lua resize_window("right")<cr>', opts)
-vim.api.nvim_set_keymap('n', '<a-k>', ':lua resize_window("up")<cr>', opts)
-vim.api.nvim_set_keymap('n', '<a-j>', ':lua resize_window("down")<cr>', opts)
+vim.api.nvim_set_keymap("n", "<a-h>", ':lua resize_window("left")<cr>', opts)
+vim.api.nvim_set_keymap("n", "<a-l>", ':lua resize_window("right")<cr>', opts)
+vim.api.nvim_set_keymap("n", "<a-k>", ':lua resize_window("up")<cr>', opts)
+vim.api.nvim_set_keymap("n", "<a-j>", ':lua resize_window("down")<cr>', opts)
