@@ -46,8 +46,16 @@ return require('packer').startup(function(use)
         'windwp/nvim-autopairs',
         config = function()
             require('nvim-autopairs').setup({
+                active = true,
+                on_config_done = nil,
+                map_cr = true,
+                map_complete = vim.bo.filetype ~= "tex",
                 check_ts = true,
-                enable_check_bracket_line = true
+                ts_config = {
+                    lua = { "string" },
+                    javascript = { "template_string" },
+                    java = false,
+                }
             })
         end,
         after = 'nvim-treesitter'
@@ -55,11 +63,6 @@ return require('packer').startup(function(use)
 
     use {
         'nvim-treesitter/nvim-treesitter-textobjects',
-        after = 'nvim-treesitter'
-    }
-
-    use {
-        'nvim-treesitter/playground',
         after = 'nvim-treesitter'
     }
 
@@ -146,7 +149,7 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'ryanoasis/vim-devicons',
+        'kyazdani42/nvim-web-devicons',
         event = 'VimEnter'
     }
 
