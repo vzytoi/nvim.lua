@@ -4,6 +4,7 @@ function M.config()
 
     local t = {
         { 'spacecamp', require('lualine.spacecamp') },
+        { 'papercolor', 'ayu_light' },
     }
 
     local c
