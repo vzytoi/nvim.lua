@@ -174,9 +174,4 @@ return require('packer').startup(function(use)
         event = 'VimEnter'
     }
 
-    use {
-        'mhartington/formatter.nvim',
-        config = require('plugins.formatter').config()
-    }
-
 end)
