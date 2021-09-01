@@ -41,6 +41,7 @@ endfun
 " Color Variables
 " ==========================
 let s:spaceBlack = {'gui': '#121212', 'cterm256': '233'}
+let s:spaceBlackP = {'gui': '#0d0d0d', 'cterm256': '233'}
 let s:spaceBlack2 = {'gui': '#262626', 'cterm256': '235'}
 let s:spaceGray1 = {'gui': '#3E3D32', 'cterm256': '237'}
 let s:spaceGray2 = {'gui': '#49483E', 'cterm256': '239'}
@@ -76,7 +77,7 @@ call <sid>hi('Folded', s:spaceGray3, s:none, 'none')
 call <sid>hi('IncSearch', s:spaceBlack, s:spaceBlue2, 'none')
 call <sid>hi('LineNr', s:spaceGray3, s:none, 'none')
 call <sid>hi('MatchParen', s:spaceGold, s:none, 'none')
-call <sid>hi('Normal', s:spaceWhite, s:spaceBlack, 'none')
+call <sid>hi('Normal', s:spaceWhite, s:spaceBlackP, 'none')
 call <sid>hi('Pmenu', s:none, s:spaceBlack2, 'none')
 call <sid>hi('PmenuSel', s:none, s:spaceGray2, 'none')
 call <sid>hi('Search', s:spaceBlack, s:spaceBlue, 'none')
@@ -105,7 +106,7 @@ call <sid>hi('Function', s:spaceBlue, s:none, 'none')
 call <sid>hi('Identifier', s:spaceGold, s:none, 'none')
 call <sid>hi('Keyword', s:spaceGold, s:none, 'none')
 call <sid>hi('Label', s:spaceGreen, s:none, 'none')
-call <sid>hi('NonText', s:spaceGray1, s:spaceBlack, 'none')
+call <sid>hi('NonText', s:spaceGray1, s:spaceBlackP, 'none')
 call <sid>hi('Number', s:spaceGoo, s:none, 'none')
 call <sid>hi('Operator', s:spaceViolet, s:none, 'none')
 call <sid>hi('PreProc', s:spaceViolet, s:none, 'none')
