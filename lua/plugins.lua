@@ -140,11 +140,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        after = 'telescope.nvim'
-    }
-
-    use {
         -- 7.2%.lua
         'codota/tabnine-vim',
         event = 'InsertEnter',
