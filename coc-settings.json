@@ -3,14 +3,8 @@
     "prettier.printWidth": 100,
     "prettier.singleQuote": true,
     "prettier.bracketSpacing": false,
-    "coc.preferences.formatOnSaveFiletypes": ["css", "json", "javascript"],
+    "coc.preferences.formatOnSaveFiletypes": ["css", "json", "javascript", "python"],
     "coc.preferences.formatOnType": false,
-    "diagnostic.errorSign": "",
-    "diagnostic.warningSign": "",
-    "diagnostic.infoSign": "",
-    "diagnostic.hintSign": "",
-    "diagnostic.refreshOnInsertMode": false,
-    "diagnostic.checkCurrentLine": true,
     "explorer.keyMappings.global": {
         "d": "delete",
         "r": "rename",
@@ -29,5 +23,14 @@
     "explorer.position": "right",
     "explorer.width": 30,
     "explorer.icon.enableNerdfont": true,
-    "explorer.file.showHiddenFiles": true
+    "explorer.file.showHiddenFiles": true,
+    "diagnostic.errorSign": "",
+    "diagnostic.warningSign": "",
+    "diagnostic.infoSign": "",
+    "diagnostic.hintSign": "",
+    "diagnostic.refreshOnInsertMode": false,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.virtualText": true,
+    "diagnostic.enableMessage": "never",
+    "diagnostic.virtualTextLines": 10
 }
