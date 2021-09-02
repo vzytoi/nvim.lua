@@ -32,5 +32,6 @@
     "diagnostic.checkCurrentLine": true,
     "diagnostic.virtualText": true,
     "diagnostic.enableMessage": "never",
-    "diagnostic.virtualTextLines": 10
+    "diagnostic.virtualTextLines": 10,
+    "diagnostic.enable": false
 }
