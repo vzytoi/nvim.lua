@@ -3,7 +3,7 @@
     "prettier.printWidth": 100,
     "prettier.singleQuote": true,
     "prettier.bracketSpacing": false,
-    "coc.preferences.formatOnSaveFiletypes": ["css", "json", "javascript", "python"],
+    "coc.preferences.formatOnSaveFiletypes": ["*"],
     "coc.preferences.formatOnType": false,
     "explorer.keyMappings.global": {
         "d": "delete",
