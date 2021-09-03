@@ -7,7 +7,7 @@ function M.setup()
         { '<leader>', {
             { 't', {
                 { 'f', ':ToggleTerm direction=float<cr>' },
-                { 'h', ':ToggleTerm direction=horizontal<cr>' },
+                { 's', ':ToggleTerm direction=horizontal<cr>' },
                 { 'v', ':ToggleTerm direction=vertical<cr>' }
             }},
             { 't', ':ToggleTerm direction=window<cr>' }
