@@ -63,8 +63,26 @@ return require('packer').startup(function(use)
         after = 'nvim-treesitter'
     }
 
+    -- use {
+    --     'tpope/vim-commentary'
+    -- }
+
     use {
-        'tpope/vim-commentary'
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        after = 'nvim-treesitter'
+    }
+
+    use {
+        'terrortylor/nvim-comment',
+        config = function()
+            require('nvim_comment').setup({
+                comment_empty = false,
+                hook = function()
+                    require('ts_context_commentstring.internal').update_commentstring()
+                end
+            })
+        end,
+        after = 'nvim-ts-context-commentstring'
     }
 
     use {
