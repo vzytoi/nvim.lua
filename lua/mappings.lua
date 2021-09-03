@@ -38,6 +38,7 @@ nest.applyKeymaps {
         { 'j>', '<c-w>j' },
         { 'k>', '<c-w>k' },
         { 'l>', '<c-w>w' },
+        { 'q>', ':x<cr>' }
     }},
 
     { '<', '<<' },
@@ -54,7 +55,17 @@ nest.applyKeymaps {
         { 'b', {
             { 'k', ':b#<cr>' },
             { 'h', ':bNext<cr>' },
-            { 'l', ':bprevious<cr>' }
+            { 'l', ':bprevious<cr>' },
+            { 'v', {
+                { 'k', ':vsp|b#<cr>' },
+                { 'h', ':vsp|bNext<cr>' },
+                { 'l', ':vsp|bprevious<cr>' },
+            }},
+            { 's', {
+                { 'k', ':sp|b#<cr>' },
+                { 'h', ':sp|bNext<cr>' },
+                { 'l', ':sp|bprevious<cr>' },
+            }}
         }},
         { 'i', {
             { 'n', ':normal! gg=G<cr><c-o>'}
@@ -65,7 +76,8 @@ nest.applyKeymaps {
             { 's', ':G|20wincmd_<cr>' },
             { 'c', ':G commit|star<cr>' },
             { 'p', ':G push<cr>' },
-            { 'l', ':G log<cr>' }
+            { 'l', ':G log<cr>' },
+            { 'd', ':Gdiff<cr>' }
         }}
     }},
     { mode  = 'v', {
@@ -76,11 +88,7 @@ nest.applyKeymaps {
         { '<', '<gv' },
         { '>', '>gv' },
     }},
-    { '<c-', {
-        { 'q>', ':x<cr>' },
-    }},
-    { 'U', '<c-r>' },
-    QueryMapping(),
+    QueryMapping()
 }
 
 function _G.termMap()
