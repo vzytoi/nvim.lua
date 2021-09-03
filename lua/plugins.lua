@@ -21,7 +21,7 @@ return require('packer').startup(function(use)
 
     use {
         'tpope/vim-fugitive',
-        cmd = 'G'
+        cmd = { 'G', 'Gdiff' }
     }
 
     use {
@@ -47,15 +47,7 @@ return require('packer').startup(function(use)
         config = function()
             require('nvim-autopairs').setup({
                 active = true,
-                on_config_done = nil,
-                map_cr = true,
-                map_complete = vim.bo.filetype ~= "tex",
-                check_ts = true,
-                ts_config = {
-                    lua = { "string" },
-                    javascript = { "template_string" },
-                    java = false,
-                }
+                check_ts = true
             })
         end,
         after = 'nvim-treesitter'
@@ -96,7 +88,7 @@ return require('packer').startup(function(use)
         event = 'BufWritePre',
         config = function()
             require('trim').setup({
-                disable = {"json", "javascript", "css"},
+                disable = {"text", "json", "javascript", "css"},
                 patterns = {
                     [[%s/\s\+$//e]],
                     [[%s/\($\n\s*\)\+\%$//]],
