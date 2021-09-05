@@ -4,12 +4,11 @@ local colors = {
     yellow       = '#BCA409',
     blue         = '#7A8FBA',
     green        = '#45912B',
-    darkgray     = '#242424',
-    lightgray    = '#303030',
+    darkgray     = '#121212',
+    lightgray    = '#1f1f1f',
     pink         = '#BE65D4'
 }
 
--- LuaFormatter on
 return {
     normal = {
         a = {bg = colors.green, fg = colors.white, gui = 'bold'},
