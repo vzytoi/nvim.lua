@@ -57,6 +57,8 @@ set.scrolloff = 8
 
 set.undofile = true
 
+vim.cmd('hi Normal guifg=#EEEEEE guibg=#0a0a0a gui=none')
+vim.cmd('hi NonText guifg=#6B6B6B guibg=none gui=none')
 vim.cmd('hi SignColumn guifg=none guibg=none gui=none')
 vim.cmd('hi LineNr guifg=#6B6B6B guibg=none gui=none')
 vim.cmd('hi MatchParen guifg=#F0D50C guibg=none gui=none')
