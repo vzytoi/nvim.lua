@@ -1,20 +1,21 @@
-function DisableBuiltin()
+local plug_buitlins = {
+    'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugins',
+    'getscript', 'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin',
+    'matchit', 'matchiparen', 'logiPat', 'rrhelper',
+    'netrw', 'netrwPlugin', 'netrwSettings', 'remote_plugins', 'man',
+    'shada_plugin', 'spellfile_plugin', 'tutor_mode_plugin'
+}
 
-    local plug_buitlins = {
-        'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugins',
-        'getscript', 'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin',
-        'matchit', 'matchiparen', 'logiPat', 'rrhelper',
-        'netrw', 'netrwPlugin', 'netrwSettings', 'remote_plugins', 'man',
-        'shada_plugin', 'spellfile_plugin', 'tutor_mode_plugin'
-    }
-
-    for _, p in pairs(plug_buitlins) do
-        vim.g["loaded_" .. p] = 1
-    end
-
+for _, p in pairs(plug_buitlins) do
+    vim.g["loaded_" .. p] = 1
 end
 
-function HighlightFuction()
+function HI()
+
+    vim.o.termguicolors = true
+    vim.o.background = 'dark'
+
+    vim.cmd('colorscheme spacecamp')
 
     local hi = {
         ["Normal"] = {
@@ -36,6 +37,7 @@ function HighlightFuction()
     }
 
     for m, t in pairs(hi) do
+        vim.cmd('hi clear ' .. m)
         local s = 'hi ' .. m
         for k, v in pairs(t) do
             s = s .. ' ' .. table.concat({k,v}, '=')
@@ -45,10 +47,7 @@ function HighlightFuction()
 
 end
 
-DisableBuiltin()
-HighlightFuction()
-
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
+HI()
 
 local set = vim.opt
 
@@ -61,11 +60,6 @@ set.expandtab = true
 set.smarttab = true
 set.smartindent = true
 set.shiftwidth = 4
-
-vim.cmd [[ colorscheme spacecamp ]]
-
-vim.o.termguicolors = true
-vim.o.background = 'dark'
 
 set.wrap = false
 
@@ -89,6 +83,8 @@ set.lazyredraw = true
 set.scrolloff = 8
 
 set.undofile = true
+
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
 
 vim.cmd [[
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<C-j>', '<C-n>']
