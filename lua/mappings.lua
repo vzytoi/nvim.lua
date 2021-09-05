@@ -88,7 +88,11 @@ nest.applyKeymaps {
         { '<', '<gv' },
         { '>', '>gv' },
     }},
-    QueryMapping()
+    { mode = 'i', {
+        { '<c-j>', '<c-n>'},
+        { '<c-k>', '<c-p>'},
+    }},
+    QueryMapping(),
 }
 
 function _G.termMap()

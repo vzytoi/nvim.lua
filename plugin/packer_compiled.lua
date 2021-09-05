@@ -74,10 +74,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\coc.nvim"
   },
-  ["formatter.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\formatter.nvim"
-  },
   ["gitsigns.nvim"] = {
     config = { "\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugins.gitsigns\frequire\0" },
     loaded = false,
@@ -95,7 +91,7 @@ _G.packer_plugins = {
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nest.nvim"
   },
   ["nvim-autopairs"] = {
-    config = { "\27LJ\2\nû\1\0\0\5\0\15\0\0226\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0006\3\4\0009\3\5\0039\3\6\3\a\3\a\0X\3\2€+\3\1\0X\4\1€+\3\2\0=\3\b\0025\3\n\0005\4\t\0=\4\v\0035\4\f\0=\4\r\3=\3\14\2B\0\2\1K\0\1\0\14ts_config\15javascript\1\2\0\0\20template_string\blua\1\0\1\tjava\1\1\2\0\0\vstring\17map_complete\btex\rfiletype\abo\bvim\1\0\3\vmap_cr\2\vactive\2\rcheck_ts\2\nsetup\19nvim-autopairs\frequire\0" },
+    config = { "\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\2\vactive\2\rcheck_ts\2\nsetup\19nvim-autopairs\frequire\0" },
     load_after = {
       ["nvim-treesitter"] = true
     },
@@ -103,8 +99,17 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\nvim-autopairs"
   },
+  ["nvim-comment"] = {
+    config = { "\27LJ\2\n^\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\25update_commentstring&ts_context_commentstring.internal\frequire^\1\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0003\3\4\0=\3\5\2B\0\2\1K\0\1\0\thook\0\1\0\1\18comment_empty\1\nsetup\17nvim_comment\frequire\0" },
+    load_after = {
+      ["nvim-ts-context-commentstring"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\nvim-comment"
+  },
   ["nvim-treesitter"] = {
-    after = { "nvim-autopairs", "nvim-treesitter-textsubjects", "nvim-treesitter-textobjects" },
+    after = { "nvim-ts-context-commentstring", "nvim-treesitter-textsubjects", "nvim-treesitter-textobjects", "nvim-autopairs" },
     config = { "\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23plugins.treesitter\frequire\0" },
     loaded = false,
     needs_bufread = true,
@@ -126,6 +131,15 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\nvim-treesitter-textsubjects"
   },
+  ["nvim-ts-context-commentstring"] = {
+    after = { "nvim-comment" },
+    load_after = {
+      ["nvim-treesitter"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\nvim-ts-context-commentstring"
+  },
   ["nvim-web-devicons"] = {
     loaded = false,
     needs_bufread = false,
@@ -138,12 +152,6 @@ _G.packer_plugins = {
   ["plenary.nvim"] = {
     loaded = true,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\plenary.nvim"
-  },
-  ["tabnine-vim"] = {
-    config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugins.tabnine\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\tabnine-vim"
   },
   ["targets.vim"] = {
     loaded = false,
@@ -165,7 +173,7 @@ _G.packer_plugins = {
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\toggleterm.nvim"
   },
   ["trim.nvim"] = {
-    config = { "\27LJ\2\n¸\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\rpatterns\1\5\0\0\16%s/\\s\\+$//e\25%s/\\($\\n\\s*\\)\\+\\%$//\17%s/\\%^\\n\\+//\24%s/\\(\\n\\n\\)\\n\\+/\\1/\fdisable\1\0\0\1\4\0\0\tjson\15javascript\bcss\nsetup\ttrim\frequire\0" },
+    config = { "\27LJ\2\n½\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\rpatterns\1\5\0\0\16%s/\\s\\+$//e\25%s/\\($\\n\\s*\\)\\+\\%$//\17%s/\\%^\\n\\+//\24%s/\\(\\n\\n\\)\\n\\+/\\1/\fdisable\1\0\0\1\5\0\0\ttext\tjson\15javascript\bcss\nsetup\ttrim\frequire\0" },
     loaded = false,
     needs_bufread = false,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\trim.nvim"
@@ -175,17 +183,13 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-MvVis"
   },
-  ["vim-commentary"] = {
-    loaded = true,
-    path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-commentary"
-  },
   ["vim-cool"] = {
     loaded = false,
     needs_bufread = false,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-cool"
   },
   ["vim-fugitive"] = {
-    commands = { "G" },
+    commands = { "G", "Gdiff" },
     loaded = false,
     needs_bufread = true,
     path = "C:\\Users\\Cyprien\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-fugitive"
@@ -235,9 +239,10 @@ end
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command! -nargs=* -range -bang -complete=file G lua require("packer.load")({'vim-fugitive'}, { cmd = "G", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command! -nargs=* -range -bang -complete=file ToggleTerm lua require("packer.load")({'toggleterm.nvim'}, { cmd = "ToggleTerm", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command! -nargs=* -range -bang -complete=file Telescope lua require("packer.load")({'telescope.nvim'}, { cmd = "Telescope", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Telescope lua require("packer.load")({'telescope.nvim'}, { cmd = "Telescope", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file ToggleTerm lua require("packer.load")({'toggleterm.nvim'}, { cmd = "ToggleTerm", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file G lua require("packer.load")({'vim-fugitive'}, { cmd = "G", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Gdiff lua require("packer.load")({'vim-fugitive'}, { cmd = "Gdiff", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
 -- Keymap lazy-loads
@@ -250,9 +255,8 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au BufRead * ++once lua require("packer.load")({'vim-surround', 'targets.vim', 'nvim-treesitter', 'gitsigns.nvim', 'vim-MvVis'}, { event = "BufRead *" }, _G.packer_plugins)]]
-vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'tabnine-vim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au BufWritePre * ++once lua require("packer.load")({'trim.nvim'}, { event = "BufWritePre *" }, _G.packer_plugins)]]
+vim.cmd [[au BufRead * ++once lua require("packer.load")({'gitsigns.nvim', 'vim-MvVis', 'nvim-treesitter', 'targets.vim', 'vim-surround'}, { event = "BufRead *" }, _G.packer_plugins)]]
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'nvim-web-devicons', 'vim-cool'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
