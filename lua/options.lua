@@ -56,3 +56,16 @@ set.lazyredraw = true
 set.scrolloff = 8
 
 set.undofile = true
+
+vim.cmd('hi SignColumn guifg=none guibg=none gui=none')
+vim.cmd('hi LineNr guifg=#6B6B6B guibg=none gui=none')
+vim.cmd('hi MatchParen guifg=#F0D50C guibg=none gui=none')
+vim.cmd('hi CocUnusedHighlight guibg=none guifg=none gui=underline')
+vim.cmd('hi CocHintHighlight cterm=undercurl guisp=#000000')
+vim.cmd('hi CocHintHighlight cterm=undercurl guisp=#000000')
+
+vim.cmd [[
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<C-j>', '<C-n>']
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>', '<C-p>']
+let g:ycm_key_list_stop_completion = ['<C-y>', '<Cr>']
+]]

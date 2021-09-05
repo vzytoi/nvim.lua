@@ -150,17 +150,12 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 7.2%.lua
-        'codota/tabnine-vim',
-        event = 'InsertEnter',
-        config = function()
-            require('plugins.tabnine')
-        end
+        'kyazdani42/nvim-web-devicons',
+        event = 'VimEnter'
     }
 
     use {
-        'kyazdani42/nvim-web-devicons',
-        event = 'VimEnter'
+        'jaredgorski/spacecamp'
     }
 
     use {
