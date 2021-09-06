@@ -16,11 +16,7 @@ function RI()
             goto endl
         end
 
-        function R()
-            require(f.n)
-        end
-
-        if not pcall(R) then
+        if not pcall(require, f.n) then
             print("unable to require " .. f.n)
         end
 
