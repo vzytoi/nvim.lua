@@ -95,6 +95,8 @@ nest.applyKeymaps {
     QueryMapping(),
 }
 
+vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
+
 function _G.termMap()
 
     local opts = {noremap = true}
