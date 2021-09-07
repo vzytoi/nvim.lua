@@ -29,8 +29,6 @@ function QueryMapping()
 
 end
 
-vim.cmd('inoremap <c-c> <esc>')
-
 nest.applyKeymaps {
 
     { '<c-', {
