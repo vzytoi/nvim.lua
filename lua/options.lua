@@ -19,7 +19,7 @@ function HI()
 
     local hi = {
         ["Normal"] = {
-            guifg = "#EEEEEE", guibg = "#0a0a0a", gui = "none" },
+            guifg = "#EEEEEE", guibg = "#080808", gui = "none" },
         ["NonText"] = {
             guifg = '#6B6B6B', guibg = 'none', gui = 'none' },
         ["SignColumn"] = {
