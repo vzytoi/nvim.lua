@@ -44,6 +44,7 @@ nest.applyKeymaps {
     { '<Tab>', ':tabNext<cr>' },
     { '<S-Tab>', ':tabprevious<cr>' },
     { '<leader>', {
+        { 'y', 'ggVG"*y<c-o>' },
         { 'q', {
             { 'o', ':copen<cr>' },
             { 'c', ':cclose<cr>' },
