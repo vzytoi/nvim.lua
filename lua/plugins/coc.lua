@@ -24,11 +24,12 @@ end
 
 function M.config()
 
-    vim.cmd [[
-    let g:coc_global_extensions = [ 'coc-marketplace',
-    \ 'coc-sumneko-lua', 'coc-tsserver', 'coc-prettier', 'coc-json', 'coc-explorer',
-    \ 'coc-pyright', 'coc-tabnine' ]
-    ]]
+    vim.g.coc_global_extensions = {
+        'coc-sumneko-lua', 'coc-tsserver', 'coc-prettier',
+        'coc-json', 'coc-explorer', 'coc-pyright',
+        'coc-tabnine', 'coc-go', 'coc-clangd',
+        'coc-phpls', 'coc-html', 'coc-css'
+    }
 
 end
 
