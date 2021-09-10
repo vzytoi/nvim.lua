@@ -1,7 +1,7 @@
 local plug_buitlins = {
     'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugins',
     'getscript', 'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin',
-    'matchit', 'matchiparen', 'logiPat', 'rrhelper',
+    'matchit', 'matchparen', 'logiPat', 'rrhelper',
     'netrw', 'netrwPlugin', 'netrwSettings', 'remote_plugins', 'man',
     'shada_plugin', 'spellfile_plugin', 'tutor_mode_plugin'
 }
@@ -30,6 +30,8 @@ function HI()
             guifg = '#F0D50C', guibg='none', gui='none' },
         ["VertSplit"] = {
             guifg = '#6B6B6B', guibg='none', gui='none' },
+        ["Todo"] = {
+            guifg = '#CF73E6', guibg='none', gui='none' },
         ["CocUnusedHighlight"] = {
             guibg = 'none', guifg='none', gui='underline' },
         ["CocHintHighlight"] = {
@@ -56,6 +58,10 @@ set.nu = true
 
 set.showcmd = false
 set.ruler = false
+set.lazyredraw = true
+set.synmaxcol = 2048
+
+set.completeopt={"menuone", "noselect", "preview"}
 
 set.softtabstop = 4
 set.tabstop = 4
@@ -80,8 +86,6 @@ set.ttimeout = true
 set.ttimeoutlen = 10
 set.updatetime = 500
 set.redrawtime = 1500
-
-set.lazyredraw = true
 
 set.scrolloff = 8
 
