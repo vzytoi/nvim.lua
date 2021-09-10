@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
         -- 0%.lua
         'justinmk/vim-sneak',
         opt = true,
-        keys = { 'S', 's' }
+        keys = { {'n', 'S' }, {'n', 's'} }
     }
 
     use {
@@ -63,10 +63,6 @@ return require('packer').startup(function(use)
         after = 'nvim-treesitter'
     }
 
-    -- use {
-    --     'tpope/vim-commentary'
-    -- }
-
     use {
         'JoosepAlviste/nvim-ts-context-commentstring',
         after = 'nvim-treesitter'
@@ -90,7 +86,8 @@ return require('packer').startup(function(use)
         'hoob3rt/lualine.nvim',
         config = function()
             require 'plugins.ll'.config()
-        end
+        end,
+        event = 'GuiEnter'
     }
 
     use {
@@ -143,9 +140,7 @@ return require('packer').startup(function(use)
         -- 99.1%.lua
         'nvim-telescope/telescope.nvim',
         cmd = 'Telescope',
-        requires = {
-            { 'nvim-lua/plenary.nvim' }
-        },
+        requires = { 'nvim-lua/plenary.nvim' },
         config = require('plugins.telescope').config
     }
 
@@ -155,7 +150,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'jaredgorski/spacecamp'
+        'jaredgorski/spacecamp',
+        event = 'GuiEnter'
     }
 
     use {
@@ -171,12 +167,20 @@ return require('packer').startup(function(use)
 
     use {
         'Jorengarenar/vim-MvVis',
-        event = 'BufRead'
+        keys = {
+            {'n', 'K'},
+            {'n', 'J'},
+            {'v', 'K'},
+            {'v', 'J'}
+        }
     }
 
     use {
         'romainl/vim-cool',
-        event = 'VimEnter'
+        keys = {
+            {'n', '/'},
+            {'n', '*'}
+        }
     }
 
 end)

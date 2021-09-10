@@ -54,6 +54,9 @@ local set = vim.opt
 set.rnu = true
 set.nu = true
 
+set.showcmd = false
+set.ruler = false
+
 set.softtabstop = 4
 set.tabstop = 4
 set.expandtab = true
