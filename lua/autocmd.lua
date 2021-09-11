@@ -21,6 +21,10 @@ local autocmds = {
     },
     _term = {
         { "TermOpen", "term://*", "lua set_terminal_keymaps()"}
+    },
+    _opti = {
+        { "BufReadPost", "*", "if getfsize(expand('%')) > 500000 | silent! execute 'TSBufDisable highlight' | endif" },
+        { "BufReadPost", "*", "if getfsize(expand('%')) > 1000000 | syntax clear | endif" }
     }
 }
 
