@@ -12,10 +12,12 @@ function M.setup()
                 { 'f', '<Plug>(coc-references)', options = { noremap = false } },
                 { 'r', '<Plug>(coc-rename)', options = { noremap = false } },
                 { 'j', '<Plug>(coc-diagnostic-next)', options = { noremap = false } },
-                { 'k', '<Plug>(coc-diagnostic-prev)', options = { noremap = false } }
+                { 'k', '<Plug>(coc-diagnostic-prev)', options = { noremap = false } },
+                { 'i', '<Plug>(coc-implementation)', options = { noremap = false } },
+                { 't', '<Plug>(coc-type-definition)', options = { noremap = false } }
             }},
             { 'e', ':CocCommand explorer<cr>' }
-        }}
+        }},
     }
 
     return map
