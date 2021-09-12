@@ -5,7 +5,7 @@ function M.setup()
     local map = {
         { '<leader>', {
             { 'i', {
-                { 'c', ':CocCommand prettier.formatFile<cr>' }
+                { 'c', '<Plug>(coc-format)', options = { noremap = false } }
             }},
             { 'c', {
                 { 'd', '<Plug>(coc-definition)', options = { noremap = false } },
