@@ -13,7 +13,6 @@ return require('packer').startup(function(use)
     use { 'wbthomason/packer.nvim' }
 
     use {
-        -- 0%.lua
         'justinmk/vim-sneak',
         opt = true,
         keys = { {'n', 'S' }, {'n', 's'} }
@@ -25,7 +24,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 100%.lua
         'LionC/nest.nvim',
         config = function()
             require 'mappings'
@@ -33,7 +31,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 41.2%.lua / 1.8%.vim
         'nvim-treesitter/nvim-treesitter',
         event = 'BufRead',
         run = ':TSUpdate',
@@ -82,12 +79,10 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 99.8%.lua
         'hoob3rt/lualine.nvim',
         config = function()
             require 'plugins.ll'.config()
-        end,
-        event = 'GuiEnter'
+        end
     }
 
     use {
@@ -181,6 +176,11 @@ return require('packer').startup(function(use)
             {'n', '/'},
             {'n', '*'}
         }
+    }
+
+    use {
+        'EvanQuan/vim-executioner',
+        cmd = 'Executioner'
     }
 
 end)

@@ -38,7 +38,6 @@ nest.applyKeymaps {
         { 'l>', '<c-w>w' },
         { 'q>', ':x<cr>' }
     }},
-
     { '<', '<<' },
     { '>', '>>' },
     { '<Tab>', ':tabNext<cr>' },
@@ -77,6 +76,11 @@ nest.applyKeymaps {
             { 'p', ':G push<cr>' },
             { 'l', ':G log<cr>' },
             { 'd', ':Gdiff<cr>' }
+        }},
+        { 'x', ':Executioner<cr>' },
+        { 'x', {
+            { 's', ':ExecutionerHorizontal<cr>'},
+            { 'v', ':ExecutionerVertical<cr>'}
         }}
     }},
     { mode  = 'v', {
