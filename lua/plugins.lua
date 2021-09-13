@@ -19,6 +19,12 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'RishabhRD/nvim-cheat.sh',
+        requires = { 'RishabhRD/popfix' },
+        cmd = { 'Cheat' }
+    }
+
+    use {
         'tpope/vim-fugitive',
         cmd = { 'G', 'Gdiff' }
     }
@@ -90,7 +96,8 @@ return require('packer').startup(function(use)
         branch = 'release',
         config = function()
             require 'plugins.coc'
-        end
+        end,
+        event = 'VimEnter'
     }
 
     use {
@@ -146,36 +153,27 @@ return require('packer').startup(function(use)
 
     use {
         'jaredgorski/spacecamp',
-        event = 'GuiEnter'
+        event = 'BufReadPost'
     }
 
     use {
-        -- 98.1%.lua
         'wellle/targets.vim',
-        event = 'BufRead'
+        event = 'BufReadPost'
     }
 
     use {
         'tpope/vim-surround',
-        event = 'BufRead'
+        event = 'BufReadPost'
     }
 
     use {
         'Jorengarenar/vim-MvVis',
-        keys = {
-            {'n', 'K'},
-            {'n', 'J'},
-            {'v', 'K'},
-            {'v', 'J'}
-        }
+        event = 'VimEnter'
     }
 
     use {
         'romainl/vim-cool',
-        keys = {
-            {'n', '/'},
-            {'n', '*'}
-        }
+        event = 'VimEnter'
     }
 
     use {
