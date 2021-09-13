@@ -29,76 +29,21 @@ function QueryMapping()
 
 end
 
-nest.applyKeymaps {
+function StopUndo()
 
-    { '<c-', {
-        { 'h>', '<c-w>W' },
-        { 'j>', '<c-w>j' },
-        { 'k>', '<c-w>k' },
-        { 'l>', '<c-w>w' },
-        { 'q>', ':x<cr>' }
-    }},
-    { '<', '<<' },
-    { '>', '>>' },
-    { '<Tab>', ':tabNext<cr>' },
-    { '<S-Tab>', ':tabprevious<cr>' },
-    { '<leader>', {
-        { 'y', 'ggVG"*y<c-o>' },
-        { 'q', {
-            { 'o', ':copen<cr>' },
-            { 'c', ':cclose<cr>' },
-            { 'k', ':cprev<cr>' },
-            { 'j', ':cnext<cr>' }
-        }},
-        { 'b', {
-            { 'k', ':b#<cr>' },
-            { 'h', ':bNext<cr>' },
-            { 'l', ':bprevious<cr>' },
-            { 'v', {
-                { 'k', ':vsp|b#<cr>' },
-                { 'h', ':vsp|bNext<cr>' },
-                { 'l', ':vsp|bprevious<cr>' },
-            }},
-            { 's', {
-                { 'k', ':sp|b#<cr>' },
-                { 'h', ':sp|bNext<cr>' },
-                { 'l', ':sp|bprevious<cr>' },
-            }}
-        }},
-        { 'i', {
-            { 'n', ':normal! gg=G<cr><c-o>'}
-        }},
-        { 'o', 'o<Esc>' },
-        { 'O', 'O<Esc>' },
-        { 'g', {
-            { 's', ':G|20wincmd_<cr>' },
-            { 'c', ':G commit|star<cr>' },
-            { 'p', ':G push<cr>' },
-            { 'l', ':G log<cr>' },
-            { 'd', ':Gdiff<cr>' }
-        }},
-        { 'x', ':Executioner<cr>' },
-        { 'x', {
-            { 's', ':ExecutionerHorizontal<cr>'},
-            { 'v', ':ExecutionerVertical<cr>'}
-        }}
-    }},
-    { mode  = 'v', {
-        { 'H', '<Plug>(MvVisLeft)', options = { noremap = false } },
-        { 'J', '<Plug>(MvVisDown)=gv', options = { noremap = false } },
-        { 'K', '<Plug>(MvVisUp)=gv', options = { noremap = false } },
-        { 'L', '<Plug>(MvVisRight)', options = { noremap = false } },
-        { '<', '<gv' },
-        { '>', '>gv' },
-    }},
-    { mode = 'i', {
-        { '<c-j>', '<c-n>'},
-        { '<c-k>', '<c-p>'},
-    }},
-    QueryMapping(),
-}
+    local keys = {
+        ',', ';', '?', '.', '!', ':'
+    }
 
-vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
+    local map = {mode = 'i', {}}
+
+    for _, v in ipairs(keys) do
+        table.insert(map[1], {v, v .. '<c-g>u'})
+    end
+
+    return map
+
+end
 
 function _G.termMap()
 
@@ -143,6 +88,90 @@ function _G.resize_window(k)
     end
 
 end
+
+nest.applyKeymaps {
+
+    { '<c-', {
+        { 'h>', '<c-w>W' },
+        { 'j>', '<c-w>j' },
+        { 'k>', '<c-w>k' },
+        { 'l>', '<c-w>w' },
+        { 'q>', ':x<cr>' }
+    }},
+    { '<', '<<' },
+    { '>', '>>' },
+    { '<Tab>', ':tabNext<cr>' },
+    { '<S-Tab>', ':tabprevious<cr>' },
+    { '<leader>', {
+        { 'c', ':Cheat<cr>'},
+        { 'c', {
+            { 'l', ':CheatList<cr>'}
+        }},
+        { 'y', 'ggVG"*y<c-o>' },
+        { 'q', {
+            { 'o', ':copen<cr>' },
+            { 'c', ':cclose<cr>' },
+            { 'k', ':cprev<cr>' },
+            { 'j', ':cnext<cr>' }
+        }},
+        { 'b', {
+            { 'k', ':b#<cr>' },
+            { 'h', ':bNext<cr>' },
+            { 'l', ':bprevious<cr>' },
+            { 'd', {
+                { 'k', ':b#|bd #<cr>'}
+            }},
+            { 'v', {
+                { 'k', ':vsp|b#<cr>' },
+                { 'h', ':vsp|bNext<cr>' },
+                { 'l', ':vsp|bprevious<cr>' },
+            }},
+            { 's', {
+                { 'k', ':sp|b#<cr>' },
+                { 'h', ':sp|bNext<cr>' },
+                { 'l', ':sp|bprevious<cr>' },
+            }}
+        }},
+        { 'i', {
+            { 'n', ':normal! gg=G<cr><c-o>'}
+        }},
+        { 'o', 'o<Esc>' },
+        { 'O', 'O<Esc>' },
+        { 'g', {
+            { 's', ':G|20wincmd_<cr>' },
+            { 'c', ':G commit|star<cr>' },
+            { 'p', ':G push<cr>' },
+            { 'l', ':G log<cr>' },
+            { 'd', ':Gdiff<cr>' }
+        }},
+        { 'x', ':Executioner<cr>' },
+        { 'x', {
+            { 's', ':ExecutionerHorizontal<cr>'},
+            { 'v', ':ExecutionerVertical<cr>'}
+        }}
+    }},
+    { 'n', 'nzzzv' },
+    { 'N', 'Nzzzv' },
+    { 'J', 'mzJ`z'},
+    { mode  = 'v', {
+        { 'H', '<Plug>(MvVisLeft)', options = { noremap = false } },
+        { 'J', '<Plug>(MvVisDown)=gv', options = { noremap = false } },
+        { 'K', '<Plug>(MvVisUp)=gv', options = { noremap = false } },
+        { 'L', '<Plug>(MvVisRight)', options = { noremap = false } },
+        { '<', '<gv' },
+        { '>', '>gv' },
+    }},
+    { mode = 'i', {
+        { '<c-j>', '<c-n>'},
+        { '<c-k>', '<c-p>'},
+        { 'k', [[ (v:count > 5 ? "m'" . v:count : "") . 'k' ]] },
+        { 'j', [[ (v:count > 5 ? "m'" . v:count : "") . 'j' ]] }
+    }},
+    QueryMapping(),
+    StopUndo()
+}
+
+vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
 
 local opts = {noremap = true}
 
