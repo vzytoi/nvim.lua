@@ -10,46 +10,13 @@ for _, p in pairs(plug_buitlins) do
     vim.g["loaded_" .. p] = 1
 end
 
-function HI()
+vim.g.termguicolors = true
+vim.g.background = 'dark'
 
-    vim.o.termguicolors = true
-    vim.o.background = 'dark'
-
-    vim.cmd('colorscheme spacecamp')
-
-    local hi = {
-        ["Normal"] = {
-            guifg = "#EEEEEE", guibg = "#080808", gui = "none" },
-        ["NonText"] = {
-            guifg = '#6B6B6B', guibg = 'none', gui = 'none' },
-        ["SignColumn"] = {
-            guifg = 'none', guibg = 'none', gui = 'none', },
-        ["LineNr"] = {
-            guifg = '#6B6B6B', guibg='none', gui='none' },
-        ["MatchParen"] = {
-            guifg = '#F0D50C', guibg='none', gui='none' },
-        ["VertSplit"] = {
-            guifg = '#6B6B6B', guibg='none', gui='none' },
-        ["Todo"] = {
-            guifg = '#CF73E6', guibg='none', gui='none' },
-        ["CocUnusedHighlight"] = {
-            guibg = 'none', guifg='none', gui='underline' },
-        ["CocHintHighlight"] = {
-            cterm = 'undercurl', guisp='#000000', }
-    }
-
-    for m, t in pairs(hi) do
-        vim.cmd('hi clear ' .. m)
-        local s = 'hi ' .. m
-        for k, v in pairs(t) do
-            s = s .. ' ' .. table.concat({k,v}, '=')
-        end
-        vim.cmd(s)
-    end
-
-end
-
-HI()
+--  ["CocUnusedHighlight"] = {
+--     guibg = 'none', guifg='none', gui='underline' },
+-- ["CocHintHighlight"] = {
+--     cterm = 'undercurl', guisp='#000000', }
 
 local set = vim.opt
 

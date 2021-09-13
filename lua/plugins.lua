@@ -152,8 +152,15 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'jaredgorski/spacecamp',
+        'vzytoi/spacecamp',
         event = 'BufReadPost'
+    }
+
+    use {
+        'glepnir/zephyr-nvim',
+        config = function()
+            require'zephyr'
+        end
     }
 
     use {
