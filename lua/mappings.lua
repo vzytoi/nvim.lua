@@ -107,7 +107,10 @@ nest.applyKeymaps {
         { 'c', {
             { 'l', ':CheatList<cr>'}
         }},
-        { 'y', 'ggVG"*y<c-o>' },
+        { 'y', {
+            { 'l', 'V"*y' },
+            { 'a', 'ggVG"*y<c-o>'}
+        }},
         { 'q', {
             { 'o', ':copen<cr>' },
             { 'c', ':cclose<cr>' },
@@ -160,12 +163,11 @@ nest.applyKeymaps {
         { 'L', '<Plug>(MvVisRight)', options = { noremap = false } },
         { '<', '<gv' },
         { '>', '>gv' },
+        { 'y', '"*y'}
     }},
     { mode = 'i', {
         { '<c-j>', '<c-n>'},
         { '<c-k>', '<c-p>'},
-        { 'k', [[ (v:count > 5 ? "m'" . v:count : "") . 'k' ]] },
-        { 'j', [[ (v:count > 5 ? "m'" . v:count : "") . 'j' ]] }
     }},
     QueryMapping(),
     StopUndo()
