@@ -10,8 +10,7 @@ for _, p in pairs(plug_buitlins) do
     vim.g["loaded_" .. p] = 1
 end
 
-vim.g.termguicolors = true
-vim.g.background = 'dark'
+vim.cmd('colorscheme spacecamp')
 
 --  ["CocUnusedHighlight"] = {
 --     guibg = 'none', guifg='none', gui='underline' },

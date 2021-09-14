@@ -8,7 +8,8 @@ function RI()
         {n = "options"},
         {n = "autocmd"},
         {n = "plugins"},
-        {n = "abbreviations"}
+        {n = "colors"},
+        {n = "abbreviations"},
     }
 
     for _, f in pairs(files) do

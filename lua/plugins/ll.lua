@@ -3,7 +3,7 @@ local M = {}
 function M.config()
 
     local t = {
-        { 'spacecamp', require('lualine.spacecamp') }
+        { 'spacecamp', require('lualine.spacecamp') },
     }
 
     local c
