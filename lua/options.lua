@@ -10,13 +10,6 @@ for _, p in pairs(plug_buitlins) do
     vim.g["loaded_" .. p] = 1
 end
 
-vim.cmd('colorscheme spacecamp')
-
---  ["CocUnusedHighlight"] = {
---     guibg = 'none', guifg='none', gui='underline' },
--- ["CocHintHighlight"] = {
---     cterm = 'undercurl', guisp='#000000', }
-
 local set = vim.opt
 
 set.rnu = true

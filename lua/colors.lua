@@ -2,6 +2,11 @@ local M = {}
 
 function M.config()
 
+    vim.o.termguicolors = true
+    vim.o.background = 'dark'
+
+    vim.cmd('colorscheme spacecamp')
+
     local hi = {
         {
             ["Name"] = 'spacecamp',
@@ -28,14 +33,14 @@ function M.config()
 
     for i, _ in ipairs(hi) do
         if hi[i]["Name"] == vim.g.colors_name then
-            for m, t in ipairs(hi[i]) do
+            for m, _ in pairs(hi[i]) do if m ~= "Name" then
                 vim.cmd('hi clear ' .. m)
                 local s = 'hi ' .. m
-                for k, v in pairs(t) do
+                for k, v in pairs(hi[i][m]) do
                     s = s .. ' ' .. table.concat({k,v}, '=')
                 end
                 vim.cmd(s)
-            end
+            end end
         end
         break
     end
