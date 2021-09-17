@@ -1,7 +1,8 @@
 local abbreviations = {
     wrap = 'set wrap',
     nowrap = 'set nowrap',
-    X = 'x'
+    X = 'x',
+    Q = 'q'
 }
 
 for l, r in pairs(abbreviations) do
