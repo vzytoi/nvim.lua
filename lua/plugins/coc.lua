@@ -30,7 +30,7 @@ function M.config()
         'coc-sumneko-lua', 'coc-tsserver', 'coc-prettier',
         'coc-json', 'coc-explorer', 'coc-pyright',
         'coc-tabnine', 'coc-go', 'coc-clangd',
-        'coc-phpls', 'coc-html', 'coc-css'
+        'coc-phpls', 'coc-html', 'coc-css', 'coc-sql'
     }
 
 end
