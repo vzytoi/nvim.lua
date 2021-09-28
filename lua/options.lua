@@ -62,3 +62,11 @@ vim.cmd [[
 let g:loaded_python_provider = 0
 let g:python3_host_prog = '~\AppData\Local\Programs\Python\Python39\python.exe'
 ]]
+
+vim.cmd [[
+let &shell = has('win32') ? 'powershell' : 'pwsh'
+let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+set shellquote= shellxquote=
+]]
