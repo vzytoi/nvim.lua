@@ -15,14 +15,14 @@ function RI()
     for _, f in pairs(files) do
 
         if f.d ~= nil and f.d then
-            goto endl
+		goto endl;
         end
 
         if not pcall(require, f.n) then
             print("unable to require " .. f.n)
         end
 
-        ::endl::
+	::endl::
 
     end
 

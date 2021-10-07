@@ -176,9 +176,4 @@ return require('packer').startup(function(use)
         event = 'VimEnter'
     }
 
-    use {
-        'EvanQuan/vim-executioner',
-        cmd = 'Executioner'
-    }
-
 end)

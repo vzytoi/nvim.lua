@@ -89,18 +89,6 @@ function _G.resize_window(k)
 
 end
 
-function _G.ExecTime()
-
-    local ft = {
-        ['typescript'] = 'ts-node ',
-        ['lua'] = 'lua ',
-        ['javascript'] = 'node '
-    }
-
-    vim.api.nvim_command("!Measure-Command{" .. ft[vim.bo.filetype] .. "%}")
-
-end
-
 nest.applyKeymaps {
 
     { '<c-', {
@@ -159,11 +147,11 @@ nest.applyKeymaps {
             { 'l', ':G log<cr>' },
             { 'd', ':Gdiff<cr>' }
         }},
-        { 'x', ':Executioner<cr>' },
-        { 'x', {
-            { 's', ':ExecutionerHorizontal<cr>'},
-            { 'v', ':ExecutionerVertical<cr>'}
-        }}
+        -- { 'x', ':Executioner<cr>' },
+        -- { 'x', {
+        --     { 's', ':ExecutionerHorizontal<cr>'},
+        --     { 'v', ':ExecutionerVertical<cr>'}
+        -- }}
     }},
     { 'n', 'nzzzv' },
     { 'N', 'Nzzzv' },
@@ -192,4 +180,6 @@ vim.api.nvim_set_keymap("n", "<a-h>", ':lua resize_window("left")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-l>", ':lua resize_window("right")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-k>", ':lua resize_window("up")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-j>", ':lua resize_window("down")<cr>', opts)
-vim.api.nvim_set_keymap("n", "<leader>xe", ':lua ExecTime()<cr>', opts)
+
+vim.api.nvim_set_keymap("n", "<leader>x", ":lua require'runcode'.execute()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xe", ":lua require'runcode'.time()<cr>", opts)
