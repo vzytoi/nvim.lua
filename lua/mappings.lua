@@ -173,7 +173,7 @@ nest.applyKeymaps {
     StopUndo()
 }
 
-local opts = {noremap = true}
+local opts = {noremap = true, silent=true}
 
 vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
 vim.api.nvim_set_keymap("n", "<a-h>", ':lua resize_window("left")<cr>', opts)
@@ -182,4 +182,6 @@ vim.api.nvim_set_keymap("n", "<a-k>", ':lua resize_window("up")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-j>", ':lua resize_window("down")<cr>', opts)
 
 vim.api.nvim_set_keymap("n", "<leader>x", ":lua require'runcode'.execute()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xs", ":lua require'runcode'.splitExecute()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xv", ":lua require'runcode'.verticalExecute()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>xe", ":lua require'runcode'.time()<cr>", opts)
