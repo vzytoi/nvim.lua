@@ -10,6 +10,7 @@ function RI()
         {n = "plugins"},
         {n = "colors"},
         {n = "abbreviations"},
+        {n = "test"}
     }
 
     for _, f in pairs(files) do
