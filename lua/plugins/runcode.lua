@@ -1,5 +1,22 @@
 local M = {}
 
+function M.setup()
+
+    local map = {
+        { '<leader>', {
+            { 'x', ':Execute<CR>' },
+            { 'x', {
+                { 's', ':SplitExecute<CR>'},
+                { 'v', ':VerticalExecute<CR>'},
+                { 'e', ':TimeExecute<CR>'},
+            }},
+        }}
+    }
+
+    return map
+
+end
+
 function M.command()
 
     local ft = {
@@ -37,19 +54,19 @@ function M.settings()
 
 end
 
-function M.time()
+function M.TimeExecute()
 
     vim.api.nvim_command("!Measure-Command{" .. M.command() .. "}")
 
 end
 
-function M.execute()
+function M.Execute()
 
     vim.api.nvim_command("!" .. M.command())
 
 end
 
-function M.splitExecute()
+function M.SplitExecute()
 
     vim.api.nvim_command("split_f|r !" .. M.command())
     vim.api.nvim_command("resize -20")
@@ -57,11 +74,27 @@ function M.splitExecute()
 
 end
 
-function M.verticalExecute()
+function M.VerticalExecute()
 
     vim.api.nvim_command("vnew|r ! " .. M.command())
     vim.api.nvim_command("vertical resize -60")
     M.settings()
+
+end
+
+function M.commands()
+
+    local c = {
+        "Execute",
+        "SplitExecute",
+        "VerticalExecute",
+        "TimeExecute"
+    }
+
+    for i, _ in ipairs(c) do
+        vim.api.nvim_command(
+            'command! ' .. c[i] .. ' lua require("runcode").' .. c[i] .. '()')
+    end
 
 end
 

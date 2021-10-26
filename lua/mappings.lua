@@ -1,3 +1,4 @@
+local runcode = require("runcode").commands()
 local nest = require("nest")
 
 vim.g.mapleader = " "
@@ -16,7 +17,8 @@ function QueryMapping()
     local setups = {
         "telescope",
         "coc",
-        "term"
+        "term",
+        "runcode"
     }
 
     local map = {}
@@ -147,11 +149,6 @@ nest.applyKeymaps {
             { 'l', ':G log<cr>' },
             { 'd', ':Gdiff<cr>' }
         }},
-        -- { 'x', ':Executioner<cr>' },
-        -- { 'x', {
-        --     { 's', ':ExecutionerHorizontal<cr>'},
-        --     { 'v', ':ExecutionerVertical<cr>'}
-        -- }}
     }},
     { 'n', 'nzzzv' },
     { 'N', 'Nzzzv' },
@@ -180,8 +177,3 @@ vim.api.nvim_set_keymap("n", "<a-h>", ':lua resize_window("left")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-l>", ':lua resize_window("right")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-k>", ':lua resize_window("up")<cr>', opts)
 vim.api.nvim_set_keymap("n", "<a-j>", ':lua resize_window("down")<cr>', opts)
-
-vim.api.nvim_set_keymap("n", "<leader>x", ":lua require'runcode'.execute()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>xs", ":lua require'runcode'.splitExecute()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>xv", ":lua require'runcode'.verticalExecute()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>xe", ":lua require'runcode'.time()<cr>", opts)

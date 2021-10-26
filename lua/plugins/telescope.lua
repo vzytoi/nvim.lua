@@ -4,7 +4,7 @@ function M.setup()
 
     local map = {
         { '<leader>', {
-            { 'f', '<Cmd>Telescope git_files theme=get_ivy<cr>' },
+            { 'f', '<Cmd>Telescope git_files theme=get_ivy<CR>' },
             { 'f', {
                 { 'g', '<Cmd>Telescope live_grep theme=get_ivy<CR>' },
                 { 'b', '<Cmd>Telescope buffers theme=get_ivy<CR>' },
