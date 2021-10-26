@@ -21,9 +21,11 @@ end
 function M.config()
 
     require('toggleterm').setup{
+
         hide_numbers = true,
         start_in_insert = true,
         close_on_exit = true,
+
         size = function(term)
             if term.direction == "vertical" then
                 return 100
@@ -34,9 +36,12 @@ function M.config()
     }
 
     function _G.set_terminal_keymaps()
+
         local opts = {noremap = true}
+
         vim.api.nvim_buf_set_keymap(0, 't', '<leader>t', [[<C-\><C-n>:q!<cr>]], opts)
         vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+
     end
 
 end

@@ -117,15 +117,13 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 99.3%.lua
         'lewis6991/gitsigns.nvim',
-        event = 'BufRead',
-        cond = function()
-            return vim.fn.isdirectory ".git" == 1
-        end,
-        requires = { 'nvim-lua/plenary.nvim' },
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        tag = 'release',
         config = function()
-            require('plugins.gitsigns').config()
+            require('gitsigns').setup()
         end
     }
 
@@ -152,7 +150,7 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'vzytoi/spacecamp',
+        'jaredgorski/spacecamp',
         event = 'BufReadPost'
     }
 
