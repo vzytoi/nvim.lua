@@ -117,17 +117,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'lewis6991/gitsigns.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim'
-        },
-        tag = 'release',
-        config = function()
-            require('gitsigns').setup()
-        end
-    }
-
-    use {
         -- 98%.lua
         'akinsho/toggleterm.nvim',
         cmd = "ToggleTerm",
