@@ -28,21 +28,24 @@ function M.config()
                 guibg = 'none', guifg='none', gui='underline' },
             ["CocHintHighlight"] = {
                 cterm = 'undercurl', guisp='#000000', }
-        }
+        },
     }
 
     for i, _ in ipairs(hi) do
         if hi[i]["Name"] == vim.g.colors_name then
-            for m, _ in pairs(hi[i]) do if m ~= "Name" then
-                vim.cmd('hi clear ' .. m)
-                local s = 'hi ' .. m
-                for k, v in pairs(hi[i][m]) do
-                    s = s .. ' ' .. table.concat({k,v}, '=')
-                end
-                vim.cmd(s)
-            end end
+            M.hi = hi[i]
         end
-        break
+    end
+
+    for m, _ in pairs(M.hi) do
+        if m ~= "Name" then
+            local s = 'hi ' .. m
+            for k, v in pairs(M.hi[m]) do
+                s = s .. ' ' .. table.concat({k,v}, '=')
+            end
+            vim.cmd('hi clear ' .. m)
+            vim.cmd(s)
+        end
     end
 
 end
