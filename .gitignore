@@ -2,4 +2,6 @@ todo.txt
 plugin/
 start.log
 test/
-plugin/
+plugin/*
+spell/
+colors/
