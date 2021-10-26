@@ -22,12 +22,14 @@ set.synmaxcol = 2048
 
 set.completeopt={"menuone", "noselect", "preview"}
 
-set.softtabstop = 4
-set.tabstop = 4
 set.expandtab = true
-set.smarttab = true
+set.autoindent = true
 set.smartindent = true
+set.cindent = true
+
 set.shiftwidth = 4
+set.softtabstop = 4
+set.tabstop = 8
 
 set.wrap = false
 
