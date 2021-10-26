@@ -1,4 +1,3 @@
-local resize = require("plugins.resize").commands()
 local nest = require("nest")
 
 vim.g.mapleader = " "
@@ -18,7 +17,8 @@ function QueryMapping()
         "telescope",
         "coc",
         "term",
-        "runcode"
+        "runcode",
+        "resize"
     }
 
     local map = {}
@@ -47,15 +47,6 @@ function StopUndo()
 
 end
 
-function _G.termMap()
-
-    local opts = {noremap = true}
-
-    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-    vim.api.nvim_buf_set_keymap(0, "t", "<leader>t", [[<C-\><C-n>:q!<cr>]], opts)
-
-end
-
 nest.applyKeymaps {
 
     { '<c-', {
@@ -65,18 +56,11 @@ nest.applyKeymaps {
         { 'l>', '<c-w>w' },
         { 'q>', ':x<cr>' }
     }},
-    { '<a-', {
-        { 'h>', ':Resizeleft<CR>'},
-        { 'l>', ':Resizeright<CR>'},
-        { 'k>', ':Resizeup<CR>'},
-        { 'j>', ':Resizedown<CR>'}
-    }},
     { '<', '<<' },
     { '>', '>>' },
     { '<Tab>', ':tabNext<cr>' },
     { '<S-Tab>', ':tabprevious<cr>' },
     { '<leader>', {
-        { 'aa', function() print('ok') end },
         { 'c', ':Cheat<cr>'},
         { 'c', {
             { 'l', ':CheatList<cr>'}
@@ -126,10 +110,12 @@ nest.applyKeymaps {
     { 'N', 'Nzzzv' },
     { 'J', 'mzJ`z'},
     { mode  = 'v', {
-        { 'H', '<Plug>(MvVisLeft)', options = { noremap = false } },
-        { 'J', '<Plug>(MvVisDown)=gv', options = { noremap = false } },
-        { 'K', '<Plug>(MvVisUp)=gv', options = { noremap = false } },
-        { 'L', '<Plug>(MvVisRight)', options = { noremap = false } },
+        { options = { noremap = false}, {
+            { 'H', '<Plug>(MvVisLeft)' },
+            { 'J', '<Plug>(MvVisDown)=gv' },
+            { 'K', '<Plug>(MvVisUp)=gv' },
+            { 'L', '<Plug>(MvVisRight)' },
+        }},
         { '<', '<gv' },
         { '>', '>gv' },
         { 'y', '"*y'}
@@ -137,11 +123,12 @@ nest.applyKeymaps {
     { mode = 'i', {
         { '<c-j>', '<c-n>'},
         { '<c-k>', '<c-p>'},
+        { options = { expr = true}, {
+            { '<TAB>', [[pumvisible() ? "\<C-y>" : "\<Tab>" ]] }
+        }}
     }},
     QueryMapping(),
     StopUndo()
 }
 
-local opts = {noremap = true, silent=true}
-
-vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
+-- vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
