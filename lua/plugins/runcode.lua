@@ -4,11 +4,29 @@ function M.setup()
 
     local map = {
         { '<leader>', {
-            { 'x', ':Execute<CR>' },
+            { 'x', function()
+                vim.api.nvim_command("!" .. M.command())
+            end },
             { 'x', {
-                { 's', ':SplitExecute<CR>'},
-                { 'v', ':VerticalExecute<CR>'},
-                { 'e', ':TimeExecute<CR>'},
+                { 's', function()
+                    vim.api.nvim_command(
+                        "split_f|r !" .. M.command()
+                    )
+                    vim.api.nvim_command("res -20")
+                    require("../options").execute()
+                end },
+                { 'v', function()
+                    vim.api.nvim_command(
+                        "vnew|r !" .. M.command()
+                    )
+                    vim.api.nvim_command("vert res -60")
+                    require("../options").execute()
+                end },
+                { 'e', function()
+                    vim.api.nvim_command(
+                        "!Measure-Command{" .. M.command() .. "}"
+                    )
+                end }
             }},
         }}
     }
@@ -21,14 +39,15 @@ function M.command()
 
     local ft = {
         ['typescript'] = 'ts-node fp',
-        ['lua'] = 'lua fp',
         ['javascript'] = 'node fp',
-        ['php'] = 'php fp',
-        ['python'] = 'python fp',
         ['c'] = 'gcc fp -o fn.exe;./fn.exe'
     }
 
     local c = ft[vim.bo.filetype]
+
+    if not c then
+        c = vim.bo.filetype .. ' fp'
+    end
 
     local fn = {
         ['fp'] = vim.fn.expand('%:t'),
@@ -40,62 +59,6 @@ function M.command()
     end
 
     return c
-end
-
-function M.settings()
-
- vim.bo.bufhidden = 'delete'
- vim.bo.buftype = 'nofile'
- vim.bo.swapfile = false
- vim.bo.buflisted = false
- vim.wo.winfixheight = true
- vim.wo.number = false
- vim.wo.relativenumber = false
-
-end
-
-function M.TimeExecute()
-
-    vim.api.nvim_command("!Measure-Command{" .. M.command() .. "}")
-
-end
-
-function M.Execute()
-
-    vim.api.nvim_command("!" .. M.command())
-
-end
-
-function M.SplitExecute()
-
-    vim.api.nvim_command("split_f|r !" .. M.command())
-    vim.api.nvim_command("resize -20")
-    M.settings()
-
-end
-
-function M.VerticalExecute()
-
-    vim.api.nvim_command("vnew|r ! " .. M.command())
-    vim.api.nvim_command("vertical resize -60")
-    M.settings()
-
-end
-
-function M.commands()
-
-    local c = {
-        "Execute",
-        "SplitExecute",
-        "VerticalExecute",
-        "TimeExecute"
-    }
-
-    for i, _ in ipairs(c) do
-        vim.api.nvim_command(
-            'command! ' .. c[i] .. ' lua require("runcode").' .. c[i] .. '()')
-    end
-
 end
 
 return M

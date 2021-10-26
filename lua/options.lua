@@ -1,3 +1,17 @@
+local M = {}
+
+function M.execute()
+
+    vim.bo.bufhidden = 'delete'
+    vim.bo.buftype = 'nofile'
+    vim.bo.swapfile = false
+    vim.bo.buflisted = false
+    vim.wo.winfixheight = true
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+
+end
+
 local plug_buitlins = {
     'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugins',
     'getscript', 'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin',
@@ -52,6 +66,8 @@ set.scrolloff = 8
 
 set.undofile = true
 
+set.shellxquote = "\""
+
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
 
 vim.cmd [[
@@ -72,3 +88,5 @@ let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 set shellquote= shellxquote=
 ]]
+
+return M

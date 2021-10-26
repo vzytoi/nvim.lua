@@ -1,4 +1,4 @@
-local runcode = require("runcode").commands()
+local resize = require("plugins.resize").commands()
 local nest = require("nest")
 
 vim.g.mapleader = " "
@@ -56,41 +56,6 @@ function _G.termMap()
 
 end
 
-function _G.resize_window(k)
-
-    local wcount = vim.fn.winnr("$")
-    local wcurr = vim.fn.winnr()
-
-    local sl = {}
-    sl.left = "-"
-    sl.right = "+"
-
-    function Reverse(s)
-        return (s == "-" and "+" or "-")
-    end
-
-    function Exec(d, s)
-        local c = d .. "res " .. s .. "5"
-        vim.api.nvim_command(c)
-    end
-
-    local s
-
-    if sl[k] ~= nil then
-        if wcurr == wcount then
-            s = Reverse(sl[k])
-        else
-            s = sl[k]
-        end
-        Exec("vert ", s)
-    else
-        sl.up = sl.right
-        sl.down = sl.left
-        Exec("", sl[k])
-    end
-
-end
-
 nest.applyKeymaps {
 
     { '<c-', {
@@ -100,11 +65,18 @@ nest.applyKeymaps {
         { 'l>', '<c-w>w' },
         { 'q>', ':x<cr>' }
     }},
+    { '<a-', {
+        { 'h>', ':Resizeleft<CR>'},
+        { 'l>', ':Resizeright<CR>'},
+        { 'k>', ':Resizeup<CR>'},
+        { 'j>', ':Resizedown<CR>'}
+    }},
     { '<', '<<' },
     { '>', '>>' },
     { '<Tab>', ':tabNext<cr>' },
     { '<S-Tab>', ':tabprevious<cr>' },
     { '<leader>', {
+        { 'aa', function() print('ok') end },
         { 'c', ':Cheat<cr>'},
         { 'c', {
             { 'l', ':CheatList<cr>'}
@@ -173,7 +145,3 @@ nest.applyKeymaps {
 local opts = {noremap = true, silent=true}
 
 vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])
-vim.api.nvim_set_keymap("n", "<a-h>", ':lua resize_window("left")<cr>', opts)
-vim.api.nvim_set_keymap("n", "<a-l>", ':lua resize_window("right")<cr>', opts)
-vim.api.nvim_set_keymap("n", "<a-k>", ':lua resize_window("up")<cr>', opts)
-vim.api.nvim_set_keymap("n", "<a-j>", ':lua resize_window("down")<cr>', opts)
