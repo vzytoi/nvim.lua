@@ -4,20 +4,22 @@ function M.setup()
 
     local map = {
         { '<leader>', {
-            { 'i', {
-                { 'c', '<Plug>(coc-format)', options = { noremap = false } }
-            }},
-            { 'c', {
-                { 'd', '<Plug>(coc-definition)', options = { noremap = false } },
-                { 'f', '<Plug>(coc-references)', options = { noremap = false } },
-                { 'r', '<Plug>(coc-rename)', options = { noremap = false } },
-                { 'j', '<Plug>(coc-diagnostic-next)', options = { noremap = false } },
-                { 'k', '<Plug>(coc-diagnostic-prev)', options = { noremap = false } },
-                { 'i', '<Plug>(coc-implementation)', options = { noremap = false } },
-                { 't', '<Plug>(coc-type-definition)', options = { noremap = false } }
+            { options = { noremap = false }, {
+                { 'i', {
+                    { 'c', '<Plug>(coc-format)' },
+                }},
+                { 'c', {
+                    { 'd', '<Plug>(coc-definition)' },
+                    { 'f', '<Plug>(coc-references)' },
+                    { 'r', '<Plug>(coc-rename)' },
+                    { 'j', '<Plug>(coc-diagnostic-next)' },
+                    { 'k', '<Plug>(coc-diagnostic-prev)' },
+                    { 'i', '<Plug>(coc-implementation)' },
+                    { 't', '<Plug>(coc-type-definition)' },
+                }},
             }},
             { 'e', ':CocCommand explorer<cr>' }
-        }},
+        }}
     }
 
     return map

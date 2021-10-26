@@ -5,3 +5,4 @@ test/
 plugin/*
 spell/
 colors/
+packer_compiled.lua
