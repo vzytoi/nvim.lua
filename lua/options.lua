@@ -90,7 +90,7 @@ set shellquote= shellxquote=
 let g:UltiSnipsExpandTrigger="<c-s>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories=[$HOME.'/appdata/local/nvim/snippets']
+let g:UltiSnipsSnippetDirectories=[$HOME.'/appdata/local/nvim/snips']
 ]]
 
 return M
