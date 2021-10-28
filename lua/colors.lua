@@ -1,51 +1,53 @@
 local M = {}
 
-function M.config()
-
-    vim.o.termguicolors = true
-    vim.o.background = 'dark'
-
-    vim.cmd('colorscheme spacecamp')
-
-    local hi = {
-        {
-            ["Name"] = 'spacecamp',
-            ["Normal"] = {
-                guifg = "#EEEEEE", guibg = "#080808", gui = "none" },
-            ["NonText"] = {
-                guifg = '#6B6B6B', guibg = 'none', gui = 'none' },
-            ["SignColumn"] = {
-                guifg = 'none', guibg = 'none', gui = 'none', },
-            ["LineNr"] = {
-                guifg = '#6B6B6B', guibg='none', gui='none' },
-            ["MatchParen"] = {
-                guifg = '#F0D50C', guibg='none', gui='none' },
-            ["VertSplit"] = {
-                guifg = '#6B6B6B', guibg='none', gui='none' },
-            ["Todo"] = {
-                guifg = '#CF73E6', guibg='none', gui='none' },
-            ["CocUnusedHighlight"] = {
-                guibg = 'none', guifg='none', gui='underline' },
-            ["CocHintHighlight"] = {
-                cterm = 'undercurl', guisp='#000000', }
+function M.colorscheme()
+    return {
+        ["spacecamp"] = {
+            ["Normal"] = {guifg = "#EEEEEE", guibg = "#080808"},
+            ["NonText"] = {guifg = '#6B6B6B'},
+            ["SignColumn"] = {},
+            ["LineNr"] = {guifg = '#6B6B6B'},
+            ["MatchParen"] = {guifg = '#F0D50C'},
+            ["VertSplit"] = {guifg = '#6B6B6B'},
+            ["Todo"] = {guifg = '#CF73E6'},
+            ["CocUnusedHighlight"] = {gui='underline'},
+            ["CocHintHighlight"] = {cterm = 'undercurl', guisp='#000000'}
         },
     }
+end
 
-    for i, _ in ipairs(hi) do
-        if hi[i]["Name"] == vim.g.colors_name then
-            M.hi = hi[i]
+function M.config()
+
+    local opt = {
+        'guifg', 'guibg', 'gui', 'guisp', 'cterm'
+    }
+
+    local hi = M.colorscheme()
+
+    for name, _ in pairs(hi) do
+        if name == vim.g.colors_name then
+            M.hi = hi[name]
         end
     end
 
     for m, _ in pairs(M.hi) do
-        if m ~= "Name" then
-            local s = 'hi ' .. m
-            for k, v in pairs(M.hi[m]) do
-                s = s .. ' ' .. table.concat({k,v}, '=')
+        vim.cmd(
+            string.format("hi clear %s", m)
+        )
+    end
+
+    for m, _ in pairs(M.hi) do
+        local s = string.format('hi %s', m)
+
+        for _, o in pairs(opt) do
+            local v = 'none'
+            if M.hi[m][o] ~= nil then
+                v = M.hi[m][o]
             end
-            vim.cmd('hi clear ' .. m)
-            vim.cmd(s)
+            s = s .. ' ' .. table.concat({o, v}, '=')
         end
+
+        vim.cmd(s)
     end
 
 end
