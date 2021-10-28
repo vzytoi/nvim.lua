@@ -30,6 +30,11 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'SirVer/ultisnips',
+        -- requires = 'honza/vim-snippets'
+    }
+
+    use {
         'LionC/nest.nvim',
         config = function()
             require 'mappings'
@@ -69,6 +74,10 @@ return require('packer').startup(function(use)
     use {
         'JoosepAlviste/nvim-ts-context-commentstring',
         after = 'nvim-treesitter'
+    }
+
+    use {
+        'kkoomen/vim-doge'
     }
 
     use {
@@ -162,5 +171,9 @@ return require('packer').startup(function(use)
         'romainl/vim-cool',
         event = 'VimEnter'
     }
+
+    -- use {
+    --     'kkoomen/vim-doge'
+    -- }
 
 end)
