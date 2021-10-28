@@ -1,8 +1,4 @@
-todo.txt
-plugin/
-start.log
-test/
-plugin/*
-spell/
-colors/
-packer_compiled.lua
+colors/*
+spell/*
+test/*
+plugin/packer_compiled.lua

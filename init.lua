@@ -6,9 +6,9 @@ function RI()
             d = true
         },
         {n = "options"},
+        {n = "colors"},
         {n = "autocmd"},
         {n = "plugins"},
-        {n = "colors"},
         {n = "abbreviations"},
         {n = "test"}
     }
