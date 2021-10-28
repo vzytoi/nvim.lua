@@ -11,7 +11,7 @@ nest.defaults = {
     }
 }
 
-function QueryMapping()
+function QueryMappings()
 
     local setups = {
         "telescope",
@@ -24,7 +24,8 @@ function QueryMapping()
     local map = {}
 
     for _, s in ipairs(setups) do
-        table.insert(map, require("plugins." .. s).setup()[1])
+        table.insert(map,
+            require("plugins." .. s).setup()[1])
     end
 
     return map
@@ -127,8 +128,6 @@ nest.applyKeymaps {
             { '<TAB>', [[pumvisible() ? "\<C-y>" : "\<Tab>" ]] }
         }}
     }},
-    QueryMapping(),
+    QueryMappings(),
     StopUndo()
 }
-
--- vim.cmd([[inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<Tab>"]])

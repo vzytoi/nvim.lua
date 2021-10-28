@@ -14,7 +14,7 @@ function M.setup()
         table.insert(map[1][2],
             {k[i] .. '>',
             function()
-                M.ResizeWindow(k[i])
+                M.ResizeSplits(k[i])
             end
         })
     end
@@ -23,21 +23,25 @@ function M.setup()
 
 end
 
-function M.ResizeWindow(k)
+function M.ResizeSplits(k)
+
     local wcount = vim.fn.winnr("$")
     local wcurr = vim.fn.winnr()
 
-    local sl = {}
-    sl.h = "-"
-    sl.l = "+"
+    local sl = {
+        h = "-",
+        l = "+"
+    }
 
     function Reverse(s)
         return (s == "-" and "+" or "-");
     end
 
     function Exec(d, s)
-        local c = d .. "res " .. s .. "5"
-        vim.api.nvim_command(c)
+        d = d or ""
+        vim.api.nvim_command(
+            d .. " res" .. s .. "5"
+        )
     end
 
     local s
@@ -48,12 +52,13 @@ function M.ResizeWindow(k)
         else
             s = sl[k]
         end
-        Exec("vert ", s)
+        Exec("vert", s)
     else
         sl.k = sl.l
         sl.j = sl.h
-        Exec("", sl[k])
+        Exec(sl[k])
     end
+
 end
 
 return M
