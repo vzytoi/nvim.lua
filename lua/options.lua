@@ -26,6 +26,11 @@ end
 
 local set = vim.opt
 
+vim.o.termguicolors = true
+vim.o.background = 'dark'
+
+vim.cmd('colorscheme spacecamp')
+
 set.rnu = true
 set.nu = true
 
