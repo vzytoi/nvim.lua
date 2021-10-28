@@ -38,24 +38,24 @@ end
 function M.command()
 
     local ft = {
-        ['typescript'] = 'ts-node fp',
-        ['javascript'] = 'node fp',
-        ['c'] = 'gcc fp -o fn.exe;./fn.exe'
+        ['typescript'] = 'ts-node #',
+        ['javascript'] = 'node #',
+        ['c'] = 'gcc # -o @.exe;./@.exe'
     }
 
     local c = ft[vim.bo.filetype]
 
     if not c then
-        c = vim.bo.filetype .. ' fp'
+        c = vim.bo.filetype .. ' #'
     end
 
-    local fn = {
-        ['fp'] = vim.fn.expand('%:t'),
-        ['fn'] = vim.fn.expand('%:r')
+    local cl = {
+        ['#'] = '%:t',
+        ['@'] = '%:r'
     }
 
-    for k, v in pairs(fn) do
-        c = c:gsub(k, v)
+    for k, v in pairs(cl) do
+        c = c:gsub(k, vim.fn.expand(v))
     end
 
     return c
