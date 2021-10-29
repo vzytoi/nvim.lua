@@ -11,12 +11,18 @@ if ($1) {
 
 endsnippet
 
-snippet "fu(ction)?" "" r
+snippet function "" b
 function ${1:name}($${2:param})
 {
     ${VISUAL}$3
 }
 
+endsnippet
+
+snippet todo "" b
+// TODO: ${1:desc} (`!v strftime("%c")`)
+
+$0
 endsnippet
 
 snippet output "" b
@@ -29,20 +35,14 @@ snippet output "" b
 $0
 endsnippet
 
-snippet todo "" b
-// TODO: ${1:desc} (`!v strftime("%c")`)
-
-$0
-endsnippet
-
 snippet fori "" b
-for($i = ${1:0}; $i < ${2:${VISUAL}$count}; $i++) {
+for ($i = ${1:0}; $i < ${2:${VISUAL}$count}; $i++) {
     $0
 }
 endsnippet
 
 snippet fore "" b
-for($e = ${1:0}; $e < ${2:${VISUAL}$count}; $e++) {
+for ($e = ${1:0}; $e < ${2:${VISUAL}$count}; $e++) {
     $0
 }
 endsnippet
