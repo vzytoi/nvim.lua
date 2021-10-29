@@ -137,7 +137,6 @@ return require('packer').startup(function(use)
     use {
         -- 99.1%.lua
         'nvim-telescope/telescope.nvim',
-        cmd = 'Telescope',
         requires = { 'nvim-lua/plenary.nvim' },
         config = require('plugins.telescope').config
     }
@@ -150,6 +149,11 @@ return require('packer').startup(function(use)
     use {
         'jaredgorski/spacecamp',
         event = 'BufReadPost'
+    }
+
+    use {
+	'cormacrelf/vim-colors-github',
+	event = 'BufReadPost'
     }
 
     use {

@@ -2,14 +2,21 @@ local M = {}
 
 function M.setup()
 
+    local ivy = require("telescope.themes").get_ivy({})
+    local builtin = require("telescope.builtin")
+
     local map = {
         { '<leader>', {
-            { 'f', '<Cmd>Telescope git_files theme=get_ivy<CR>' },
+            { 'f', function()
+                local ok = pcall(builtin.git_files(ivy), {})
+                if not ok then
+                    builtin.find_files(ivy)
+                end
+            end },
             { 'f', {
                 { 'g', '<Cmd>Telescope live_grep theme=get_ivy<CR>' },
                 { 'b', '<Cmd>Telescope buffers theme=get_ivy<CR>' },
-                { 'h', '<Cmd>Telescope help_tags theme=get_ivy<CR>' },
-                { 'f', '<Cmd>Telescope find_files theme=get_ivy<CR>'}
+                { 'h', '<Cmd>Telescope help_tags theme=get_ivy<CR>' }
             }},
         }}
     }
