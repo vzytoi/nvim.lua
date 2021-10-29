@@ -13,14 +13,14 @@ function M.setup()
                         "split_f|r !" .. M.command()
                     )
                     vim.api.nvim_command("res -20")
-                    require("../options").execute()
+                    require("../options")
                 end },
                 { 'v', function()
                     vim.api.nvim_command(
                         "vnew|r !" .. M.command()
                     )
                     vim.api.nvim_command("vert res -60")
-                    require("../options").execute()
+                    require("../options")
                 end },
                 { 'e', function()
                     vim.api.nvim_command(
