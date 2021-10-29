@@ -1,10 +1,16 @@
-local abbreviations = {
-    wrap = 'set wrap',
-    nowrap = 'set nowrap',
-    X = 'x',
-    Q = 'q'
-}
+local M = {}
 
-for l, r in pairs(abbreviations) do
-    vim.cmd(string.format('cnoreabbrev %s %s', l, r))
+function M.abbreviations()
+    local abbreviations = {
+        wrap = 'set wrap',
+        nowrap = 'set nowrap',
+        X = 'x',
+        Q = 'q'
+    }
+
+    for l, r in pairs(abbreviations) do
+        vim.cmd(string.format('cnoreabbrev %s %s', l, r))
+    end
 end
+
+return M.abbreviations()
