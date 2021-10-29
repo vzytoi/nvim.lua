@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
 
     use {
         'SirVer/ultisnips',
-        -- requires = 'honza/vim-snippets'
+        event = 'BufReadPost'
     }
 
     use {
@@ -74,10 +74,6 @@ return require('packer').startup(function(use)
     use {
         'JoosepAlviste/nvim-ts-context-commentstring',
         after = 'nvim-treesitter'
-    }
-
-    use {
-        'kkoomen/vim-doge'
     }
 
     use {
@@ -126,7 +122,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 98%.lua
         'akinsho/toggleterm.nvim',
         cmd = "ToggleTerm",
         config = function()
@@ -135,7 +130,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        -- 99.1%.lua
         'nvim-telescope/telescope.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
         config = require('plugins.telescope').config
@@ -152,6 +146,11 @@ return require('packer').startup(function(use)
     }
 
     use {
+	'cormacrelf/vim-colors-github',
+	event = 'BufReadPost'
+    }
+
+    use {
         'wellle/targets.vim',
         event = 'BufReadPost'
     }
@@ -163,16 +162,12 @@ return require('packer').startup(function(use)
 
     use {
         'Jorengarenar/vim-MvVis',
-        event = 'VimEnter'
+        event = 'BufReadPost'
     }
 
     use {
         'romainl/vim-cool',
         event = 'VimEnter'
     }
-
-    -- use {
-    --     'kkoomen/vim-doge'
-    -- }
 
 end)

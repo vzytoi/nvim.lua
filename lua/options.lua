@@ -29,51 +29,46 @@ end
 
 M.disablePlugins()
 
-local set = vim.opt
+function M.loadOptions()
 
-set.rnu = true
-set.nu = true
+    local options = {
+        rnu = true,
+        nu = true,
+        showcmd = false,
+        ruler = false,
+        lazyredraw = true,
+        synmaxcol = 2048,
+        completeopt = {"menuone", "noselect", "preview"},
+        expandtab = true,
+        autoindent = true,
+        smartindent = true,
+        cindent = true,
+        shiftwidth = 4,
+        softtabstop = 4,
+        tabstop = 8,
+        wrap = false,
+        ignorecase = true,
+        smartcase = true,
+        mouse = 'a',
+        splitright = true,
+        splitbelow = true,
+        timeout = true,
+        timeoutlen = 200,
+        ttimeout = true,
+        ttimeoutlen = 10,
+        updatetime = 500,
+        redrawtime = 1500,
+        scrolloff = 8,
+        undofile = true,
+    }
 
-set.showcmd = false
-set.ruler = false
-set.lazyredraw = true
-set.synmaxcol = 2048
+    for k, v in pairs(options) do
+        vim.opt[k] = v
+    end
 
-set.completeopt={"menuone", "noselect", "preview"}
+end
 
-set.expandtab = true
-set.autoindent = true
-set.smartindent = true
-set.cindent = true
-
-set.shiftwidth = 4
-set.softtabstop = 4
-set.tabstop = 8
-
-set.wrap = false
-
-set.ignorecase = true
-set.smartcase = true
-
-set.mouse = 'a'
-
-set.splitright = true
-set.splitbelow = true
-
-set.timeout = true
-set.timeoutlen = 200
-set.ttimeout = true
-set.ttimeoutlen = 10
-set.updatetime = 500
-set.redrawtime = 1500
-
-set.scrolloff = 8
-
-set.undofile = true
-
-set.shellxquote = "\""
-
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal"
+M.loadOptions()
 
 vim.g['ycm_key_list_select_completion'] = { '<TAB>', '<Down>', '<C-j>', '<C-n>' }
 vim.g['ycm_key_list_previous_completion'] = { '<S-TAB>', '<Up>', '<C-k>', '<C-p>' }
