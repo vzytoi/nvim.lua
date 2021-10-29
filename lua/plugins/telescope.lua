@@ -8,7 +8,7 @@ function M.setup()
     local map = {
         { '<leader>', {
             { 'f', function()
-                if not pcall(builtin.git_files(ivy), 0) then
+                if not pcall(builtin.git_files, ivy) then
                     builtin.find_files(ivy)
                 end
             end },
