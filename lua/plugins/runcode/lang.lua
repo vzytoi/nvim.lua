@@ -4,7 +4,8 @@ return {
         javascript = 'node #',
         c = 'gcc # -o @.exe;./@.exe',
         go = 'go run #',
-        java = 'javac #'
+        java = 'javac #',
+        cpp = 'g++ -o @.exe #;./@.exe'
     },
     sub = {
         ['#'] = '%:t',
