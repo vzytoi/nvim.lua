@@ -1,6 +1,6 @@
 local M = {}
 
-function M.execute()
+function M.RunCodeBuffer()
 
     vim.bo.bufhidden = 'delete'
     vim.bo.buftype = 'nofile'
@@ -69,6 +69,15 @@ function M.loadOptions()
 end
 
 M.loadOptions()
+
+function M.ColorOpt()
+
+    vim.o.termguicolors = true
+    vim.o.background = 'dark'
+
+    vim.cmd('colorscheme spacecamp')
+
+end
 
 vim.g['ycm_key_list_select_completion'] = { '<TAB>', '<Down>', '<C-j>', '<C-n>' }
 vim.g['ycm_key_list_previous_completion'] = { '<S-TAB>', '<Up>', '<C-k>', '<C-p>' }

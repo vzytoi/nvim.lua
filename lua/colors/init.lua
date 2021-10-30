@@ -2,10 +2,7 @@ local M = {}
 
 function M.config()
 
-    vim.o.termguicolors = true
-    vim.o.background = 'dark'
-
-    vim.cmd('colorscheme spacecamp')
+    require('options').ColorOpt()
 
     local opt = {
         'guifg', 'guibg', 'gui', 'guisp', 'cterm'
