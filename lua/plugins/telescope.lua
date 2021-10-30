@@ -2,7 +2,9 @@ local M = {}
 
 function M.setup()
 
-    local ivy = require('telescope.themes').get_ivy({})
+    local ivy = require('telescope.themes').get_ivy({
+        show_untracked = true
+    })
 
     local builtin = require('telescope.builtin')
 
@@ -14,9 +16,15 @@ function M.setup()
                 end
             end },
             { 'f', {
-                { 'g', '<Cmd>Telescope live_grep theme=get_ivy<CR>' },
-                { 'b', '<Cmd>Telescope buffers theme=get_ivy<CR>' },
-                { 'h', '<Cmd>Telescope help_tags theme=get_ivy<CR>' }
+                { 'g', function()
+                    builtin.live_grep(ivy)
+                end },
+                { 'b', function()
+                    builtin.buffers(ivy)
+                end },
+                { 'h', function()
+                    builtin.help_tags(ivy)
+                end }
             }},
         }}
     }
@@ -32,7 +40,7 @@ function M.config()
     require('telescope').setup {
         defaults = {
             file_ignore_patterns = {
-                '.git/*'
+                '.git/*', ''
             },
             prompt_prefix = '> ',
             vimgrep_arguments = {
