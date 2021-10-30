@@ -3,18 +3,19 @@ local M = {}
 function M.config()
 
     local t = {
-        { 'spacecamp', require('lualine.spacecamp') },
+        spacecamp = require('plugins.lualine.themes.spacecamp')
     }
 
     local c
 
-    for _, v in ipairs(t) do
-        if v[1] == vim.g.colors_name then
-            c = v[2]
+    for k, v in pairs(t) do
+        if k == vim.g.colors_name then
+            c = v
         end
+        break
     end
 
-    if c == nil then
+    if not c then
         c = t[math.random(1, #t)][2]
     end
 

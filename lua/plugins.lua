@@ -92,7 +92,7 @@ return require('packer').startup(function(use)
     use {
         'hoob3rt/lualine.nvim',
         config = function()
-            require 'plugins.ll'.config()
+            require 'plugins.lualine'.config()
         end
     }
 
