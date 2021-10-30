@@ -25,6 +25,9 @@ local autocmds = {
     _opti = {
         { "BufReadPost", "*", "if getfsize(expand('%')) > 500000 | silent! execute 'TSBufDisable highlight' | endif" },
         { "BufReadPost", "*", "if getfsize(expand('%')) > 1000000 | syntax clear | endif" }
+    },
+    _coc = {
+        { "BufEnter", "*", "if (winnr('$') == 1 && &filetype == 'coc-explorer') | q | endif"}
     }
 }
 
