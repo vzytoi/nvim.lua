@@ -37,7 +37,7 @@ return require('packer').startup(function(use)
     use {
         'LionC/nest.nvim',
         config = function()
-            require 'mappings'
+            require('mappings')
         end
     }
 
@@ -133,12 +133,11 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim',
         requires = {
             'nvim-lua/plenary.nvim',
-            { 'nvim-telescope/telescope-fzf-native.nvim',
-                run = 'make'
-            }
         },
-        config = require('plugins.telescope').config
+        config = require('plugins.telescope').config()
     }
+
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     use {
         'kyazdani42/nvim-web-devicons',
