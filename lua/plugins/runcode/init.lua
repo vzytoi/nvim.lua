@@ -37,28 +37,21 @@ end
 
 function M.command()
 
-    local ft = {
-        ['typescript'] = 'ts-node #',
-        ['javascript'] = 'node #',
-        ['c'] = 'gcc # -o @.exe;./@.exe'
-    }
-
-    local c = ft[vim.bo.filetype]
+    local ft = require('plugins.runcode.lang')
+    local c = ft['lang'][vim.bo.filetype]
 
     if not c then
-        c = vim.bo.filetype .. ' #'
+        c = string.format(
+            "%s #", vim.bo.filetype
+        )
     end
 
-    local cl = {
-        ['#'] = '%:t',
-        ['@'] = '%:r'
-    }
-
-    for k, v in pairs(cl) do
+    for k, v in pairs(ft['sub']) do
         c = c:gsub(k, vim.fn.expand(v))
     end
 
     return c
+
 end
 
 return M
