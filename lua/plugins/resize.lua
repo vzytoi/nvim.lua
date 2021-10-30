@@ -40,7 +40,7 @@ function M.ResizeSplits(k)
     function Exec(d, s)
         d = d or ""
         vim.api.nvim_command(
-            d .. " res" .. s .. "5"
+            string.format("%s res%s5", d, s)
         )
     end
 
