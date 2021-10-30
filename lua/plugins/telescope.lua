@@ -40,7 +40,7 @@ function M.config()
     require('telescope').setup {
         defaults = {
             file_ignore_patterns = {
-                '.git/*', ''
+                '.git/*'
             },
             prompt_prefix = '> ',
             vimgrep_arguments = {
@@ -73,9 +73,9 @@ function M.config()
                 fuzzy = true,
                 override_generic_sorter = true,
                 override_file_sorter = true,
-                case_mode = 'smart_case',
-            },
-        },
+                case_mode = "smart_case"
+            }
+        }
     }
 
     require('telescope').load_extension('fzf')
