@@ -71,8 +71,10 @@ return {
         { 'y', '"*y'}
     }},
     { mode = 'i', {
-        { '<c-j>', '<c-n>'},
-        { '<c-k>', '<c-p>'},
+        { '<c-', {
+            { 'j>', '<c-n>'},
+            { 'k>', '<c-p>'},
+        }},
         { options = { expr = true}, {
             { '<TAB>', [[pumvisible() ? "\<C-y>" : "\<Tab>" ]] }
         }}

@@ -21,7 +21,9 @@ function QueryMappings()
         "resize"
     }
 
-    local map = {}
+    local map = {
+        require('mappings.mappings')
+    }
 
     for _, s in pairs(setups) do
         table.insert(
@@ -29,8 +31,6 @@ function QueryMappings()
             require("plugins." .. s).setup()[1]
         )
     end
-
-    table.insert(map, require("mappings.mappings"))
 
     return map
 
