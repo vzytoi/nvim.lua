@@ -13,23 +13,19 @@ nest.defaults = {
 
 function QueryMappings()
 
-    local setups = {
-        "telescope",
-        "coc",
-        "term",
-        "runcode",
-        "resize"
-    }
-
     local map = {
-        require('mappings.mappings')
+        "telescope", "coc",
+        "term", "runcode",
+        "resize", "mappings/mappings"
     }
 
-    for _, s in pairs(setups) do
-        table.insert(
-            map,
-            require("plugins." .. s).setup()[1]
-        )
+    for i, m in pairs(map) do
+
+        if not string.find(m, "/") then
+            m = string.format('plugins.%s', m)
+        end
+
+        map[i] = require(m).setup()
     end
 
     return map
