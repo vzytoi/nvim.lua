@@ -150,11 +150,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-	'cormacrelf/vim-colors-github',
-	event = 'BufReadPost'
-    }
-
-    use {
         'wellle/targets.vim',
         event = 'BufReadPost'
     }

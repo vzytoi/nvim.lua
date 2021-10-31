@@ -30,7 +30,9 @@ function M.config()
             if M.hi[m][o] ~= nil then
                 v = M.hi[m][o]
             end
-            s = s .. ' ' .. table.concat({o, v}, '=')
+            s = table.concat(
+                {s, table.concat({o, v}, '=')}, ' '
+            )
         end
 
         vim.cmd(s)
