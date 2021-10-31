@@ -5,7 +5,8 @@ function M.abbreviations()
         wrap = 'set wrap',
         nowrap = 'set nowrap',
         X = 'x',
-        Q = 'q'
+        Q = 'q',
+        nws = 'set nowrapscan! nowrapscan?'
     }
 
     for l, r in pairs(abbreviations) do
