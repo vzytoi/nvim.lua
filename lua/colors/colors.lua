@@ -8,6 +8,7 @@ return {
         VertSplit = {guifg = '#6B6B6B'},
         Todo = {guifg = '#CF73E6'},
         CocUnusedHighlight = {gui='underline'},
-        CocHintHighlight = {cterm = 'undercurl', guisp='#000000'}
+        CocHintHighlight = {cterm = 'undercurl', guisp='#000000'},
+        BiscuitColor = {guifg='#383838'}
     }
 }

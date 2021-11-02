@@ -10,7 +10,17 @@ end
 
 return require('packer').startup(function(use)
 
-    use { 'wbthomason/packer.nvim' }
+    use 'wbthomason/packer.nvim'
+
+    use 'kyazdani42/nvim-web-devicons'
+
+    use 'wellle/targets.vim'
+
+    use 'tpope/vim-surround'
+
+    use 'Jorengarenar/vim-MvVis'
+
+    use 'romainl/vim-cool'
 
     use {
         'justinmk/vim-sneak',
@@ -77,6 +87,19 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'code-biscuits/nvim-biscuits',
+        after = 'nvim-treesitter',
+        config = function()
+            require('nvim-biscuits').setup({
+                cursor_line_only = true,
+                default_config = {
+                    prefix_string = ""
+                }
+            })
+        end
+    }
+
+    use {
         'terrortylor/nvim-comment',
         config = function()
             require('nvim_comment').setup({
@@ -140,33 +163,8 @@ return require('packer').startup(function(use)
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     use {
-        'kyazdani42/nvim-web-devicons',
-        event = 'VimEnter'
-    }
-
-    use {
         'jaredgorski/spacecamp',
         event = 'BufReadPost'
-    }
-
-    use {
-        'wellle/targets.vim',
-        event = 'BufReadPost'
-    }
-
-    use {
-        'tpope/vim-surround',
-        event = 'BufReadPost'
-    }
-
-    use {
-        'Jorengarenar/vim-MvVis',
-        event = 'BufReadPost'
-    }
-
-    use {
-        'romainl/vim-cool',
-        event = 'VimEnter'
     }
 
 end)
