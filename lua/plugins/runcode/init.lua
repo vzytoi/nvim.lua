@@ -37,47 +37,61 @@ function M.run(dir)
         d[dir] .. M.command()
     )
 
+    if dir ~= 'x' then
+        require('options').RunCodeBuffer()
+        M.resize(dir)
+    end
+
 end
 
 function M.time()
 
-    local d = {
-        "Milliseconds", "Seconds", "Minutes"
-    }
-
-    local s
-    local f
-
-    for _, v in pairs(d) do
-        s =
-        vim.fn.system(
-            string.format(
-                "((Measure-Command{%s}).Total%s).ToString()",
-                M.command(), v
-            )
+    local t = vim.fn.system(
+        string.format(
+            "(Measure-Command{%s}).ToString()",
+            M.command()
         )
-        if tonumber(string.sub(s, 1, 1)) > 0 then
-            f = v
-            break
+    )
+
+    local ft = {0, 0, 0, 0}
+    local c = 1
+
+    for str in string.gmatch(t, "([^:|.]+)") do
+        ft[c] = tonumber(str)
+        c = c + 1
+    end
+
+    ft[4] = math.floor(ft[4] / 10000)
+
+    local t = {"h", "m", "s", "ms"}
+
+    local r = ""
+
+    for i = 1, 4 do
+        if ft[i] ~= 0 then
+            r = string.format(
+                "%s %s%s",
+                r, ft[i], t[i]
+            )
         end
     end
 
     print(
         string.format(
-            "%s %s",
-            string.gsub(s, "[\r\n]", ""), f
+            "%s:%s",
+            vim.fn.expand('%:t'),
+            r
         )
     )
 
 end
 
 function M.resize(dir)
-    dir = dir or ""
 
     local lines = vim.fn.getline(1, '$')
     local m = 0
 
-    if string.len(dir) == 0 then
+    if dir == 's' then
         m = #lines
     else
         for _, v in pairs(lines) do
@@ -90,8 +104,13 @@ function M.resize(dir)
         end
     end
 
+    local sd = ""
+    if dir == 'v' then
+        sd = "vert"
+    end
+
     vim.api.nvim_command(
-        string.format("%s res %s", dir, m + 10)
+        string.format("%s res %s", sd, m + 10)
     )
 
 end
