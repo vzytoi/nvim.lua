@@ -39,6 +39,9 @@ function M.config()
 
     require('telescope').setup {
         defaults = {
+            preview = {
+                check_mine_type = false
+            },
             file_ignore_patterns = {
                 '.git/*'
             },
