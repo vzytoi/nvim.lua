@@ -1,44 +1,41 @@
 local autocmds = {
     _general = {
-        { "BufRead", "*", [[ if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif ]] },
-        { "BufEnter", "*", "silent! lcd %:p:h" },
-        { "BufWinEnter", "*", "setlocal formatoptions-=c formatoptions-=r formatoptions-=o" },
-        { "BufRead", "*", "setlocal formatoptions-=c formatoptions-=r formatoptions-=o" },
-    },
-    _git = {
-        { "FileType", "gitcommit", "setlocal wrap" },
-        { "FileType", "gitcommit", "setlocal spell" },
+        {"BufRead", "*", [[ if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif ]]},
+        {"BufEnter", "*", "silent! lcd %:p:h"},
+        {"BufWinEnter", "*", "setlocal formatoptions-=c formatoptions-=r formatoptions-=o"},
+        {"BufRead", "*", "setlocal formatoptions-=c formatoptions-=r formatoptions-=o"},
+        {"VimResized", "*", "wincmd ="}
     },
     _markdown = {
-        { "FileType", "markdown", "setlocal wrap" },
-        { "FileType", "markdown", "setlocal spell" },
-    },
-    _auto_resize = {
-        { "VimResized", "*", "wincmd =" },
+        {"FileType", "markdown", "setlocal wrap"},
+        {"FileType", "markdown", "setlocal spell"}
     },
     _packer_compile = {
-        { "BufWritePost", "plugins.lua", "PackerCompile" },
+        {"BufWritePost", "plugins.lua", "PackerCompile"}
     },
     _term = {
-        { "TermOpen", "term://*", "lua set_terminal_keymaps()"}
+        {"TermOpen", "term://*", "lua set_terminal_keymaps()"}
     },
     _opti = {
-        { "BufReadPost", "*", "if getfsize(expand('%')) > 500000 | silent! execute 'TSBufDisable highlight' | endif" },
-        { "BufReadPost", "*", "if getfsize(expand('%')) > 1000000 | syntax clear | endif" }
+        {"BufReadPost", "*", "if getfsize(expand('%')) > 500000 | silent! execute 'TSBufDisable highlight' | endif"},
+        {"BufReadPost", "*", "if getfsize(expand('%')) > 1000000 | syntax clear | endif"}
     },
-    _coc = {
-        { "BufEnter", "*", "if (winnr('$') == 1 && &filetype == 'coc-explorer') | q | endif"}
+    _lualine = {
+        {"ColorScheme", "*", "lua require('plugins.lualine')"}
     }
 }
 
-for gp, definition in pairs(autocmds) do
+for gp, defi in pairs(autocmds) do
     vim.cmd("augroup " .. gp)
-    vim.cmd "autocmd!"
+    vim.cmd("autocmd!")
 
-    for _, def in pairs(definition) do
-        local cmd = table.concat(vim.tbl_flatten { "autocmd", def }, " ")
-        vim.cmd(cmd)
+    for _, def in pairs(defi) do
+        vim.cmd(
+            table.concat(
+                vim.tbl_flatten{"autocmd", def}, " "
+            )
+        )
     end
 
-    vim.cmd "augroup END"
+    vim.cmd("augroup END")
 end

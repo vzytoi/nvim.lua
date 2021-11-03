@@ -29,6 +29,7 @@ function M.setup()
                 { 'k', ':cprev<cr>' },
                 { 'j', ':cnext<cr>' }
             }},
+            { 'b', ':buffers<cr>'},
             { 'b', {
                 { 'k', ':b#<cr>' },
                 { 'h', ':bNext<cr>' },
@@ -58,7 +59,7 @@ function M.setup()
                 { 'p', ':G push<cr>' },
                 { 'l', ':G log<cr>' },
                 { 'd', ':Gdiff<cr>' }
-            }},
+            }}
         }},
         { 'n', 'nzzzv' },
         { 'N', 'Nzzzv' },

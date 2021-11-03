@@ -36,8 +36,9 @@ end
 function M.config()
 
     local actions = require('telescope.actions')
+    local telescope = require('telescope')
 
-    require('telescope').setup {
+    telescope.setup {
         defaults = {
             preview = {
                 check_mine_type = false
@@ -81,7 +82,7 @@ function M.config()
         }
     }
 
-    require('telescope').load_extension('fzf')
+    telescope.load_extension('fzf')
 
 end
 

@@ -3,25 +3,14 @@ local M = {}
 function M.config()
 
     local t = {
-        spacecamp = require('plugins.lualine.themes.spacecamp')
+        spacecamp = require('plugins.lualine.themes.spacecamp'),
+        gruvbox = "gruvbox_dark"
     }
-
-    local c
-
-    for k, v in pairs(t) do
-        if k == vim.g.colors_name then
-            c = v
-        end
-        break
-    end
-
-    if not c then
-        c = t[math.random(1, #t)][2]
-    end
 
     require('lualine').setup {
         options = {
-            theme = c,
+            theme = t[vim.g.colors_name]
+                or t[math.random(1, #t)],
             section_separators = '',
             component_separators = ''
         }

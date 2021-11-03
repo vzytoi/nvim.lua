@@ -66,6 +66,17 @@ function M.loadOptions()
         vim.opt[k] = v
     end
 
+    vim.opt.formatoptions = vim.opt.formatoptions
+                        - 'a'
+                        - 't'
+                        + 'c'
+                        + 'q'
+                        - 'o'
+                        + 'r'
+                        + 'n'
+                        + 'j'
+                        - '2'
+
 end
 
 M.loadOptions()
@@ -104,6 +115,8 @@ vim.g['UltiSnipsExpandTrigger'] = "<c-s>"
 vim.g['UltiSnipsJumpForwardTrigger'] = "<tab>"
 vim.g['UltiSnipsJumpBackwardTrigger'] = "<s-tab>"
 vim.g['UltiSnipsSnippetDirectories'] = { '~/appdata/local/nvim/snips' }
+
+vim.g['sneak#use_ic_scs'] = true
 
 vim.cmd [[
 let &shell = has('win32') ? 'powershell' : 'pwsh'

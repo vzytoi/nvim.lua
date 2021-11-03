@@ -11,12 +11,16 @@ nest.defaults = {
     }
 }
 
-function QueryMappings()
+local function QueryMappings()
 
     local map = {
-        "telescope", "coc",
-        "term", "runcode",
-        "resize", "mappings/mappings"
+        -- "telescope", "coc",
+        -- "term", "runcode",
+        -- "resize", "mappings/mappings"
+        "mappings/mappings",
+        "telescope", "resize",
+        "runcode", "term",
+        "coc"
     }
 
     for i, m in pairs(map) do

@@ -11,21 +11,55 @@ end
 return require('packer').startup(function(use)
 
     use 'wbthomason/packer.nvim'
-
-    use 'kyazdani42/nvim-web-devicons'
-
-    use 'wellle/targets.vim'
-
-    use 'tpope/vim-surround'
-
     use 'Jorengarenar/vim-MvVis'
-
+    use 'tpope/vim-surround'
     use 'romainl/vim-cool'
+    use 'kyazdani42/nvim-web-devicons'
+    use 'wellle/targets.vim'
+    use 'SirVer/ultisnips'
+
+    use {
+        'jaredgorski/spacecamp',
+        event = 'BufReadPost'
+    }
 
     use {
         'justinmk/vim-sneak',
-        opt = true,
-        keys = { {'n', 'S' }, {'n', 's'} }
+        keys = {
+            {'n', 'S' }, {'n', 's'}
+        }
+    }
+
+    use {
+        'LionC/nest.nvim',
+        config = function()
+            require('mappings')
+        end
+    }
+
+    use {
+        'cappyzawa/trim.nvim',
+        event = 'BufWritePre',
+        config = function()
+            require('trim').setup({
+                disable = {"json", "javascript", "css"},
+            })
+        end
+    }
+
+    use {
+        'akinsho/toggleterm.nvim',
+        cmd = "ToggleTerm",
+        config = function()
+            require 'plugins.term'.config()
+        end
+    }
+
+    use {
+        'hoob3rt/lualine.nvim',
+        config = function()
+            require 'plugins.lualine'.config()
+        end
     }
 
     use {
@@ -40,15 +74,18 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'SirVer/ultisnips',
-        event = 'BufReadPost'
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+        },
+        config = function()
+            require('plugins.telescope').config()
+        end
     }
 
     use {
-        'LionC/nest.nvim',
-        config = function()
-            require('mappings')
-        end
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
     }
 
     use {
@@ -58,17 +95,6 @@ return require('packer').startup(function(use)
         config = function()
             require 'plugins.treesitter'
         end,
-    }
-
-    use {
-        'windwp/nvim-autopairs',
-        config = function()
-            require('nvim-autopairs').setup({
-                active = true,
-                check_ts = true
-            })
-        end,
-        after = 'nvim-treesitter'
     }
 
     use {
@@ -113,58 +139,12 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'hoob3rt/lualine.nvim',
-        config = function()
-            require 'plugins.lualine'.config()
-        end
-    }
-
-    use {
         'neoclide/coc.nvim',
         branch = 'release',
         config = function()
             require 'plugins.coc'
         end,
         event = 'VimEnter'
-    }
-
-    use {
-        'cappyzawa/trim.nvim',
-        event = 'BufWritePre',
-        config = function()
-            require('trim').setup({
-                disable = {"text", "json", "javascript", "css"},
-                patterns = {
-                    [[%s/\s\+$//e]],
-                    [[%s/\($\n\s*\)\+\%$//]],
-                    [[%s/\%^\n\+//]],
-                    [[%s/\(\n\n\)\n\+/\1/]],
-                }
-            })
-        end
-    }
-
-    use {
-        'akinsho/toggleterm.nvim',
-        cmd = "ToggleTerm",
-        config = function()
-            require 'plugins.term'.config()
-        end
-    }
-
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim',
-        },
-        config = require('plugins.telescope').config()
-    }
-
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-    use {
-        'jaredgorski/spacecamp',
-        event = 'BufReadPost'
     }
 
 end)

@@ -2,7 +2,7 @@ local M = {}
 
 local function merge_tables(a, b)
 
-    if b == nil then
+    if not vim.tbl_islist(b) then
         return a
     end
 
