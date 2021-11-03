@@ -1,42 +1,69 @@
 local M = {}
 
-function M.config()
+local function merge_tables(a, b)
 
-    require('options').ColorOpt()
+    if b == nil then
+        return a
+    end
+
+    for k, v in pairs(b) do
+        a[k] = v
+    end
+
+    return a
+
+end
+
+local function apply_color(hi)
 
     local opt = {
         'guifg', 'guibg', 'gui', 'guisp', 'cterm'
     }
 
-    local hi = require('colors.colors')
-
-    for name, _ in pairs(hi) do
-        if name == vim.g.colors_name then
-            M.hi = hi[name]
-        end
-    end
-
-    for m, _ in pairs(M.hi) do
+    for k, _ in pairs(hi) do
         vim.cmd(
-            string.format("hi clear %s", m)
+            string.format("hi clear %s", k)
         )
     end
 
-    for m, _ in pairs(M.hi) do
-        local s = string.format('hi %s', m)
+    for k, _ in pairs(hi) do
+
+        local s = string.format(
+            "hi %s", k
+        )
 
         for _, o in pairs(opt) do
-            local v = 'none'
-            if M.hi[m][o] ~= nil then
-                v = M.hi[m][o]
-            end
+            local v = hi[k][o] or "NONE"
+
             s = table.concat(
                 {s, table.concat({o, v}, '=')}, ' '
             )
         end
 
         vim.cmd(s)
+
     end
+
+end
+
+local function get_color(table)
+
+    for k, _ in pairs(table) do
+        if k == vim.g.colors_name then
+            return table[k]
+        end
+    end
+
+end
+
+function M.config()
+
+    require('options').ColorOpt()
+    local hi = require('colors.colors')
+
+    apply_color(
+        merge_tables(hi['all'], get_color(hi))
+    )
 
 end
 
