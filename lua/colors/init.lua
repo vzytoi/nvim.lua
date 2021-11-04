@@ -1,16 +1,26 @@
 local M = {}
 
-local function merge_tables(a, b)
+local function copy(table)
 
-    if not vim.tbl_islist(b) then
-        return a
+    local ret = {}
+
+    for k, v in pairs(table) do
+        ret[k] = v
     end
+
+    return ret
+
+end
+
+local function mergeTables(a, b)
+
+    local ret = copy(a)
 
     for k, v in pairs(b) do
-        a[k] = v
+        ret[k] = v
     end
 
-    return a
+    return ret
 
 end
 
@@ -61,8 +71,8 @@ function M.config()
     require('options').ColorOpt()
     local hi = require('colors.colors')
 
-    apply_color(
-        merge_tables(hi['all'], get_color(hi))
+    apply_color (
+        mergeTables(get_color(hi), hi['all'])
     )
 
 end
