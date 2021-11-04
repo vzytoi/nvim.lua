@@ -1,29 +1,37 @@
 local M = {}
 
+M.telescope = require('telescope')
+M.builtin = require('telescope.builtin')
+M.actions = require('telescope.actions')
+
 function M.setup()
 
     local ivy = require('telescope.themes').get_ivy({
         show_untracked = true
     })
 
-    local builtin = require('telescope.builtin')
-
     local map = {
         { '<leader>', {
             { 'f', function()
-                if not pcall(builtin.git_files, ivy) then
-                    builtin.find_files(ivy)
+                if not pcall(M.builtin.git_files, ivy) then
+                    M.builtin.find_files(ivy)
                 end
             end },
             { 'f', {
                 { 'g', function()
-                    builtin.live_grep(ivy)
+                    M.builtin.live_grep(ivy)
                 end },
                 { 'b', function()
-                    builtin.buffers(ivy)
+                    M.builtin.buffers(ivy)
                 end },
                 { 'h', function()
-                    builtin.help_tags(ivy)
+                    M.builtin.help_tags(ivy)
+                end },
+                { 't', function()
+                    M.search_todos()
+                end },
+                { 'n', function()
+                    M.open_config()
                 end }
             }},
         }}
@@ -35,18 +43,19 @@ end
 
 function M.config()
 
-    local actions = require('telescope.actions')
-    local telescope = require('telescope')
-
-    telescope.setup {
+    M.telescope.setup {
         defaults = {
             preview = {
-                check_mine_type = false
+                check_mine_type = false,
+                timeout = 500
             },
             file_ignore_patterns = {
                 '.git/*'
             },
-            prompt_prefix = '> ',
+            prompt_prefix = "> ",
+            selection_caret = "> ",
+            sorting_strategy = "ascending",
+            color_devicons = true,
             vimgrep_arguments = {
                 'rg',
                 '--color=never',
@@ -64,14 +73,15 @@ function M.config()
             },
             mappings = {
                 i = {
-                    ['<c-k>'] = actions.move_selection_previous,
-                    ['<c-j>'] = actions.move_selection_next
+                    ['<c-k>'] = M.actions.move_selection_previous,
+                    ['<c-j>'] = M.actions.move_selection_next
                 },
                 n = {
-                    ['<Esc>'] = actions.close
+                    ['<Esc>'] = M.actions.close
                 }
             }
         },
+        dynamic_preview_title = true,
         extensions = {
             fzf = {
                 fuzzy = true,
@@ -82,7 +92,28 @@ function M.config()
         }
     }
 
-    telescope.load_extension('fzf')
+    M.telescope.load_extension('fzf')
+
+end
+
+function M.search_todos()
+
+    M.builtin.grep_string {
+        prompt_prefix = "Search toods > ",
+        search = " TODO:",
+        file_ignore_patterns = {
+            "snips/*"
+        }
+    }
+
+end
+
+function M.open_config()
+
+    M.builtin.git_files {
+        prompt_prefix = "Neovim > ",
+        cwd = "~/appdata/local/nvim"
+    }
 
 end
 
