@@ -98,8 +98,6 @@ end
 
 function M.search_todos()
 
-    -- TODO: grep_string ou live_grep ? (04/11/2021 02:55:11)
-
     M.builtin.grep_string {
         prompt_prefix = "Search toods > ",
         search = " TODO:",
