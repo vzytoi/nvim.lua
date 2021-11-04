@@ -5,6 +5,9 @@ function M.setup()
     local map = {
         { '<leader>', {
             { options = { noremap = false }, {
+                { mode = 'x', {
+                    { 'i', '<Plug>(coc-format-selected)' }
+                }},
                 { 'i', {
                     { 'c', '<Plug>(coc-format)' },
                 }},
