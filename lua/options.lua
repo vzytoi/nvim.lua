@@ -27,8 +27,6 @@ function M.disablePlugins()
     end
 end
 
-M.disablePlugins()
-
 function M.loadOptions()
 
     local options = {
@@ -79,8 +77,6 @@ function M.loadOptions()
 
 end
 
-M.loadOptions()
-
 function M.ColorOpt()
 
     vim.o.termguicolors = true
@@ -90,40 +86,48 @@ function M.ColorOpt()
 
 end
 
-vim.g['ycm_key_list_select_completion'] = { '<TAB>', '<Down>', '<C-j>', '<C-n>' }
-vim.g['ycm_key_list_previous_completion'] = { '<S-TAB>', '<Up>', '<C-k>', '<C-p>' }
-vim.g['ycm_key_list_stop_completion'] = { '<C-y>', '<Cr>' }
+function M.config()
 
-vim.g['ycm_filetype_blacklist'] = {
-    tagbar = 1,
-    qf = 1,
-    notes = 1,
-    markdown = 1,
-    unite = 1,
-    text = 1,
-    vimwiki = 1,
-    pandoc = 1,
-    infolog = 1,
-    mail = 1,
-    TelescopePrompt = 1
-}
+    M.disablePlugins()
+    M.loadOptions()
+    M.ColorOpt()
 
-vim.g['loaded_python_provider'] = false
-vim.g['python3_host_prog'] = '~/AppData/Local/Programs/Python/Python39/python.exe'
+    vim.g['ycm_key_list_select_completion'] = { '<TAB>', '<Down>', '<C-j>', '<C-n>' }
+    vim.g['ycm_key_list_previous_completion'] = { '<S-TAB>', '<Up>', '<C-k>', '<C-p>' }
+    vim.g['ycm_key_list_stop_completion'] = { '<C-y>', '<Cr>' }
 
-vim.g['UltiSnipsExpandTrigger'] = "<c-s>"
-vim.g['UltiSnipsJumpForwardTrigger'] = "<tab>"
-vim.g['UltiSnipsJumpBackwardTrigger'] = "<s-tab>"
-vim.g['UltiSnipsSnippetDirectories'] = { '~/appdata/local/nvim/snips' }
+    vim.g['ycm_filetype_blacklist'] = {
+        tagbar = 1,
+        qf = 1,
+        notes = 1,
+        markdown = 1,
+        unite = 1,
+        text = 1,
+        vimwiki = 1,
+        pandoc = 1,
+        infolog = 1,
+        mail = 1,
+        TelescopePrompt = 1
+    }
 
-vim.g['sneak#use_ic_scs'] = true
+    vim.g['loaded_python_provider'] = false
+    vim.g['python3_host_prog'] = '~/AppData/Local/Programs/Python/Python39/python.exe'
 
-vim.cmd [[
-let &shell = has('win32') ? 'powershell' : 'pwsh'
-let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-set shellquote = shellxquote=
-]]
+    vim.g['UltiSnipsExpandTrigger'] = "<c-s>"
+    vim.g['UltiSnipsJumpForwardTrigger'] = "<tab>"
+    vim.g['UltiSnipsJumpBackwardTrigger'] = "<s-tab>"
+    vim.g['UltiSnipsSnippetDirectories'] = { '~/appdata/local/nvim/snips' }
+
+    vim.g['sneak#use_ic_scs'] = true
+
+    vim.cmd [[
+    let &shell = has('win32') ? 'powershell' : 'pwsh'
+    let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    set shellquote = shellxquote=
+    ]]
+
+end
 
 return M

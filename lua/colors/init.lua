@@ -66,7 +66,7 @@ local function get_color(table)
 
 end
 
-function M.config()
+function M:config()
 
     require('options').ColorOpt()
     local hi = require('colors.colors')
@@ -77,4 +77,4 @@ function M.config()
 
 end
 
-return M.config()
+return M

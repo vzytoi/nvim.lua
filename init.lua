@@ -1,24 +1,34 @@
+local function autocmd(name, event)
+
+    vim.cmd(
+        string.format(
+            "autocmd %s * lua require('%s').config()",
+            event, name
+        )
+    )
+
+end
+
 local function init()
 
     local files = {
-        {n = "options"},
-        {n = "colors"},
-        {n = "autocmd"},
-        {n = "plugins"},
-        {n = "abbr"}
+        {"colors", event = "ColorScheme" },
+        {"abbr", event = "CmdLineEnter" },
+        {"autocmd" },
+        {"options" },
+        {"plugins" },
     }
 
     for _, f in pairs(files) do
-        if f.d ~= nil and f.d then
-            goto endl
+
+        if not f.event then
+            require(f[1]).config()
+        else
+            autocmd(f[1], f.event)
         end
 
-        if not pcall(require, f.n) then
-            print("unable to require " .. f.n)
-        end
-
-        ::endl::
     end
+
 end
 
 init()
