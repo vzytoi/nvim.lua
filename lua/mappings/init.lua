@@ -14,9 +14,6 @@ nest.defaults = {
 local function QueryMappings()
 
     local map = {
-        -- "telescope", "coc",
-        -- "term", "runcode",
-        -- "resize", "mappings/mappings"
         "mappings/mappings",
         "telescope", "resize",
         "runcode", "term",

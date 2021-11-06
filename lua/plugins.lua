@@ -21,6 +21,7 @@ function M.config()
         use 'kyazdani42/nvim-web-devicons'
         use 'wellle/targets.vim'
         use 'SirVer/ultisnips'
+        use 'nvim-lua/plenary.nvim'
 
         use {
             'jaredgorski/spacecamp',
@@ -79,9 +80,6 @@ function M.config()
 
         use {
             'nvim-telescope/telescope.nvim',
-            requires = {
-                'nvim-lua/plenary.nvim',
-            },
             config = function()
                 require('plugins.telescope').config()
             end
@@ -152,6 +150,28 @@ function M.config()
         }
 
         -- TODO: ajouter gitsigns https://github.com/lewis6991/gitsigns.nvim (04/11/2021 02:53:29)
+
+        use {
+            'ThePrimeagen/harpoon',
+            config = function()
+                require("harpoon").setup({
+                    global_settings = {
+                        save_on_toggle = false,
+                        save_on_change = true,
+                        enter_on_sendcmd = false,
+                    },
+                    projects = {
+                        ['~/appdata/local/nvim'] = {
+                            term = {
+                                cmds = {
+                                    "ungit"
+                                }
+                            }
+                        }
+                    }
+                })
+            end
+        }
 
     end)
 
