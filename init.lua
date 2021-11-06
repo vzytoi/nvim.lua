@@ -3,7 +3,7 @@ local function autocmd(name, event)
     vim.cmd(
         string.format(
             "autocmd %s * lua require('%s').config()",
-            event, name
+        event, name
         )
     )
 
@@ -14,8 +14,8 @@ local function init()
     local files = {
         {"colors", event = "ColorScheme" },
         {"abbr", event = "CmdLineEnter" },
+        {"options"},
         {"autocmd" },
-        {"options" },
         {"plugins" },
     }
 
@@ -32,3 +32,7 @@ local function init()
 end
 
 init()
+
+-- TODO: je veux que lorsque l'on ouvre vim avec un dossier
+-- comme argument, coc-explorer soit affiché
+-- et non pas un fichier vide. (05/11/2021 23:47:04)

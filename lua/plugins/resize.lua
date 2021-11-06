@@ -37,7 +37,7 @@ function M.ResizeSplits(k)
         return (s == "-" and "+" or "-");
     end
 
-    function Exec(d, s)
+    function Exec(s, d)
         d = d or ""
         vim.api.nvim_command(
             string.format("%s res%s5", d, s)
@@ -52,7 +52,7 @@ function M.ResizeSplits(k)
         else
             s = sl[k]
         end
-        Exec("vert", s)
+        Exec(s, "vert")
     else
         sl.k = sl.l
         sl.j = sl.h
