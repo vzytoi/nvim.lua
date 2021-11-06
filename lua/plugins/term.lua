@@ -5,12 +5,12 @@ function M.setup()
     local map = {
 
         { '<leader>', {
+            { 't', ':ToggleTerm direction=tab<cr>' },
             { 't', {
                 { 'f', ':ToggleTerm direction=float<cr>' },
                 { 's', ':ToggleTerm direction=horizontal<cr>' },
                 { 'v', ':ToggleTerm direction=vertical<cr>' }
             }},
-            { 't', ':ToggleTerm direction=window<cr>' }
         }}
     }
 
@@ -37,10 +37,20 @@ function M.config()
 
     function _G.set_terminal_keymaps()
 
-        local opts = {noremap = true}
+        local map = {
+            ['<leader>t'] = [[<C-\><C-n>:q!<cr>]],
+            ['<esc>'] = [[<C-\><C-n>]]
+        }
 
-        vim.api.nvim_buf_set_keymap(0, 't', '<leader>t', [[<C-\><C-n>:q!<cr>]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+        local opts = {
+            noremap = true
+        }
+
+        for k, v in pairs(map) do
+            vim.api.nvim_buf_set_keymap(
+                0, 't', k, v, opts
+            )
+        end
 
     end
 
