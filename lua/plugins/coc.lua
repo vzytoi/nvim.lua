@@ -34,7 +34,7 @@ function M.config()
     vim.g.coc_global_extensions = {
         'coc-tsserver', 'coc-prettier',
         'coc-json', 'coc-pyright', 'coc-explorer',
-        'coc-tabnine', 'coc-go', 'coc-clangd',
+        'coc-go', 'coc-clangd',
         'coc-phpls', 'coc-html', 'coc-css', 'coc-sql'
     }
 

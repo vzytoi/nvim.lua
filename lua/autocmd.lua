@@ -26,6 +26,9 @@ local function autocmds()
         _lualine = {
             {"ColorScheme", "*", "lua require('plugins.lualine')"},
             {"ColorScheme", "*", "lua require('colors').config()"}
+        },
+        _coc = {
+            {"FileType", "*", "let b:coc_suggest_disable = 1"}
         }
     }
 end

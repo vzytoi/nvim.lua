@@ -22,6 +22,29 @@ function M.config()
         use 'wellle/targets.vim'
         use 'SirVer/ultisnips'
         use 'nvim-lua/plenary.nvim'
+        use 'onsails/lspkind-nvim'
+
+        use {
+            'hrsh7th/nvim-cmp',
+            config = function()
+                require('plugins.cmp').config()
+            end,
+            requires = {
+                'quangnguyen30192/cmp-nvim-ultisnips',
+                'hrsh7th/cmp-path',
+                'hrsh7th/cmp-calc',
+                'hrsh7th/cmp-buffer'
+            }
+        }
+
+        use {
+            'adrianiy/cmp-tabnine',
+            run = './install.sh',
+            config = function()
+                require('plugins.cmp').tabnine_config()
+            end,
+            requires = 'hrsh7th/nvim-cmp'
+        }
 
         use {
             'jaredgorski/spacecamp',
@@ -54,7 +77,7 @@ function M.config()
 
         use {
             'akinsho/toggleterm.nvim',
-            cmd = "ToggleTerm",
+            cmd = { "ToggleTerm", "TermExec" },
             config = function()
                 require 'plugins.term'.config()
             end
@@ -161,7 +184,7 @@ function M.config()
                         enter_on_sendcmd = false,
                     },
                     projects = {
-                        ['~/appdata/local/nvim'] = {
+                        ["~\\Appdata\\Local\\nvim"] = {
                             term = {
                                 cmds = {
                                     "ungit"
@@ -171,6 +194,16 @@ function M.config()
                     }
                 })
             end
+        }
+
+        use {
+            'alvan/vim-closetag',
+            ft = { 'html', 'php' },
+            event = 'BufWritePre'
+        }
+
+        use {
+            'dracula/vim'
         }
 
     end)

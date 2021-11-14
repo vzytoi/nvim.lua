@@ -36,7 +36,7 @@ function M.loadOptions()
         ruler = false,
         lazyredraw = true,
         synmaxcol = 2048,
-        completeopt = {"menuone", "noselect", "preview"},
+        completeopt = {"menuone", "noselect"},
         expandtab = true,
         autoindent = true,
         smartindent = true,
@@ -75,6 +75,8 @@ function M.loadOptions()
                         + 'j'
                         - '2'
 
+    vim.cmd [[set shortmess+=c]]
+
 end
 
 function M.ColorOpt()
@@ -91,24 +93,6 @@ function M.config()
     M.disablePlugins()
     M.loadOptions()
     M.ColorOpt()
-
-    vim.g['ycm_key_list_select_completion'] = { '<TAB>', '<Down>', '<C-j>', '<C-n>' }
-    vim.g['ycm_key_list_previous_completion'] = { '<S-TAB>', '<Up>', '<C-k>', '<C-p>' }
-    vim.g['ycm_key_list_stop_completion'] = { '<C-y>', '<Cr>' }
-
-    vim.g['ycm_filetype_blacklist'] = {
-        tagbar = 1,
-        qf = 1,
-        notes = 1,
-        markdown = 1,
-        unite = 1,
-        text = 1,
-        vimwiki = 1,
-        pandoc = 1,
-        infolog = 1,
-        mail = 1,
-        TelescopePrompt = 1
-    }
 
     vim.g['loaded_python_provider'] = false
     vim.g['python3_host_prog'] = '~/AppData/Local/Programs/Python/Python39/python.exe'
