@@ -12,17 +12,19 @@ function M.config()
         execute 'packadd packer.nvim'
     end
 
-    return require('packer').startup(function(use)
+    return require('packer').startup{function(use)
 
         use 'wbthomason/packer.nvim'
+        use 'nvim-lua/plenary.nvim'
+
         use 'Jorengarenar/vim-MvVis'
         use 'tpope/vim-surround'
         use 'romainl/vim-cool'
         use 'kyazdani42/nvim-web-devicons'
         use 'wellle/targets.vim'
         use 'SirVer/ultisnips'
-        use 'nvim-lua/plenary.nvim'
         use 'onsails/lspkind-nvim'
+        use 'dstein64/vim-startuptime'
 
         use {
             'hrsh7th/nvim-cmp',
@@ -35,6 +37,13 @@ function M.config()
                 'hrsh7th/cmp-calc',
                 'hrsh7th/cmp-buffer'
             }
+        }
+
+        use {
+            'windwp/nvim-autopairs',
+            config = function()
+                require('nvim-autopairs').setup{}
+            end
         }
 
         use {
@@ -172,30 +181,6 @@ function M.config()
             event = 'VimEnter'
         }
 
-        -- TODO: ajouter gitsigns https://github.com/lewis6991/gitsigns.nvim (04/11/2021 02:53:29)
-
-        use {
-            'ThePrimeagen/harpoon',
-            config = function()
-                require("harpoon").setup({
-                    global_settings = {
-                        save_on_toggle = false,
-                        save_on_change = true,
-                        enter_on_sendcmd = false,
-                    },
-                    projects = {
-                        ["~\\Appdata\\Local\\nvim"] = {
-                            term = {
-                                cmds = {
-                                    "ungit"
-                                }
-                            }
-                        }
-                    }
-                })
-            end
-        }
-
         use {
             'alvan/vim-closetag',
             ft = { 'html', 'php' },
@@ -203,10 +188,11 @@ function M.config()
         }
 
         use {
-            'dracula/vim'
+            'lewis6991/gitsigns.nvim',
+            config = require('gitsigns').setup()
         }
 
-    end)
+    end}
 
 end
 
