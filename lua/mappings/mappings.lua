@@ -15,6 +15,7 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'n', ':silent set rnu!<cr>'},
             { 'h', function()
                 require('harpoon.ui').toggle_quick_menu()
             end },
