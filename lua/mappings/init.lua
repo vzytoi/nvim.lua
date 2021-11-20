@@ -17,7 +17,7 @@ local function QueryMappings()
         "mappings/mappings",
         "telescope", "resize",
         "runcode", "term",
-        "coc"
+        "coc", "search"
     }
 
     for i, m in pairs(map) do

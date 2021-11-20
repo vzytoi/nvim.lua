@@ -23,8 +23,17 @@ function M.config()
         use 'kyazdani42/nvim-web-devicons'
         use 'wellle/targets.vim'
         use 'SirVer/ultisnips'
-        use 'onsails/lspkind-nvim'
-        use 'dstein64/vim-startuptime'
+
+        use {
+            'voldikss/vim-browser-search',
+            cmd = 'BrowserSearch',
+            requires = { 'RishabhRD/popfix' }
+        }
+
+        use {
+            'dstein64/vim-startuptime',
+            cmd = 'StartupTime'
+        }
 
         use {
             'hrsh7th/nvim-cmp',
@@ -32,10 +41,14 @@ function M.config()
                 require('plugins.cmp').config()
             end,
             requires = {
+                'onsails/lspkind-nvim',
                 'quangnguyen30192/cmp-nvim-ultisnips',
                 'hrsh7th/cmp-path',
                 'hrsh7th/cmp-calc',
-                'hrsh7th/cmp-buffer'
+                {
+                    'adrianiy/cmp-tabnine',
+                    run = './install.sh'
+                }
             }
         }
 
@@ -44,15 +57,6 @@ function M.config()
             config = function()
                 require('nvim-autopairs').setup{}
             end
-        }
-
-        use {
-            'adrianiy/cmp-tabnine',
-            run = './install.sh',
-            config = function()
-                require('plugins.cmp').tabnine_config()
-            end,
-            requires = 'hrsh7th/nvim-cmp'
         }
 
         use {
@@ -79,7 +83,6 @@ function M.config()
             event = 'BufWritePre',
             config = function()
                 require('trim').setup({
-                    disable = {"json", "javascript", "css"},
                 })
             end
         }
@@ -133,17 +136,17 @@ function M.config()
 
         use {
             'nvim-treesitter/nvim-treesitter-textobjects',
-            after = 'nvim-treesitter'
+            after = 'nvim-treesitter',
         }
 
         use {
             'RRethy/nvim-treesitter-textsubjects',
-            after = 'nvim-treesitter'
+            after = 'nvim-treesitter',
         }
 
         use {
             'JoosepAlviste/nvim-ts-context-commentstring',
-            after = 'nvim-treesitter'
+            after = 'nvim-treesitter',
         }
 
         use {
@@ -169,7 +172,7 @@ function M.config()
                     end
                 })
             end,
-            after = 'nvim-ts-context-commentstring'
+            after = 'nvim-ts-context-commentstring',
         }
 
         use {
@@ -185,11 +188,6 @@ function M.config()
             'alvan/vim-closetag',
             ft = { 'html', 'php' },
             event = 'BufWritePre'
-        }
-
-        use {
-            'lewis6991/gitsigns.nvim',
-            config = require('gitsigns').setup()
         }
 
     end}
