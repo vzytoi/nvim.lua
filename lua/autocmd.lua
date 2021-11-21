@@ -28,7 +28,15 @@ local function autocmds()
             {"ColorScheme", "*", "lua require('colors').config()"}
         },
         _coc = {
-            {"FileType", "*", "let b:coc_suggest_disable = 1"}
+            {"FileType", "*", "let b:coc_suggest_disable = 1"},
+            {"User", "CocNvimInit", "let g:coc_ready = 1"},
+            {"User", "CocExplorerOpenPre", "let g:explorer_is_open = 1"},
+            {"User", "CocExplorerQuitPre", "let g:explorer_is_open = 0"},
+            {"VimEnter", "*", "let g:explorer_is_open = 0"}
+
+        },
+        _cmp = {
+            {"FileType", "gitcommit", "lua require('cmp').setup.buffer { enable = false }"}
         }
     }
 end
