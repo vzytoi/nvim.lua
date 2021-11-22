@@ -15,6 +15,11 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'q', {
+                { 's', [[<cmd>lua require("persistence").load()<cr>]] },
+                { 'l', [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
+                { 'd', [[<cmd>lua require("persistence").stop()<cr>]] },
+            }},
             { 'n', ':silent set rnu!<cr>'},
             { 'h', function()
                 require('harpoon.ui').toggle_quick_menu()
@@ -42,7 +47,7 @@ function M.setup()
             }},
             { 'y', {
                 { 'l', 'V"*y' },
-                { 'a', 'ggVG"*y<c-o>'}
+                { 'a', ':%y+<cr>'}
             }},
             { 'q', {
                 { 'o', ':copen<cr>' },

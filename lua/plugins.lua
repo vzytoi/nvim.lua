@@ -23,6 +23,14 @@ function M.config()
         use 'kyazdani42/nvim-web-devicons'
         use 'wellle/targets.vim'
         use 'SirVer/ultisnips'
+        use 'tpope/vim-sleuth'
+        use 'bogado/file-line'
+
+        use{
+            "folke/persistence.nvim",
+            event = "BufReadPre",
+            config = [[require("persistence").setup()]]
+        }
 
         use {
             'voldikss/vim-browser-search',
@@ -37,9 +45,7 @@ function M.config()
 
         use {
             'hrsh7th/nvim-cmp',
-            config = function()
-                require('plugins.cmp').config()
-            end,
+            config = [[require('plugins.cmp').config()]],
             requires = {
                 'onsails/lspkind-nvim',
                 'quangnguyen30192/cmp-nvim-ultisnips',
@@ -54,9 +60,7 @@ function M.config()
 
         use {
             'windwp/nvim-autopairs',
-            config = function()
-                require('nvim-autopairs').setup{}
-            end
+            config = [[require('nvim-autopairs').setup{}]]
         }
 
         use {
@@ -73,33 +77,24 @@ function M.config()
 
         use {
             'LionC/nest.nvim',
-            config = function()
-                require('mappings')
-            end
+            config = [[require('mappings')]]
         }
 
         use {
             'cappyzawa/trim.nvim',
             event = 'BufWritePre',
-            config = function()
-                require('trim').setup({
-                })
-            end
+            config = [[require('trim').setup({})]]
         }
 
         use {
             'akinsho/toggleterm.nvim',
             cmd = { "ToggleTerm", "TermExec" },
-            config = function()
-                require 'plugins.term'.config()
-            end
+            config = [[require('plugins.term').config()]]
         }
 
         use {
             'hoob3rt/lualine.nvim',
-            config = function()
-                require 'plugins.lualine'.config()
-            end
+            config = [[require('plugins.lualine').config()]]
         }
 
         use {
@@ -115,9 +110,7 @@ function M.config()
 
         use {
             'nvim-telescope/telescope.nvim',
-            config = function()
-                require('plugins.telescope').config()
-            end
+            config = [[require('plugins.telescope').config()]]
         }
 
         use {
@@ -129,9 +122,7 @@ function M.config()
             'nvim-treesitter/nvim-treesitter',
             event = 'BufRead',
             run = ':TSUpdate',
-            config = function()
-                require 'plugins.treesitter'
-            end,
+            config = [[require('plugins.treesitter')]]
         }
 
         use {
