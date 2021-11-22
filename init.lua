@@ -12,11 +12,11 @@ end
 local function init()
 
     local files = {
+        {"autocmds" },
+        {"options"},
+        {"plugins" },
         {"colors", event = "ColorScheme" },
         {"abbr", event = "CmdLineEnter" },
-        {"options"},
-        {"autocmd" },
-        {"plugins" },
     }
 
     for _, f in pairs(files) do
@@ -31,8 +31,6 @@ local function init()
 
 end
 
-init()
+-- TODO: take a look : https://github.com/folke/persistence.nvim (21/11/2021 21:59:56)
 
--- TODO: je veux que lorsque l'on ouvre vim avec un dossier
--- comme argument, coc-explorer soit affiché
--- et non pas un fichier vide. (05/11/2021 23:47:04)
+init()
