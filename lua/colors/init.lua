@@ -69,7 +69,7 @@ end
 function M:config()
 
     require('options').ColorOpt()
-    local hi = require('colors.colors')
+    local hi = require('colors.colors').setup()
 
     apply_color (
         mergeTables(get_color(hi), hi['all'])

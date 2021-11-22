@@ -80,7 +80,7 @@ function M.config()
 
     local autocmdsList = mergeTables(
         closeBuffersList(),
-        require('autocmds.autocmds')
+        require('autocmds.autocmds').setup()
     )
 
     for gp, def in pairs(autocmdsList) do
