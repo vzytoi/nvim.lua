@@ -23,40 +23,44 @@ function M.setup()
 
 end
 
+local function reverse(s)
+
+    return (s == '-' and '+' or '-');
+
+end
+
+local function exec(s, d)
+
+    d = d or ''
+    vim.api.nvim_command(
+        string.format('%s res%s5', d, s)
+    )
+
+end
+
 function M.ResizeSplits(k)
 
-    local wcount = vim.fn.winnr("$")
+    local wcount = vim.fn.winnr('$')
     local wcurr = vim.fn.winnr()
 
     local sl = {
-        h = "-",
-        l = "+"
+        h = '-',
+        l = '+'
     }
-
-    function Reverse(s)
-        return (s == "-" and "+" or "-");
-    end
-
-    function Exec(s, d)
-        d = d or ""
-        vim.api.nvim_command(
-            string.format("%s res%s5", d, s)
-        )
-    end
 
     local s
 
     if sl[k] ~= nil then
         if wcurr == wcount then
-            s = Reverse(sl[k])
+            s = reverse(sl[k])
         else
             s = sl[k]
         end
-        Exec(s, "vert")
+        exec(s, 'vert')
     else
         sl.k = sl.l
         sl.j = sl.h
-        Exec(sl[k])
+        exec(sl[k])
     end
 
 end

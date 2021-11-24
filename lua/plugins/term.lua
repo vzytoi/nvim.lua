@@ -27,9 +27,9 @@ function M.config()
         close_on_exit = true,
 
         size = function(term)
-            if term.direction == "vertical" then
+            if term.direction == 'vertical' then
                 return 100
-            elseif term.direction == "horizontal" then
+            elseif term.direction == 'horizontal' then
                 return 20
             end
         end

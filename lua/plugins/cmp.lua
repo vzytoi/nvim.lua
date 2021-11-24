@@ -6,7 +6,7 @@ local function feedkey(key, mode)
     mode, true)
 end
 
-function M:config()
+function M.config()
 
     M.cmp = require('cmp')
     M.lspkind = require('lspkind')
@@ -27,7 +27,7 @@ function M:config()
         mapping = {
             ['<c-k>'] = M.cmp.mapping.select_prev_item(),
             ['<c-j>'] = M.cmp.mapping.select_next_item(),
-            ['<CR>'] = M.cmp.mapping.confirm({
+            ['<tab>'] = M.cmp.mapping.confirm({
                 behavior = M.cmp.ConfirmBehavior.Replace,
                 select = true,
             })
@@ -49,20 +49,6 @@ function M:config()
             ghost_text = true
         }
 }
-
-end
-
-function M:tabnine_config()
-
-    M.tabnine = require('cmp_tabnine.config')
-
-    M.tabnine:setup({
-        max_lines = 1000;
-        max_num_results = 5;
-        sort = true;
-        run_on_every_keystroke = true;
-        snippet_placeholder = '..';
-    })
 
 end
 

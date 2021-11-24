@@ -7,7 +7,8 @@ function M.config()
         nowrap = 'set nowrap',
         X = 'x',
         Q = 'q',
-        nws = 'set nowrapscan! nowrapscan?'
+        ['<'] = 'w',
+        nws = 'set nowrapscan! nowrapscan?',
     }
 
     for l, r in pairs(abbreviations) do

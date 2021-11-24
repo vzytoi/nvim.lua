@@ -52,9 +52,9 @@ function M.config()
             file_ignore_patterns = {
                 '.git/*'
             },
-            prompt_prefix = "> ",
-            selection_caret = "> ",
-            sorting_strategy = "ascending",
+            prompt_prefix = '> ',
+            selection_caret = '> ',
+            sorting_strategy = 'ascending',
             color_devicons = true,
             vimgrep_arguments = {
                 'rg',
@@ -87,7 +87,7 @@ function M.config()
                 fuzzy = true,
                 override_generic_sorter = true,
                 override_file_sorter = true,
-                case_mode = "smart_case"
+                case_mode = 'smart_case'
             }
         }
     }
@@ -99,10 +99,10 @@ end
 function M.search_todos()
 
     M.builtin.grep_string {
-        prompt_prefix = "Search toods > ",
-        search = " TODO:",
+        prompt_prefix = 'Search toods > ',
+        search = ' TODO:',
         file_ignore_patterns = {
-            "snips/*"
+            'snips/*'
         }
     }
 
@@ -111,8 +111,8 @@ end
 function M.open_config()
 
     M.builtin.git_files {
-        prompt_prefix = "Neovim > ",
-        cwd = "~/appdata/local/nvim"
+        prompt_prefix = 'Neovim > ',
+        cwd = '~/appdata/local/nvim'
     }
 
 end

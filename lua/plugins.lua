@@ -39,9 +39,9 @@ function M.config()
         }
 
         use {
-            "folke/persistence.nvim",
-            event = "BufReadPre",
-            config = [[require("persistence").setup()]]
+            'folke/persistence.nvim',
+            event = 'BufReadPre',
+            config = [[require('persistence').setup()]]
         }
 
         use {
@@ -100,7 +100,7 @@ function M.config()
 
         use {
             'akinsho/toggleterm.nvim',
-            cmd = { "ToggleTerm", "TermExec" },
+            cmd = { 'ToggleTerm', 'TermExec' },
             config = [[require('plugins.term').config()]]
         }
 
@@ -159,7 +159,7 @@ function M.config()
                 require('nvim-biscuits').setup({
                     cursor_line_only = true,
                     default_config = {
-                        prefix_string = ""
+                        prefix_string = ''
                     }
                 })
             end

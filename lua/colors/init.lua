@@ -32,18 +32,18 @@ local function apply_color(hi)
 
     for k, _ in pairs(hi) do
         vim.cmd(
-            string.format("hi clear %s", k)
+            string.format('hi clear %s', k)
         )
     end
 
     for k, _ in pairs(hi) do
 
         local s = string.format(
-            "hi %s", k
+            'hi %s', k
         )
 
         for _, o in pairs(opt) do
-            local v = hi[k][o] or "NONE"
+            local v = hi[k][o] or 'NONE'
 
             s = table.concat(
                 {s, table.concat({o, v}, '=')}, ' '
@@ -66,7 +66,7 @@ local function get_color(table)
 
 end
 
-function M:config()
+function M.config()
 
     require('options').ColorOpt()
     local hi = require('colors.colors').setup()

@@ -1,11 +1,11 @@
 local M = {}
 
-function M:setup()
+function M.setup()
 
     local map = {
         { '<leader>', {
             { 's', function()
-                M:run()
+                M.run()
             end}
         }}
     }
@@ -14,10 +14,7 @@ function M:setup()
 
 end
 
--- TODO: il faut absolument changer la touche qui valide
--- la completion ... (20/11/2021 19:47:10)
-
-function M:run()
+function M.run()
 
     local function subrange(t, first, last)
          return table.move(t, first, last, 1, {})
@@ -26,7 +23,7 @@ function M:run()
     local function split(string, del)
 
         local result = {};
-        for match in (string..del):gmatch("(.-)"..del) do
+        for match in (string..del):gmatch('(.-)'..del) do
             table.insert(result, match);
         end
         return result;
@@ -35,7 +32,7 @@ function M:run()
 
     local function callback(_, line)
 
-        local site = split(line, " ")
+        local site = split(line, ' ')
 
         local sol = {'google','github','stackoverflow'}
 
@@ -52,20 +49,20 @@ function M:run()
         end
 
         vim.api.nvim_command(
-            string.format("BrowserSearch %s",
+            string.format('BrowserSearch %s',
                 line
             )
         )
 
-        vim.cmd[[call feedkeys("\<esc>")]]
+        vim.cmd[[call feedkeys('\<esc>')]]
 
         if is_set then
             if site[1] == 'google' then
-                vim.cmd[[call feedkeys("\<cr>")]]
+                vim.cmd[[call feedkeys('\<cr>')]]
             elseif site[1] == 'github' then
-                vim.cmd[[call feedkeys("k\<cr>")]]
+                vim.cmd[[call feedkeys('k\<cr>')]]
             elseif site[1] == 'stackoverflow' then
-                vim.cmd[[call feedkeys("jjjj\<cr>")]]
+                vim.cmd[[call feedkeys('jjjj\<cr>')]]
             end
         end
 

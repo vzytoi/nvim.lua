@@ -2,8 +2,8 @@ local function autocmd(name, event)
 
     vim.cmd(
         string.format(
-            "autocmd %s * lua require('%s').config()",
-        event, name
+            'autocmd %s * lua require("%s").config()',
+            event, name
         )
     )
 
@@ -12,11 +12,11 @@ end
 local function init()
 
     local files = {
-        {"autocmds" },
-        {"options"},
-        {"plugins" },
-        {"colors", event = "ColorScheme" },
-        {"abbr", event = "CmdLineEnter" },
+        {'autocmds' },
+        {'options'},
+        {'plugins' },
+        {'colors', event = 'ColorScheme' },
+        {'abbr', event = 'CmdLineEnter' },
     }
 
     for _, f in pairs(files) do
@@ -30,7 +30,5 @@ local function init()
     end
 
 end
-
--- TODO: take a look : https://github.com/folke/persistence.nvim (21/11/2021 21:59:56)
 
 init()

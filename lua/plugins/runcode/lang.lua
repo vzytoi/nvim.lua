@@ -12,5 +12,3 @@ return {
         ['@'] = '%:r'
     }
 }
-
--- TODO: finir la liste (30/10/2021 02:11:36)

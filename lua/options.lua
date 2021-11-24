@@ -1,5 +1,29 @@
 local M = {}
 
+local function copy(table)
+
+    local ret = {}
+
+    for k, v in pairs(table) do
+        ret[k] = v
+    end
+
+    return ret
+
+end
+
+local function mergeTables(a, b)
+
+    local ret = copy(a)
+
+    for k, v in pairs(b) do
+        ret[k] = v
+    end
+
+    return ret
+
+end
+
 function M.RunCodeBuffer()
 
     vim.bo.bufhidden = 'delete'
@@ -18,14 +42,22 @@ function M.disablePlugins()
         'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugins',
         'getscript', 'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin',
         'matchit', 'matchparen', 'logiPat', 'rrhelper',
-        'netrw', 'netrwPlugin', 'netrwSettings', 'remote_plugins', 'man',
-        'shada_plugin', 'spellfile_plugin', 'tutor_mode_plugin'
+        'remote_plugins', 'man', 'shada_plugin', 'spellfile_plugin', 'tutor_mode_plugin'
     }
+
+    if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
+        plug_buitlins = mergeTables(
+            plug_buitlins,
+            {'netrw', 'netrwPlugin', 'netrwSettings'}
+        )
+    end
 
     for _, p in pairs(plug_buitlins) do
         vim.g["loaded_" .. p] = 1
     end
 end
+
+M.disablePlugins()
 
 function M.loadOptions()
 
@@ -58,6 +90,9 @@ function M.loadOptions()
         redrawtime = 1500,
         scrolloff = 8,
         undofile = true,
+        undolevels = 10000,
+        writebackup = false,
+        swapfile = false,
     }
 
     for k, v in pairs(options) do
@@ -97,9 +132,9 @@ function M.config()
     vim.g['loaded_python_provider'] = false
     vim.g['python3_host_prog'] = '~/AppData/Local/Programs/Python/Python39/python.exe'
 
-    vim.g['UltiSnipsExpandTrigger'] = "<c-s>"
-    vim.g['UltiSnipsJumpForwardTrigger'] = "<tab>"
-    vim.g['UltiSnipsJumpBackwardTrigger'] = "<s-tab>"
+    vim.g['UltiSnipsExpandTrigger'] = '<c-s>'
+    vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
+    vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
     vim.g['UltiSnipsSnippetDirectories'] = { '~/appdata/local/nvim/snips' }
 
     vim.g['sneak#use_ic_scs'] = true

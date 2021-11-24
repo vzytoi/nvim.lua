@@ -27,15 +27,15 @@ end
 local function closeBuffersList()
 
     local closeAutocmd = {
-        "BufEnter",
-        "*",
-        "if (winnr('$') == 1 && &filetype == '%s') | q | endif"
+        'BufEnter',
+        '*',
+        'if (winnr("$") == 1 && &filetype == "%s") | q | endif'
     }
 
     local ftList = {
         _close = {
-            "packer", "git-commit", "coc-explorer",
-            "fugitive"
+            'packer', 'git-commit', 'coc-explorer',
+            'fugitive', 'startuptime'
         }
     }
 
@@ -60,8 +60,8 @@ end
 
 local function setAutocmd(gp, def)
 
-        vim.cmd("augroup " .. gp)
-        vim.cmd("autocmd!")
+        vim.cmd('augroup ' .. gp)
+        vim.cmd('autocmd!')
 
         for _, defi in pairs(def) do
 
@@ -72,7 +72,7 @@ local function setAutocmd(gp, def)
             )
         end
 
-        vim.cmd("augroup END")
+        vim.cmd('augroup END')
 
 end
 

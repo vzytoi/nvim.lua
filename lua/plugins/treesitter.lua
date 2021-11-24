@@ -18,22 +18,22 @@ require('nvim-treesitter.configs').setup({
             enable = true,
             lookahead = true,
             keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["al"] = "@loop.outer",
-                ["il"] = "@loop.inner",
-                ["ic"] = "@conditional.inner",
-                ["an"] = "@conditional.outer",
-                ["a/"] = "@comment.outer"
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['al'] = '@loop.outer',
+                ['il'] = '@loop.inner',
+                ['ic'] = '@conditional.inner',
+                ['an'] = '@conditional.outer',
+                ['a/'] = '@comment.outer'
             },
         },
         swap = {
             enable = true,
             swap_next = {
-                ["<leader>a"] = "@parameter.inner",
+                ['<leader>a'] = '@parameter.inner',
             },
             swap_previous = {
-                ["<leader>A"] = "@parameter.inner",
+                ['<leader>A'] = '@parameter.inner',
             },
         },
     },
