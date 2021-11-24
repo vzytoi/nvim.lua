@@ -111,6 +111,7 @@ function M.loadOptions()
                         - '2'
 
     vim.cmd [[set shortmess+=c]]
+    vim.g.qfl = false
 
 end
 

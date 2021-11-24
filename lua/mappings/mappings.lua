@@ -1,5 +1,23 @@
 local M = {}
 
+local function toggleQFL()
+
+    local cmd
+
+    if vim.g.qfl then
+        cmd = 'cclose'
+    else
+        cmd = 'copen'
+    end
+
+    vim.g.qfl = not vim.g.qfl
+
+    vim.api.nvim_command(
+        cmd
+    )
+
+end
+
 function M.setup()
 
     return {
@@ -22,9 +40,14 @@ function M.setup()
                 { 'd', [[<cmd>lua require("persistence").stop()<cr>]] },
             }},
             { 'n', ':silent set rnu!<cr>'},
-            { 'c', ':Cheat<cr>'},
-            { 'c', {
+            { 'h', ':Cheat<cr>'},
+            { 'h', {
                 { 'l', ':CheatList<cr>'}
+            }},
+            { 'c', function() toggleQFL() end },
+            { 'c', {
+                { 'h', ':cnext<cr>' },
+                { 'l', ':cprevious<cr>'}
             }},
             { 'y', {
                 { 'l', 'V"*y' },
