@@ -15,32 +15,13 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'u', ':UndoTreeToggle<cr>'},
             { 'q', {
                 { 's', [[<cmd>lua require("persistence").load()<cr>]] },
                 { 'l', [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
                 { 'd', [[<cmd>lua require("persistence").stop()<cr>]] },
             }},
             { 'n', ':silent set rnu!<cr>'},
-            { 'h', function()
-                require('harpoon.ui').toggle_quick_menu()
-            end },
-            { 'h', {
-                { 'm', function()
-                    require('harpoon.mark').add_file()
-                end },
-            }},
-            { '&', function()
-                require('harpoon.ui').nav_file(1)
-            end },
-            { 'é', function()
-                require('harpoon.ui').nav_file(2)
-            end },
-            { '"', function()
-                require('harpoon.ui').nav_file(3)
-            end },
-            { "'", function()
-                require('harpoon.ui').nav_file(4)
-            end },
             { 'c', ':Cheat<cr>'},
             { 'c', {
                 { 'l', ':CheatList<cr>'}

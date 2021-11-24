@@ -14,6 +14,11 @@ function M.config()
 
     return require('packer').startup{function(use)
 
+        use {
+            'lewis6991/impatient.nvim',
+            config = [[require('impatient')]]
+        }
+
         use 'wbthomason/packer.nvim'
         use 'nvim-lua/plenary.nvim'
 
@@ -25,8 +30,15 @@ function M.config()
         use 'SirVer/ultisnips'
         use 'tpope/vim-sleuth'
         use 'bogado/file-line'
+        use 'farmergreg/vim-lastplace'
+        use 'michaeljsmith/vim-indent-object'
+        use 'vim/colorschemes'
 
-        use{
+        use {
+            'mbbill/undotree'
+        }
+
+        use {
             "folke/persistence.nvim",
             event = "BufReadPre",
             config = [[require("persistence").setup()]]
@@ -169,9 +181,7 @@ function M.config()
         use {
             'neoclide/coc.nvim',
             branch = 'release',
-            config = function()
-                require 'plugins.coc'
-            end,
+            config = [[require('plugins.coc')]],
             event = 'VimEnter'
         }
 
@@ -181,7 +191,9 @@ function M.config()
             event = 'BufWritePre'
         }
 
-    end}
+    end,
+    config = { compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua' }
+    }
 
 end
 
