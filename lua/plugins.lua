@@ -33,9 +33,16 @@ function M.config()
         use 'farmergreg/vim-lastplace'
         use 'michaeljsmith/vim-indent-object'
         use 'vim/colorschemes'
+        use 'sindrets/diffview.nvim'
 
         use {
-            'mbbill/undotree'
+            'mbbill/undotree',
+            cmd = {
+                'UndotreeShow',
+                'UndotreeToggle',
+                'UndotreeFocus',
+                'UndotreeHide'
+            }
         }
 
         use {

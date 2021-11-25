@@ -57,8 +57,6 @@ function M.disablePlugins()
     end
 end
 
-M.disablePlugins()
-
 function M.loadOptions()
 
     local options = {
@@ -111,7 +109,16 @@ function M.loadOptions()
                         - '2'
 
     vim.cmd [[set shortmess+=c]]
-    vim.g.qfl = false
+
+end
+
+function M.setToggleVariables()
+
+    local var = {'copen', 'DiffviewOpen'}
+
+    for _, v in pairs(var) do
+        vim.g[v] = false
+    end
 
 end
 
@@ -129,6 +136,7 @@ function M.config()
     M.disablePlugins()
     M.loadOptions()
     M.ColorOpt()
+    M.setToggleVariables()
 
     vim.g['loaded_python_provider'] = false
     vim.g['python3_host_prog'] = '~/AppData/Local/Programs/Python/Python39/python.exe'

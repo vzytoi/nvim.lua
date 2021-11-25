@@ -1,20 +1,12 @@
 local M = {}
 
-local function toggleQFL()
-
-    local cmd
-
-    if vim.g.qfl then
-        cmd = 'cclose'
-    else
-        cmd = 'copen'
-    end
-
-    vim.g.qfl = not vim.g.qfl
+local function toggle(open, close)
 
     vim.api.nvim_command(
-        cmd
+        (vim.g[open] and close or open)
     )
+
+    return not vim.g[open]
 
 end
 
@@ -33,6 +25,9 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'd', function()
+                vim.g.DiffviewOpen = toggle('DiffviewOpen', 'DiffviewClose')
+            end },
             { 'u', ':UndoTreeToggle<cr>'},
             { 'q', {
                 { 's', [[<cmd>lua require("persistence").load()<cr>]] },
@@ -44,7 +39,9 @@ function M.setup()
             { 'h', {
                 { 'l', ':CheatList<cr>'}
             }},
-            { 'c', function() toggleQFL() end },
+            { 'c', function()
+                vim.g.copen = toggle('copen', 'cclose')
+            end },
             { 'c', {
                 { 'h', ':cnext<cr>' },
                 { 'l', ':cprevious<cr>'}
@@ -110,9 +107,9 @@ function M.setup()
                 { 'j>', '<c-n>'},
                 { 'k>', '<c-p>'},
             }},
-            { options = { expr = true}, {
-                { '<TAB>', [[pumvisible() ? "\<C-y>" : "\<Tab>" ]] }
-            }}
+            -- { options = { expr = true}, {
+            --     { '<TAB>', [[pumvisible() ? "\<C-y>" : "\<Tab>" ]] }
+            -- }}
         }},
     }
 
