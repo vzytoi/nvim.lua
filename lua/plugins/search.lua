@@ -54,15 +54,15 @@ function M.run()
             )
         )
 
-        vim.cmd[[call feedkeys('\<esc>')]]
+        vim.cmd[[call feedkeys("\<esc>")]]
 
         if is_set then
             if site[1] == 'google' then
-                vim.cmd[[call feedkeys('\<cr>')]]
+                vim.cmd[[call feedkeys("\<cr>")]]
             elseif site[1] == 'github' then
-                vim.cmd[[call feedkeys('k\<cr>')]]
+                vim.cmd[[call feedkeys("k\<cr>")]]
             elseif site[1] == 'stackoverflow' then
-                vim.cmd[[call feedkeys('jjjj\<cr>')]]
+                vim.cmd[[call feedkeys("jjjj\<cr>")]]
             end
         end
 
