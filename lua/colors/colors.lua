@@ -10,10 +10,20 @@ function M.setup()
             LineNr = {guifg = '#6B6B6B'},
             BiscuitColor = {guifg = '#383838'},
             VertSplit = {guifg = '#6B6B6B'};
-            DiffAdd = {cterm='bold', ctermfg='10', ctermbg='17', guifg='bg', guibg='darkGreen'},
-            DiffDelete = {cterm='bold', ctermfg='10', ctermbg='17', guifg='bg', guibg='darkRed'},
-            DiffChange = {cterm='bold', ctermfg='10', ctermbg='17', guifg='bg', guibg='darkOrange'},
-            DiffText = {cterm='bold', ctermfg='10', ctermbg='88', guifg='bg', guibg='darkBlue'}
+            _ = {
+                {
+                    cterm = 'bold',
+                    ctermfg = '10',
+                    ctermbg = '17',
+                    guifg = 'bg',
+                },
+                {
+                    DiffAdd = {guibg = 'darkGreen'},
+                    DiffDelete = {guibg = 'darkRed'},
+                    DiffChange = {guibg = 'darkOrange'},
+                    DiffText = {guibg = 'darkBlue'},
+                }
+            }
         },
         spacecamp = {
             MatchParen = {guifg = '#F0D50C'},
