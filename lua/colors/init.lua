@@ -67,7 +67,7 @@ local function colors(hi)
     local o = {}
 
     for k, _ in pairs(hi) do
-        if k == vim.g.colorscheme or k == 'all' then
+        if k == vim.g.colors_name or k == 'all' then
             o = mergeTables(o, hi[k])
         end
     end
