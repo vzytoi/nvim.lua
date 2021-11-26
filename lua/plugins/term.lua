@@ -39,7 +39,9 @@ function M.config()
 
         local map = {
             ['<leader>t'] = [[<C-\><C-n>:q!<cr>]],
-            ['<esc>'] = [[<C-\><C-n>]]
+            ['<esc>'] = [[<C-\><C-n>]],
+            ['<tab>'] = [[<C-\><C-n>:tabnext<cr>]],
+            ['<s-tab>'] = [[<C-\><C-n>:tabprev<cr>]]
         }
 
         local opts = {
