@@ -35,7 +35,7 @@ local function closeBuffersList()
     local ftList = {
         _close = {
             'packer', 'git-commit', 'coc-explorer',
-            'fugitive', 'startuptime', 'qf'
+            'fugitive', 'startuptime', 'qf', 'diff'
         }
     }
 
