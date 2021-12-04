@@ -8,7 +8,16 @@ return {
         cpp = 'g++ -o @.exe #;./@.exe'
     },
     sub = {
-        ['#'] = '%:t',
-        ['@'] = '%:r'
+        normal = {
+            ['#'] = '%:t',
+            ['@'] = '%r'
+        },
+        visual = {
+            ['#'] = string.format(
+                    "C:\\Users\\Cyprien\\appdata\\local\\nvim\\lua\\plugins\\runcode\\log\\%s.%s",
+                    vim.bo.filetype, vim.bo.filetype),
+            ['@'] = string.format("C:\\Users\\Cyprien\\appdata\\local\\nvim\\lua\\plugins\\runcode\\log\\%s",
+                    vim.bo.filetype)
+        }
     }
 }

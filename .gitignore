@@ -4,3 +4,4 @@ test/*
 start.log
 sessions/*
 lua/packer_compiled.lua
+lua/plugins/runcode/log/*
