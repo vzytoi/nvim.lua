@@ -32,8 +32,20 @@ function M.config()
         use 'bogado/file-line'
         use 'farmergreg/vim-lastplace'
         use 'michaeljsmith/vim-indent-object'
-        use 'vim/colorschemes'
-        use 'sindrets/diffview.nvim'
+        use 'morhetz/gruvbox'
+        use 'wuelnerdotexe/vim-enfocado'
+
+        use {
+            'sindrets/diffview.nvim',
+            config = function()
+                require('diffview').setup {
+                    file_panel = {
+                        position = 'bottom'
+                    }
+                }
+            end
+        }
+
         use {
             'numToStr/Comment.nvim',
             config = function()
@@ -99,9 +111,10 @@ function M.config()
                 'hrsh7th/cmp-path',
                 'hrsh7th/cmp-calc',
                 {
-                    'adrianiy/cmp-tabnine',
-                    run = './install.sh'
-                }
+                    'tzachar/cmp-tabnine',
+                    run = 'powershell ./install.ps1'
+                },
+                'hrsh7th/cmp-buffer'
             }
         }
 
@@ -183,8 +196,8 @@ function M.config()
         }
 
         use {
-            'JoosepAlviste/nvim-ts-context-commentstring',
-            after = 'nvim-treesitter',
+            'nvim-treesitter/nvim-tree-docs',
+            after = 'nvim-treesitter'
         }
 
         use {
@@ -198,19 +211,6 @@ function M.config()
                     }
                 })
             end
-        }
-
-        use {
-            'terrortylor/nvim-comment',
-            config = function()
-                require('nvim_comment').setup({
-                    comment_empty = false,
-                    hook = function()
-                        require('ts_context_commentstring.internal').update_commentstring()
-                    end
-                })
-            end,
-            after = 'nvim-ts-context-commentstring',
         }
 
         use {
