@@ -9,11 +9,17 @@ function M.setup()
         )
     end
 
-    local opts = {noremap = true}
+    for _, v in ipairs({'x', 'xs', 'xv'}) do
+        vim.api.nvim_set_keymap(
+            'v', '<leader>' .. v, keymap(v:sub(1,1)),
+        {noremap = true})
+    end
 
-    vim.api.nvim_set_keymap('v', '<leader>x', keymap('x'), opts)
-    vim.api.nvim_set_keymap('v', '<leader>xs', keymap('s'), opts)
-    vim.api.nvim_set_keymap('v', '<leader>xv', keymap('v'), opts)
+    vim.api.nvim_set_keymap(
+        'v', '<leader>xe',
+        ":lua require('plugins.runcode').time('visual')<cr>",
+        {noremap = true}
+    )
 
     local map = {
         { '<leader>', {
@@ -28,7 +34,7 @@ function M.setup()
                     M.run('normal', 'v')
                 end },
                 { 'e', function()
-                    M.time()
+                    M.time('normal')
                 end }
             }},
         }}
@@ -89,7 +95,10 @@ end
 function M.run(mode, dir)
 
     if mode == 'visual' then
-        write(require('plugins.runcode.lang').sub.visual['#'], selection())
+        write(
+            require('plugins.runcode.lang').sub.visual['#'],
+            selection()
+        )
     end
 
     local d = {
@@ -107,45 +116,34 @@ function M.run(mode, dir)
 
 end
 
-function M.time()
+function M.time(mode)
 
     local t = vim.fn.system(
         string.format(
-            "(Measure-Command{%s}).ToString()",
-            M.command('normal')
+            "Measure-Command { Invoke-Expression '%s'} | Select -ExpandProperty TotalMilliseconds",
+            M.command(mode)
         )
-    )
+    ):gsub('\n', ''):gsub(',', '.')
 
-    local ft = {0, 0, 0, 0}
+    t = tonumber(t)
+
+    local times = {'ms', 's', 'm', 'h'}
+
+    local dimentions = {
+        1,
+        1000,
+        60,
+        60
+    }
+
     local c = 1
 
-    for str in string.gmatch(t, "([^:|.]+)") do
-        ft[c] = tonumber(str)
+    while t >= 1000 do
+        t = t / dimentions[c]
         c = c + 1
     end
 
-    ft[4] = math.floor(ft[4] / 10000)
-
-    local t = {"h", "m", "s", "ms"}
-
-    local r = ""
-
-    for i = 1, 4 do
-        if ft[i] ~= 0 then
-            r = string.format(
-                "%s %s%s",
-                r, ft[i], t[i]
-            )
-        end
-    end
-
-    print(
-        string.format(
-            "%s:%s",
-            vim.fn.expand('%:t'),
-            r
-        )
-    )
+    print(t, times[c])
 
 end
 
