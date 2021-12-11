@@ -1,3 +1,5 @@
+local curr = vim.bo.filetype
+
 return {
     lang = {
         typescript = 'ts-node #',
@@ -5,7 +7,12 @@ return {
         c = 'gcc # -o @.exe;./@.exe',
         go = 'go run #',
         java = 'javac #',
-        cpp = 'g++ -o @.exe #;./@.exe'
+        cpp = 'g++ -o @.exe #;./@.exe',
+        ps1 = 'powershell ./#'
+    },
+    intro = {
+        php = '<?php\n',
+        python = 'from math import *\n'
     },
     sub = {
         normal = {
@@ -13,11 +20,11 @@ return {
             ['@'] = '%r'
         },
         visual = {
-            ['#'] = string.format(
-                    "C:\\Users\\Cyprien\\appdata\\local\\nvim\\lua\\plugins\\runcode\\log\\%s.%s",
-                    vim.bo.filetype, vim.bo.filetype),
-            ['@'] = string.format("C:\\Users\\Cyprien\\appdata\\local\\nvim\\lua\\plugins\\runcode\\log\\%s",
-                    vim.bo.filetype)
+            ['#'] = vim.fn.stdpath('data')..'\\runcode_log\\' .. curr .. '.' .. curr,
+            ['@'] = string.format(
+                    vim.fn.stdpath('data')..'\\runcode_log\\%s',
+                    curr
+                ),
         }
     }
 }

@@ -64,6 +64,24 @@ local function selection()
 
 end
 
+M.logPath = vim.fn.stdpath('data') .. '\\runcode_log\\*'
+
+function M.getLog()
+
+    vim.api.nvim_command(string.format(
+        '!Get-Item %s', M.logPath
+    ))
+
+end
+
+function M.clearLog()
+
+    vim.api.nvim_command(string.format(
+        '!Remove-Item %s -Recurse -Force', M.logPath
+    ))
+
+end
+
 local function write(filename, data)
 
     local file = io.open(filename, "w")
@@ -94,10 +112,22 @@ end
 
 function M.run(mode, dir)
 
+    if vim.bo.filetype == 'runcode' then
+        print('RROR: unexecutable filetype')
+        return false
+    end
+
+    local select = selection()
+    local intro = require('plugins.runcode.lang').intro
+
+    if intro[vim.bo.filetype] ~= nil then
+        select = intro[vim.bo.filetype] .. select
+    end
+
     if mode == 'visual' then
         write(
             require('plugins.runcode.lang').sub.visual['#'],
-            selection()
+            select
         )
     end
 

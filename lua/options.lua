@@ -33,6 +33,7 @@ function M.RunCodeBuffer()
     vim.wo.winfixheight = true
     vim.wo.number = false
     vim.wo.relativenumber = false
+    vim.bo.filetype = 'runcode'
 
 end
 
@@ -81,7 +82,7 @@ function M.loadOptions()
         splitright = true,
         splitbelow = true,
         timeout = true,
-        timeoutlen = 200,
+        timeoutlen = 500,
         ttimeout = true,
         ttimeoutlen = 10,
         updatetime = 500,
@@ -91,24 +92,12 @@ function M.loadOptions()
         undolevels = 10000,
         writebackup = false,
         swapfile = false,
+        fileformat = 'unix',
     }
 
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
-
-    vim.opt.formatoptions = vim.opt.formatoptions
-                        - 'a'
-                        - 't'
-                        + 'c'
-                        + 'q'
-                        - 'o'
-                        + 'r'
-                        + 'n'
-                        + 'j'
-                        - '2'
-
-    vim.cmd [[set shortmess+=c]]
 
 end
 
@@ -127,7 +116,7 @@ function M.ColorOpt()
     vim.o.termguicolors = true
     vim.o.background = 'dark'
 
-    vim.cmd('colorscheme spacecamp')
+    vim.cmd('colorscheme gruvbox')
 
 end
 
