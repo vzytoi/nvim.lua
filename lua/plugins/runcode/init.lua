@@ -9,7 +9,7 @@ function M.setup()
         )
     end
 
-    for _, v in ipairs({'x', 'xs', 'xv'}) do
+    for _, v in pairs({'x', 'xs', 'xv'}) do
         vim.api.nvim_set_keymap(
             'v', '<leader>' .. v, keymap(v:sub(1,1)),
         {noremap = true})
@@ -110,25 +110,35 @@ function M.command(mode)
 
 end
 
+local function startswith(str, start)
+    return string.sub(str, 1, string.len(start)) == start
+end
+
 function M.run(mode, dir)
+
+    local lang = require('plugins.runcode.lang')
 
     if vim.bo.filetype == 'runcode' then
         print('RROR: unexecutable filetype')
         return false
     end
 
-    local select = selection()
-    local intro = require('plugins.runcode.lang').intro
-
-    if intro[vim.bo.filetype] ~= nil then
-        select = intro[vim.bo.filetype] .. select
-    end
-
     if mode == 'visual' then
-        write(
-            require('plugins.runcode.lang').sub.visual['#'],
-            select
-        )
+
+        -- TODO: c & cpp languages still don't work using visual
+        -- .\foo.exe don't work using full path (12/12/2021 01:42:53)
+
+        local select = selection()
+        local intro = lang.intro[vim.bo.filetype]
+
+        if intro ~= nil and startswith(select, intro) ~= true then
+            select = string.format(
+                '%s\n%s', intro, select
+            )
+        end
+
+        write(lang.sub.visual['#'], select)
+
     end
 
     local d = {

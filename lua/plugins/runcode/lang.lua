@@ -4,27 +4,23 @@ return {
     lang = {
         typescript = 'ts-node #',
         javascript = 'node #',
-        c = 'gcc # -o @.exe;./@.exe',
+        c = 'gcc # -o @.exe;.\\@.exe',
         go = 'go run #',
-        java = 'javac #',
-        cpp = 'g++ -o @.exe #;./@.exe',
-        ps1 = 'powershell ./#'
+        java = 'javac #;java @',
+        cpp = 'g++ -o @.exe #;start @.exe',
+        ps1 = 'powershell ./#',
     },
     intro = {
-        php = '<?php\n',
-        python = 'from math import *\n'
+        php = '<?php'
     },
     sub = {
         normal = {
             ['#'] = '%:t',
-            ['@'] = '%r'
+            ['@'] = '%:t:r'
         },
         visual = {
-            ['#'] = vim.fn.stdpath('data')..'\\runcode_log\\' .. curr .. '.' .. curr,
-            ['@'] = string.format(
-                    vim.fn.stdpath('data')..'\\runcode_log\\%s',
-                    curr
-                ),
+            ['#'] = string.format('%s\\runcode_log\\%s.%s',vim.fn.stdpath('data'),curr,curr),
+            ['@'] = string.format('%s\\runcode_log\\%s',vim.fn.stdpath('data'),curr)
         }
     }
 }
