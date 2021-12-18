@@ -105,22 +105,24 @@ function M.config()
     M.setToggleVariables()
 
     vim.g['loaded_python_provider'] = false
-    vim.g['python3_host_prog'] = vim.fn.system('which python')
+    vim.g['python3_host_prog'] = vim.fn.system('which python'):gsub('\n', '')
 
     vim.g['UltiSnipsExpandTrigger'] = '<c-s>'
     vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
     vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
-    vim.g['UltiSnipsSnippetDirectories'] = { '~/appdata/local/nvim/snips' }
+    vim.g['UltiSnipsSnippetDirectories'] = { vim.fn.getcwd()..'\\..\\snip' }
 
     vim.g['sneak#use_ic_scs'] = true
 
-    vim.cmd [[
-    let &shell = has('win32') ? 'powershell' : 'pwsh'
-    let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-    let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    set shellquote = shellxquote=
-    ]]
+    if utils.is_win() then
+        vim.cmd [[
+        let &shell = has('win32') ? 'powershell' : 'pwsh'
+        let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+        let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+        let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+        set shellquote = shellxquote=
+        ]]
+    end
 
 end
 
