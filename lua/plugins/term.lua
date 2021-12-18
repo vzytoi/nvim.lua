@@ -13,9 +13,7 @@ function M.setup()
         }},
         { mode = 't', {
             { '<leader>t', [[<C-\><C-n>:q!<cr>]] },
-            { '<esc>', [[<C-\><C-n>]] },
-            { '<tab>', [[<C-\><C-n>:tabnext<cr>]] },
-            { '<s-tab>', [[<C-\><C-n>:tabprev<cr>]] }
+            { '<esc>', [[<C-\><C-n>]] }
         }}
     }
 

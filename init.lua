@@ -35,10 +35,4 @@ init()
 
 require('packer_compiled')
 
--- TODO: idée: faire un plugin manager de session
--- on pourrait enregistrer les sessions sous des noms ou bien
--- charger la dernière sauvegardée. (07/12/2021 18:10:04)
-
--- TODO: lua formatting (07/12/2021 19:10:28)
-
--- TODO: indent when moving lines (07/12/2021 19:10:28)
+-- TODO: php & lua formatter (12/12/2021 01:45:05)

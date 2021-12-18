@@ -85,7 +85,8 @@ function M.setup()
                 { 'c', ':G commit|star<cr>' },
                 { 'p', ':G push<cr>' },
                 { 'l', ':G log<cr>' },
-                { 'd', ':Gdiff<cr>' }
+                { 'd', ':Gdiff<cr>' },
+                { 'q', ':q<cr>'}
             }}
         }},
         { 'n', 'nzzzv' },
@@ -106,10 +107,7 @@ function M.setup()
             { '<c-', {
                 { 'j>', '<c-n>'},
                 { 'k>', '<c-p>'},
-            }},
-            -- { options = { expr = true}, {
-            --     { '<TAB>', [[pumvisible() ? "\<C-y>" : "\<Tab>" ]] }
-            -- }}
+            }}
         }},
     }
 

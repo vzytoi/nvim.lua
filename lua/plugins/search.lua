@@ -16,23 +16,9 @@ end
 
 function M.run()
 
-    local function subrange(t, first, last)
-         return table.move(t, first, last, 1, {})
-    end
-
-    local function split(string, del)
-
-        local result = {};
-        for match in (string..del):gmatch('(.-)'..del) do
-            table.insert(result, match);
-        end
-        return result;
-
-    end
-
     local function callback(_, line)
 
-        local site = split(line, ' ')
+        local site = utils.split(line, ' ')
 
         local sol = {'google','github','stackoverflow'}
 
@@ -41,7 +27,7 @@ function M.run()
         for _, v in pairs(sol) do
             if v == site[1] then
                 line = table.concat(
-                    subrange(site, 2, #site),
+                    utils.subrange(site, 2, #site),
                     " "
                 )
                 is_set = true

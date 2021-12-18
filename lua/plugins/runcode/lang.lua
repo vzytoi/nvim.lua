@@ -19,8 +19,14 @@ return {
             ['@'] = '%:t:r'
         },
         visual = {
-            ['#'] = string.format('%s\\runcode_log\\%s.%s',vim.fn.stdpath('data'),curr,curr),
-            ['@'] = string.format('%s\\runcode_log\\%s',vim.fn.stdpath('data'),curr)
+            ['#'] = string.format(
+                '%s\\runcode_log\\%s.%s',
+                vim.fn.stdpath('data'),curr,curr
+            ),
+            ['@'] = string.format(
+                '%s\\runcode_log\\%s',
+                vim.fn.stdpath('data'),curr
+            )
         }
     }
 }

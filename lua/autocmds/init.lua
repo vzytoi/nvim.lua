@@ -1,28 +1,5 @@
 local M = {}
-
-local function copy(table)
-
-    local ret = {}
-
-    for k, v in pairs(table) do
-        ret[k] = v
-    end
-
-    return ret
-
-end
-
-local function mergeTables(a, b)
-
-    local ret = copy(a)
-
-    for k, v in pairs(b) do
-        ret[k] = v
-    end
-
-    return ret
-
-end
+local utils = require('utils')
 
 local function closeBuffersList()
 
@@ -35,7 +12,8 @@ local function closeBuffersList()
     local ftList = {
         _close = {
             'packer', 'git-commit', 'coc-explorer',
-            'fugitive', 'startuptime', 'qf', 'diff'
+            'fugitive', 'startuptime', 'qf', 'diff',
+            'toggleterm'
         }
     }
 
@@ -78,7 +56,7 @@ end
 
 function M.config()
 
-    local autocmdsList = mergeTables(
+    local autocmdsList = utils.mergeTables(
         closeBuffersList(),
         require('autocmds.autocmds').setup()
     )

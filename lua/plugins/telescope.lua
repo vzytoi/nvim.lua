@@ -3,10 +3,11 @@ local M = {}
 M.telescope = require('telescope')
 M.builtin = require('telescope.builtin')
 M.actions = require('telescope.actions')
+M.themes = require('telescope.themes')
 
 function M.setup()
 
-    local ivy = require('telescope.themes').get_ivy({
+    local ivy = M.themes.get_ivy({
         show_untracked = true
     })
 
@@ -43,7 +44,7 @@ end
 
 function M.config()
 
-    M.telescope.setup {
+    M.telescope.setup({
         defaults = {
             preview = {
                 check_mine_type = false,
@@ -90,7 +91,7 @@ function M.config()
                 case_mode = 'smart_case'
             }
         }
-    }
+    })
 
     M.telescope.load_extension('fzf')
 

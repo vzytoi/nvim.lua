@@ -1,28 +1,5 @@
 local M = {}
-
-local function copy(table)
-
-    local ret = {}
-
-    for k, v in pairs(table) do
-        ret[k] = v
-    end
-
-    return ret
-
-end
-
-local function mergeTables(a, b)
-
-    local ret = copy(a)
-
-    for k, v in pairs(b) do
-        ret[k] = v
-    end
-
-    return ret
-
-end
+local utils = require('utils')
 
 function M.RunCodeBuffer()
 
@@ -47,7 +24,7 @@ function M.disablePlugins()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = mergeTables(
+        plug_buitlins = utils.mergeTables(
             plug_buitlins,
             {'netrw', 'netrwPlugin', 'netrwSettings'}
         )
@@ -128,7 +105,7 @@ function M.config()
     M.setToggleVariables()
 
     vim.g['loaded_python_provider'] = false
-    vim.g['python3_host_prog'] = '~/AppData/Local/Programs/Python/Python39/python.exe'
+    vim.g['python3_host_prog'] = vim.fn.system('which python')
 
     vim.g['UltiSnipsExpandTrigger'] = '<c-s>'
     vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'

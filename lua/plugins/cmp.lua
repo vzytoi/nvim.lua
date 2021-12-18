@@ -21,8 +21,7 @@ function M.config()
             { name = 'cmp_tabnine' },
             { name = 'ultisnips' },
             { name = 'path' },
-            { name = 'buffer', keyword_length = 5},
-            { name = 'calc' }
+            { name = 'calc' },
         },
         mapping = {
             ['<c-k>'] = M.cmp.mapping.select_prev_item(),
@@ -38,7 +37,6 @@ function M.config()
                 menu = {
                     cmp_tabnine = "[tabnine]",
                     ultisnips = "[snip]",
-                    buffer = "[buf]",
                     path = "[path]",
                     calc = "[calc]"
                 }
@@ -48,7 +46,17 @@ function M.config()
             native_menu = false,
             ghost_text = true
         }
-}
+    }
+--
+--    local tabnine = require('cmp_tabnine.config')
+--
+--    tabnine:setup({
+--        max_lines = 1000;
+--        max_num_results = 20;
+--        sort = true;
+--        run_on_every_keystroke = true;
+--        snippet_placeholder = '..';
+--    })
 
 end
 

@@ -44,26 +44,6 @@ function M.setup()
 
 end
 
-local function selection()
-
-    local s = vim.fn.getpos("'<")
-    local e = vim.fn.getpos("'>")
-
-    local nl = math.abs(e[2] - s[2]) + 1
-
-    local lines = vim.api.nvim_buf_get_lines(0, s[2] - 1, e[2], false)
-    lines[1] = string.sub(lines[1], s[3], -1)
-
-    if nl == 1 then
-        lines[nl] = string.sub(lines[nl], 1, e[3] - s[3] + 1)
-    else
-        lines[nl] = string.sub(lines[nl], 1, e[3])
-    end
-
-    return table.concat(lines, '\n')
-
-end
-
 M.logPath = vim.fn.stdpath('data') .. '\\runcode_log\\*'
 
 function M.getLog()

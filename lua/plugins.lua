@@ -112,9 +112,14 @@ function M.config()
                 'hrsh7th/cmp-calc',
                 {
                     'tzachar/cmp-tabnine',
-                    run = 'powershell ./install.ps1'
-                },
-                'hrsh7th/cmp-buffer'
+                    run = function()
+                        if is_win() then
+                            return 'powershell ./install.ps1'
+                        else
+                            return './install.sh'
+                        end
+                    end
+                }
             }
         }
 

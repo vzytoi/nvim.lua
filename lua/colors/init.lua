@@ -1,28 +1,5 @@
 local M = {}
-
-local function copy(table)
-
-    local ret = {}
-
-    for k, v in pairs(table) do
-        ret[k] = v
-    end
-
-    return ret
-
-end
-
-local function mergeTables(a, b)
-
-    local ret = copy(a)
-
-    for k, v in pairs(b) do
-        ret[k] = v
-    end
-
-    return ret
-
-end
+local utils = require('utils')
 
 local function apply(name, args)
 
@@ -55,20 +32,20 @@ end
 local function undeep(v)
 
     for k, _ in pairs(v[2]) do
-        v[2][k] = mergeTables(v[2][k], v[1])
+        v[2][k] = utils.mergeTables(v[2][k], v[1])
     end
 
     return v[2]
 
 end
 
-local function colors(hi)
+local function sort(hi)
 
     local o = {}
 
     for k, _ in pairs(hi) do
         if k == vim.g.colors_name or k == 'all' then
-            o = mergeTables(o, hi[k])
+            o = utils.mergeTables(o, hi[k])
         end
     end
 
@@ -79,11 +56,18 @@ end
 function M.config()
 
     require('options').ColorOpt()
-    local o = colors(require('colors.colors').setup())
+
+    local o = sort(
+        require('colors.colors').setup()
+    )
+
+    for k, _ in ipairs(o) do
+        print(k)
+    end
 
     for k, _ in pairs(o) do
         if k == '_' then
-            o = mergeTables(
+            o = utils.mergeTables(
                 undeep(o[k]), o
             )
         end
