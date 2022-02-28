@@ -15,8 +15,8 @@ local function init()
         {'plugins'},
         {'autocmds'},
         {'options'},
-        {'colors', event = 'ColorScheme' },
-        {'abbr', event = 'CmdLineEnter' },
+        {'colors', event = 'colorscheme' },
+        {'abbr', event = 'cmdlineenter' },
     }
 
     for _, f in pairs(files) do
@@ -34,5 +34,3 @@ end
 init()
 
 require('packer_compiled')
-
--- TODO: php & lua formatter (12/12/2021 01:45:05)

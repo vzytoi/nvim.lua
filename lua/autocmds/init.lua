@@ -54,7 +54,7 @@ local function setAutocmd(gp, def)
 
 end
 
-function M.config()
+M.config = function()
 
     local autocmdsList = utils.mergeTables(
         closeBuffersList(),

@@ -25,10 +25,10 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'u', ':PP<cr>'},
             { 'd', function()
                 vim.g.DiffviewOpen = toggle('DiffviewOpen', 'DiffviewClose')
             end },
-            { 'u', ':UndoTreeToggle<cr>'},
             { 'q', {
                 { 's', [[<cmd>lua require("persistence").load()<cr>]] },
                 { 'l', [[<cmd>lua require("persistence").load({ last = true })<cr>]] },

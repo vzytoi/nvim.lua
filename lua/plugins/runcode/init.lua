@@ -15,12 +15,6 @@ function M.setup()
         {noremap = true})
     end
 
-    vim.api.nvim_set_keymap(
-        'v', '<leader>xe',
-        ":lua require('plugins.runcode').time('visual')<cr>",
-        {noremap = true}
-    )
-
     local map = {
         { '<leader>', {
             { 'x', function()
@@ -133,37 +127,6 @@ function M.run(mode, dir)
         require('options').RunCodeBuffer()
         M.resize(dir)
     end
-
-end
-
-function M.time(mode)
-
-    local t = vim.fn.system(
-        string.format(
-            "Measure-Command { Invoke-Expression '%s'} | Select -ExpandProperty TotalMilliseconds",
-            M.command(mode)
-        )
-    ):gsub('\n', ''):gsub(',', '.')
-
-    t = tonumber(t)
-
-    local times = {'ms', 's', 'm', 'h'}
-
-    local dimentions = {
-        1,
-        1000,
-        60,
-        60
-    }
-
-    local c = 1
-
-    while t >= 1000 do
-        t = t / dimentions[c]
-        c = c + 1
-    end
-
-    print(t, times[c])
 
 end
 

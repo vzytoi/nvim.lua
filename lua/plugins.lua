@@ -36,6 +36,30 @@ function M.config()
         use 'wuelnerdotexe/vim-enfocado'
 
         use {
+            'rktjmp/paperplanes.nvim',
+            config = function()
+                require('paperplanes').setup {
+                    register = "*",
+                    provider = "ix.io"
+                }
+            end
+        }
+
+        use {
+            'xiyaowong/accelerated-jk.nvim',
+            config = [[require('accelerated-jk').setup()]]
+        }
+
+        use {
+            "max397574/better-escape.nvim",
+            config = function()
+                require("better_escape").setup {
+                    mapping = {"kj", "jk"}
+                }
+            end
+        }
+
+        use {
             'sindrets/diffview.nvim',
             config = function()
                 require('diffview').setup {
@@ -186,6 +210,7 @@ function M.config()
         use {
             'nvim-treesitter/nvim-treesitter',
             event = 'BufRead',
+            disabled = true,
             run = ':TSUpdate',
             config = [[require('plugins.treesitter')]]
         }
