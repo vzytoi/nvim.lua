@@ -28,7 +28,7 @@ function M.setup()
                     M.run('normal', 'v')
                 end },
                 { 'e', function()
-                    M.time('normal')
+                    m.time('normal')
                 end }
             }},
         }}

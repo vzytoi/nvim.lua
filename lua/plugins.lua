@@ -34,6 +34,8 @@ function M.config()
         use 'michaeljsmith/vim-indent-object'
         use 'morhetz/gruvbox'
         use 'wuelnerdotexe/vim-enfocado'
+        use 'google/vim-colorscheme-primary'
+        use 'KabbAmine/vCoolor.vim'
 
         use {
             'rktjmp/paperplanes.nvim',
@@ -131,7 +133,13 @@ function M.config()
             config = [[require('plugins.cmp').config()]],
             requires = {
                 'onsails/lspkind-nvim',
-                'quangnguyen30192/cmp-nvim-ultisnips',
+                {
+                    'quangnguyen30192/cmp-nvim-ultisnips',
+                    config = function()
+                        require('cmp_nvim_ultisnips').setup{}
+                    end
+                },
+
                 'hrsh7th/cmp-path',
                 'hrsh7th/cmp-calc',
                 {

@@ -18,7 +18,7 @@ function M.run()
 
     local function callback(_, line)
 
-        local site = utils.split(line, ' ')
+        local site = vim.fn.split(line, ' ')
 
         local sol = {'google','github','stackoverflow'}
 
@@ -26,10 +26,7 @@ function M.run()
 
         for _, v in pairs(sol) do
             if v == site[1] then
-                line = table.concat(
-                    utils.subrange(site, 2, #site),
-                    " "
-                )
+                line = table.remove(site, 1)
                 is_set = true
             end
         end

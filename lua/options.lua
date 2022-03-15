@@ -78,22 +78,12 @@ function M.loadOptions()
 
 end
 
-function M.setToggleVariables()
-
-    local var = {'copen', 'DiffviewOpen'}
-
-    for _, v in pairs(var) do
-        vim.g[v] = false
-    end
-
-end
-
 function M.ColorOpt()
 
     vim.o.termguicolors = true
     vim.o.background = 'dark'
 
-    vim.cmd('colorscheme spacecamp')
+    vim.cmd('colorscheme gruvbox')
 
 end
 
@@ -102,15 +92,14 @@ function M.config()
     M.disablePlugins()
     M.loadOptions()
     M.ColorOpt()
-    M.setToggleVariables()
 
     vim.g['loaded_python_provider'] = false
     vim.g['python3_host_prog'] = vim.fn.system('which python'):gsub('\n', '')
 
-    vim.g['UltiSnipsExpandTrigger'] = '<c-s>'
-    vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
-    vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
-    vim.g['UltiSnipsSnippetDirectories'] = { vim.fn.getcwd()..'\\..\\snip' }
+    -- vim.g['UltiSnipsExpandTrigger'] = '<c-s>'
+    -- vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
+    -- vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
+    vim.g['UltiSnipsSnippetDirectories'] = { vim.fn.getcwd()..'\\..\\snip\\' }
 
     vim.g['sneak#use_ic_scs'] = true
 

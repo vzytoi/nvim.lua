@@ -5,7 +5,8 @@ function M.config()
     local t = {
         spacecamp = require('plugins.lualine.themes.spacecamp'),
         gruvbox = 'gruvbox_dark',
-        enfocado = 'enfocado'
+        enfocado = 'enfocado',
+        primary = '16color'
     }
 
     require('lualine').setup {

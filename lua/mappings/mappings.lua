@@ -1,5 +1,11 @@
 local M = {}
 
+local var = {'copen', 'DiffviewOpen', 'lop'}
+
+for _, v in pairs(var) do
+    vim.g[v] = false
+end
+
 local function toggle(open, close)
 
     vim.api.nvim_command(
@@ -39,6 +45,9 @@ function M.setup()
             { 'h', {
                 { 'l', ':CheatList<cr>'}
             }},
+            { 'l', function()
+                vim.g.lop = toggle('lop', 'lcl')
+            end },
             { 'c', function()
                 vim.g.copen = toggle('copen', 'cclose')
             end },

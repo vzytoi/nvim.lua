@@ -23,6 +23,9 @@ function M.setup()
         gruvbox = {
             Visual = {ctermbg = 0, guibg = 'Grey40'},
             CocHintFloat = {}
+        },
+        primary = {
+            NonText = {guifg = '#202124'},
         }
     }
 

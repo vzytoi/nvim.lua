@@ -10,6 +10,7 @@ function M.config()
 
     M.cmp = require('cmp')
     M.lspkind = require('lspkind')
+    M.lspmap = require("cmp_nvim_ultisnips.mappings")
 
     M.cmp.setup {
         snippet = {
@@ -29,7 +30,13 @@ function M.config()
             ['<tab>'] = M.cmp.mapping.confirm({
                 behavior = M.cmp.ConfirmBehavior.Replace,
                 select = true,
-            })
+            }),
+            ["<c-s>"] = M.cmp.mapping(
+                function(fallback)
+                    M.lspmap.compose{"expand"}(fallback)
+                end,
+                { "i", "s" }
+            ),
         },
         formatting = {
             format = M.lspkind.cmp_format {
@@ -47,16 +54,6 @@ function M.config()
             ghost_text = true
         }
     }
---
---    local tabnine = require('cmp_tabnine.config')
---
---    tabnine:setup({
---        max_lines = 1000;
---        max_num_results = 20;
---        sort = true;
---        run_on_every_keystroke = true;
---        snippet_placeholder = '..';
---    })
 
 end
 
