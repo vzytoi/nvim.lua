@@ -2,6 +2,7 @@ M = {}
 
 function M.config()
 
+    local utils = require('utils')
     local execute = vim.api.nvim_command
     local fn = vim.fn
 
@@ -14,11 +15,6 @@ function M.config()
 
     return require('packer').startup{function(use)
 
-        use {
-            'lewis6991/impatient.nvim',
-            config = [[require('impatient')]]
-        }
-
         use 'wbthomason/packer.nvim'
         use 'nvim-lua/plenary.nvim'
 
@@ -27,15 +23,23 @@ function M.config()
         use 'romainl/vim-cool'
         use 'kyazdani42/nvim-web-devicons'
         use 'wellle/targets.vim'
-        use 'SirVer/ultisnips'
+        -- use 'SirVer/ultisnips'
         use 'tpope/vim-sleuth'
         use 'bogado/file-line'
         use 'farmergreg/vim-lastplace'
         use 'michaeljsmith/vim-indent-object'
-        use 'morhetz/gruvbox'
-        use 'wuelnerdotexe/vim-enfocado'
-        use 'google/vim-colorscheme-primary'
         use 'KabbAmine/vCoolor.vim'
+
+        use 'morhetz/gruvbox'
+        use 'google/vim-colorscheme-primary'
+        use 'arzg/vim-colors-xcode'
+
+        use {
+            "folke/zen-mode.nvim",
+            config = function()
+                require("zen-mode").setup { }
+            end
+        }
 
         use {
             'rktjmp/paperplanes.nvim',
@@ -133,19 +137,19 @@ function M.config()
             config = [[require('plugins.cmp').config()]],
             requires = {
                 'onsails/lspkind-nvim',
-                {
-                    'quangnguyen30192/cmp-nvim-ultisnips',
-                    config = function()
-                        require('cmp_nvim_ultisnips').setup{}
-                    end
-                },
+                -- {
+                --     'quangnguyen30192/cmp-nvim-ultisnips',
+                --     config = function()
+                --         require('cmp_nvim_ultisnips').setup{}
+                --     end
+                -- },
 
                 'hrsh7th/cmp-path',
                 'hrsh7th/cmp-calc',
                 {
                     'tzachar/cmp-tabnine',
                     run = function()
-                        if is_win() then
+                        if utils.is_win() then
                             return 'powershell ./install.ps1'
                         else
                             return './install.sh'
@@ -218,7 +222,6 @@ function M.config()
         use {
             'nvim-treesitter/nvim-treesitter',
             event = 'BufRead',
-            disabled = true,
             run = ':TSUpdate',
             config = [[require('plugins.treesitter')]]
         }
@@ -254,8 +257,7 @@ function M.config()
         use {
             'neoclide/coc.nvim',
             branch = 'release',
-            config = [[require('plugins.coc')]],
-            event = 'VimEnter'
+            config = [[require('plugins.coc')]]
         }
 
         use {
@@ -264,8 +266,7 @@ function M.config()
             event = 'BufWritePre'
         }
 
-    end,
-    config = { compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua' }
+        end
     }
 
 end

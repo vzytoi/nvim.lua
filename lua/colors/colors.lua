@@ -7,7 +7,7 @@ function M.setup()
             LineNr = {guifg = '#6B6B6B'},
             BiscuitColor = {guifg = '#383838'},
             VertSplit = {guifg = '#6B6B6B'};
-            Normal = {guifg = '#EEEEEE', guibg = '#080808'},
+            Normal = {guifg = '#EEEEEE', guibg = '#000000'},
         },
         spacecamp = {
             NonText = {guifg = '#6B6B6B'},

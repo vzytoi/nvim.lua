@@ -31,6 +31,7 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'z', ':ZenMode<cr>'},
             { 'u', ':PP<cr>'},
             { 'd', function()
                 vim.g.DiffviewOpen = toggle('DiffviewOpen', 'DiffviewClose')

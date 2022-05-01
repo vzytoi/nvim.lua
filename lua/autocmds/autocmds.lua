@@ -34,6 +34,12 @@ function M.setup()
         },
         _cmp = {
             {'FileType', 'gitcommit', 'lua require("cmp").setup.buffer { enable = false }'}
+        },
+        _golang = {
+            {'BufNewFile, BufRead', '*.go', 'set noet ts=4 sw=4 sts=4'}
+        },
+        _typescript = {
+            {'CursorHold', '*.ts', "silent call CocAction('doHover')"}
         }
     }
 

@@ -12,7 +12,7 @@ function M.setup()
             }},
         }},
         { mode = 't', {
-            { '<leader>t', [[<C-\><C-n>:q!<cr>]] },
+            { '<c-t>', [[<C-\><C-n>:q!<cr>]] },
             { '<esc>', [[<C-\><C-n>]] }
         }}
     }

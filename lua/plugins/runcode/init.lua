@@ -1,5 +1,7 @@
 local M = {}
 
+M.utils = require('utils')
+
 function M.setup()
 
     local keymap = function(dir)
@@ -28,7 +30,7 @@ function M.setup()
                     M.run('normal', 'v')
                 end },
                 { 'e', function()
-                    m.time('normal')
+                    M.time('normal')
                 end }
             }},
         }}
@@ -99,10 +101,7 @@ function M.run(mode, dir)
 
     if mode == 'visual' then
 
-        -- TODO: c & cpp languages still don't work using visual
-        -- .\foo.exe don't work using full path (12/12/2021 01:42:53)
-
-        local select = selection()
+        local select = M.utils.selection()
         local intro = lang.intro[vim.bo.filetype]
 
         if intro ~= nil and startswith(select, intro) ~= true then
@@ -155,6 +154,14 @@ function M.resize(dir)
 
     vim.api.nvim_command(
         string.format("%s res %s", sd, m + 10)
+    )
+
+end
+
+function M.time(mode)
+
+    vim.api.nvim_command(
+        string.format("!time %s", M.command(mode))
     )
 
 end

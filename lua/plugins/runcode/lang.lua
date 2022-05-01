@@ -9,6 +9,8 @@ return {
         java = 'javac #;java @',
         cpp = 'g++ -o @.exe #;start @.exe',
         ps1 = 'powershell ./#',
+        -- rust = 'cargo run 2>/dev/null || rustc # && ./@'
+        rust = 'cargo run'
     },
     intro = {
         php = '<?php'
@@ -20,11 +22,11 @@ return {
         },
         visual = {
             ['#'] = string.format(
-                '%s\\runcode_log\\%s.%s',
+                '%s/runcode_log/%s.%s',
                 vim.fn.stdpath('data'),curr,curr
             ),
             ['@'] = string.format(
-                '%s\\runcode_log\\%s',
+                '%s/runcode_log/%s',
                 vim.fn.stdpath('data'),curr
             )
         }

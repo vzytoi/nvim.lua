@@ -10,17 +10,17 @@ function M.config()
 
     M.cmp = require('cmp')
     M.lspkind = require('lspkind')
-    M.lspmap = require("cmp_nvim_ultisnips.mappings")
+    --M.lspmap = require("cmp_nvim_ultisnips.mappings")
 
     M.cmp.setup {
-        snippet = {
-            expand = function(args)
-                vim.fn['UltiSnips#Anon'](args.body)
-            end
-        },
+       -- snippet = {
+       --     expand = function(args)
+        --        vim.fn['UltiSnips#Anon'](args.body)
+         --   end
+        --},
         sources = {
             { name = 'cmp_tabnine' },
-            { name = 'ultisnips' },
+            --{ name = 'ultisnips' },
             { name = 'path' },
             { name = 'calc' },
         },

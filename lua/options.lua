@@ -62,7 +62,7 @@ function M.loadOptions()
         timeoutlen = 500,
         ttimeout = true,
         ttimeoutlen = 10,
-        updatetime = 500,
+        updatetime = 300,
         redrawtime = 1500,
         scrolloff = 8,
         undofile = true,
@@ -75,6 +75,8 @@ function M.loadOptions()
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
+
+    vim.opt.laststatus = 3
 
 end
 
@@ -96,10 +98,7 @@ function M.config()
     vim.g['loaded_python_provider'] = false
     vim.g['python3_host_prog'] = vim.fn.system('which python'):gsub('\n', '')
 
-    -- vim.g['UltiSnipsExpandTrigger'] = '<c-s>'
-    -- vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
-    -- vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
-    vim.g['UltiSnipsSnippetDirectories'] = { vim.fn.getcwd()..'\\..\\snip\\' }
+    -- vim.g['UltiSnipsSnippetDirectories'] = { vim.fn.getcwd()..'\\..\\snip\\' }
 
     vim.g['sneak#use_ic_scs'] = true
 

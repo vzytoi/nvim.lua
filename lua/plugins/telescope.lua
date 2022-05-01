@@ -113,7 +113,7 @@ function M.open_config()
 
     M.builtin.git_files {
         prompt_prefix = 'Neovim > ',
-        cwd = '~/appdata/local/nvim'
+        cwd = '~/.config/nvim'
     }
 
 end

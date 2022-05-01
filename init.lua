@@ -32,5 +32,3 @@ local function init()
 end
 
 init()
-
-require('packer_compiled')
