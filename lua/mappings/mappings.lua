@@ -31,6 +31,7 @@ function M.setup()
         { '<Tab>', ':tabNext<cr>' },
         { '<S-Tab>', ':tabprevious<cr>' },
         { '<leader>', {
+            { 'g', ':DogeGenerate<cr>'},
             { 'z', ':ZenMode<cr>'},
             { 'u', ':PP<cr>'},
             { 'd', function()

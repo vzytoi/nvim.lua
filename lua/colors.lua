@@ -1,7 +1,21 @@
 local M = {}
-local utils = require('utils')
 
-local function apply(name, args)
+M.utils = require('utils')
+
+M.raw = {
+    all = {
+        LineNr = {guifg = '#6B6B6B'},
+        BiscuitColor = {guifg = '#383838'},
+        VertSplit = {guifg = '#6B6B6B'};
+        Normal = {guifg = '#EEEEEE', guibg = '#000000'},
+    },
+    gruvbox = {
+        Visual = {ctermbg = 0, guibg = 'Grey40'},
+        CocHintFloat = {}
+    }
+}
+
+M.apply = function(name, args)
 
     local opt = {
         'guifg', 'guibg', 'gui', 'guisp', 'cterm'
@@ -29,23 +43,23 @@ local function apply(name, args)
 
 end
 
-local function undeep(v)
+M.undeep = function(v)
 
     for k, _ in pairs(v[2]) do
-        v[2][k] = utils.mergeTables(v[2][k], v[1])
+        v[2][k] = M.utils.mergeTables(v[2][k], v[1])
     end
 
     return v[2]
 
 end
 
-local function sort(hi)
+M.sort = function(hi)
 
     local o = {}
 
     for k, _ in pairs(hi) do
         if k == vim.g.colors_name or k == 'all' then
-            o = utils.mergeTables(o, hi[k])
+            o = M.utils.mergeTables(o, hi[k])
         end
     end
 
@@ -53,12 +67,12 @@ local function sort(hi)
 
 end
 
-function M.config()
+M.config = function()
 
     require('options').ColorOpt()
 
-    local o = sort(
-        require('colors.colors').setup()
+    local o = M.sort(
+        M.raw
     )
 
     for k, _ in ipairs(o) do
@@ -67,15 +81,15 @@ function M.config()
 
     for k, _ in pairs(o) do
         if k == '_' then
-            o = utils.mergeTables(
-                undeep(o[k]), o
+            o = M.utils.mergeTables(
+                M.undeep(o[k]), o
             )
         end
     end
 
     for k, v in pairs(o) do
         if k ~= '_' then
-            apply(k, v)
+            M.apply(k, v)
         end
     end
 

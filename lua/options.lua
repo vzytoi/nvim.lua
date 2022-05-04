@@ -20,13 +20,13 @@ function M.disablePlugins()
         'gzip', 'zip', 'zipPlugin', 'tar', 'tarPlugins',
         'getscript', 'getscriptPlugin', 'vimball', 'vimballPlugin', '2html_plugin',
         'matchit', 'matchparen', 'logiPat', 'rrhelper',
-        'remote_plugins', 'man', 'shada_plugin', 'spellfile_plugin', 'tutor_mode_plugin'
+        'remote_plugins', 'man', 'shada_plugin', 'tutor_mode_plugin'
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
         plug_buitlins = utils.mergeTables(
             plug_buitlins,
-            {'netrw', 'netrwPlugin', 'netrwSettings'}
+            { 'netrw', 'netrwPlugin', 'netrwSettings' }
         )
     end
 
@@ -44,7 +44,7 @@ function M.loadOptions()
         ruler = false,
         lazyredraw = true,
         synmaxcol = 2048,
-        completeopt = {"menuone", "noselect"},
+        completeopt = { "menuone", "noselect" },
         expandtab = true,
         autoindent = true,
         smartindent = true,
@@ -70,13 +70,19 @@ function M.loadOptions()
         writebackup = false,
         swapfile = false,
         fileformat = 'unix',
+        spell = false,
+        spl = { 'fr', 'en_us' },
+        encoding = 'utf-8',
+        laststatus = 3,
+        clipboard = 'unnamedplus',
+        signcolumn = 'no'
     }
 
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
 
-    vim.opt.laststatus = 3
+    vim.cmd [[set path=.,~/PATH]]
 
 end
 
@@ -97,20 +103,9 @@ function M.config()
 
     vim.g['loaded_python_provider'] = false
     vim.g['python3_host_prog'] = vim.fn.system('which python'):gsub('\n', '')
-
-    -- vim.g['UltiSnipsSnippetDirectories'] = { vim.fn.getcwd()..'\\..\\snip\\' }
-
+    vim.g.explorer_is_open = false
+    vim.g.coc_suggest_disable = true
     vim.g['sneak#use_ic_scs'] = true
-
-    if utils.is_win() then
-        vim.cmd [[
-        let &shell = has('win32') ? 'powershell' : 'pwsh'
-        let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
-        let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-        let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-        set shellquote = shellxquote=
-        ]]
-    end
 
 end
 

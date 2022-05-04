@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup({
-    -- indent = {enable = true},
     autopairs = {enable = true},
+    tree_docs = {enable = true},
     context_commenstring = {
         enable = true,
         enable_autocmd = false
