@@ -1,22 +1,35 @@
 local function autocmd(name, event)
-    vim.cmd(string.format('autocmd %s * lua require("%s").config()', event, name))
+    vim.api.nvim_create_autocmd(
+        event,
+        {
+            callback = function()
+                require(name).config()
+            end
+        }
+    )
 end
 
 local function init()
     local files = {
-        {"plugins"},
-        {"autocmds"},
-        {"options"},
-        {"abbr", event = "cmdlineenter"}
+        {name = "plugins"},
+        {name = "autocmds"},
+        {name = "options"},
+        {name = "abbr", event = "cmdlineenter"}
     }
 
     for _, f in pairs(files) do
         if not f.event then
-            require(f[1]).config()
+            require(f.name).config()
         else
-            autocmd(f[1], f.event)
+            autocmd(f.name, f.event)
         end
     end
 end
 
+vim.g.mapleader = " "
+
 init()
+
+-- TODO lsp only on current line
+-- TODO: php formatter?
+-- TODO: try to remone nestC from most

@@ -1,35 +1,44 @@
 local M = {}
 
-function M.setup()
-    local map = {
-        {
-            "<leader>",
-            {
-                {"t", ":ToggleTerm direction=tab<cr>"},
-                {
-                    "t",
-                    {
-                        {"f", ":ToggleTerm direction=float<cr>"},
-                        {"s", ":ToggleTerm direction=horizontal<cr>"},
-                        {"v", ":ToggleTerm direction=vertical<cr>"}
-                    }
-                }
-            }
-        },
-        {
-            mode = "t",
-            {
-                {"<c-t>", [[<C-\><C-n>:q!<cr>]]},
-                {"<esc>", [[<C-\><C-n>]]},
-                {"<c-v>", [[<C-\><C-n>"*pA"]]}
-            }
-        }
-    }
+M.toggleterm = require("toggleterm")
 
-    return map
+M.cmds = {
+    javascript = {
+        cmd = "node"
+    }
+}
+
+M.envInit = function()
+    local Terminal = require("toggleterm.terminal").Terminal
+
+    for i, v in pairs(M.cmds) do
+        M.cmds[i].term = Terminal:new({cmd = v.cmd, hidden = true, direction = "float"})
+    end
 end
 
-function M.config()
+M.envGo = function()
+    if M.cmds[vim.bo.filetype] then
+        M.cmds[vim.bo.filetype].term:toggle()
+    else
+        print("Not configured yet.")
+    end
+end
+
+M.setup = function()
+    vim.keymap.set("n", "<leader>t", ":ToggleTerm direction=tab<cr>")
+    vim.keymap.set("n", "<leader>tf", ":ToggleTerm direction=float<cr>")
+    vim.keymap.set("n", "<leader>ts", ":ToggleTerm direction=horizontal<cr>")
+    vim.keymap.set("n", "<leader>tv", ":ToggleTerm direction=vertical<cr>")
+    vim.keymap.set("n", "<leader>ti", M.envGo)
+    vim.keymap.set("t", "<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
+    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]])
+    vim.keymap.set("t", "<c-v>", [[<C-\><C-n>"*pA"]])
+    vim.g.called_term = true
+end
+
+M.config = function()
+    M.envInit()
+
     require("toggleterm").setup {
         hide_numbers = true,
         start_in_insert = true,

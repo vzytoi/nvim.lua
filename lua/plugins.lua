@@ -1,22 +1,18 @@
-M = {}
+local M = {}
 
 function M.config()
-    local utils = require("utils")
-    local execute = vim.api.nvim_command
     local fn = vim.fn
-
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
     if fn.empty(fn.glob(install_path)) > 0 then
         fn.system({"git", "clone", "https://github.com/wbthomason/packer.nvim", install_path})
-        execute "packadd packer.nvim"
+        vim.api.nvim_command("packadd packer.nvim")
     end
 
     return require("packer").startup {
         function(use)
             use "wbthomason/packer.nvim"
             use "nvim-lua/plenary.nvim"
-
             use "Jorengarenar/vim-MvVis"
             use "tpope/vim-surround"
             use "romainl/vim-cool"
@@ -25,11 +21,20 @@ function M.config()
             use "bogado/file-line"
             use "farmergreg/vim-lastplace"
             use "michaeljsmith/vim-indent-object"
-            use "KabbAmine/vCoolor.vim"
             use "morhetz/gruvbox"
-            use "johngrib/vim-game-snake"
-            use "lewis6991/github_dark.nvim"
-            use "ygm2/rooter.nvim"
+            use {
+                "filipdutescu/renamer.nvim",
+                config = function()
+                    require("renamer").setup()
+                end
+            }
+
+            use {
+                "L3MON4D3/LuaSnip",
+                config = function()
+                    require("luasnip.loaders.from_snipmate").lazy_load()
+                end
+            }
 
             use {
                 "mhartington/formatter.nvim",
@@ -43,7 +48,6 @@ function M.config()
                 {
                     "neovim/nvim-lspconfig",
                     config = function()
-                        require("nvim-lsp-installer").setup {}
                         require("plugins.lsp").config()
                     end
                 }
@@ -85,7 +89,9 @@ function M.config()
 
             use {
                 "xiyaowong/accelerated-jk.nvim",
-                config = [[require('accelerated-jk').setup()]]
+                config = function()
+                    require("accelerated-jk").setup()
+                end
             }
 
             use {
@@ -131,7 +137,9 @@ function M.config()
             use {
                 "folke/persistence.nvim",
                 event = "BufReadPre",
-                config = [[require('persistence').setup()]]
+                config = function()
+                    require("persistence").setup()
+                end
             }
 
             use {
@@ -141,28 +149,21 @@ function M.config()
 
             use {
                 "hrsh7th/nvim-cmp",
-                config = [[require('plugins.cmp').config()]],
+                config = require("plugins.cmp").config(),
                 requires = {
                     "onsails/lspkind-nvim",
                     "hrsh7th/cmp-path",
-                    "hrsh7th/cmp-calc",
-                    {
-                        "tzachar/cmp-tabnine",
-                        run = function()
-                            if utils.is_win() then
-                                return "powershell ./install.ps1"
-                            else
-                                return "./install.sh"
-                            end
-                        end
-                    },
-                    "hrsh7th/cmp-nvim-lsp"
+                    "tzachar/cmp-tabnine",
+                    "hrsh7th/cmp-nvim-lsp",
+                    "saadparwaiz1/cmp_luasnip"
                 }
             }
 
             use {
                 "windwp/nvim-autopairs",
-                config = [[require('nvim-autopairs').setup{}]]
+                config = function()
+                    require("nvim-autopairs").setup {}
+                end
             }
 
             use {
@@ -180,24 +181,31 @@ function M.config()
 
             use {
                 "LionC/nest.nvim",
-                config = [[require('mappings')]]
+                config = function()
+                    require("mappings").config()
+                end
+            }
+
+            use {
+                "akinsho/toggleterm.nvim",
+                config = function()
+                    require("plugins.term").config()
+                end
             }
 
             use {
                 "cappyzawa/trim.nvim",
                 event = "BufWritePre",
-                config = [[require('trim').setup({})]]
-            }
-
-            use {
-                "akinsho/toggleterm.nvim",
-                cmd = {"ToggleTerm", "TermExec"},
-                config = [[require('plugins.term').config()]]
+                config = function()
+                    require("trim").setup({})
+                end
             }
 
             use {
                 "hoob3rt/lualine.nvim",
-                config = [[require('plugins.lualine').config()]]
+                config = function()
+                    require("plugins.lualine").config()
+                end
             }
 
             use {
@@ -213,7 +221,10 @@ function M.config()
 
             use {
                 "nvim-telescope/telescope.nvim",
-                config = [[require('plugins.telescope').config()]]
+                config = function()
+                    require("plugins.telescope").config()
+                    require("plugins.telescope").setup_tmp()
+                end
             }
 
             use {
@@ -225,7 +236,9 @@ function M.config()
                 "nvim-treesitter/nvim-treesitter",
                 event = "BufRead",
                 run = ":TSUpdate",
-                config = [[require('plugins.treesitter')]]
+                config = function()
+                    require("plugins.treesitter")
+                end
             }
 
             use {
@@ -236,21 +249,6 @@ function M.config()
             use {
                 "RRethy/nvim-treesitter-textsubjects",
                 after = "nvim-treesitter"
-            }
-
-            use {
-                "code-biscuits/nvim-biscuits",
-                after = "nvim-treesitter",
-                config = function()
-                    require("nvim-biscuits").setup(
-                        {
-                            cursor_line_only = true,
-                            default_config = {
-                                prefix_string = ""
-                            }
-                        }
-                    )
-                end
             }
 
             use {

@@ -1,51 +1,40 @@
 local M = {}
 
 function M.setup()
-
-    local map = {
-        { '<a-', {}}
-    }
-
     local k = {
-        'h', 'l', 'k', 'j'
+        "h",
+        "l",
+        "k",
+        "j"
     }
 
     for i, _ in ipairs(k) do
-        table.insert(map[1][2],
-            {k[i] .. '>',
+        vim.keymap.set(
+            {"n", "i"},
+            string.format("<a-%s>", k[i]),
             function()
                 M.ResizeSplits(k[i])
             end
-        })
+        )
     end
-
-    return map
-
 end
 
 local function reverse(s)
-
-    return (s == '-' and '+' or '-');
-
+    return (s == "-" and "+" or "-")
 end
 
 local function exec(s, d)
-
-    d = d or ''
-    vim.api.nvim_command(
-        string.format('%s res%s5', d, s)
-    )
-
+    d = d or ""
+    vim.api.nvim_command(string.format("%s res%s5", d, s))
 end
 
 function M.ResizeSplits(k)
-
-    local wcount = vim.fn.winnr('$')
+    local wcount = vim.fn.winnr("$")
     local wcurr = vim.fn.winnr()
 
     local sl = {
-        h = '-',
-        l = '+'
+        h = "-",
+        l = "+"
     }
 
     local s
@@ -56,13 +45,12 @@ function M.ResizeSplits(k)
         else
             s = sl[k]
         end
-        exec(s, 'vert')
+        exec(s, "vert")
     else
         sl.k = sl.l
         sl.j = sl.h
         exec(sl[k])
     end
-
 end
 
 return M

@@ -1,8 +1,6 @@
 local M = {}
 
-M.config = function()
-    M.close()
-
+M.setColorscheme = function()
     vim.api.nvim_create_autocmd(
         "Colorscheme",
         {
@@ -14,17 +12,9 @@ M.config = function()
             group = vim.api.nvim_create_augroup("colorschemeLoader", {clear = true})
         }
     )
+end
 
-    vim.api.nvim_create_autocmd(
-        "FileType",
-        {
-            pattern = "gitcommit",
-            callback = function()
-                require("cmp").setup.buffer({enable = false})
-            end
-        }
-    )
-
+M.handleBigFiles = function()
     vim.api.nvim_create_autocmd(
         "BufReadPost",
         {
@@ -37,6 +27,75 @@ M.config = function()
                 elseif size >= 500000 then
                     vim.api.nvim_command("silent! TSBufDisable highlight")
                 end
+            end
+        }
+    )
+end
+
+M.close = function()
+    local gclose = vim.api.nvim_create_augroup("closeWhenLast", {clear = true})
+
+    local fts = {
+        "packer",
+        "git-commit",
+        "coc-explorer",
+        "fugitive",
+        "startuptime",
+        "qf",
+        "diff",
+        "toggleterm"
+    }
+
+    local function apply(ft)
+        vim.api.nvim_create_autocmd(
+            "BufEnter",
+            {
+                callback = function()
+                    if vim.fn.winnr("$") == 1 and vim.bo.filetype == ft then
+                        vim.api.nvim_command("q")
+                    end
+                end,
+                group = gclose
+            }
+        )
+    end
+
+    for _, ft in ipairs(fts) do
+        apply(ft)
+    end
+end
+
+M.lsp_highlight = function()
+    vim.api.nvim_create_autocmd(
+        "CursorHold",
+        {
+            callback = function()
+                vim.lsp.buf.document_highlight()
+            end
+        }
+    )
+
+    vim.api.nvim_create_autocmd(
+        "CursorMoved",
+        {
+            callback = function()
+                vim.lsp.buf.clear_references()
+            end
+        }
+    )
+end
+
+M.config = function()
+    M.close()
+    M.setColorscheme()
+    M.handleBigFiles()
+
+    vim.api.nvim_create_autocmd(
+        "FileType",
+        {
+            pattern = "gitcommit",
+            callback = function()
+                require("cmp").setup.buffer({enable = false})
             end
         }
     )
@@ -56,64 +115,6 @@ M.config = function()
             group = M.formatter
         }
     )
-
-    M.cocExplorer = vim.api.nvim_create_augroup("cocExplorerToggleHandling", {clear = true})
-
-    vim.api.nvim_create_autocmd(
-        "User",
-        {
-            pattern = {"CocExplorerOpenPre", "CocExplorerQuitPre"},
-            callback = function()
-                vim.g.explorer_is_open = not vim.g.explorer_is_open
-            end,
-            group = M.cocExplorer
-        }
-    )
-
-    vim.api.nvim_create_autocmd(
-        "BufWinLeave",
-        {
-            callback = function()
-                if vim.bo.filetype == "coc-explorer" then
-                    vim.g.explorer_is_open = false
-                end
-            end,
-            group = M.cocExplorer
-        }
-    )
-end
-
-M.close = function()
-    local gclose = vim.api.nvim_create_augroup("closeWhenLast", {clear = true})
-
-    local function apply(ft)
-        vim.api.nvim_create_autocmd(
-            "BufEnter",
-            {
-                callback = function()
-                    if vim.fn.winnr("$") == 1 and vim.bo.filetype == ft then
-                        vim.api.nvim_command("q")
-                    end
-                end,
-                group = gclose
-            }
-        )
-    end
-
-    local fts = {
-        "packer",
-        "git-commit",
-        "coc-explorer",
-        "fugitive",
-        "startuptime",
-        "qf",
-        "diff",
-        "toggleterm"
-    }
-
-    for _, ft in ipairs(fts) do
-        apply(ft)
-    end
 end
 
 return M

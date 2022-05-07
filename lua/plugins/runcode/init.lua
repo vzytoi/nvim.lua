@@ -1,121 +1,72 @@
 local M = {}
 
 M.utils = require("utils")
+M.lang = require("plugins.runcode.lang")
 
 function M.setup()
-    local keymap = function(dir)
-        return string.format(":lua require('plugins.runcode').run('visual', '%s')<cr>", dir)
-    end
+    vim.g.called2 = true
 
-    for _, v in pairs({"x", "xs", "xv"}) do
-        vim.api.nvim_set_keymap("v", "<leader>" .. v, keymap(v:sub(1, 1)), {noremap = true})
-    end
+    vim.keymap.set(
+        "n",
+        "<leader>x",
+        function()
+            M.run("x")
+        end
+    )
 
-    local map = {
-        {
-            "<leader>",
-            {
-                {
-                    "x",
-                    function()
-                        M.run("normal", "x")
-                    end
-                },
-                {
-                    "x",
-                    {
-                        {
-                            "s",
-                            function()
-                                M.run("normal", "s")
-                            end
-                        },
-                        {
-                            "v",
-                            function()
-                                M.run("normal", "v")
-                            end
-                        },
-                        {
-                            "e",
-                            function()
-                                M.time("normal")
-                            end
-                        }
-                    }
-                }
-            }
+    vim.keymap.set(
+        "n",
+        "<leader>xs",
+        function()
+            M.run("s")
+        end
+    )
+
+    vim.keymap.set(
+        "n",
+        "<leader>xv",
+        function()
+            M.run("v")
+        end
+    )
+
+    vim.keymap.set(
+        "n",
+        "<leader>xe",
+        function()
+            M.time()
+        end
+    )
+end
+
+function M.command()
+    local c = M.lang[vim.bo.filetype]
+
+    local changes = {
+        n = {
+            ["#"] = "%:t",
+            ["@"] = "%:t:r"
         }
     }
 
-    return map
-end
-
-M.logPath = vim.fn.stdpath("data") .. "\\runcode_log\\*"
-
-function M.getLog()
-    vim.api.nvim_command(string.format("!Get-Item %s", M.logPath))
-end
-
-function M.clearLog()
-    vim.api.nvim_command(string.format("!Remove-Item %s -Recurse -Force", M.logPath))
-end
-
-local function write(filename, data)
-    local file = io.open(filename, "w")
-
-    file:write(data)
-    file:close()
-end
-
-function M.command(mode)
-    local ft = require("plugins.runcode.lang")
-    local c = ft["lang"][vim.bo.filetype]
-
-    if not c then
-        c = string.format("%s #", vim.bo.filetype)
-    end
-
-    for k, v in pairs(ft["sub"][mode]) do
+    for k, v in pairs(changes[vim.fn.mode()]) do
         c = c:gsub(k, vim.fn.expand(v))
     end
 
     return c
 end
 
-local function startswith(str, start)
-    return string.sub(str, 1, string.len(start)) == start
-end
-
-function M.run(mode, dir)
-    local lang = require("plugins.runcode.lang")
-
-    if vim.bo.filetype == "runcode" then
-        print("RROR: unexecutable filetype")
-        return false
-    end
-
-    if mode == "visual" then
-        local select = M.utils.selection()
-        local intro = lang.intro[vim.bo.filetype]
-
-        if intro ~= nil and startswith(select, intro) ~= true then
-            select = string.format("%s\n%s", intro, select)
-        end
-
-        write(lang.sub.visual["#"], select)
-    end
-
+function M.run(dir)
     local d = {
         s = "split_f|r !",
         v = "vnew|r !",
         x = "!"
     }
 
-    vim.api.nvim_command(d[dir] .. M.command(mode))
+    vim.cmd(d[dir] .. "echo '' && " .. M.command())
 
     if dir ~= "x" then
-        require("options").RunCodeBuffer()
+        require("options").setBufferOpts()
         M.resize(dir)
     end
 end
@@ -145,8 +96,8 @@ function M.resize(dir)
     vim.api.nvim_command(string.format("%s res %s", sd, m + 10))
 end
 
-function M.time(mode)
-    vim.api.nvim_command(string.format("!time %s", M.command(mode)))
+function M.time()
+    vim.api.nvim_command(string.format("!time %s", M.command()))
 end
 
 return M
