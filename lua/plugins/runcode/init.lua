@@ -63,7 +63,7 @@ function M.run(dir)
         x = "!"
     }
 
-    vim.cmd(d[dir] .. "echo '' && " .. M.command())
+    vim.cmd(d[dir] .. M.command())
 
     if dir ~= "x" then
         require("options").setBufferOpts()

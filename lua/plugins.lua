@@ -24,6 +24,16 @@ function M.config()
             use "morhetz/gruvbox"
 
             use {
+                "ThePrimeagen/refactoring.nvim",
+                config = function()
+                    require("refactoring").setup({})
+                end,
+                after = {
+                    "nvim-treesitter"
+                }
+            }
+
+            use {
                 "filipdutescu/renamer.nvim",
                 config = function()
                     require("renamer").setup()
@@ -211,12 +221,6 @@ function M.config()
             }
 
             use {
-                "RishabhRD/nvim-cheat.sh",
-                requires = {"RishabhRD/popfix"},
-                cmd = {"Cheat"}
-            }
-
-            use {
                 "tpope/vim-fugitive",
                 cmd = {"G", "Gdiff"}
             }
@@ -227,7 +231,8 @@ function M.config()
                     require("plugins.telescope").config()
                     require("plugins.telescope").setup_tmp()
                 end,
-                requires = "BurntSushi/ripgrep"
+                requires = "BurntSushi/ripgrep",
+                after = "refactoring.nvim"
             }
 
             use {

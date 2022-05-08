@@ -39,12 +39,6 @@ function M.config()
                 {"z", ":ZenMode<cr>"},
                 {"u", ":PP<cr>"},
                 {
-                    "d",
-                    function()
-                        vim.g.DiffviewOpen = M.utils.toggle("DiffviewOpen", "DiffviewClose")
-                    end
-                },
-                {
                     "q",
                     {
                         {"s", [[<cmd>lua require("persistence").load()<cr>]]},
@@ -53,25 +47,6 @@ function M.config()
                     }
                 },
                 {"n", ":silent set rnu!<cr>"},
-                {"h", ":Cheat<cr>"},
-                {
-                    "h",
-                    {
-                        {"l", ":CheatList<cr>"}
-                    }
-                },
-                {
-                    "l",
-                    function()
-                        vim.g.lop = M.utils.toggle("lop", "lcl")
-                    end
-                },
-                {
-                    "c",
-                    function()
-                        vim.g.copen = M.utils.toggle("copen", "cclose")
-                    end
-                },
                 {
                     "c",
                     {
@@ -181,6 +156,42 @@ function M.config()
             }
         }
     }
+
+    vim.keymap.set(
+        "n",
+        "<leader>r",
+        function()
+            require("telescope").extensions.refactoring.refactors()
+        end,
+        M.utils.opts
+    )
+
+    vim.keymap.set(
+        "n",
+        "<leader>d",
+        function()
+            vim.g.diffViewOpen = M.utils.toggle("DiffviewOpen", "DiffviewClose")
+        end,
+        M.utils.opts
+    )
+
+    vim.keymap.set(
+        "n",
+        "<leader>l",
+        function()
+            vim.g.lop = M.utils.toggle("lop", "lcl")
+        end,
+        M.utils.opts
+    )
+
+    vim.keymap.set(
+        "n",
+        "c",
+        function()
+            vim.g.copen = M.utils.toggle("copen", "cclose")
+        end,
+        M.utils.opts
+    )
 end
 
 return M

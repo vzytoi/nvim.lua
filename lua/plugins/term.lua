@@ -3,9 +3,9 @@ local M = {}
 M.toggleterm = require("toggleterm")
 
 M.cmds = {
-    javascript = {
-        cmd = "node"
-    }
+    javascript = {cmd = "node"},
+    lua = {cmd = "lua"},
+    python = {cmd = "python3"}
 }
 
 M.envInit = function()

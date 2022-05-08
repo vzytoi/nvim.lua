@@ -108,6 +108,7 @@ function M.config()
     vim.g.explorer_is_open = false
     vim.g.rooter_silent_chdir = true
     vim.g["sneak#use_ic_scs"] = true
+    vim.g.doge_mapping = "<leader>nop"
 end
 
 return M

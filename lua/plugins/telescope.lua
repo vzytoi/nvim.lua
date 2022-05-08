@@ -143,6 +143,7 @@ function M.config()
     )
 
     M.telescope.load_extension("fzf")
+    M.telescope.load_extension("refactoring")
 end
 
 return M
