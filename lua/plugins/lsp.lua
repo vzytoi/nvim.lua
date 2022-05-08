@@ -20,6 +20,7 @@ end
 
 M.on_attach = function(_, bufnr)
     M.lsp_keymaps(bufnr)
+
     require("autocmds").lsp_highlight()
 end
 
@@ -40,26 +41,14 @@ M.setup = {
                     }
                 }
             }
-        },
-        on_attach = M.on_attach
+        }
     },
-    tsserver = {
-        on_attach = M.on_attach
-    },
-    jedi_language_server = {
-        on_attach = M.on_attach
-    },
-    intelephense = {
-        on_attach = M.on_attach
-    }
+    tsserver = {},
+    jedi_language_server = {},
+    intelephense = {}
 }
 
 M.config = function()
-    vim.fn.sign_define("DiagnosticSignError", {text = "", texthl = "", linehl = "", numh = "DiagnosticSignError"})
-    vim.fn.sign_define("DiagnosticSignWarn", {text = "", texthl = "", linehl = "", numh = "DiagnosticSignWarn"})
-    vim.fn.sign_define("DiagnosticSignInfo", {text = "", texthl = "", linehl = "", numh = "DiagnosticSignInfo"})
-    vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "", linehl = "", numh = "DiagnosticSignHint"})
-
     vim.diagnostic.config(
         {
             virtual_text = true,
@@ -82,13 +71,16 @@ M.config = function()
     )
 
     local servers = {"tsserver", "sumneko_lua", "jedi_language_server", "intelephense"}
+    local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require("nvim-lsp-installer").setup {
         ensure_installed = servers
     }
 
     for _, lsp in pairs(servers) do
-        require("lspconfig")[lsp].setup(M.setup[lsp])
+        require("lspconfig")[lsp].setup(
+            M.utils.mergeTables(M.setup[lsp], {on_attach = M.on_attach, capabilities = capabilities})
+        )
     end
 end
 

@@ -26,10 +26,8 @@ local function init()
     end
 end
 
-vim.g.mapleader = " "
-
 init()
 
 -- TODO lsp only on current line
 -- TODO: php formatter?
--- TODO: try to remone nestC from most
+-- TODO: <leader>xt to open "node #" in toggleterm in a new tab?????

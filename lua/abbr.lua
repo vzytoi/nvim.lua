@@ -8,7 +8,8 @@ function M.config()
         Q = "q",
         ["<"] = "w",
         nws = "set nowrapscan! nowrapscan?",
-        ps = "PackerSync"
+        ps = "PackerSync",
+        s = "so %"
     }
 
     for l, r in pairs(abbreviations) do

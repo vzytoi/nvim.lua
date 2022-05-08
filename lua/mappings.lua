@@ -1,23 +1,21 @@
 local M = {}
 
 M.nest = require("nest")
-
-local var = {"copen", "DiffviewOpen", "lop"}
-
-for _, v in pairs(var) do
-    vim.g[v] = false
-end
-
-local function toggle(open, close)
-    vim.api.nvim_command((vim.g[open] and close or open))
-
-    return not vim.g[open]
-end
+M.utils = require("utils")
 
 function M.config()
+    local var = {"copen", "DiffviewOpen", "lop"}
+
+    for _, v in pairs(var) do
+        vim.g[v] = false
+    end
+
+    vim.g.mapleader = " "
+
     require("plugins.runcode").setup()
     require("plugins.resize").setup()
     require("plugins.term").setup()
+    require("plugins.tree").setup()
 
     M.nest.applyKeymaps {
         {
@@ -44,7 +42,7 @@ function M.config()
                 {
                     "d",
                     function()
-                        vim.g.DiffviewOpen = toggle("DiffviewOpen", "DiffviewClose")
+                        vim.g.DiffviewOpen = M.utils.toggle("DiffviewOpen", "DiffviewClose")
                     end
                 },
                 {
@@ -66,13 +64,13 @@ function M.config()
                 {
                     "l",
                     function()
-                        vim.g.lop = toggle("lop", "lcl")
+                        vim.g.lop = M.utils.toggle("lop", "lcl")
                     end
                 },
                 {
                     "c",
                     function()
-                        vim.g.copen = toggle("copen", "cclose")
+                        vim.g.copen = M.utils.toggle("copen", "cclose")
                     end
                 },
                 {

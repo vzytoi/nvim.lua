@@ -155,7 +155,8 @@ function M.config()
                     "hrsh7th/cmp-path",
                     "tzachar/cmp-tabnine",
                     "hrsh7th/cmp-nvim-lsp",
-                    "saadparwaiz1/cmp_luasnip"
+                    "saadparwaiz1/cmp_luasnip",
+                    "hrsh7th/cmp-buffer"
                 }
             }
 
@@ -224,7 +225,8 @@ function M.config()
                 config = function()
                     require("plugins.telescope").config()
                     require("plugins.telescope").setup_tmp()
-                end
+                end,
+                requires = "BurntSushi/ripgrep"
             }
 
             use {

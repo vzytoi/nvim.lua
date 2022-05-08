@@ -80,7 +80,8 @@ function M.loadOptions()
         spell = false,
         spl = {"fr", "en_us"},
         encoding = "utf-8",
-        laststatus = 3
+        laststatus = 3,
+        termguicolors = true
     }
 
     for k, v in pairs(options) do
@@ -100,8 +101,8 @@ function M.config()
     M.loadOptions()
     M.ColorOpt()
 
-    vim.g["loaded_python_provider"] = false
-    vim.g["python3_host_prog"] = vim.fn.system("which python"):gsub("\n", "")
+    vim.g.loaded_python_provider = false
+    vim.g.python3_host_prog = vim.fn.system("which python"):gsub("\n", "")
     vim.g.explorer_is_open = false
     vim.g.rooter_silent_chdir = true
     vim.g["sneak#use_ic_scs"] = true

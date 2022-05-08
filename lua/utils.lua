@@ -56,27 +56,11 @@ function utils.selection()
 end
 
 utils.opts = {noremap = true, silent = true}
-local fn_store = {}
 
-local function register_fn(fn)
-    table.insert(fn_store, fn)
-    return #fn_store
-end
+function utils.toggle(open, close)
+    vim.api.nvim_command((vim.g[open] and close or open))
 
-function utils.apply_function(id)
-    fn_store[id]()
-end
-
-function utils.apply_expr(id)
-    return vim.api.nvim_replace_termcodes(fn_store[id](), true, true, true)
-end
-
-function utils.lua_fn(fn)
-    return string.format("<cmd>lua require('%s').apply_function(%s)<CR>", module_name, register_fn(fn))
-end
-
-function utils.lua_expr(fn)
-    return string.format("v:lua.require'%s'.apply_expr(%s)", module_name, register_fn(fn))
+    return not vim.g[open]
 end
 
 return utils

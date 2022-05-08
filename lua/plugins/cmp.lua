@@ -10,6 +10,7 @@ function M.config()
             {name = "luasnip"},
             {name = "cmp_tabnine"},
             {name = "nvim_lsp"},
+            {name = "buffer"},
             {name = "path"},
             {name = "calc"}
         },

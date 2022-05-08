@@ -7,9 +7,9 @@ M.raw = {
         LineNr = {guifg = "#6B6B6B"},
         VertSplit = {guifg = "#6B6B6B"},
         Normal = {guifg = "#EEEEEE", guibg = "#000000"},
-        LspReferenceText = {cterm="bold", gui="bold"},
-        LspReferenceRead = {cterm="bold", gui="bold"},
-        LspReferenceWrite = {cterm="bold", gui="bold"}
+        LspReferenceText = {cterm = "bold", gui = "bold"},
+        LspReferenceRead = {cterm = "bold", gui = "bold"},
+        LspReferenceWrite = {cterm = "bold", gui = "bold"}
     },
     gruvbox = {
         Visual = {ctermbg = 0, guibg = "Grey40"},
@@ -79,6 +79,14 @@ M.config = function()
             M.apply(k, v)
         end
     end
+    vim.cmd(
+        [[
+        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticSignError
+        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticSignWarn
+        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticSignInfo
+        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticSignHint
+        ]]
+    )
 end
 
 return M
