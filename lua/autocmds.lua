@@ -1,36 +1,6 @@
 local M = {}
 
-M.setColorscheme = function()
-    vim.api.nvim_create_autocmd(
-        "Colorscheme",
-        {
-            pattern = "*",
-            callback = function()
-                require("plugins.lualine")
-                require("colors").config()
-            end,
-            group = vim.api.nvim_create_augroup("colorschemeLoader", {clear = true})
-        }
-    )
-end
-
-M.handleBigFiles = function()
-    vim.api.nvim_create_autocmd(
-        "BufReadPost",
-        {
-            callback = function()
-                local size = vim.fn.getfsize(vim.fn.expand("%"))
-                if size >= 1000000 then
-                    for hl_name, _ in pairs(vim.api.nvim__get_hl_defs(0)) do
-                        vim.api.nvim_set_hl(0, hl_name, {})
-                    end
-                elseif size >= 500000 then
-                    vim.api.nvim_command("silent! TSBufDisable highlight")
-                end
-            end
-        }
-    )
-end
+local autocmd = vim.api.nvim_create_autocmd
 
 M.close = function()
     local gclose = vim.api.nvim_create_augroup("closeWhenLast", {clear = true})
@@ -46,7 +16,7 @@ M.close = function()
         "toggleterm"
     }
 
-    local function apply(ft)
+    local apply = function(ft)
         vim.api.nvim_create_autocmd(
             "BufEnter",
             {
@@ -66,7 +36,7 @@ M.close = function()
 end
 
 M.lsp_highlight = function()
-    vim.api.nvim_create_autocmd(
+    autocmd(
         "CursorHold",
         {
             callback = function()
@@ -75,7 +45,7 @@ M.lsp_highlight = function()
         }
     )
 
-    vim.api.nvim_create_autocmd(
+    autocmd(
         "CursorMoved",
         {
             callback = function()
@@ -87,10 +57,36 @@ end
 
 M.config = function()
     M.close()
-    M.setColorscheme()
-    M.handleBigFiles()
 
-    vim.api.nvim_create_autocmd(
+    autocmd(
+        "Colorscheme",
+        {
+            pattern = "*",
+            callback = function()
+                require("plugins.lualine")
+                require("colors").config()
+            end,
+            group = vim.api.nvim_create_augroup("colorschemeLoader", {clear = true})
+        }
+    )
+
+    autocmd(
+        "BufReadPost",
+        {
+            callback = function()
+                local size = vim.fn.getfsize(vim.fn.expand("%"))
+                if size >= 1000000 then
+                    for hl_name, _ in pairs(vim.api.nvim__get_hl_defs(0)) do
+                        vim.api.nvim_set_hl(0, hl_name, {})
+                    end
+                elseif size >= 500000 then
+                    vim.api.nvim_command("silent! TSBufDisable highlight")
+                end
+            end
+        }
+    )
+
+    autocmd(
         "FileType",
         {
             pattern = "gitcommit",
@@ -100,21 +96,56 @@ M.config = function()
         }
     )
 
-    vim.api.nvim_create_autocmd("BufEnter", {command = "silent! lcd %:p:h"})
-    vim.api.nvim_create_autocmd("VimResized", {command = "wincmd ="})
+    autocmd(
+        "BufEnter",
+        {
+            command = "silent! lcd %:p:h"
+        }
+    )
 
-    M.formatter = vim.api.nvim_create_augroup("formatter", {clear = true})
+    autocmd(
+        "VimResized",
+        {
+            command = "wincmd ="
+        }
+    )
 
-    vim.api.nvim_create_autocmd(
+    autocmd(
         "BufWritePost",
         {
             pattern = {"*.lua", "*.py", "*.js"},
             callback = function()
                 vim.api.nvim_command("FormatWrite")
-            end,
-            group = M.formatter
+            end
+        }
+    )
+
+    autocmd(
+        "InsertLeave",
+        {
+            callback = function()
+                vim.opt.relativenumber = true
+            end
+        }
+    )
+
+    autocmd(
+        "InsertEnter",
+        {
+            callback = function()
+                vim.opt.relativenumber = false
+            end
+        }
+    )
+
+    autocmd(
+        "FileType",
+        {
+            pattern = {"gitcommit", "markdown", "text"},
+            callback = function()
+                vim.opt_local.spell = true
+            end
         }
     )
 end
-
 return M

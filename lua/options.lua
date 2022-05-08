@@ -81,7 +81,9 @@ function M.loadOptions()
         spl = {"fr", "en_us"},
         encoding = "utf-8",
         laststatus = 3,
-        termguicolors = true
+        termguicolors = true,
+        cursorline = true,
+        cursorlineopt = "number"
     }
 
     for k, v in pairs(options) do

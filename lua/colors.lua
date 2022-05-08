@@ -13,7 +13,7 @@ M.raw = {
     },
     gruvbox = {
         Visual = {ctermbg = 0, guibg = "Grey40"},
-        CocHintFloat = {}
+        CursorLineNR = {guifg = "#458588", gui = "bold"}
     }
 }
 

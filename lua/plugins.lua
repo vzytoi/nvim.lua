@@ -22,6 +22,7 @@ function M.config()
             use "farmergreg/vim-lastplace"
             use "michaeljsmith/vim-indent-object"
             use "morhetz/gruvbox"
+
             use {
                 "filipdutescu/renamer.nvim",
                 config = function()
