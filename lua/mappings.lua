@@ -4,11 +4,6 @@ M.nest = require("nest")
 M.utils = require("utils")
 
 function M.config()
-    local var = {"copen", "DiffviewOpen", "lop"}
-
-    for _, v in pairs(var) do
-        vim.g[v] = false
-    end
 
     vim.g.mapleader = " "
 
@@ -21,82 +16,82 @@ function M.config()
         {
             "<c-",
             {
-                {"h>", "<c-w>W"},
-                {"j>", "<c-w>j"},
-                {"k>", "<c-w>k"},
-                {"l>", "<c-w>w"},
-                {"q>", ":x<cr>"}
+                { "h>", "<c-w>W" },
+                { "j>", "<c-w>j" },
+                { "k>", "<c-w>k" },
+                { "l>", "<c-w>w" },
+                { "q>", ":x<cr>" }
             }
         },
-        {"<", "<<"},
-        {">", ">>"},
-        {"<Tab>", ":tabNext<cr>"},
-        {"<S-Tab>", ":tabprevious<cr>"},
+        { "<", "<<" },
+        { ">", ">>" },
+        { "<Tab>", ":tabNext<cr>" },
+        { "<S-Tab>", ":tabprevious<cr>" },
         {
             "<leader>",
             {
-                {"g", ":DogeGenerate<cr>"},
-                {"z", ":ZenMode<cr>"},
-                {"u", ":PP<cr>"},
+                { "g", ":DogeGenerate<cr>" },
+                { "z", ":ZenMode<cr>" },
+                { "u", ":PP<cr>" },
                 {
                     "q",
                     {
-                        {"s", [[<cmd>lua require("persistence").load()<cr>]]},
-                        {"l", [[<cmd>lua require("persistence").load({ last = true })<cr>]]},
-                        {"d", [[<cmd>lua require("persistence").stop()<cr>]]}
+                        { "s", [[<cmd>lua require("persistence").load()<cr>]] },
+                        { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
+                        { "d", [[<cmd>lua require("persistence").stop()<cr>]] }
                     }
                 },
-                {"n", ":silent set rnu!<cr>"},
+                { "n", ":silent set rnu!<cr>" },
                 {
                     "c",
                     {
-                        {"h", ":cnext<cr>"},
-                        {"l", ":cprevious<cr>"}
+                        { "h", ":cnext<cr>" },
+                        { "l", ":cprevious<cr>" }
                     }
                 },
                 {
                     "y",
                     {
-                        {"l", 'V"*y'},
-                        {"a", ":%y+<cr>"}
+                        { "l", 'V"*y' },
+                        { "a", ":%y+<cr>" }
                     }
                 },
                 {
                     "q",
                     {
-                        {"o", ":copen<cr>"},
-                        {"c", ":cclose<cr>"},
-                        {"k", ":cprev<cr>"},
-                        {"j", ":cnext<cr>"}
+                        { "o", ":copen<cr>" },
+                        { "c", ":cclose<cr>" },
+                        { "k", ":cprev<cr>" },
+                        { "j", ":cnext<cr>" }
                     }
                 },
-                {"b", ":buffers<cr>"},
+                { "b", ":buffers<cr>" },
                 {
                     "b",
                     {
-                        {"k", ":b#<cr>"},
-                        {"h", ":bNext<cr>"},
-                        {"l", ":bprevious<cr>"},
+                        { "k", ":b#<cr>" },
+                        { "h", ":bNext<cr>" },
+                        { "l", ":bprevious<cr>" },
                         {
                             "d",
                             {
-                                {"k", ":b#|bd #<cr>"}
+                                { "k", ":b#|bd #<cr>" }
                             }
                         },
                         {
                             "v",
                             {
-                                {"k", ":vsp|b#<cr>"},
-                                {"h", ":vsp|bNext<cr>"},
-                                {"l", ":vsp|bprevious<cr>"}
+                                { "k", ":vsp|b#<cr>" },
+                                { "h", ":vsp|bNext<cr>" },
+                                { "l", ":vsp|bprevious<cr>" }
                             }
                         },
                         {
                             "s",
                             {
-                                {"k", ":sp|b#<cr>"},
-                                {"h", ":sp|bNext<cr>"},
-                                {"l", ":sp|bprevious<cr>"}
+                                { "k", ":sp|b#<cr>" },
+                                { "h", ":sp|bNext<cr>" },
+                                { "l", ":sp|bprevious<cr>" }
                             }
                         }
                     }
@@ -104,42 +99,42 @@ function M.config()
                 {
                     "i",
                     {
-                        {"n", ":normal! gg=G<cr><c-o>"}
+                        { "n", ":normal! gg=G<cr><c-o>" }
                     }
                 },
-                {"o", "o<Esc>"},
-                {"O", "O<Esc>"},
+                { "o", "o<Esc>" },
+                { "O", "O<Esc>" },
                 {
                     "g",
                     {
-                        {"s", ":G|20wincmd_<cr>"},
-                        {"c", ":G commit|star<cr>"},
-                        {"p", ":G push<cr>"},
-                        {"l", ":G log<cr>"},
-                        {"d", ":Gdiff<cr>"},
-                        {"q", ":q<cr>"}
+                        { "s", ":G|20wincmd_<cr>" },
+                        { "c", ":G commit|star<cr>" },
+                        { "p", ":G push<cr>" },
+                        { "l", ":G log<cr>" },
+                        { "d", ":Gdiff<cr>" },
+                        { "q", ":q<cr>" }
                     }
                 }
             }
         },
-        {"n", "nzzzv"},
-        {"N", "Nzzzv"},
-        {"J", "mzJ`z"},
+        { "n", "nzzzv" },
+        { "N", "Nzzzv" },
+        { "J", "mzJ`z" },
         {
             mode = "v",
             {
                 {
-                    options = {noremap = false},
+                    options = { noremap = false },
                     {
-                        {"H", "<Plug>(MvVisLeft)"},
-                        {"J", "<Plug>(MvVisDown)=gv"},
-                        {"K", "<Plug>(MvVisUp)=gv"},
-                        {"L", "<Plug>(MvVisRight)"}
+                        { "H", "<Plug>(MvVisLeft)" },
+                        { "J", "<Plug>(MvVisDown)=gv" },
+                        { "K", "<Plug>(MvVisUp)=gv" },
+                        { "L", "<Plug>(MvVisRight)" }
                     }
                 },
-                {"<", "<gv"},
-                {">", ">gv"},
-                {"y", '"*y'}
+                { "<", "<gv" },
+                { ">", ">gv" },
+                { "y", '"*y' }
             }
         },
         {
@@ -148,9 +143,9 @@ function M.config()
                 {
                     "<c-",
                     {
-                        {"j>", "<c-n>"},
-                        {"k>", "<c-p>"},
-                        {"c>", "<esc>"}
+                        { "j>", "<c-n>" },
+                        { "k>", "<c-p>" },
+                        { "c>", "<esc>" }
                     }
                 }
             }
@@ -170,7 +165,7 @@ function M.config()
         "n",
         "<leader>d",
         function()
-            vim.g.diffViewOpen = M.utils.toggle("DiffviewOpen", "DiffviewClose")
+            M.utils.toggle("DiffviewOpen", "DiffviewClose")
         end,
         M.utils.opts
     )
@@ -179,7 +174,7 @@ function M.config()
         "n",
         "<leader>l",
         function()
-            vim.g.lop = M.utils.toggle("lop", "lcl")
+            M.utils.toggle("lop", "lcl")
         end,
         M.utils.opts
     )
@@ -188,7 +183,7 @@ function M.config()
         "n",
         "<leader>c",
         function()
-            vim.g.copen = M.utils.toggle("copen", "cclose")
+            M.utils.toggle("copen", "cclose")
         end,
         M.utils.opts
     )

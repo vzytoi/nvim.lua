@@ -55,12 +55,20 @@ function utils.selection()
     return table.concat(lines, "\n")
 end
 
-utils.opts = {noremap = true, silent = true}
+utils.opts = { noremap = true, silent = true }
 
 function utils.toggle(open, close)
-    vim.api.nvim_command((vim.g[open] and close or open))
 
-    return not vim.g[open]
+    if vim.g[open] == nil then
+        vim.g[open] = false
+    end
+
+    local calling = (vim.g[open] and close or open)
+
+    print("calling ... " .. calling)
+    vim.api.nvim_command(calling)
+
+    vim.g[open] = not vim.g[open]
 end
 
 return utils
