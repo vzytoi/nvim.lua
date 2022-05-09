@@ -1,8 +1,8 @@
 local modules = {
-    {name = "plugins"},
-    {name = "autocmds"},
-    {name = "options"},
-    {name = "abbr", event = "cmdlineenter"}
+    { name = "plugins" },
+    { name = "autocmds" },
+    { name = "options" },
+    { name = "abbr", event = "cmdlineenter" }
 }
 
 local load = function(name)
@@ -18,14 +18,11 @@ for _, m in pairs(modules) do
     if not m.event then
         load(m.name)
     else
-        vim.api.nvim_create_autocmd(
-            m.event,
-            {
-                callback = function()
-                    load(m.name)
-                end
-            }
-        )
+        vim.api.nvim_create_autocmd( m.event, {
+            callback = function()
+                load(m.name)
+            end
+        })
     end
 end
 

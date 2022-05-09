@@ -1,7 +1,24 @@
 local M = {}
 
-M.fileName = function()
+M.file_name = function()
     return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+end
+
+M.uses = { "python" }
+
+M.check_uses = function(ft)
+
+    if ft == nil then
+        ft = vim.bo.filetype
+    end
+
+    for _, v in ipairs(M.uses) do
+        if v == ft then
+            return true
+        end
+    end
+
+    return false
 end
 
 M.config = function()
@@ -14,7 +31,7 @@ M.config = function()
                         exe = "prettier",
                         args = {
                             "--stdin-filepath",
-                            M.fileName(),
+                            M.file_name(),
                             "--single-quote",
                             "--tab-width=4",
                             "--no-bracket-spacing",
@@ -28,7 +45,7 @@ M.config = function()
                 function()
                     return {
                         exe = "luafmt",
-                        args = {"--indent-count", 4, "--stdin"},
+                        args = { "--indent-count", 4, "--stdin" },
                         stdin = true
                     }
                 end

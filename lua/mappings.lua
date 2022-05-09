@@ -186,7 +186,7 @@ function M.config()
 
     vim.keymap.set(
         "n",
-        "c",
+        "<leader>c",
         function()
             vim.g.copen = M.utils.toggle("copen", "cclose")
         end,
