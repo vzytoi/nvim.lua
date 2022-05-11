@@ -4,21 +4,14 @@ M.file_name = function()
     return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
 end
 
-M.uses = { "python" }
+M.uses = function()
+    local map = {
+        python = true,
+        javascript = false,
+        lua = false
+    }
 
-M.check_uses = function(ft)
-
-    if ft == nil then
-        ft = vim.bo.filetype
-    end
-
-    for _, v in ipairs(M.uses) do
-        if v == ft then
-            return true
-        end
-    end
-
-    return false
+    return map[vim.bo.filetype]
 end
 
 M.config = function()

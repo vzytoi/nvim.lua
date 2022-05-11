@@ -18,7 +18,7 @@ for _, m in pairs(modules) do
     if not m.event then
         load(m.name)
     else
-        vim.api.nvim_create_autocmd( m.event, {
+        vim.api.nvim_create_autocmd(m.event, {
             callback = function()
                 load(m.name)
             end
@@ -26,6 +26,7 @@ for _, m in pairs(modules) do
     end
 end
 
--- TODO lsp only on current line
+-- TODO: lsp only on current line
 -- TODO: php formatter?
+-- TODO: golang formatter
 -- TODO: <leader>xt to open "node #" in toggleterm in a new tab?????

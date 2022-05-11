@@ -2,6 +2,8 @@ local M = {}
 
 M.nest = require("nest")
 M.utils = require("utils")
+M.luasnip = require('luasnip')
+M.cmp = require('cmp')
 
 function M.config()
 
@@ -152,41 +154,38 @@ function M.config()
         }
     }
 
-    vim.keymap.set(
-        "n",
-        "<leader>r",
+    vim.keymap.set("n", "<leader>r",
         function()
             require("telescope").extensions.refactoring.refactors()
         end,
         M.utils.opts
     )
 
-    vim.keymap.set(
-        "n",
-        "<leader>d",
+    vim.keymap.set("n", "<leader>d",
         function()
             M.utils.toggle("DiffviewOpen", "DiffviewClose")
         end,
         M.utils.opts
     )
 
-    vim.keymap.set(
-        "n",
-        "<leader>l",
+    vim.keymap.set("n", "<leader>l",
         function()
             M.utils.toggle("lop", "lcl")
         end,
         M.utils.opts
     )
 
-    vim.keymap.set(
-        "n",
-        "<leader>c",
+    vim.keymap.set("n", "<leader>c",
         function()
             M.utils.toggle("copen", "cclose")
         end,
         M.utils.opts
     )
+
+    -- if M.luasnip and M.luasnip.expand_or_jumpable() then
+
+    vim.keymap.set("i", "<a-s>", "<Plug>luasnip-expand-or-jump")
+
 end
 
 return M

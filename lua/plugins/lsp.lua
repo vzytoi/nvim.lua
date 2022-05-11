@@ -4,13 +4,13 @@ M.utils = require("utils")
 
 M.lsp_keymaps = function(bufnr)
     local map = {
-        {"gr", "lua vim.lsp.buf.rename()<cr>"},
-        {"gr", "<cmd>lua require('renamer').rename()<cr>"},
-        {"gh", "<cmd>lua vim.lsp.buf.hover()<cr>"},
-        {"gd", "<cmd>lua vim.lsp.buf.definition()<cr>"},
-        {"gR", "<cmd>lua vim.lsp.buf.references()<cr>"},
-        {"gn", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>"},
-        {"gp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>"}
+        { "gr", "<cmd>lua vim.lsp.buf.rename()<cr>" },
+        { "gr", "<cmd>lua require('renamer').rename()<cr>" },
+        { "gh", "<cmd>lua vim.lsp.buf.hover()<cr>" },
+        { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>" },
+        { "gR", "<cmd>lua vim.lsp.buf.references()<cr>" },
+        { "gn", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>" },
+        { "gp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>" }
     }
 
     for _, m in pairs(map) do
@@ -32,7 +32,7 @@ M.setup = {
                     version = "LuaJIT"
                 },
                 diagnostics = {
-                    globals = {"vim"}
+                    globals = { "vim" }
                 },
                 workspaces = {
                     library = {
@@ -45,32 +45,32 @@ M.setup = {
     },
     tsserver = {},
     jedi_language_server = {},
-    intelephense = {}
+    intelephense = {},
+    gopls = {}
 }
 
 M.config = function()
     vim.diagnostic.config(
         {
-            virtual_text = true,
-            underline = false,
-            update_in_insert = false,
-            severity_sort = true,
-            float = {
-                source = "always",
-                border = "rounded"
-            }
-        }
-    )
-
-    vim.lsp.handlers["textDocument/hover"] =
-        vim.lsp.with(
-        vim.lsp.handlers.hover,
-        {
+        virtual_text = true,
+        underline = false,
+        update_in_insert = false,
+        severity_sort = true,
+        float = {
+            source = "always",
             border = "rounded"
         }
+    }
     )
 
-    local servers = {"tsserver", "sumneko_lua", "jedi_language_server", "intelephense"}
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover,
+        {
+        border = "rounded"
+    }
+    )
+
+    local servers = { "tsserver", "sumneko_lua", "jedi_language_server", "intelephense", "gopls" }
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require("nvim-lsp-installer").setup {
@@ -79,7 +79,7 @@ M.config = function()
 
     for _, lsp in pairs(servers) do
         require("lspconfig")[lsp].setup(
-            M.utils.mergeTables(M.setup[lsp], {on_attach = M.on_attach, capabilities = capabilities})
+            M.utils.mergeTables(M.setup[lsp], { on_attach = M.on_attach, capabilities = capabilities })
         )
     end
 end

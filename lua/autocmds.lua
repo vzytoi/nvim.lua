@@ -90,10 +90,12 @@ M.config = function()
 
     autocmd("BufWritePost", {
         callback = function()
-            if require('plugins.formatter').check_uses() then
+            local use = require('plugins.formatter').uses()
+
+            if use then
                 vim.api.nvim_command('FormatWrite')
-            else
-                vim.lsp.buf.format({ async = true })
+            elseif use ~= nil then
+                vim.lsp.buf.format()
             end
         end
     })
