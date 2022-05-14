@@ -5,7 +5,7 @@ function M.config()
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({"git", "clone", "https://github.com/wbthomason/packer.nvim", install_path})
+        fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
         vim.api.nvim_command("packadd packer.nvim")
     end
 
@@ -22,6 +22,7 @@ function M.config()
             use "farmergreg/vim-lastplace"
             use "michaeljsmith/vim-indent-object"
             use "morhetz/gruvbox"
+            use "github/copilot.vim"
 
             use {
                 "ThePrimeagen/refactoring.nvim",
@@ -31,13 +32,6 @@ function M.config()
                 after = {
                     "nvim-treesitter"
                 }
-            }
-
-            use {
-                "filipdutescu/renamer.nvim",
-                config = function()
-                    require("renamer").setup()
-                end
             }
 
             use {
@@ -164,10 +158,19 @@ function M.config()
                 requires = {
                     "onsails/lspkind-nvim",
                     "hrsh7th/cmp-path",
-                    "tzachar/cmp-tabnine",
                     "hrsh7th/cmp-nvim-lsp",
                     "saadparwaiz1/cmp_luasnip",
-                    "hrsh7th/cmp-buffer"
+                    "hrsh7th/cmp-buffer",
+                    {
+                        "tzachar/cmp-tabnine",
+                        run = "./install.sh",
+                        config = function()
+                            require('cmp_tabnine.config'):setup({
+                                show_prediction_strength = true
+                            })
+                        end
+                    },
+                    'hrsh7th/cmp-copilot'
                 }
             }
 
@@ -186,8 +189,8 @@ function M.config()
             use {
                 "justinmk/vim-sneak",
                 keys = {
-                    {"n", "S"},
-                    {"n", "s"}
+                    { "n", "S" },
+                    { "n", "s" }
                 }
             }
 
@@ -222,7 +225,7 @@ function M.config()
 
             use {
                 "tpope/vim-fugitive",
-                cmd = {"G", "Gdiff"}
+                cmd = { "G", "Gdiff" }
             }
 
             use {
@@ -261,7 +264,7 @@ function M.config()
 
             use {
                 "alvan/vim-closetag",
-                ft = {"html", "php"},
+                ft = { "html", "php" },
                 event = "BufWritePre"
             }
         end

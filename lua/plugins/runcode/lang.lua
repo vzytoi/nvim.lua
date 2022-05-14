@@ -1,10 +1,10 @@
 return {
     typescript = "ts-node #",
     javascript = "node #",
-    c = "gcc # -o @.exe;.\\@.exe",
+    c = "gcc # -o @.exe && ./@.exe",
     go = "go run #",
     java = "javac #;java @",
-    cpp = "g++ -o @.exe #;start @.exe",
+    cpp = "g++ -o @.exe # && ./@.exe",
     ps1 = "powershell ./#",
     rust = "cargo run",
     php = "php #",

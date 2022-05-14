@@ -8,7 +8,8 @@ M.uses = function()
     local map = {
         python = true,
         javascript = false,
-        lua = false
+        lua = false,
+        go = false
     }
 
     return map[vim.bo.filetype]

@@ -3,17 +3,19 @@ local M = {}
 M.toggleterm = require("toggleterm")
 
 M.cmds = {
-    javascript = {cmd = "node"},
-    lua = {cmd = "lua"},
-    python = {cmd = "python3"}
+    javascript = { cmd = "node" },
+    typescript = { cmd = "ts-node" },
+    lua = { cmd = "lua" },
+    python = { cmd = "python3" }
 }
 
 M.envInit = function()
     local Terminal = require("toggleterm.terminal").Terminal
 
     for i, v in pairs(M.cmds) do
-        M.cmds[i].term = Terminal:new({cmd = v.cmd, hidden = true, direction = "float"})
+        M.cmds[i].term = Terminal:new({ cmd = v.cmd, hidden = true, direction = "float" })
     end
+
 end
 
 M.envGo = function()

@@ -28,7 +28,7 @@ function M.setup_tmp()
         "n",
         "<leader>fg",
         function()
-            M.builtin.live_grep(ivy)
+            M.builtin.live_grep()
         end,
         M.builtin.opts
     )
@@ -67,7 +67,7 @@ function M.setup_tmp()
         M.builtin.opts
     )
 
-    vim.keymap.set( "n", "<leader>fn",
+    vim.keymap.set("n", "<leader>fn",
         function()
             M.builtin.git_files {
                 prompt_prefix = "Neovim > ",

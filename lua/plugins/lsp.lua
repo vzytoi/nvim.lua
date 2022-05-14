@@ -5,7 +5,6 @@ M.utils = require("utils")
 M.lsp_keymaps = function(bufnr)
     local map = {
         { "gr", "<cmd>lua vim.lsp.buf.rename()<cr>" },
-        { "gr", "<cmd>lua require('renamer').rename()<cr>" },
         { "gh", "<cmd>lua vim.lsp.buf.hover()<cr>" },
         { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>" },
         { "gR", "<cmd>lua vim.lsp.buf.references()<cr>" },
@@ -42,11 +41,7 @@ M.setup = {
                 }
             }
         }
-    },
-    tsserver = {},
-    jedi_language_server = {},
-    intelephense = {},
-    gopls = {}
+    }
 }
 
 M.config = function()
@@ -70,7 +65,7 @@ M.config = function()
     }
     )
 
-    local servers = { "tsserver", "sumneko_lua", "jedi_language_server", "intelephense", "gopls" }
+    local servers = { "tsserver", "sumneko_lua", "jedi_language_server", "intelephense", "gopls", "bashls", "clangd" }
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require("nvim-lsp-installer").setup {
@@ -78,8 +73,15 @@ M.config = function()
     }
 
     for _, lsp in pairs(servers) do
+
+        local setup = M.setup[lsp]
+
+        if setup == nil then
+            setup = {}
+        end
+
         require("lspconfig")[lsp].setup(
-            M.utils.mergeTables(M.setup[lsp], { on_attach = M.on_attach, capabilities = capabilities })
+            M.utils.mergeTables(setup, { on_attach = M.on_attach, capabilities = capabilities, root_dir = vim.loop.cwd })
         )
     end
 end

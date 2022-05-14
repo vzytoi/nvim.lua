@@ -6,12 +6,12 @@ M.raw = {
     all = {
         LineNr = {guifg = "#6B6B6B"},
         VertSplit = {guifg = "#6B6B6B"},
-        Normal = {guifg = "#EEEEEE", guibg = "#000000"},
         LspReferenceText = {cterm = "bold", gui = "bold"},
         LspReferenceRead = {cterm = "bold", gui = "bold"},
         LspReferenceWrite = {cterm = "bold", gui = "bold"}
     },
     gruvbox = {
+        Normal = {guifg = "#EEEEEE", guibg = "#000000"},
         Visual = {ctermbg = 0, guibg = "Grey40"},
         CursorLineNR = {guifg = "#458588", gui = "bold"}
     }

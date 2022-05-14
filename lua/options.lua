@@ -35,7 +35,7 @@ function M.disablePlugins()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = utils.mergeTables(plug_buitlins, {"netrw", "netrwPlugin", "netrwSettings"})
+        plug_buitlins = utils.mergeTables(plug_buitlins, { "netrw", "netrwPlugin", "netrwSettings" })
     end
 
     for _, p in pairs(plug_buitlins) do
@@ -51,7 +51,7 @@ function M.loadOptions()
         ruler = false,
         lazyredraw = true,
         synmaxcol = 2048,
-        completeopt = {"menuone", "noselect"},
+        completeopt = { "menuone", "noselect" },
         expandtab = true,
         autoindent = true,
         smartindent = true,
@@ -68,7 +68,8 @@ function M.loadOptions()
         timeout = true,
         timeoutlen = 250,
         ttimeout = true,
-        ttimeoutlen = 10,
+        ttimeoutlen = 1,
+        ttyfast = true,
         updatetime = 300,
         redrawtime = 1500,
         scrolloff = 8,
@@ -78,17 +79,19 @@ function M.loadOptions()
         swapfile = false,
         fileformat = "unix",
         spell = false,
-        spl = {"fr", "en_us"},
+        spl = { "fr", "en_us" },
         encoding = "utf-8",
         laststatus = 3,
         termguicolors = true,
         cursorline = true,
-        cursorlineopt = "number"
+        cursorlineopt = "number",
+        guicursor = ""
     }
 
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
+
 end
 
 function M.ColorOpt()
