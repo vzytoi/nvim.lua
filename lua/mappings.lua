@@ -1,9 +1,7 @@
 local M = {}
 
-M.nest = require("nest")
-M.utils = require("utils")
-M.luasnip = require('luasnip')
-M.cmp = require('cmp')
+local nest = require("nest")
+local utils = require("utils")
 
 function M.config()
 
@@ -14,7 +12,7 @@ function M.config()
     require("plugins.term").setup()
     require("plugins.tree").setup()
 
-    M.nest.applyKeymaps {
+    nest.applyKeymaps {
         {
             "<c-",
             {
@@ -32,9 +30,15 @@ function M.config()
         {
             "<leader>",
             {
+                { "p", ":PP<cr>"},
                 { "g", ":DogeGenerate<cr>" },
                 { "z", ":ZenMode<cr>" },
                 { "u", ":PP<cr>" },
+                { "ya", ":%y+<cr>" },
+                { "n", ":silent set rnu!<cr>" },
+                { "o", "o<Esc>" },
+                { "O", "O<Esc>" },
+                { "~", "~h" },
                 {
                     "q",
                     {
@@ -43,19 +47,11 @@ function M.config()
                         { "d", [[<cmd>lua require("persistence").stop()<cr>]] }
                     }
                 },
-                { "n", ":silent set rnu!<cr>" },
                 {
                     "c",
                     {
                         { "h", ":cnext<cr>" },
                         { "l", ":cprevious<cr>" }
-                    }
-                },
-                {
-                    "y",
-                    {
-                        { "l", 'V"*y' },
-                        { "a", ":%y+<cr>" }
                     }
                 },
                 {
@@ -104,8 +100,6 @@ function M.config()
                         { "n", ":normal! gg=G<cr><c-o>" }
                     }
                 },
-                { "o", "o<Esc>" },
-                { "O", "O<Esc>" },
                 {
                     "g",
                     {
@@ -158,33 +152,36 @@ function M.config()
         function()
             require("telescope").extensions.refactoring.refactors()
         end,
-        M.utils.opts
+        utils.opts
     )
 
     vim.keymap.set("n", "<leader>d",
         function()
-            M.utils.toggle("DiffviewOpen", "DiffviewClose")
+            utils.toggle("DiffviewOpen", "DiffviewClose")
         end,
-        M.utils.opts
+        utils.opts
     )
 
     vim.keymap.set("n", "<leader>l",
         function()
-            M.utils.toggle("lop", "lcl")
+            utils.toggle("lop", "lcl")
         end,
-        M.utils.opts
+        utils.opts
     )
 
     vim.keymap.set("n", "<leader>c",
         function()
-            M.utils.toggle("copen", "cclose")
+            utils.toggle("copen", "cclose")
         end,
-        M.utils.opts
+        utils.opts
     )
 
-    -- if M.luasnip and M.luasnip.expand_or_jumpable() then
-
-    vim.keymap.set("i", "<a-s>", "<Plug>luasnip-expand-or-jump")
+    vim.keymap.set("v", '"*y',
+        function()
+            print("Don't use that mother fucker")
+        end,
+        utils.opts
+    )
 
 end
 

@@ -70,6 +70,7 @@ function M.config()
 
             use {
                 "kkoomen/vim-doge",
+                cmd = "DogeGenerate",
                 run = function()
                     vim.fn["doge#install"]()
                 end
@@ -77,18 +78,19 @@ function M.config()
 
             use {
                 "folke/zen-mode.nvim",
+                cmd = "ZenMode",
                 config = function()
-                    require("zen-mode").setup {}
+                    require("zen-mode").setup()
                 end
             }
 
             use {
                 "rktjmp/paperplanes.nvim",
+                cmd = "PP",
                 config = function()
-                    require("paperplanes").setup {
-                        register = "*",
-                        provider = "ix.io"
-                    }
+                    require("paperplanes").setup({
+                        provider = "paste.rs",
+                    })
                 end
             }
 
@@ -101,6 +103,7 @@ function M.config()
 
             use {
                 "sindrets/diffview.nvim",
+                cmd = "DiffviewOpen",
                 config = function()
                     require("diffview").setup {
                         file_panel = {
@@ -169,8 +172,7 @@ function M.config()
                                 show_prediction_strength = true
                             })
                         end
-                    },
-                    'hrsh7th/cmp-copilot'
+                    }
                 }
             }
 
