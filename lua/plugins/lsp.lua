@@ -1,6 +1,6 @@
 local M = {}
 
-M.utils = require("utils")
+local utils = require("utils")
 
 M.lsp_keymaps = function(bufnr)
     local map = {
@@ -13,7 +13,7 @@ M.lsp_keymaps = function(bufnr)
     }
 
     for _, m in pairs(map) do
-        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], M.utils.opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], utils.opts)
     end
 end
 
@@ -45,8 +45,7 @@ M.setup = {
 }
 
 M.config = function()
-    vim.diagnostic.config(
-        {
+    vim.diagnostic.config({
         virtual_text = true,
         underline = false,
         update_in_insert = false,
@@ -55,17 +54,14 @@ M.config = function()
             source = "always",
             border = "rounded"
         }
-    }
-    )
+    })
 
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
         vim.lsp.handlers.hover,
-        {
-        border = "rounded"
-    }
+        { border = "rounded" }
     )
 
-    local servers = { "tsserver", "sumneko_lua", "jedi_language_server", "intelephense", "gopls", "bashls", "clangd" }
+    local servers = utils.scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require("nvim-lsp-installer").setup {
@@ -81,7 +77,11 @@ M.config = function()
         end
 
         require("lspconfig")[lsp].setup(
-            M.utils.mergeTables(setup, { on_attach = M.on_attach, capabilities = capabilities, root_dir = vim.loop.cwd })
+            utils.mergeTables(setup, {
+                on_attach = M.on_attach,
+                capabilities = capabilities,
+                root_dir = vim.loop.cwd
+            })
         )
     end
 end

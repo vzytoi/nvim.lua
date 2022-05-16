@@ -65,10 +65,27 @@ function utils.toggle(open, close)
 
     local calling = (vim.g[open] and close or open)
 
-    print("calling ... " .. calling)
     vim.api.nvim_command(calling)
 
     vim.g[open] = not vim.g[open]
+end
+
+function utils.scandir(directory)
+
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('ls -a "' .. directory .. '"')
+
+    if pfile ~= nil then
+        for filename in pfile:lines() do
+            i = i + 1
+            t[i] = filename
+        end
+        pfile:close()
+    else
+        return false
+    end
+
+    return vim.list_slice(t, 3, #t)
 end
 
 return utils
