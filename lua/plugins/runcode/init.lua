@@ -1,46 +1,34 @@
 local M = {}
 
-M.utils = require("utils")
-M.lang = require("plugins.runcode.lang")
+local lang = require("plugins.runcode.lang")
 
 function M.setup()
     vim.g.called2 = true
 
-    vim.keymap.set(
-        "n",
-        "<leader>x",
+    vim.keymap.set("n", "<leader>x",
         function()
-            M.run("x")
-        end
-    )
+        M.run("x")
+    end)
 
-    vim.keymap.set(
-        "n",
-        "<leader>xs",
+    vim.keymap.set("n", "<leader>xs",
         function()
-            M.run("s")
-        end
-    )
+        M.run("s")
+    end)
 
-    vim.keymap.set(
-        "n",
-        "<leader>xv",
+    vim.keymap.set("n", "<leader>xv",
         function()
-            M.run("v")
-        end
-    )
+        M.run("v")
+    end)
 
-    vim.keymap.set(
-        "n",
-        "<leader>xe",
+    vim.keymap.set("n", "<leader>xe",
         function()
-            M.time()
-        end
-    )
+        M.time()
+    end)
+
 end
 
 function M.command()
-    local c = M.lang[vim.bo.filetype]
+    local c = lang[vim.bo.filetype]
 
     local changes = {
         n = {
