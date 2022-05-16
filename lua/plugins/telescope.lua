@@ -60,7 +60,7 @@ function M.setup_tmp()
                 prompt_prefix = "Search toods > ",
                 search = " TODO:",
                 file_ignore_patterns = {
-                    "snips/*"
+                    "snippets/*"
                 }
             }
         end,
@@ -87,7 +87,7 @@ function M.config()
                 timeout = 500
             },
             file_ignore_patterns = {
-                ".git/*"
+                ".git/"
             },
             prompt_prefix = "> ",
             selection_caret = "> ",

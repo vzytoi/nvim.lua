@@ -46,6 +46,7 @@ end
 function M.loadOptions()
     local options = {
         rnu = true,
+        hidden = true,
         nu = true,
         showcmd = false,
         ruler = false,

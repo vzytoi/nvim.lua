@@ -9,7 +9,8 @@ M.uses = function()
         python = true,
         javascript = false,
         lua = false,
-        go = false
+        go = false,
+        rust = false
     }
 
     return map[vim.bo.filetype]

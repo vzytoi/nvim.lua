@@ -49,9 +49,7 @@ end
 M.config = function()
     M.close()
 
-    autocmd(
-        "Colorscheme",
-        {
+    autocmd("Colorscheme", {
         pattern = "*",
         callback = function()
             require("plugins.lualine")
@@ -91,7 +89,8 @@ M.config = function()
     autocmd("BufWritePost", {
         callback = function()
             local use = require('plugins.formatter').uses()
-
+            -- TODO: try to pcall this instead of doing
+            -- nothing when filtype is not supported.
             if use then
                 vim.api.nvim_command('FormatWrite')
             elseif use ~= nil then
@@ -118,5 +117,15 @@ M.config = function()
             vim.opt_local.spell = true
         end
     })
+
+    autocmd("FileType", {
+        callback = function()
+            vim.cmd('setlocal formatoptions-=cro')
+        end
+    })
+
+    vim.cmd("autocmd FileType runcode nnoremap <buffer> <cr> :silent q!<cr>")
+
 end
+
 return M

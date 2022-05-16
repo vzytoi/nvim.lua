@@ -1,7 +1,9 @@
 local M = {}
 
+local utils = require('utils')
+
 M.setup = function()
-    vim.keymap.set("n", "<leader>e", ":silent! NvimTreeToggle<cr>")
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", utils.opts)
 end
 
 M.config = function()
@@ -10,9 +12,9 @@ M.config = function()
             side = "right",
             mappings = {
                 list = {
-                    {key = "v", action = "vsplit"},
-                    {key = "s", action = "split"},
-                    {key = "e", action = "edit"}
+                    { key = "v", action = "vsplit" },
+                    { key = "s", action = "split" },
+                    { key = "e", action = "edit" }
                 }
             }
         },

@@ -11,7 +11,6 @@ function M.config()
             { name = "luasnip" },
             { name = "cmp_tabnine" },
             { name = "nvim_lsp", max_item_count = 6 },
-            { name = "copilot" },
             { name = "buffer", max_item_count = 6 },
             { name = "path" },
             { name = "calc" }
@@ -44,7 +43,6 @@ function M.config()
                 with_text = false,
                 menu = {
                     cmp_tabnine = "[tabnine]",
-                    copilot = "[copilot]",
                     path = "[path]",
                     calc = "[calc]",
                     nvim_lsp = "[lsp]",
