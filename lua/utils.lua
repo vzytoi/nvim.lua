@@ -1,10 +1,10 @@
-local utils = {}
+local M = {}
 
-function utils.is_win()
+function M.is_win()
     return package.config:sub(1, 1) == "\\"
 end
 
-function utils.copy(table)
+function M.copy(table)
     local ret = {}
 
     for k, v in pairs(table) do
@@ -14,8 +14,8 @@ function utils.copy(table)
     return ret
 end
 
-function utils.mergeTables(a, b)
-    local ret = utils.copy(a)
+function M.mergeTables(a, b)
+    local ret = M.copy(a)
 
     for k, v in pairs(b) do
         ret[k] = v
@@ -24,7 +24,7 @@ function utils.mergeTables(a, b)
     return ret
 end
 
-function utils.split(string, target)
+function M.split(string, target)
     local results = {}
 
     for m in (string .. target):gmatch("(.-)" .. target) do
@@ -34,11 +34,11 @@ function utils.split(string, target)
     return results
 end
 
-function utils.subrange(t, first, last)
+function M.subrange(t, first, last)
     return table.move(t, first, last, 1, {})
 end
 
-function utils.selection()
+function M.selection()
     local s = vim.fn.getpos("'<")
     local e = vim.fn.getpos("'>")
     local nl = math.abs(e[2] - s[2]) + 1
@@ -55,9 +55,9 @@ function utils.selection()
     return table.concat(lines, "\n")
 end
 
-utils.opts = { noremap = true, silent = true }
+M.opts = { noremap = true, silent = true }
 
-function utils.toggle(open, close)
+function M.toggle(open, close)
 
     if vim.g[open] == nil then
         vim.g[open] = false
@@ -70,7 +70,7 @@ function utils.toggle(open, close)
     vim.g[open] = not vim.g[open]
 end
 
-function utils.scandir(directory)
+function M.scandir(directory)
 
     local i, t, popen = 0, {}, io.popen
     local pfile = popen('ls -a "' .. directory .. '"')
@@ -88,4 +88,4 @@ function utils.scandir(directory)
     return vim.list_slice(t, 3, #t)
 end
 
-return utils
+return M

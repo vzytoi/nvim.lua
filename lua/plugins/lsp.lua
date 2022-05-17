@@ -46,13 +46,15 @@ M.setup = {
 
 M.config = function()
     vim.diagnostic.config({
-        virtual_text = true,
         underline = false,
         update_in_insert = false,
         severity_sort = true,
         float = {
             source = "always",
             border = "rounded"
+        },
+        virtual_text = {
+            severity = { min = vim.diagnostic.severity.WARN }
         }
     })
 
@@ -61,7 +63,7 @@ M.config = function()
         { border = "rounded" }
     )
 
-    local servers = utils.scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
+    local servers = require('nvim-lsp-installer.servers').get_installed_server_names()
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require("nvim-lsp-installer").setup {
