@@ -11,6 +11,13 @@ function M.config()
 
     return require("packer").startup {
         function(use)
+            use {
+                "lewis6991/impatient.nvim",
+                config = function()
+                    require('impatient')
+                end
+            }
+
             use "wbthomason/packer.nvim"
             use "nvim-lua/plenary.nvim"
             use "Jorengarenar/vim-MvVis"
