@@ -1,7 +1,7 @@
 local modules = {
     { name = "plugins" },
     { name = "autocmds" },
-    { name = "options" },
+    { name = "opts" },
     { name = "abbr", event = "cmdlineenter" }
 }
 
@@ -33,8 +33,6 @@ end
 -- TODO: spellsitter: https://github.com/wbthomason/packer.nvim/issues/899
 -- TODO: nvim-tree-docs: https://github.com/nvim-treesitter/nvim-tree-docs/issues/20
 -- TODO: limit severtiy for virtual text.
--- TODO: runcode use splitterm istead for color highlighting etc
--- TODO: runcode lang (rust) if !cargo vertify-project { rustc % } else { cargo run };
 -- TODO: telescope ignore gitingore
 -- TODO: nvim-tree show .exe files
 -- TODO: make runcode autocmd lua

@@ -1,9 +1,9 @@
 local M = {}
 
-local utils = require('utils')
+local fn = require('fn')
 
 M.setup = function()
-    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", utils.opts)
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", fn.opts)
 end
 
 M.config = function()

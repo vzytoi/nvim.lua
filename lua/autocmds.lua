@@ -1,6 +1,7 @@
 local M = {}
 
 local autocmd = vim.api.nvim_create_autocmd
+local fn = require('fn')
 
 M.close = function()
     local gclose = vim.api.nvim_create_augroup("closeWhenLast", { clear = true })
@@ -19,8 +20,8 @@ M.close = function()
     local apply = function(ft)
         vim.api.nvim_create_autocmd("BufEnter", {
             callback = function()
-                if vim.fn.winnr("$") == 1 and vim.bo.filetype == ft then
-                    vim.api.nvim_command("q")
+                if fn.is_last_win() and vim.bo.filetype == ft then
+                    fn.close_current_win()
                 end
             end,
             group = gclose
@@ -30,6 +31,18 @@ M.close = function()
     for _, ft in ipairs(fts) do
         apply(ft)
     end
+
+    autocmd('BufEnter', {
+        nested = true,
+        callback = function()
+            if fn.is_last_win() and
+                fn.starts_with(vim.fn.bufname(), 'NvimTree')
+            then
+                fn.close_current_win()
+            end
+        end,
+    })
+
 end
 
 M.lsp_highlight = function()

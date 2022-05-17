@@ -241,7 +241,6 @@ function M.config()
                 "nvim-telescope/telescope.nvim",
                 config = function()
                     require("plugins.telescope").config()
-                    require("plugins.telescope").setup_tmp()
                 end,
                 requires = "BurntSushi/ripgrep",
                 after = "refactoring.nvim"

@@ -88,4 +88,16 @@ function M.scandir(directory)
     return vim.list_slice(t, 3, #t)
 end
 
+function M.is_last_win()
+    return #vim.api.nvim_list_wins() == 1
+end
+
+function M.close_current_win()
+    vim.api.nvim_command('q')
+end
+
+function M.starts_with(string, search)
+    return string:find('^' .. search) ~= nil
+end
+
 return M

@@ -1,62 +1,59 @@
 local M = {}
 
-M.telescope = require("telescope")
-M.builtin = require("telescope.builtin")
-M.actions = require("telescope.actions")
-M.themes = require("telescope.themes")
-M.utils = require("utils")
+local telescope = require("telescope")
+local builtin = require("telescope.builtin")
+local actions = require("telescope.actions")
+local themes = require("telescope.themes")
+local fn = require("fn")
 
-function M.setup_tmp()
-    local ivy =
-    M.themes.get_ivy(
-        {
+function M.setup()
+    local ivy = themes.get_ivy({
         show_untracked = true
-    }
-    )
+    })
 
     vim.keymap.set("n", "<leader>f",
         function()
-            if not pcall(M.builtin.git_files, ivy) then
-                M.builtin.find_files(ivy)
+            if not pcall(builtin.git_files, ivy) then
+                builtin.find_files(ivy)
             end
             print("called")
         end,
-        M.builtin.opts
+        builtin.opts
     )
 
     vim.keymap.set(
         "n",
         "<leader>fg",
         function()
-            M.builtin.live_grep()
+            builtin.live_grep()
         end,
-        M.builtin.opts
+        builtin.opts
     )
 
     vim.keymap.set("n", "<leader>fb",
         function()
-            M.builtin.buffers(ivy)
+            builtin.buffers(ivy)
         end,
-        M.builtin.opts
+        builtin.opts
     )
 
     vim.keymap.set("n", "<leader>fb",
         function()
-            M.builtin.buffers(ivy)
+            builtin.buffers(ivy)
         end,
-        M.builtin.opts
+        builtin.opts
     )
 
     vim.keymap.set("n", "<leader>fh",
         function()
-            M.builtin.help_tags(ivy)
+            builtin.help_tags(ivy)
         end,
-        M.builtin.opts
+        builtin.opts
     )
 
     vim.keymap.set("n", "<leader>ft",
         function()
-            M.builtin.grep_string {
+            builtin.grep_string {
                 prompt_prefix = "Search toods > ",
                 search = " TODO:",
                 file_ignore_patterns = {
@@ -64,22 +61,23 @@ function M.setup_tmp()
                 }
             }
         end,
-        M.builtin.opts
+        builtin.opts
     )
 
     vim.keymap.set("n", "<leader>fn",
         function()
-            M.builtin.git_files {
+            builtin.git_files {
                 prompt_prefix = "Neovim > ",
                 cwd = "~/.config/nvim"
             }
         end,
-        M.builtin.opts
+        builtin.opts
     )
 end
 
 function M.config()
-    M.telescope.setup(
+    M.setup()
+    telescope.setup(
         {
         defaults = {
             preview = {
@@ -110,11 +108,11 @@ function M.config()
             },
             mappings = {
                 i = {
-                    ["<c-k>"] = M.actions.move_selection_previous,
-                    ["<c-j>"] = M.actions.move_selection_next
+                    ["<c-k>"] = actions.move_selection_previous,
+                    ["<c-j>"] = actions.move_selection_next
                 },
                 n = {
-                    ["<Esc>"] = M.actions.close
+                    ["<Esc>"] = actions.close
                 }
             }
         },
@@ -130,8 +128,8 @@ function M.config()
     }
     )
 
-    M.telescope.load_extension("fzf")
-    M.telescope.load_extension("refactoring")
+    telescope.load_extension("fzf")
+    telescope.load_extension("refactoring")
 end
 
 return M

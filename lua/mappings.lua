@@ -1,7 +1,7 @@
 local M = {}
 
 local nest = require("nest")
-local utils = require("utils")
+local fn = require("fn")
 
 function M.config()
 
@@ -152,35 +152,35 @@ function M.config()
         function()
             require("telescope").extensions.refactoring.refactors()
         end,
-        utils.opts
+        fn.opts
     )
 
     vim.keymap.set("n", "<leader>d",
         function()
-            utils.toggle("DiffviewOpen", "DiffviewClose")
+            fn.toggle("DiffviewOpen", "DiffviewClose")
         end,
-        utils.opts
+        fn.opts
     )
 
     vim.keymap.set("n", "<leader>l",
         function()
-            utils.toggle("lop", "lcl")
+            fn.toggle("lop", "lcl")
         end,
-        utils.opts
+        fn.opts
     )
 
     vim.keymap.set("n", "<leader>c",
         function()
-            utils.toggle("copen", "cclose")
+            fn.toggle("copen", "cclose")
         end,
-        utils.opts
+        fn.opts
     )
 
     vim.keymap.set("v", '"*y',
         function()
             print("Don't use that mother fucker")
         end,
-        utils.opts
+        fn.opts
     )
 
 end

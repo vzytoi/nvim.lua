@@ -1,6 +1,6 @@
 local M = {}
 
-local utils = require("utils")
+local fn = require("fn")
 
 M.lsp_keymaps = function(bufnr)
     local map = {
@@ -13,7 +13,7 @@ M.lsp_keymaps = function(bufnr)
     }
 
     for _, m in pairs(map) do
-        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], utils.opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], fn.opts)
     end
 end
 
@@ -79,7 +79,7 @@ M.config = function()
         end
 
         require("lspconfig")[lsp].setup(
-            utils.mergeTables(setup, {
+            fn.mergeTables(setup, {
                 on_attach = M.on_attach,
                 capabilities = capabilities,
                 root_dir = vim.loop.cwd

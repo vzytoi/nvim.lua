@@ -54,7 +54,7 @@ function M.run(dir)
     vim.cmd(d[dir] .. "echo '' && " .. M.command())
 
     if dir ~= "x" then
-        require("options").setBufferOpts()
+        require("opts").setBufferOpts()
         M.resize(dir)
     end
 end

@@ -1,6 +1,6 @@
 local M = {}
 
-M.utils = require("utils")
+local fn = require("fn")
 
 M.raw = {
     all = {
@@ -41,7 +41,7 @@ end
 
 M.undeep = function(v)
     for k, _ in pairs(v[2]) do
-        v[2][k] = M.utils.mergeTables(v[2][k], v[1])
+        v[2][k] = fn.mergeTables(v[2][k], v[1])
     end
 
     return v[2]
@@ -52,7 +52,7 @@ M.sort = function(hi)
 
     for k, _ in pairs(hi) do
         if k == vim.g.colors_name or k == "all" then
-            o = M.utils.mergeTables(o, hi[k])
+            o = fn.mergeTables(o, hi[k])
         end
     end
 
@@ -60,7 +60,7 @@ M.sort = function(hi)
 end
 
 M.config = function()
-    require("options").ColorOpt()
+    require("opts").ColorOpt()
 
     local o = M.sort(M.raw)
 
@@ -70,7 +70,7 @@ M.config = function()
 
     for k, _ in pairs(o) do
         if k == "_" then
-            o = M.utils.mergeTables(M.undeep(o[k]), o)
+            o = fn.mergeTables(M.undeep(o[k]), o)
         end
     end
 
