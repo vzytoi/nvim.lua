@@ -1,8 +1,9 @@
 local modules = {
     { name = "plugins" },
+    { name = "colors", event = "Colorscheme", once = false },
     { name = "autocmds" },
     { name = "opts" },
-    { name = "abbr", event = "cmdlineenter" }
+    { name = "abbr", event = "cmdlineenter", once = true },
 }
 
 local load = function(name)
@@ -11,6 +12,7 @@ local load = function(name)
         error("Could not load " .. name)
     else
         require(name).config()
+        vim.g[name] = true
     end
 end
 
@@ -20,19 +22,24 @@ for _, m in pairs(modules) do
     else
         vim.api.nvim_create_autocmd(m.event, {
             callback = function()
-                load(m.name)
+                if not m.once or vim.g[m.name] == nil then
+                    load(m.name)
+                end
             end
         })
     end
 end
 
--- TODO: lsp only on current line
--- TODO: php formatter?
--- TODO: <leader>xt to open "node #" in toggleterm in a new tab?????
--- TODO: why rename doesn't work: https://neovim.discourse.group/t/tsserver-renaming-doesnt-work-attempt-to-index-a-boolean-value/2593
--- TODO: spellsitter: https://github.com/wbthomason/packer.nvim/issues/899
--- TODO: nvim-tree-docs: https://github.com/nvim-treesitter/nvim-tree-docs/issues/20
+-- TODO: lsp only on current line;
+-- TODO: php formatter?;
+-- TODO: <leader>xt to open "node #" in toggleterm in a new tab?????;
+-- TODO: why rename doesn't work: https://neovim.discourse.group/t/tsserver-renaming-doesnt-work-attempt-to-index-a-boolean-value/2593;
+-- TODO: spellsitter: https://github.com/wbthomason/packer.nvim/issues/899;
+-- TODO: nvim-tree-docs: https://github.com/nvim-treesitter/nvim-tree-docs/issues/20;
 -- TODO: limit severtiy for virtual text.
--- TODO: telescope ignore gitingore
--- TODO: nvim-tree show .exe files
--- TODO: make runcode autocmd lua
+-- TODO: telescope ignore gitingore;
+-- TODO: nvim-tree show .exe files;
+-- TODO: make nvim-tree rooter better;
+-- TODO: enter normal mode when entering term if full screen;
+-- TODO: check lua formatter to remove space around curly brackets;
+-- TODO: remove all from here open nvim-tree

@@ -28,17 +28,32 @@ function M.config()
             use "bogado/file-line"
             use "farmergreg/vim-lastplace"
             use "michaeljsmith/vim-indent-object"
-            use "morhetz/gruvbox"
             use "github/copilot.vim"
+            use "morhetz/gruvbox"
 
             use {
-                "ThePrimeagen/refactoring.nvim",
+                "szw/vim-maximizer",
+                cmd = "MaximizerToggle"
+            }
+
+            use {
+                "nvim-pack/nvim-spectre",
                 config = function()
-                    require("refactoring").setup({})
-                end,
-                after = {
-                    "nvim-treesitter"
-                }
+                    require('spectre').setup({
+                        mapping = {
+                            run_replace = {
+                                map = "<tab>",
+                            }
+                        }
+                    })
+                end
+            }
+
+            use {
+                'toppair/reach.nvim',
+                config = function()
+                    require('reach').setup()
+                end
             }
 
             use {
@@ -123,23 +138,9 @@ function M.config()
             use {
                 "numToStr/Comment.nvim",
                 config = function()
-                    require("Comment").setup {
-                        pre_hook = function(ctx)
-                            local U = require "Comment.utils"
-
-                            local location = nil
-                            if ctx.ctype == U.ctype.block then
-                                location = require("ts_context_commentstring.utils").get_cursor_location()
-                            elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-                                location = require("ts_context_commentstring.utils").get_visual_start_location()
-                            end
-
-                            return require("ts_context_commentstring.internal").calculate_commentstring {
-                                key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
-                                location = location
-                            }
-                        end
-                    }
+                    require("Comment").setup({
+                        ignore = "^$"
+                    })
                 end,
                 requires = {
                     {
@@ -239,16 +240,23 @@ function M.config()
 
             use {
                 "nvim-telescope/telescope.nvim",
+                requires = "BurntSushi/ripgrep",
                 config = function()
                     require("plugins.telescope").config()
                 end,
-                requires = "BurntSushi/ripgrep",
-                after = "refactoring.nvim"
             }
 
             use {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 run = "make"
+            }
+
+            use {
+                "ThePrimeagen/refactoring.nvim",
+                config = function()
+                    require("refactoring").setup()
+                end,
+                require = "telescope.nvim"
             }
 
             use {

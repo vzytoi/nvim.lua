@@ -7,23 +7,23 @@ function M.setup()
 
     vim.keymap.set("n", "<leader>x",
         function()
-        M.run("x")
-    end)
+            M.run("x")
+        end)
 
     vim.keymap.set("n", "<leader>xs",
         function()
-        M.run("s")
-    end)
+            M.run("s")
+        end)
 
     vim.keymap.set("n", "<leader>xv",
         function()
-        M.run("v")
-    end)
+            M.run("v")
+        end)
 
     vim.keymap.set("n", "<leader>xe",
         function()
-        M.time()
-    end)
+            M.time()
+        end)
 
 end
 

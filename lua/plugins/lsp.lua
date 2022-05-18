@@ -2,7 +2,7 @@ local M = {}
 
 local fn = require("fn")
 
-M.lsp_keymaps = function(bufnr)
+M.keymaps = function(bufnr)
     local map = {
         { "gr", "<cmd>lua vim.lsp.buf.rename()<cr>" },
         { "gh", "<cmd>lua vim.lsp.buf.hover()<cr>" },
@@ -17,10 +17,22 @@ M.lsp_keymaps = function(bufnr)
     end
 end
 
-M.on_attach = function(_, bufnr)
-    M.lsp_keymaps(bufnr)
+M.autocmds = function()
+    vim.api.nvim_create_autocmd("CursorHold", {
+        callback = function()
+            vim.lsp.buf.document_highlight()
+        end
+    })
 
-    require("autocmds").lsp_highlight()
+    vim.api.nvim_create_autocmd("CursorMoved", {
+        callback = function()
+            vim.lsp.buf.clear_references()
+        end
+    })
+end
+
+M.on_attach = function(_, bufnr)
+    M.keymaps(bufnr)
 end
 
 M.setup = {
@@ -38,6 +50,9 @@ M.setup = {
                         [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                         [vim.fn.stdpath("config") .. "/lua"] = true
                     }
+                },
+                telemetry = {
+                    enable = false
                 }
             }
         }
@@ -45,6 +60,7 @@ M.setup = {
 }
 
 M.config = function()
+
     vim.diagnostic.config({
         underline = false,
         update_in_insert = false,
@@ -63,11 +79,12 @@ M.config = function()
         { border = "rounded" }
     )
 
-    local servers = require('nvim-lsp-installer.servers').get_installed_server_names()
+    local servers = fn.scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-    require("nvim-lsp-installer").setup {
-        ensure_installed = servers
+    require('nvim-lsp-installer').setup {
+        ensure_installed = servers,
+        automatic_installation = true
     }
 
     for _, lsp in pairs(servers) do
@@ -79,7 +96,7 @@ M.config = function()
         end
 
         require("lspconfig")[lsp].setup(
-            fn.mergeTables(setup, {
+            vim.tbl_extend('keep', setup, {
                 on_attach = M.on_attach,
                 capabilities = capabilities,
                 root_dir = vim.loop.cwd

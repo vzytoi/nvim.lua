@@ -100,4 +100,12 @@ function M.starts_with(string, search)
     return string:find('^' .. search) ~= nil
 end
 
+function M.is_split()
+    return vim.fn.winwidth(0) ~= vim.o.columns
+end
+
+function M.leave_insert()
+    vim.api.nvim_command(':call feedkeys("<esc>", "x")')
+end
+
 return M

@@ -21,9 +21,7 @@ function M.setup()
         builtin.opts
     )
 
-    vim.keymap.set(
-        "n",
-        "<leader>fg",
+    vim.keymap.set("n", "<leader>fg",
         function()
             builtin.live_grep()
         end,
@@ -55,7 +53,7 @@ function M.setup()
         function()
             builtin.grep_string {
                 prompt_prefix = "Search toods > ",
-                search = " TODO:",
+                search = " :",
                 file_ignore_patterns = {
                     "snippets/*"
                 }
@@ -77,12 +75,11 @@ end
 
 function M.config()
     M.setup()
-    telescope.setup(
-        {
+    telescope.setup({
         defaults = {
             preview = {
                 check_mine_type = false,
-                timeout = 500
+                timeout = 100
             },
             file_ignore_patterns = {
                 ".git/"
@@ -103,7 +100,7 @@ function M.config()
             },
             pickers = {
                 find_files = {
-                    find_command = { "fd", "--type=file", "--hidden", "--smart-case" }
+                find_command = { "rg", "--no-ignore", "--files" },
                 }
             },
             mappings = {
@@ -125,8 +122,7 @@ function M.config()
                 case_mode = "smart_case"
             }
         }
-    }
-    )
+    })
 
     telescope.load_extension("fzf")
     telescope.load_extension("refactoring")

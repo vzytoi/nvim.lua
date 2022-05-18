@@ -7,6 +7,14 @@ function M.config()
     local luasnip = require("luasnip")
 
     cmp.setup {
+        completion = {
+            completeopt = 'menu,menuone,noselect',
+            get_trigger_characters = function(trigger_characters)
+                return vim.tbl_filter(function(char)
+                    return char ~= ' '
+                end, trigger_characters)
+            end,
+        },
         sources = {
             { name = "luasnip" },
             { name = "cmp_tabnine" },
