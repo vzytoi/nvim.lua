@@ -20,16 +20,28 @@ function M.config()
 
             use "wbthomason/packer.nvim"
             use "nvim-lua/plenary.nvim"
-            use "Jorengarenar/vim-MvVis"
+            use "fedepujol/move.nvim"
             use "tpope/vim-surround"
             use "romainl/vim-cool"
             use "wellle/targets.vim"
             use "tpope/vim-sleuth"
-            use "bogado/file-line"
             use "farmergreg/vim-lastplace"
             use "michaeljsmith/vim-indent-object"
-            use "github/copilot.vim"
             use "morhetz/gruvbox"
+
+            use {
+                "ThePrimeagen/harpoon",
+                config = function()
+                    require('harpoon').setup({
+                        projects = {
+                            mark_branch = true,
+                            projects = {
+                                ["$HOME/.config/nvim"] = {}
+                            }
+                        }
+                    })
+                end
+            }
 
             use {
                 "szw/vim-maximizer",
@@ -38,6 +50,7 @@ function M.config()
 
             use {
                 "nvim-pack/nvim-spectre",
+                -- cmd = "Spectre",
                 config = function()
                     require('spectre').setup({
                         mapping = {
@@ -46,13 +59,6 @@ function M.config()
                             }
                         }
                     })
-                end
-            }
-
-            use {
-                'toppair/reach.nvim',
-                config = function()
-                    require('reach').setup()
                 end
             }
 
@@ -240,7 +246,6 @@ function M.config()
 
             use {
                 "nvim-telescope/telescope.nvim",
-                requires = "BurntSushi/ripgrep",
                 config = function()
                     require("plugins.telescope").config()
                 end,
@@ -249,14 +254,6 @@ function M.config()
             use {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 run = "make"
-            }
-
-            use {
-                "ThePrimeagen/refactoring.nvim",
-                config = function()
-                    require("refactoring").setup()
-                end,
-                require = "telescope.nvim"
             }
 
             use {

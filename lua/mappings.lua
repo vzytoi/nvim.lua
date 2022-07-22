@@ -1,7 +1,7 @@
 local M = {}
 
-local nest = require("nest")
 local fn = require("fn")
+local nest = fn.lazy_require("nest")
 
 function M.config()
 
@@ -22,12 +22,11 @@ function M.config()
         } },
         { "<", "<<" },
         { ">", ">>" },
+        { "~", "~h" },
         { "<Tab>", ":tabNext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
-            { "s", function()
-                require('spectre').open()
-            end },
+            { "s", ":Spectre<cr>" },
             { "p", ":PP<cr>" },
             { "o", ":MaximizerToggle<cr>" },
             { "g", ":DogeGenerate<cr>" },
@@ -35,7 +34,10 @@ function M.config()
             { "u", ":PP<cr>" },
             { "ya", ":%y+<cr>" },
             { "n", ":silent set rnu!<cr>" },
-            { "~", "~h" },
+            { 'b', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
+            { 'b', {
+                { 'a', "<cmd>lua require('harpoon.mark').add_file()<cr>" }
+            } },
             { "q", {
                 { "s", [[<cmd>lua require("persistence").load()<cr>]] },
                 { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
@@ -51,7 +53,6 @@ function M.config()
                 { "k", ":cprev<cr>" },
                 { "j", ":cnext<cr>" }
             } },
-            { "b", ":ReachOpen buffers<cr>" },
             { "b", {
                 { "k", ":b#<cr>" },
                 { "h", ":bNext<cr>" },
@@ -86,15 +87,12 @@ function M.config()
         { "N", "Nzzzv" },
         { "J", "mzJ`z" },
         { mode = "v", {
-            { options = { noremap = false }, {
-                { "H", "<Plug>(MvVisLeft)" },
-                { "J", "<Plug>(MvVisDown)=gv" },
-                { "K", "<Plug>(MvVisUp)=gv" },
-                { "L", "<Plug>(MvVisRight)" }
-            } },
+            { 'L', ":MoveHBlock(1)<CR>" },
+            { 'J', ":MoveBlock(1)<CR>" },
+            { 'K', ":MoveBlock(-1)<CR>" },
+            { 'H', ":MoveHBlock(-1)<CR>" },
             { "<", "<gv" },
             { ">", ">gv" },
-            { "y", '"*y' }
         } },
         { mode = "i", {
             { "<c-", {
@@ -139,6 +137,15 @@ function M.config()
         end,
         fn.opts
     )
+
+    for i = 1, 5 do
+        vim.keymap.set("n", "<leader>" .. i,
+            function()
+                require('harpoon.ui').nav_file(i)
+            end,
+            fn.opts
+        )
+    end
 
 end
 

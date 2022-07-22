@@ -32,7 +32,7 @@ function M.command()
 
     local changes = {
         n = {
-            ["#"] = "%:t",
+            ["#"] = "%:p",
             ["@"] = "%:t:r"
         }
     }

@@ -72,7 +72,7 @@ M.config = function()
             elseif size >= 500000 then
                 vim.api.nvim_command("silent! TSBufDisable highlight")
             elseif vim.g.TS_disabled then
-                vim.api.nvim_command("write | edit | TSBufEnable highlight")
+                vim.api.nvim_command("!write | edit | TSBufEnable highlight")
             end
 
             vim.g.TS_disabled = size >= 50000
@@ -87,9 +87,10 @@ M.config = function()
         end
     })
 
-    autocmd("BufEnter", {
+    --[[ autocmd("BufEnter", {
         command = "silent! lcd %:p:h"
-    })
+        })
+    ]]
 
     autocmd("VimResized", {
         command = "wincmd ="
@@ -121,13 +122,13 @@ M.config = function()
 
     vim.cmd("autocmd FileType runcode nnoremap <buffer> <cr> :silent q!<cr>")
 
-    autocmd("TermEnter", {
+    --[[ autocmd("TermEnter", {
         callback = function()
             if not fn.is_split() then
                 fn.leave_insert()
             end
         end
-    })
+    }) ]]
 
 end
 

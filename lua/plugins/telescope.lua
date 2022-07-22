@@ -1,22 +1,26 @@
 local M = {}
 
-local telescope = require("telescope")
-local builtin = require("telescope.builtin")
-local actions = require("telescope.actions")
-local themes = require("telescope.themes")
 local fn = require("fn")
+
+local telescope = fn.lazy_require("telescope")
+local builtin = fn.lazy_require("telescope.builtin")
+local actions = fn.lazy_require("telescope.actions")
+local themes = fn.lazy_require("telescope.themes")
+
+vim.g.called0 = true
 
 function M.setup()
     local ivy = themes.get_ivy({
         show_untracked = true
     })
 
+    vim.g.called1 = true
     vim.keymap.set("n", "<leader>f",
         function()
             if not pcall(builtin.git_files, ivy) then
                 builtin.find_files(ivy)
             end
-            print("called")
+            vim.g.called2 = true
         end,
         builtin.opts
     )
@@ -74,7 +78,6 @@ function M.setup()
 end
 
 function M.config()
-    M.setup()
     telescope.setup({
         defaults = {
             preview = {
@@ -100,7 +103,7 @@ function M.config()
             },
             pickers = {
                 find_files = {
-                find_command = { "rg", "--no-ignore", "--files" },
+                    find_command = { "rg", "--no-ignore", "--files" },
                 }
             },
             mappings = {
@@ -125,7 +128,8 @@ function M.config()
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("refactoring")
+
+    M.setup()
 end
 
 return M

@@ -1,10 +1,17 @@
 local M = {}
 
-function M.config()
+local fn = require('fn')
 
-    local cmp = require("cmp")
-    local lspkind = require("lspkind")
-    local luasnip = require("luasnip")
+local ok, cmp = pcall(fn.lazy_require, "cmp")
+if not ok then
+    return
+end
+
+local cmp = fn.lazy_require("cmp")
+local lspkind = fn.lazy_require("lspkind")
+local luasnip = fn.lazy_require("luasnip")
+
+function M.config()
 
     cmp.setup {
         completion = {
@@ -36,14 +43,14 @@ function M.config()
             ["<c-j>"] = cmp.mapping.select_next_item(),
             ["<tab>"] = cmp.mapping(
                 function(fallback)
-                if cmp.visible() then
-                    cmp.confirm({ select = true })
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                else
-                    fallback()
+                    if cmp.visible() then
+                        cmp.confirm({ select = true })
+                    elseif luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
                 end
-            end
             )
         },
         formatting = {

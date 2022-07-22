@@ -1,8 +1,8 @@
 local modules = {
-    { name = "plugins" },
     { name = "colors", event = "Colorscheme", once = false },
-    { name = "autocmds" },
     { name = "opts" },
+    { name = "plugins" },
+    { name = "autocmds" },
     { name = "abbr", event = "cmdlineenter", once = true },
 }
 
@@ -36,7 +36,6 @@ end
 -- TODO: why rename doesn't work: https://neovim.discourse.group/t/tsserver-renaming-doesnt-work-attempt-to-index-a-boolean-value/2593;
 -- TODO: spellsitter: https://github.com/wbthomason/packer.nvim/issues/899;
 -- TODO: nvim-tree-docs: https://github.com/nvim-treesitter/nvim-tree-docs/issues/20;
--- TODO: limit severtiy for virtual text.
 -- TODO: telescope ignore gitingore;
 -- TODO: nvim-tree show .exe files;
 -- TODO: make nvim-tree rooter better;
