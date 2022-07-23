@@ -134,4 +134,10 @@ function M.lazy_require(module)
 
 end
 
+function M.is_mac()
+
+    return vim.fn.has('macunix')
+
+end
+
 return M
