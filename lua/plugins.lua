@@ -44,7 +44,7 @@ function M.config()
             use {
                 "kyazdani42/nvim-tree.lua",
                 requires = {
-                    "kyazdani42/nvim-web-devicons"
+                        "kyazdani42/nvim-web-devicons"
                 },
                 config = function()
                     require("plugins.tree").config()
@@ -61,7 +61,7 @@ function M.config()
             }
 
             use {
-                "nvim-treesitter/nvim-treesitter-textobjects",
+            "nvim-treesitter/nvim-treesitter-textobjects",
                 after = "nvim-treesitter"
             }
 
@@ -90,20 +90,7 @@ function M.config()
                 }
             }
 
-            use {
-                "ThePrimeagen/harpoon",
-                config = function()
-                    require('harpoon').setup({
-                        projects = {
-                            mark_branch = true,
-                            projects = {
-                                ["$HOME/.config/nvim"] = {}
-                            }
-                        }
-                    })
-                end
-            }
-
+            -- maximizer is written in vim-scipt
             use {
                 "szw/vim-maximizer",
                 cmd = "MaximizerToggle"
