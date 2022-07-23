@@ -8,7 +8,7 @@ M.uses = function()
     local map = {
         python = true,
         javascript = false,
-        lua = false,
+        -- lua = false,
         go = false,
         rust = false
     }

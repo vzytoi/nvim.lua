@@ -2,6 +2,7 @@ local M = {}
 
 local fn = require("fn")
 
+
 M.raw = {
     all = {
         LineNr = { guifg = "#6B6B6B" },
@@ -60,8 +61,11 @@ M.sort = function(hi)
 end
 
 M.config = function()
+    vim.g.ok = true
+
     require("opts").ColorOpt()
-    require("plugins.lualine").config()
+    -- require("plugins.lualine").config()
+
 
     local o = M.sort(M.raw)
 

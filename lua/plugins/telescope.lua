@@ -7,20 +7,17 @@ local builtin = fn.lazy_require("telescope.builtin")
 local actions = fn.lazy_require("telescope.actions")
 local themes = fn.lazy_require("telescope.themes")
 
-vim.g.called0 = true
-
 function M.setup()
+
     local ivy = themes.get_ivy({
         show_untracked = true
     })
 
-    vim.g.called1 = true
     vim.keymap.set("n", "<leader>f",
         function()
             if not pcall(builtin.git_files, ivy) then
                 builtin.find_files(ivy)
             end
-            vim.g.called2 = true
         end,
         builtin.opts
     )

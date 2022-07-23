@@ -5,8 +5,6 @@ local nest = fn.lazy_require("nest")
 
 function M.config()
 
-    vim.g.mapleader = " "
-
     require("plugins.runcode").setup()
     require("plugins.resize").setup()
     require("plugins.term").setup()

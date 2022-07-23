@@ -9,8 +9,8 @@ function M.config()
         vim.api.nvim_command("packadd packer.nvim")
     end
 
-    return require("packer").startup {
-        function(use)
+    return require("packer").startup{function(use)
+
             use {
                 "lewis6991/impatient.nvim",
                 config = function()
@@ -28,6 +28,67 @@ function M.config()
             use "farmergreg/vim-lastplace"
             use "michaeljsmith/vim-indent-object"
             use "morhetz/gruvbox"
+
+            use {
+                "nvim-telescope/telescope.nvim",
+                config = function()
+                    require("plugins.telescope").config()
+                end,
+            }
+
+            use {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                run = "make"
+            }
+
+            use {
+                "kyazdani42/nvim-tree.lua",
+                requires = {
+                    "kyazdani42/nvim-web-devicons"
+                },
+                config = function()
+                    require("plugins.tree").config()
+                end
+            }
+
+            use {
+                "nvim-treesitter/nvim-treesitter",
+                event = "BufRead",
+                run = ":TSUpdate",
+                config = function()
+                    require("plugins.treesitter")
+                end
+            }
+
+            use {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                after = "nvim-treesitter"
+            }
+
+            use {
+                "RRethy/nvim-treesitter-textsubjects",
+                after = "nvim-treesitter"
+            }
+
+            use {
+                "hrsh7th/nvim-cmp",
+                config = require("plugins.cmp").config(),
+                requires = {
+                 "onsails/lspkind-nvim",
+                 "hrsh7th/cmp-path",
+                 "saadparwaiz1/cmp_luasnip",
+                 "hrsh7th/cmp-buffer",
+                    {
+                        "tzachar/cmp-tabnine",
+                        run = "./install.sh",
+                        config = function()
+                            require('cmp_tabnine.config'):setup({
+                                show_prediction_strength = true
+                            })
+                        end
+                    }
+                }
+            }
 
             use {
                 "ThePrimeagen/harpoon",
@@ -82,18 +143,11 @@ function M.config()
                     "neovim/nvim-lspconfig",
                     config = function()
                         require("plugins.lsp").config()
-                    end
+                    end,
+                    requires = {
+                     "hrsh7th/cmp-nvim-lsp"
+                    }
                 }
-            }
-
-            use {
-                "kyazdani42/nvim-tree.lua",
-                requires = {
-                    "kyazdani42/nvim-web-devicons"
-                },
-                config = function()
-                    require("plugins.tree").config()
-                end
             }
 
             use {
@@ -170,27 +224,6 @@ function M.config()
             }
 
             use {
-                "hrsh7th/nvim-cmp",
-                config = require("plugins.cmp").config(),
-                requires = {
-                    "onsails/lspkind-nvim",
-                    "hrsh7th/cmp-path",
-                    "hrsh7th/cmp-nvim-lsp",
-                    "saadparwaiz1/cmp_luasnip",
-                    "hrsh7th/cmp-buffer",
-                    {
-                        "tzachar/cmp-tabnine",
-                        run = "./install.sh",
-                        config = function()
-                            require('cmp_tabnine.config'):setup({
-                                show_prediction_strength = true
-                            })
-                        end
-                    }
-                }
-            }
-
-            use {
                 "windwp/nvim-autopairs",
                 config = function()
                     require("nvim-autopairs").setup {}
@@ -242,37 +275,6 @@ function M.config()
             use {
                 "tpope/vim-fugitive",
                 cmd = { "G", "Gdiff" }
-            }
-
-            use {
-                "nvim-telescope/telescope.nvim",
-                config = function()
-                    require("plugins.telescope").config()
-                end,
-            }
-
-            use {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                run = "make"
-            }
-
-            use {
-                "nvim-treesitter/nvim-treesitter",
-                event = "BufRead",
-                run = ":TSUpdate",
-                config = function()
-                    require("plugins.treesitter")
-                end
-            }
-
-            use {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                after = "nvim-treesitter"
-            }
-
-            use {
-                "RRethy/nvim-treesitter-textsubjects",
-                after = "nvim-treesitter"
             }
 
             use {

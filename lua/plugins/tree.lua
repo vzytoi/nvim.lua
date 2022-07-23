@@ -20,6 +20,7 @@ M.setup = function()
 end
 
 M.config = function()
+
     require "nvim-tree".setup {
         view = {
             side = "right",

@@ -1,19 +1,20 @@
 local M = {}
 
 function M.setup()
+
     local k = {
-        "h",
-        "l",
-        "k",
-        "j"
+        { "Ì", "h"},
+        { "¬", "l"},
+        { "È", "k"},
+        { "Ï", "j"},
     }
 
     for i, _ in ipairs(k) do
         vim.keymap.set(
             {"n", "i"},
-            string.format("<a-%s>", k[i]),
+            k[i][vim.fn.has('macunix') and 1 or 2],
             function()
-                M.ResizeSplits(k[i])
+                M.ResizeSplits(k[i][2])
             end
         )
     end

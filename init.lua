@@ -1,7 +1,9 @@
+vim.g.mapleader = " "
+
 local modules = {
-    { name = "colors", event = "Colorscheme", once = false },
-    { name = "opts" },
     { name = "plugins" },
+    { name = "opts" },
+    { name = "colors" },
     { name = "autocmds" },
     { name = "abbr", event = "cmdlineenter", once = true },
 }
@@ -29,16 +31,3 @@ for _, m in pairs(modules) do
         })
     end
 end
-
--- TODO: lsp only on current line;
--- TODO: php formatter?;
--- TODO: <leader>xt to open "node #" in toggleterm in a new tab?????;
--- TODO: why rename doesn't work: https://neovim.discourse.group/t/tsserver-renaming-doesnt-work-attempt-to-index-a-boolean-value/2593;
--- TODO: spellsitter: https://github.com/wbthomason/packer.nvim/issues/899;
--- TODO: nvim-tree-docs: https://github.com/nvim-treesitter/nvim-tree-docs/issues/20;
--- TODO: telescope ignore gitingore;
--- TODO: nvim-tree show .exe files;
--- TODO: make nvim-tree rooter better;
--- TODO: enter normal mode when entering term if full screen;
--- TODO: check lua formatter to remove space around curly brackets;
--- TODO: remove all from here open nvim-tree

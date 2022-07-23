@@ -3,11 +3,11 @@ local M = {}
 local fn = require('fn')
 
 local ok, cmp = pcall(fn.lazy_require, "cmp")
+
 if not ok then
     return
 end
 
-local cmp = fn.lazy_require("cmp")
 local lspkind = fn.lazy_require("lspkind")
 local luasnip = fn.lazy_require("luasnip")
 

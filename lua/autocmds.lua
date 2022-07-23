@@ -87,11 +87,6 @@ M.config = function()
         end
     })
 
-    --[[ autocmd("BufEnter", {
-        command = "silent! lcd %:p:h"
-        })
-    ]]
-
     autocmd("VimResized", {
         command = "wincmd ="
     })
