@@ -2,11 +2,13 @@ vim.g.mapleader = " "
 
 local modules = {
     { name = "plugins" },
+    { name = "colors", event = "colorscheme", once = false },
     { name = "opts" },
-    { name = "colors" },
     { name = "autocmds" },
     { name = "abbr", event = "cmdlineenter", once = true },
 }
+
+local fn = require('fn')
 
 local load = function(name)
     local ok, _ = pcall(require, name)

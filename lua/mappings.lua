@@ -24,7 +24,6 @@ function M.config()
         { "<Tab>", ":tabNext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
-            { "s", ":Spectre<cr>" },
             { "p", ":PP<cr>" },
             { "o", ":MaximizerToggle<cr>" },
             { "g", ":DogeGenerate<cr>" },
@@ -128,22 +127,6 @@ function M.config()
         end,
         fn.opts
     )
-
-    vim.keymap.set("v", '"*y',
-        function()
-            print("Don't use that mother fucker")
-        end,
-        fn.opts
-    )
-
-    for i = 1, 5 do
-        vim.keymap.set("n", "<leader>" .. i,
-            function()
-                require('harpoon.ui').nav_file(i)
-            end,
-            fn.opts
-        )
-    end
 
 end
 

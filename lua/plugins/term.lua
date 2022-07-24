@@ -1,7 +1,5 @@
 local M = {}
 
-M.toggleterm = require("toggleterm")
-
 M.cmds = {
     javascript = { cmd = "node" },
     typescript = { cmd = "ts-node" },
@@ -35,7 +33,6 @@ M.setup = function()
     vim.keymap.set("t", "<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
     vim.keymap.set("t", "<esc>", [[<C-\><C-n>]])
     vim.keymap.set("t", "<c-v>", [[<C-\><C-n>"*pA"]])
-    vim.g.called_term = true
 end
 
 M.config = function()

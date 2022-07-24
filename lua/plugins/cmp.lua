@@ -1,14 +1,7 @@
 local M = {}
 
 local fn = require('fn')
-
-local ok, cmp = pcall(fn.lazy_require, "cmp")
-
-if not ok then
-    return
-end
-
-local lspkind = fn.lazy_require("lspkind")
+local cmp = fn.lazy_require('cmp')
 local luasnip = fn.lazy_require("luasnip")
 
 function M.config()
@@ -54,7 +47,7 @@ function M.config()
             )
         },
         formatting = {
-            format = lspkind.cmp_format {
+            format = require('lspkind').cmp_format {
                 with_text = false,
                 menu = {
                     cmp_tabnine = "[tabnine]",
