@@ -1,8 +1,5 @@
 local M = {}
 
-local fn = require("fn")
-
-
 M.raw = {
     all = {
         LineNr = { guifg = "#6B6B6B" },
@@ -61,11 +58,7 @@ M.sort = function(hi)
 end
 
 M.config = function()
-    vim.g.ok = true
-
-    require("opts").ColorOpt()
-    -- require("plugins.lualine").config()
-
+    require("plugins.lualine").config()
 
     local o = M.sort(M.raw)
 
@@ -84,14 +77,16 @@ M.config = function()
             M.apply(k, v)
         end
     end
-    vim.cmd(
-        [[
-        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticSignError
-        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticSignWarn
-        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticSignInfo
-        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticSignHint
-        ]]
-    )
+
+    vim.fn.sign_define("DiagnosticSignError",
+        { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "DiagnosticSignError" })
+    vim.fn.sign_define("DiagnosticSignWarn",
+        { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "DiagnosticSignWarn" })
+    vim.fn.sign_define("DiagnosticSignInfo",
+        { text = "", texthl = "DiagnosticSignInfo", linehl = "", numhl = "DiagnosticSignInfo" })
+    vim.fn.sign_define("DiagnosticSignHint",
+        { text = "", texthl = "DiagnosticSignHint", linehl = "", numhl = "DiagnosticSignHint" })
+
 end
 
 return M

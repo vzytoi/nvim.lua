@@ -117,14 +117,6 @@ M.config = function()
 
     vim.cmd("autocmd FileType runcode nnoremap <buffer> <cr> :silent q!<cr>")
 
-    --[[ autocmd("TermEnter", {
-        callback = function()
-            if not fn.is_split() then
-                fn.leave_insert()
-            end
-        end
-    }) ]]
-
 end
 
 return M

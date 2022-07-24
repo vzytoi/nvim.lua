@@ -34,25 +34,20 @@ function M.split(string, target)
     return results
 end
 
-function M.subrange(t, first, last)
-    return table.move(t, first, last, 1, {})
-end
+M.has_value = function(tab, val)
 
-function M.selection()
-    local s = vim.fn.getpos("'<")
-    local e = vim.fn.getpos("'>")
-    local nl = math.abs(e[2] - s[2]) + 1
-
-    local lines = vim.api.nvim_buf_get_lines(0, s[2] - 1, e[2], false)
-    lines[1] = string.sub(lines[1], s[3], -1)
-
-    if nl == 1 then
-        lines[nl] = string.sub(lines[nl], 1, e[3] - s[3] + 1)
-    else
-        lines[nl] = string.sub(lines[nl], 1, e[3])
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
     end
 
-    return table.concat(lines, "\n")
+    return false
+
+end
+
+function M.subrange(t, first, last)
+    return table.move(t, first, last, 1, {})
 end
 
 M.opts = { noremap = true, silent = true }
@@ -70,42 +65,16 @@ function M.toggle(open, close)
     vim.g[open] = not vim.g[open]
 end
 
-function M.scandir(directory)
-
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen('ls -a "' .. directory .. '"')
-
-    if pfile ~= nil then
-        for filename in pfile:lines() do
-            i = i + 1
-            t[i] = filename
-        end
-        pfile:close()
-    else
-        return false
-    end
-
-    return vim.list_slice(t, 3, #t)
-end
-
-function M.is_last_win()
+M.is_last_win = function()
     return #vim.api.nvim_list_wins() == 1
 end
 
-function M.close_current_win()
+M.close_current_win = function()
     vim.api.nvim_command('q')
 end
 
-function M.starts_with(string, search)
+M.starstwith = function(string, search)
     return string:find('^' .. search) ~= nil
-end
-
-function M.is_split()
-    return vim.fn.winwidth(0) ~= vim.o.columns
-end
-
-function M.leave_insert()
-    vim.api.nvim_command(':call feedkeys("<esc>", "x")')
 end
 
 function M.lazy_require(module)

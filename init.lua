@@ -1,11 +1,11 @@
 vim.g.mapleader = " "
 
 local modules = {
+    { name = "abbr", event = "cmdlineenter" },
+    { name = "colors", event = "ColorScheme" },
     { name = "plugins" },
-    { name = "colors", event = "colorscheme", once = false },
     { name = "opts" },
     { name = "autocmds" },
-    { name = "abbr", event = "cmdlineenter", once = true },
 }
 
 local load = function(name)
@@ -24,7 +24,7 @@ for _, m in pairs(modules) do
     else
         vim.api.nvim_create_autocmd(m.event, {
             callback = function()
-                if not m.once or vim.g[m.name] == nil then
+                if vim.g[m.name] == nil then
                     load(m.name)
                 end
             end

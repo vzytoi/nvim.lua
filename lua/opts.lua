@@ -1,6 +1,6 @@
 local M = {}
 
-local mergeTables = require("fn").mergeTables
+local fn = require("fn")
 
 function M.setBufferOpts()
     vim.bo.bufhidden = "delete"
@@ -36,7 +36,7 @@ function M.disablePlugins()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = mergeTables(plug_buitlins, { "netrw", "netrwPlugin", "netrwSettings" })
+        plug_buitlins = fn.mergeTables(plug_buitlins, { "netrw", "netrwPlugin", "netrwSettings" })
     end
 
     for _, p in pairs(plug_buitlins) do

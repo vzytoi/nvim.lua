@@ -1,9 +1,13 @@
 local M = {}
 
+local fn = require("fn")
 local lang = require("plugins.runcode.lang")
 
+M.ignore_dirs = {
+    os.getenv("HOME") .. '/.config/nvim'
+}
+
 function M.setup()
-    vim.g.called2 = true
 
     vim.keymap.set("n", "<leader>x",
         function()
@@ -45,6 +49,14 @@ function M.command()
 end
 
 function M.run(dir)
+
+    for _, value in ipairs(M.ignore_dirs) do
+        if string.find(vim.fn.getcwd(), value) then
+            print('RunCode: This directory has been ignored')
+            return
+        end
+    end
+
     local d = {
         s = "split_f|r !",
         v = "vnew|r !",

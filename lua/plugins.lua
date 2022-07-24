@@ -1,12 +1,12 @@
 local M = {}
 
 function M.config()
-    local fn = vim.fn
-    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
+    local fn = vim.fn
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-        vim.api.nvim_command("packadd packer.nvim")
+        packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+            install_path })
     end
 
     return require("packer").startup { function(use)
@@ -268,6 +268,10 @@ function M.config()
             ft = { "html", "php" },
             event = "BufWritePre"
         }
+
+        if packer_bootstrap then
+            require('packer').sync()
+        end
 
     end
     }

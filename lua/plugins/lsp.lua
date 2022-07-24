@@ -1,6 +1,22 @@
 local M = {}
 
-local fn = require("fn")
+M.scandir = function(directory)
+
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('ls -a "' .. directory .. '"')
+
+    if pfile ~= nil then
+        for filename in pfile:lines() do
+            i = i + 1
+            t[i] = filename
+        end
+        pfile:close()
+    else
+        return false
+    end
+
+    return vim.list_slice(t, 3, #t)
+end
 
 M.keymaps = function(bufnr)
     local map = {
@@ -13,7 +29,7 @@ M.keymaps = function(bufnr)
     }
 
     for _, m in pairs(map) do
-        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], fn.opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], { noremap = true, silent = true})
     end
 end
 
@@ -79,7 +95,7 @@ M.config = function()
         { border = "rounded" }
     )
 
-    local servers = fn.scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
+    local servers = M.scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require('nvim-lsp-installer').setup {
