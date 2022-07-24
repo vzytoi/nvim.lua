@@ -8,8 +8,6 @@ local modules = {
     { name = "abbr", event = "cmdlineenter", once = true },
 }
 
-local fn = require('fn')
-
 local load = function(name)
     local ok, _ = pcall(require, name)
     if not ok then

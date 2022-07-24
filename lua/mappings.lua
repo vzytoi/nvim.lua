@@ -28,7 +28,6 @@ function M.config()
             { "o", ":MaximizerToggle<cr>" },
             { "g", ":DogeGenerate<cr>" },
             { "z", ":ZenMode<cr>" },
-            { "u", ":PP<cr>" },
             { "ya", ":%y+<cr>" },
             { "n", ":silent set rnu!<cr>" },
             { 'b', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },

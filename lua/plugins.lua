@@ -28,12 +28,17 @@ function M.config()
         use "wbthomason/packer.nvim"
         use "nvim-lua/plenary.nvim"
         use "tpope/vim-surround"
-        use "romainl/vim-cool"
         use "wellle/targets.vim"
         use "tpope/vim-sleuth"
         use "farmergreg/vim-lastplace"
-        use "morhetz/gruvbox"
+        use "ellisonleao/gruvbox.nvim"
         use "fedepujol/move.nvim"
+        use "luukvbaal/stabilize.nvim"
+
+        use {
+            "romainl/vim-cool",
+            event = "cmdlineenter"
+        }
 
         use {
             "nvim-telescope/telescope.nvim",
@@ -263,6 +268,7 @@ function M.config()
             ft = { "html", "php" },
             event = "BufWritePre"
         }
+
     end
     }
 end

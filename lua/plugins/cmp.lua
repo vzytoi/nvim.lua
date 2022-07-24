@@ -54,7 +54,7 @@ function M.config()
                     path = "[path]",
                     calc = "[calc]",
                     nvim_lsp = "[lsp]",
-                    luasnip = "[snip]"
+                    luasnip = "[snip]",
                 }
             }
         },
