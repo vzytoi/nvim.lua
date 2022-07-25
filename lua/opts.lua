@@ -2,7 +2,7 @@ local M = {}
 
 local fn = require("fn")
 
-function M.setBufferOpts()
+M.buffer = function(name)
     vim.bo.bufhidden = "delete"
     vim.bo.buftype = "nofile"
     vim.bo.swapfile = false
@@ -10,10 +10,10 @@ function M.setBufferOpts()
     vim.wo.winfixheight = true
     vim.wo.number = false
     vim.wo.relativenumber = false
-    vim.bo.filetype = "runcode"
+    vim.bo.filetype = name
 end
 
-function M.disablePlugins()
+M.disablePlugins = function()
     local plug_buitlins = {
         "gzip",
         "zip",
@@ -44,7 +44,7 @@ function M.disablePlugins()
     end
 end
 
-function M.loadOptions()
+M.loadOptions = function()
     local options = {
         rnu = true,
         hidden = true,
@@ -96,14 +96,14 @@ function M.loadOptions()
 
 end
 
-function M.ColorOpt()
+M.ColorOpt = function()
     vim.o.termguicolors = true
     vim.o.background = "dark"
 
     vim.cmd("colorscheme gruvbox")
 end
 
-function M.config()
+M.config = function()
     M.disablePlugins()
     M.loadOptions()
     M.ColorOpt()

@@ -4,13 +4,22 @@ local fn = require("fn")
 local nest = require("nest")
 
 M.map = function(op, outer)
+
     outer = outer or { silent = true, noremap = true }
     return function(lhs, rhs, otps)
+
+        if type(lhs) ~= "table" then
+            lhs = { lhs }
+        end
+
         opts = vim.tbl_extend("force",
             outer,
             opts or {}
         )
-        vim.keymap.set(op or "n", lhs, rhs, opts)
+
+        for _, v in pairs(lhs) do
+            vim.keymap.set(op or "n", v, rhs, opts)
+        end
 
     end
 end

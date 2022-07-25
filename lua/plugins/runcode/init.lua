@@ -1,27 +1,11 @@
 local M = {}
 
-local lang = require("plugins.runcode.lang")
+local ls = require('plugins.runcode.lang')
+local fn = require('fn')
 
 local ignore_dirs = {
     os.getenv("HOME") .. '/.config/nvim'
 }
-
-local function command()
-    local c = lang[vim.bo.filetype]
-
-    local changes = {
-        n = {
-            ["#"] = "%:p",
-            ["@"] = "%:t:r"
-        }
-    }
-
-    for k, v in pairs(changes[vim.fn.mode()]) do
-        c = c:gsub(k, vim.fn.expand(v))
-    end
-
-    return c
-end
 
 local function resize(dir)
     local lines = vim.fn.getline(1, "$")
@@ -48,7 +32,48 @@ local function resize(dir)
     vim.api.nvim_command(string.format("%s res %s", sd, m + 10))
 end
 
-local function run(dir)
+local function command(lang)
+
+    local rgx = {
+        ["#"] = "%:p",
+        ["@"] = "%:t:r"
+    }
+
+    local r = ls[lang]
+
+    for k, v in pairs(r) do
+
+        for target, p in pairs(rgx) do
+            r[k] = r[k]:gsub(target, vim.fn.expand(p))
+        end
+
+    end
+
+    return r
+
+end
+
+local function add(content, start)
+
+    vim.api.nvim_buf_set_lines(
+        vim.api.nvim_get_current_buf(),
+        start, -1, false,
+        content
+    )
+
+end
+
+local function openbuf(d)
+
+    local dirs = {
+        s = "bo new"
+    }
+
+    vim.api.nvim_command(dirs[d])
+
+end
+
+local function run(d)
 
     for _, value in ipairs(ignore_dirs) do
         if string.find(vim.fn.getcwd(), value) then
@@ -57,20 +82,40 @@ local function run(dir)
         end
     end
 
-    local d = {
-        s = "bo split_f|r !",
-        v = "vnew|r !"
-    }
+    if not ls[vim.bo.filetype] then
+        print('RunCode: language not supported')
+        return
+    end
 
-    vim.cmd(d[dir] .. command())
+    if vim.g.rcbufnr ~= nil then
+        fn.close(vim.g.rcbufnr)
+    end
 
-    require('opts').setBufferOpts()
-    resize(dir)
+    local cmd = command(vim.bo.filetype)
+    local fn = vim.fn.expand('%:t')
 
-end
+    openbuf(d)
+    add({ "output of: " .. fn, "" }, 0)
 
-local function time()
-    vim.api.nvim_command(string.format("!time %s", command()))
+    vim.fn.jobstart(cmd, {
+        stdout_buffered = true,
+        on_stdout = function(_, data)
+            if data then
+                add(data, -1)
+            end
+        end,
+        on_stderr = function(_, data)
+            if data then
+                add(data, -1)
+            end
+        end
+    })
+
+    vim.g.rcbufnr = vim.fn.bufnr()
+
+    require('opts').buffer("RunCode")
+    resize(d)
+
 end
 
 function M.setup()
@@ -81,18 +126,27 @@ function M.setup()
         run("s")
     end)
 
-    map("n")("<leader>xv", function()
-        run("v")
-    end)
-
-    map("n")("<leader>xe", function()
-        time()
-    end)
-
 end
 
 function M.autocmds()
-    vim.cmd("autocmd FileType runcode nnoremap <buffer> <cr> :silent q!<cr>")
+
+    local autocmd = vim.api.nvim_create_autocmd
+    local map = require('mappings').map
+
+    autocmd("FileType", {
+        pattern = "RunCode",
+        callback = function()
+            map()({ "<cr>", "q" }, function()
+                vim.api.nvim_command('silent! bd!')
+
+                if vim.g.rcbufnr ~= nil then
+                    vim.g.rcbufnr = nil
+                end
+
+            end)
+        end
+    })
+
 end
 
 return M

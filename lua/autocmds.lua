@@ -10,6 +10,7 @@ local last_close = {
 local no_nu = {
     'toggleterm',
     'fugitive',
+    'RunCode'
 }
 
 M.config = function()

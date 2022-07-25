@@ -1,6 +1,6 @@
 return {
     typescript = "ts-node #",
-    javascript = "node #",
+    javascript = { "node", "#" },
     c = "gcc # -o @.exe && ./@.exe",
     go = "go run #",
     java = "javac #;java @",
@@ -9,5 +9,5 @@ return {
     rust = "if cargo verify-project > /dev/null 2>&1; cargo run; else; rustc # && ./@; end;",
     php = "php #",
     python = "python3 #",
-    lua = "lua #"
+    lua = { "lua", "#" }
 }
