@@ -10,7 +10,7 @@ local cmds = {
 local function envInit()
     local Terminal = require("toggleterm.terminal").Terminal
 
-    for i, v in pairs(M.cmds) do
+    for i, v in pairs(cmds) do
         cmds[i].term = Terminal:new({ cmd = v.cmd, hidden = true, direction = "float" })
     end
 
