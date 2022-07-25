@@ -1,5 +1,7 @@
 local M = {}
 
+local fn = require('fn')
+
 local function reverse(s)
     return (s == "-" and "+" or "-")
 end
@@ -45,10 +47,21 @@ function M.setup()
     }
 
     for i, _ in ipairs(k) do
-        map({ "n", "i" })(k[i][1], function()
+
+        local m
+
+        if fn.is_mac() then
+            m = k[i][1]
+        else
+            m = string.format("<a-%s>", k[i][2])
+        end
+
+        map({ "n", "i" })(m, function()
             resize(k[i][2])
         end)
+
     end
+
 end
 
 return M
