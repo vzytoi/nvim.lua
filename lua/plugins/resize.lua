@@ -1,35 +1,14 @@
 local M = {}
 
-function M.setup()
-
-    local k = {
-        { "Ì", "h"},
-        { "¬", "l"},
-        { "È", "k"},
-        { "Ï", "j"},
-    }
-
-    for i, _ in ipairs(k) do
-        vim.keymap.set(
-            {"n", "i"},
-            k[i][vim.fn.has('macunix') and 1 or 2],
-            function()
-                M.ResizeSplits(k[i][2])
-            end
-        )
-    end
-end
-
 local function reverse(s)
     return (s == "-" and "+" or "-")
 end
 
 local function exec(s, d)
-    d = d or ""
-    vim.api.nvim_command(string.format("%s res%s5", d, s))
+    vim.api.nvim_command(string.format("%s res%s5", d or "", s))
 end
 
-function M.ResizeSplits(k)
+local function resize(k)
     local wcount = vim.fn.winnr("$")
     local wcurr = vim.fn.winnr()
 
@@ -51,6 +30,24 @@ function M.ResizeSplits(k)
         sl.k = sl.l
         sl.j = sl.h
         exec(sl[k])
+    end
+end
+
+function M.setup()
+
+    local map = require('mappings').map
+
+    local k = {
+        { "Ì", "h" },
+        { "¬", "l" },
+        { "È", "k" },
+        { "Ï", "j" },
+    }
+
+    for i, _ in ipairs(k) do
+        map({ "n", "i" })(k[i][1], function()
+            resize(k[i][2])
+        end)
     end
 end
 

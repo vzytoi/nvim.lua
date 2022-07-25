@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 local modules = {
     { name = "abbr", event = "cmdlineenter" },
     { name = "colors", event = "ColorScheme" },

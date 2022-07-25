@@ -3,19 +3,23 @@ local M = {}
 local autocmd = vim.api.nvim_create_autocmd
 local fn = require('fn')
 
-M.close = function()
-    local fts = {
-        'packer',
-        'git-commit',
-        'fugitive',
-        'statuptime',
-        'qf',
-        'diff',
-        'toggleterm'
-    }
+M.last_close = {
+    'NvimTree'
+}
+
+M.no_nu = {
+    'toggleterm',
+    'fugitive',
+    'spectre_panel'
+}
+
+M.config = function()
+
+    require('plugins.lsp').autocmds()
+    require('plugins.runcode').autocmds()
 
     vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = fts,
+        pattern = M.last_close,
         callback = function()
             if fn.is_last_win() then
                 fn.close_current_win()
@@ -23,17 +27,8 @@ M.close = function()
         end
     })
 
-end
-
-M.linenr = function()
-    local fts = {
-        'toggleterm',
-        'fugitive',
-        'spectre_panel'
-    }
-
     autocmd('FileType', {
-        pattern = fts,
+        pattern = M.no_nu,
         callback = function()
             vim.wo.rnu = false
             vim.wo.nu = false
@@ -42,24 +37,19 @@ M.linenr = function()
 
     autocmd("InsertLeave", {
         callback = function()
-            if not vim.tbl_contains(fts, vim.bo.filetype) then
-                vim.opt.relativenumber = true
+            if not vim.tbl_contains(M.no_nu, vim.bo.filetype) then
+                vim.opt.rnu = true
             end
         end
     })
 
     autocmd("InsertEnter", {
         callback = function()
-            vim.opt.relativenumber = false
+            if not vim.tbl_contains(M.no_nu, vim.bo.filetype) then
+                vim.opt.rnu = false
+            end
         end
     })
-
-end
-
-M.config = function()
-    M.close()
-
-    require('plugins.lsp').autocmds()
 
     autocmd("BufReadPost", {
         callback = function()
@@ -114,8 +104,6 @@ M.config = function()
             vim.cmd('setlocal formatoptions-=cro')
         end
     })
-
-    vim.cmd("autocmd FileType runcode nnoremap <buffer> <cr> :silent q!<cr>")
 
 end
 

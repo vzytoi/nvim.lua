@@ -1,9 +1,23 @@
 local M = {}
 
 local fn = require("fn")
-local nest = fn.lazy_require("nest")
+local nest = require("nest")
 
-function M.config()
+M.map = function(op, outer)
+    outer = outer or { silent = true, noremap = true }
+    return function(lhs, rhs, otps)
+        opts = vim.tbl_extend("force",
+            outer,
+            opts or {}
+        )
+        vim.keymap.set(op or "n", lhs, rhs, opts)
+
+    end
+end
+
+M.config = function()
+
+    vim.g.mapleader = " "
 
     require("plugins.runcode").setup()
     require("plugins.resize").setup()
@@ -25,15 +39,10 @@ function M.config()
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
             { "p", ":PP<cr>" },
-            { "o", ":MaximizerToggle<cr>" },
             { "g", ":DogeGenerate<cr>" },
             { "z", ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
             { "n", ":silent set rnu!<cr>" },
-            { 'b', "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
-            { 'b', {
-                { 'a', "<cmd>lua require('harpoon.mark').add_file()<cr>" }
-            } },
             { "q", {
                 { "s", [[<cmd>lua require("persistence").load()<cr>]] },
                 { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
@@ -99,33 +108,17 @@ function M.config()
         } }
     }
 
-    vim.keymap.set("n", "<leader>r",
-        function()
-            require("telescope").extensions.refactoring.refactors()
-        end,
-        fn.opts
-    )
+    M.map()("<leader>d", function()
+        fn.toggle("DiffviewOpen", "DiffviewClose")
+    end)
 
-    vim.keymap.set("n", "<leader>d",
-        function()
-            fn.toggle("DiffviewOpen", "DiffviewClose")
-        end,
-        fn.opts
-    )
+    M.map()("<leader>l", function()
+        fn.toggle("lop", "lcl")
+    end)
 
-    vim.keymap.set("n", "<leader>l",
-        function()
-            fn.toggle("lop", "lcl")
-        end,
-        fn.opts
-    )
-
-    vim.keymap.set("n", "<leader>c",
-        function()
-            fn.toggle("copen", "cclose")
-        end,
-        fn.opts
-    )
+    M.map()("<leader>c", function()
+        fn.toggle("copen", "cclose")
+    end)
 
 end
 

@@ -1,37 +1,12 @@
 local M = {}
 
-local fn = require("fn")
 local lang = require("plugins.runcode.lang")
 
-M.ignore_dirs = {
+local ignore_dirs = {
     os.getenv("HOME") .. '/.config/nvim'
 }
 
-function M.setup()
-
-    vim.keymap.set("n", "<leader>x",
-        function()
-            M.run("x")
-        end)
-
-    vim.keymap.set("n", "<leader>xs",
-        function()
-            M.run("s")
-        end)
-
-    vim.keymap.set("n", "<leader>xv",
-        function()
-            M.run("v")
-        end)
-
-    vim.keymap.set("n", "<leader>xe",
-        function()
-            M.time()
-        end)
-
-end
-
-function M.command()
+local function command()
     local c = lang[vim.bo.filetype]
 
     local changes = {
@@ -48,30 +23,7 @@ function M.command()
     return c
 end
 
-function M.run(dir)
-
-    for _, value in ipairs(M.ignore_dirs) do
-        if string.find(vim.fn.getcwd(), value) then
-            print('RunCode: This directory has been ignored')
-            return
-        end
-    end
-
-    local d = {
-        s = "split_f|r !",
-        v = "vnew|r !",
-        x = "!"
-    }
-
-    vim.cmd(d[dir] .. "echo '' && " .. M.command())
-
-    if dir ~= "x" then
-        require("opts").setBufferOpts()
-        M.resize(dir)
-    end
-end
-
-function M.resize(dir)
+local function resize(dir)
     local lines = vim.fn.getline(1, "$")
     local m = 0
 
@@ -96,8 +48,51 @@ function M.resize(dir)
     vim.api.nvim_command(string.format("%s res %s", sd, m + 10))
 end
 
-function M.time()
-    vim.api.nvim_command(string.format("!time %s", M.command()))
+local function run(dir)
+
+    for _, value in ipairs(ignore_dirs) do
+        if string.find(vim.fn.getcwd(), value) then
+            print('RunCode: This directory has been ignored')
+            return
+        end
+    end
+
+    local d = {
+        s = "bo split_f|r !",
+        v = "vnew|r !"
+    }
+
+    vim.cmd(d[dir] .. command())
+
+    require('opts').setBufferOpts()
+    resize(dir)
+
+end
+
+local function time()
+    vim.api.nvim_command(string.format("!time %s", command()))
+end
+
+function M.setup()
+
+    local map = require('mappings').map
+
+    map("n")("<leader>x", function()
+        run("s")
+    end)
+
+    map("n")("<leader>xv", function()
+        run("v")
+    end)
+
+    map("n")("<leader>xe", function()
+        time()
+    end)
+
+end
+
+function M.autocmds()
+    vim.cmd("autocmd FileType runcode nnoremap <buffer> <cr> :silent q!<cr>")
 end
 
 return M

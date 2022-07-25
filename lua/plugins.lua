@@ -108,11 +108,6 @@ function M.config()
         }
 
         use {
-            "szw/vim-maximizer",
-            cmd = "MaximizerToggle"
-        }
-
-        use {
             "L3MON4D3/LuaSnip",
             config = function()
                 require("luasnip.loaders.from_snipmate").lazy_load()
@@ -273,7 +268,7 @@ function M.config()
             require('packer').sync()
         end
 
-    end
+        end
     }
 end
 

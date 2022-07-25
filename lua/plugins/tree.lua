@@ -16,7 +16,10 @@ M.autocmds = function()
 end
 
 M.setup = function()
-    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", fn.opts)
+
+    local map = require('mappings').map
+
+    map()("<leader>e", ":NvimTreeToggle<cr>")
 end
 
 M.config = function()
