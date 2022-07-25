@@ -1,8 +1,7 @@
 local M = {}
 
-local fn = require('fn')
-local cmp = fn.lazy_require('cmp')
-local luasnip = fn.lazy_require("luasnip")
+local cmp = require('cmp')
+local luasnip = require("luasnip")
 
 function M.config()
 

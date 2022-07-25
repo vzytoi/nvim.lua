@@ -1,6 +1,6 @@
 local M = {}
 
-M.scandir = function(directory)
+local function scandir(directory)
 
     local i, t, popen = 0, {}, io.popen
     local pfile = popen('ls -a "' .. directory .. '"')
@@ -18,40 +18,34 @@ M.scandir = function(directory)
     return vim.list_slice(t, 3, #t)
 end
 
-M.keymaps = function(bufnr)
-    local map = {
-        { "gr", "<cmd>lua vim.lsp.buf.rename()<cr>" },
-        { "gh", "<cmd>lua vim.lsp.buf.hover()<cr>" },
-        { "gd", "<cmd>lua vim.lsp.buf.definition()<cr>" },
-        { "gR", "<cmd>lua vim.lsp.buf.references()<cr>" },
-        { "gn", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>" },
-        { "gp", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>" }
-    }
+local function on_attach(_, bufnr)
 
-    for _, m in pairs(map) do
-        vim.api.nvim_buf_set_keymap(bufnr, "n", m[1], m[2], { noremap = true, silent = true})
-    end
+    local map = require('mappings').map
+
+    map()("gr", function() vim.lsp.buf.rename() end)
+    map()("gh", function() vim.lsp.buf.hover() end)
+    map()("gd", function() vim.lsp.buf.definition() end)
+    map()("gR", function() vim.lsp.buf.references() end)
+    map()("gn", function() vim.lsp.diagnostic.goto_next() end)
+    map()("gp", function() vim.lsp.diagnostic.goto_prev() end)
+
 end
 
 M.autocmds = function()
-    --[[ vim.api.nvim_create_autocmd("CursorHold", {
+    vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()
             vim.lsp.buf.document_highlight()
         end
-    }) ]]
+    })
 
-    --[[ vim.api.nvim_create_autocmd("CursorMoved", {
+    vim.api.nvim_create_autocmd("CursorMoved", {
         callback = function()
             vim.lsp.buf.clear_references()
         end
-    }) ]]
+    })
 end
 
-M.on_attach = function(_, bufnr)
-    M.keymaps(bufnr)
-end
-
-M.setup = {
+local setup = {
     sumneko_lua = {
         settings = {
             Lua = {
@@ -95,7 +89,7 @@ M.config = function()
         { border = "rounded" }
     )
 
-    local servers = M.scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
+    local servers = scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     require('nvim-lsp-installer').setup {
@@ -105,15 +99,15 @@ M.config = function()
 
     for _, lsp in pairs(servers) do
 
-        local setup = M.setup[lsp]
+        local s = setup[lsp]
 
-        if setup == nil then
-            setup = {}
+        if s == nil then
+            s = {}
         end
 
         require("lspconfig")[lsp].setup(
-            vim.tbl_extend('keep', setup, {
-                on_attach = M.on_attach,
+            vim.tbl_extend('keep', s, {
+                on_attach = on_attach,
                 capabilities = capabilities,
                 root_dir = vim.loop.cwd
             })

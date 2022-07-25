@@ -3,14 +3,13 @@ local M = {}
 local autocmd = vim.api.nvim_create_autocmd
 local fn = require('fn')
 
-M.last_close = {
+local last_close = {
     'NvimTree'
 }
 
-M.no_nu = {
+local no_nu = {
     'toggleterm',
     'fugitive',
-    'spectre_panel'
 }
 
 M.config = function()
@@ -18,8 +17,10 @@ M.config = function()
     require('plugins.lsp').autocmds()
     require('plugins.runcode').autocmds()
 
-    vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = M.last_close,
+    -- TODO: doesn't work.
+
+    autocmd("BufEnter", {
+        pattern = "NvimTree",
         callback = function()
             if fn.is_last_win() then
                 fn.close_current_win()
@@ -28,7 +29,7 @@ M.config = function()
     })
 
     autocmd('FileType', {
-        pattern = M.no_nu,
+        pattern = no_nu,
         callback = function()
             vim.wo.rnu = false
             vim.wo.nu = false
@@ -37,7 +38,7 @@ M.config = function()
 
     autocmd("InsertLeave", {
         callback = function()
-            if not vim.tbl_contains(M.no_nu, vim.bo.filetype) then
+            if not vim.tbl_contains(no_nu, vim.bo.filetype) then
                 vim.opt.rnu = true
             end
         end
@@ -45,7 +46,7 @@ M.config = function()
 
     autocmd("InsertEnter", {
         callback = function()
-            if not vim.tbl_contains(M.no_nu, vim.bo.filetype) then
+            if not vim.tbl_contains(no_nu, vim.bo.filetype) then
                 vim.opt.rnu = false
             end
         end
@@ -81,14 +82,9 @@ M.config = function()
         command = "wincmd ="
     })
 
-    autocmd("BufWritePost", {
+    autocmd("BufWritePre", {
         callback = function()
-            local use = require('plugins.formatter').uses()
-            if use then
-                vim.api.nvim_command('FormatWrite')
-            elseif use ~= nil then
-                vim.lsp.buf.format()
-            end
+            vim.lsp.buf.format()
         end
     })
 
@@ -96,12 +92,6 @@ M.config = function()
         pattern = { "gitcommit", "markdown", "text" },
         callback = function()
             vim.opt_local.spell = true
-        end
-    })
-
-    autocmd("FileType", {
-        callback = function()
-            vim.cmd('setlocal formatoptions-=cro')
         end
     })
 

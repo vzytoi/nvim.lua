@@ -1,6 +1,6 @@
 local M = {}
 
-M.raw = {
+local raw = {
     all = {
         LineNr = { guifg = "#6B6B6B" },
         VertSplit = { guifg = "#6B6B6B" },
@@ -15,7 +15,7 @@ M.raw = {
     },
 }
 
-M.apply = function(name, args)
+local apply = function(name, args)
     local opt = {
         "guifg",
         "guibg",
@@ -37,7 +37,7 @@ M.apply = function(name, args)
     vim.cmd(s)
 end
 
-M.undeep = function(v)
+local function undeep(v)
     for k, _ in pairs(v[2]) do
         v[2][k] = vim.tbl_extend('keep', v[2][k], v[1])
     end
@@ -45,7 +45,7 @@ M.undeep = function(v)
     return v[2]
 end
 
-M.sort = function(hi)
+local function sort(hi)
     local o = {}
 
     for k, _ in pairs(hi) do
@@ -60,7 +60,7 @@ end
 M.config = function()
     require("plugins.lualine").config()
 
-    local o = M.sort(M.raw)
+    local o = sort(raw)
 
     for k, _ in ipairs(o) do
         print(k)
@@ -68,13 +68,13 @@ M.config = function()
 
     for k, _ in pairs(o) do
         if k == "_" then
-            o = vim.tbl_extend('keep', M.undeep(o[k]), o)
+            o = vim.tbl_extend('keep', undeep(o[k]), o)
         end
     end
 
     for k, v in pairs(o) do
         if k ~= "_" then
-            M.apply(k, v)
+            apply(k, v)
         end
     end
 
