@@ -33,7 +33,6 @@ function M.config()
         use "farmergreg/vim-lastplace"
         use "ellisonleao/gruvbox.nvim"
         use "fedepujol/move.nvim"
-        use "luukvbaal/stabilize.nvim"
 
         use {
             "romainl/vim-cool",
@@ -57,7 +56,7 @@ function M.config()
         use {
             "kyazdani42/nvim-tree.lua",
             requires = {
-                "kyazdani42/nvim-web-devicons"
+                "kyazdani42/nvim-web-devicons",
             },
             config = function()
                 require("plugins.tree").config()
@@ -268,7 +267,7 @@ function M.config()
             require('packer').sync()
         end
 
-        end
+    end
     }
 end
 

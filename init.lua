@@ -9,7 +9,7 @@ local modules = {
 local load = function(name)
     local ok, _ = pcall(require, name)
     if not ok then
-        error("Could not load " .. name)
+        vim.api.nvim_error_writeln("Failed to load" .. name)
     else
         require(name).config()
         vim.g[name] = true

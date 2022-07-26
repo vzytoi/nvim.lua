@@ -77,7 +77,7 @@ M.close = function(bufnr)
     local ok, _ = pcall(vim.api.nvim_command, bufnr .. 'bd')
 end
 
-M.starstwith = function(string, search)
+M.startswith = function(string, search)
     return string:find('^' .. search) ~= nil
 end
 

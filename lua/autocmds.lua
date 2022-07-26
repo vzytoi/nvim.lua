@@ -4,7 +4,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local fn = require('fn')
 
 local last_close = {
-    'NvimTree'
+    'toggleterm'
 }
 
 local no_nu = {
@@ -17,14 +17,16 @@ M.config = function()
 
     require('plugins.lsp').autocmds()
     require('plugins.runcode').autocmds()
+    require('plugins.tree').autocmds()
 
     -- TODO: doesn't work.
 
     autocmd("BufEnter", {
-        pattern = "NvimTree",
+        pattern = last_close,
         callback = function()
             if fn.is_last_win() then
-                fn.close_current_win()
+                error('leaving!')
+                fn.close(vim.fn.bufnr())
             end
         end
     })

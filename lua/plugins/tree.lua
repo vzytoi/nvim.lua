@@ -7,7 +7,7 @@ M.autocmds = function()
         nested = true,
         callback = function()
             if fn.is_last_win() and
-                fn.starts_with(vim.fn.bufname(), 'NvimTree')
+                fn.startswith(vim.fn.bufname(), 'NvimTree')
             then
                 fn.close_current_win()
             end
@@ -25,6 +25,8 @@ end
 M.config = function()
 
     require "nvim-tree".setup {
+        disable_netrw = true,
+        open_on_setup = true,
         view = {
             side = "right",
             mappings = {

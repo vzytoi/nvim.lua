@@ -4,7 +4,7 @@ local ls = require('plugins.runcode.lang')
 local fn = require('fn')
 
 local ignore_dirs = {
-    os.getenv("HOME") .. '/.config/nvim'
+    -- os.getenv("HOME") .. '/.config/nvim'
 }
 
 local function resize(dir)
@@ -66,7 +66,8 @@ end
 local function openbuf(d)
 
     local dirs = {
-        s = "bo new"
+        s = "bo new",
+        v = "vnew"
     }
 
     vim.api.nvim_command(dirs[d])
@@ -126,6 +127,10 @@ function M.setup()
         run("s")
     end)
 
+    map("n")("<leader>xv", function()
+        run("v")
+    end)
+
 end
 
 function M.autocmds()
@@ -137,9 +142,9 @@ function M.autocmds()
         pattern = "RunCode",
         callback = function()
             map()({ "<cr>", "q" }, function()
-                vim.api.nvim_command('silent! bd!')
 
                 if vim.g.rcbufnr ~= nil then
+                    fn.close(vim.fn.bufnr())
                     vim.g.rcbufnr = nil
                 end
 
