@@ -18,20 +18,55 @@ local function scandir(directory)
     return vim.list_slice(t, 3, #t)
 end
 
-local function on_attach(_, bufnr)
+G = vim.api.nvim_create_augroup('formatting', {})
 
-    local map = require('mappings').map
+local function on_attach(client, bufnr)
 
-    map()("gr", function() vim.lsp.buf.rename() end)
-    map()("gh", function() vim.lsp.buf.hover() end)
-    map()("gd", function() vim.lsp.buf.definition() end)
-    map()("gR", function() vim.lsp.buf.references() end)
-    map()("gn", function() vim.lsp.diagnostic.goto_next() end)
-    map()("gp", function() vim.lsp.diagnostic.goto_prev() end)
+    vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
+    vim.g.nmap("gh", function() vim.lsp.buf.hover() end)
+    vim.g.nmap("gd", function() vim.lsp.buf.definition() end)
+    vim.g.nmap("gR", function() vim.lsp.buf.references() end)
+    vim.g.nmap("gn", function() vim.lsp.diagnostic.goto_next() end)
+    vim.g.nmap("gp", function() vim.lsp.diagnostic.goto_prev() end)
+    vim.g.nmap("gs", function() vim.diagnostic.show() end)
+
+    --[[ vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup('LspFormatter', { clear = true }),
+        callback = function()
+            if client.supports_method("textDocument/formatting") then
+                vim.lsp.buf.format()
+            else
+                vim.schedule(function()
+                    print(
+                        'LSP: No formatter configured'
+                    )
+                end)
+            end
+        end
+    })
+]]
+
+    --[[ vim.api.nvim_create_autocmd("BufWritePre", {
+        group = G,
+        callback = function()
+            -- print(client.supports_method("textDocument/formatting"))
+            vim.lsp.buf.format()
+        end ]]
+    -- })
+
+    if client.supports_method("textDocument/formatting") then
+        vim.cmd([[
+            augroup lsp_document_format
+                autocmd! * <buffer>
+              autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+              augroup END
+            ]])
+    end
 
 end
 
 M.autocmds = function()
+
     vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()
             vim.lsp.buf.document_highlight()
@@ -43,6 +78,7 @@ M.autocmds = function()
             vim.lsp.buf.clear_references()
         end
     })
+
 end
 
 local setup = {

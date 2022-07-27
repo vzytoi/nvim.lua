@@ -1,9 +1,5 @@
 local M = {}
 
-M.file_name = function()
-    return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
-end
-
 M.uses = function()
     local map = {
         python = true,
@@ -27,7 +23,7 @@ M.config = function()
                         exe = "prettier",
                         args = {
                             "--stdin-filepath",
-                            M.file_name(),
+                            vim.g.fn.getbufpath(),
                             "--single-quote",
                             "--tab-width=4",
                             "--no-bracket-spacing",

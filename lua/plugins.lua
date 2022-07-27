@@ -5,7 +5,7 @@ function M.config()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        PB = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
             install_path })
     end
 
@@ -13,26 +13,61 @@ function M.config()
 
         use {
             "lewis6991/impatient.nvim",
-            config = function()
-                require('impatient')
-            end
+            config = function() require('impatient') end
         }
 
         use {
             "LionC/nest.nvim",
             config = function()
                 require("mappings").config()
-            end
+            end,
         }
 
         use "wbthomason/packer.nvim"
         use "nvim-lua/plenary.nvim"
+
         use "tpope/vim-surround"
-        use "wellle/targets.vim"
         use "tpope/vim-sleuth"
+
+        use "wellle/targets.vim"
         use "farmergreg/vim-lastplace"
-        use "ellisonleao/gruvbox.nvim"
         use "fedepujol/move.nvim"
+
+        use "antoinemadec/FixCursorHold.nvim"
+
+        use "ellisonleao/gruvbox.nvim"
+
+        use {
+            "chrisbra/NrrwRgn",
+            cmd = { "NarrowRegion", "NarrowWindow" }
+        }
+
+        use {
+            "ahmedkhalf/project.nvim",
+            config = function()
+                require "project_nvim".setup {
+                    detection_methods = { "!lua" }
+                }
+            end
+        }
+
+        use {
+            "folke/trouble.nvim",
+            config = function()
+                require('trouble').setup()
+            end,
+            {
+                'folke/lsp-colors.nvim',
+                config = function()
+                    require('lsp-colors').setup()
+                end,
+            }
+        }
+
+        use {
+            "windwp/nvim-spectre",
+            module = "spectre"
+        }
 
         use {
             "romainl/vim-cool",
@@ -66,21 +101,26 @@ function M.config()
 
         use {
             "nvim-treesitter/nvim-treesitter",
-            event = "BufRead",
-            run = "TSUpdate",
             config = function()
-                require("plugins.treesitter")
+                require("plugins.treesitter").config()
             end,
-            requires = {
-                {
-                    "nvim-treesitter/nvim-treesitter-textobjects",
-                    after = "nvim-treesitter"
-                },
-                {
-                    "RRethy/nvim-treesitter-textsubjects",
-                    after = "nvim-treesitter"
-                }
-            }
+            run = "TSUpdate",
+            event = "BufRead"
+        }
+
+        use {
+            "windwp/nvim-ts-autotag",
+            after = "nvim-treesitter",
+        }
+
+        use {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            after = "nvim-treesitter"
+        }
+
+        use {
+            "RRethy/nvim-treesitter-textsubjects",
+            after = "nvim-treesitter"
         }
 
         use {
@@ -108,9 +148,7 @@ function M.config()
 
         use {
             "L3MON4D3/LuaSnip",
-            config = function()
-                require("luasnip.loaders.from_snipmate").lazy_load()
-            end,
+            config = function() require("luasnip.loaders.from_snipmate").lazy_load() end,
             after = "nvim-cmp"
         }
 
@@ -129,10 +167,15 @@ function M.config()
                 config = function()
                     require("plugins.lsp").config()
                 end,
-                requires = {
-                    "hrsh7th/cmp-nvim-lsp"
-                }
+                requires = "hrsh7th/cmp-nvim-lsp"
             }
+        }
+
+        use {
+            "j-hui/fidget.nvim",
+            config = function()
+                require('fidget').setup()
+            end
         }
 
         use {
@@ -201,7 +244,7 @@ function M.config()
             event = "BufReadPre",
             config = function()
                 require("persistence").setup()
-            end
+            end,
         }
 
         use {
@@ -212,8 +255,8 @@ function M.config()
         use {
             "windwp/nvim-autopairs",
             config = function()
-                require("nvim-autopairs").setup {}
-            end
+                require("nvim-autopairs").setup()
+            end,
         }
 
         use {
@@ -241,15 +284,15 @@ function M.config()
             "cappyzawa/trim.nvim",
             event = "BufWritePre",
             config = function()
-                require("trim").setup({})
-            end
+                require("trim").setup()
+            end,
         }
 
         use {
             "hoob3rt/lualine.nvim",
             config = function()
                 require("plugins.lualine").config()
-            end
+            end,
         }
 
         use {
@@ -257,13 +300,7 @@ function M.config()
             cmd = { "G", "Gdiff" }
         }
 
-        use {
-            "alvan/vim-closetag",
-            ft = { "html", "php" },
-            event = "BufWritePre"
-        }
-
-        if packer_bootstrap then
+        if PB then
             require('packer').sync()
         end
 

@@ -1,7 +1,6 @@
 local M = {}
 
 local autocmd = vim.api.nvim_create_autocmd
-local fn = require('fn')
 
 local last_close = {
     'toggleterm'
@@ -24,9 +23,9 @@ M.config = function()
     autocmd("BufEnter", {
         pattern = last_close,
         callback = function()
-            if fn.is_last_win() then
+            if vim.g.fn.is_last_win() then
                 error('leaving!')
-                fn.close(vim.fn.bufnr())
+                vim.g.fn.close(vim.fn.bufnr())
             end
         end
     })
@@ -83,12 +82,6 @@ M.config = function()
 
     autocmd("VimResized", {
         command = "wincmd ="
-    })
-
-    autocmd("BufWritePre", {
-        callback = function()
-            vim.lsp.buf.format()
-        end
     })
 
     autocmd("FileType", {

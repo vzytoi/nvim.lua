@@ -2,42 +2,29 @@ local M = {}
 
 local raw = {
     all = {
-        LineNr = { guifg = "#6B6B6B" },
-        VertSplit = { guifg = "#6B6B6B" },
-        LspReferenceText = { cterm = "bold", gui = "bold" },
-        LspReferenceRead = { cterm = "bold", gui = "bold" },
-        LspReferenceWrite = { cterm = "bold", gui = "bold" },
-        Normal = { guifg = "#EEEEEE", guibg = "#000000" },
+        LineNr = { fg = "#6B6B6B" },
+        VertSplit = { fg = "#6B6B6B" },
+        LspReferenceText = { bold = true },
+        LspReferenceRead = { bold = true },
+        LspReferenceWrite = { bold = true },
+        Normal = { fg = "#EEEEEE" },
     },
     gruvbox = {
-        Visual = { ctermbg = 0, guibg = "Grey40" },
-        CursorLineNR = { guifg = "#458588", gui = "bold" }
+        Visual = { bg = "Grey40" },
+        CursorLineNR = { fg = "#458588", bold = true },
+        SignColumn = { bg = "#000000" },
+        DiagnosticSignError = { fg = "#cc241d", bold = true },
+        DiagnosticSignWarn = { fg = "#fabd2f", bold = true },
+        DiagnosticSignHint = { fg = "#b8bb26", bold = true },
+        DiagnosticSignInfo = { fg = "#FFC0CB", bold = true }
     },
 }
 
 local apply = function(name, args)
-    local opt = {
-        "guifg",
-        "guibg",
-        "gui",
-        "guisp",
-        "cterm"
-    }
-
-    vim.cmd(string.format("hi clear %s", name))
-
-    local s = string.format("hi %s", name)
-
-    for _, value in ipairs(opt) do
-        local v = args[value] or "NONE"
-
-        s = table.concat({ s, table.concat({ value, v }, "=") }, " ")
-    end
-
-    vim.cmd(s)
+    vim.api.nvim_set_hl(0, name, args)
 end
 
-local function undeep(v)
+local undeep = function(v)
     for k, _ in pairs(v[2]) do
         v[2][k] = vim.tbl_extend('keep', v[2][k], v[1])
     end
@@ -45,7 +32,7 @@ local function undeep(v)
     return v[2]
 end
 
-local function sort(hi)
+local filter_colors = function(hi)
     local o = {}
 
     for k, _ in pairs(hi) do
@@ -60,11 +47,7 @@ end
 M.config = function()
     require("plugins.lualine").config()
 
-    local o = sort(raw)
-
-    for k, _ in ipairs(o) do
-        print(k)
-    end
+    local o = filter_colors(raw)
 
     for k, _ in pairs(o) do
         if k == "_" then

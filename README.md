@@ -7,7 +7,7 @@ This project aims to be as collaborative as possible. You are free to make any c
 
 ## Quickstart
 
-First, you need to clone the repository into `appdata/local` for Windows users and `.config` for macOS or Linux users.  
+First, you need to clone the repository into `appdata/local` for Windows users and `.config` for macOS or Linux users.
 
 > Windows
 
@@ -21,7 +21,7 @@ git -C ~/appdata/local clone https://github.com/vzytoi/nvim.lua nvim
 git -C ~/.config clone https://github.com/vzytoi/nvim.lua nvim
 ```
 
-Then install the necessary plugins using packer.nvim and the treesitter parser. 
+Then install the necessary plugins using packer.nvim and the treesitter parser.
 
 > Windows, Unix, Linux _(inside nvim)_
 
@@ -32,7 +32,7 @@ Then install the necessary plugins using packer.nvim and the treesitter parser.
 
 ## Performances
 
-First, this test was performed using [startup time](https://github.com/dstein64/vim-startuptime) and represents the average of 100 startups. I removed all items that were > 2% of the total time. Finally, this test was performed using a Unix machine. Be aware that the results obtained on a Windows machine could be 3 or 4 times higher. 
+First, this test was performed using [startup time](https://github.com/dstein64/vim-startuptime) and represents the average of 100 startups. I removed all items that were > 2% of the total time. Finally, this test was performed using a Unix machine. Be aware that the results obtained on a Windows machine could be 3 or 4 times higher.
 
 ```
        startup: 30.2

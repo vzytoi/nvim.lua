@@ -1,10 +1,9 @@
 local M = {}
 
 local ls = require('plugins.runcode.lang')
-local fn = require('fn')
 
 local ignore_dirs = {
-    -- os.getenv("HOME") .. '/.config/nvim'
+    os.getenv("HOME") .. '/.config/nvim'
 }
 
 local function resize(dir)
@@ -53,10 +52,10 @@ local function command(lang)
 
 end
 
-local function add(content, start)
+local function add(bufnr, content, start)
 
     vim.api.nvim_buf_set_lines(
-        vim.api.nvim_get_current_buf(),
+        bufnr or vim.api.nvim_get_current_buf(),
         start, -1, false,
         content
     )
@@ -71,6 +70,8 @@ local function openbuf(d)
     }
 
     vim.api.nvim_command(dirs[d])
+
+    return vim.fn.bufnr()
 
 end
 
@@ -88,46 +89,43 @@ local function run(d)
         return
     end
 
-    if vim.g.rcbufnr ~= nil then
-        fn.close(vim.g.rcbufnr)
+    local cmd = command(vim.bo.filetype)
+    local fn = vim.g.fn.getfn()
+
+    if not vim.g.rcbufnr then
+        vim.g.rcbufnr = openbuf(d)
+    else
+        add(vim.g.rcbufnr, {}, 0)
     end
 
-    local cmd = command(vim.bo.filetype)
-    local fn = vim.fn.expand('%:t')
-
-    openbuf(d)
-    add({ "output of: " .. fn, "" }, 0)
+    add(vim.g.rcbufnr, { "output of: " .. fn, "" }, 0)
 
     vim.fn.jobstart(cmd, {
         stdout_buffered = true,
         on_stdout = function(_, data)
             if data then
-                add(data, -1)
+                add(vim.g.rcbufnr, data, -1)
             end
         end,
         on_stderr = function(_, data)
             if data then
-                add(data, -1)
+                add(vim.g.rcbufnr, data, -1)
             end
         end
     })
 
-    vim.g.rcbufnr = vim.fn.bufnr()
-
-    require('opts').buffer("RunCode")
+    vim.g.opts.buffer("RunCode")
     resize(d)
 
 end
 
 function M.setup()
 
-    local map = require('mappings').map
-
-    map("n")("<leader>x", function()
+    vim.g.nmap("<leader>x", function()
         run("s")
     end)
 
-    map("n")("<leader>xv", function()
+    vim.g.nmap("<leader>xv", function()
         run("v")
     end)
 
@@ -136,15 +134,13 @@ end
 function M.autocmds()
 
     local autocmd = vim.api.nvim_create_autocmd
-    local map = require('mappings').map
 
     autocmd("FileType", {
         pattern = "RunCode",
         callback = function()
-            map()({ "<cr>", "q" }, function()
-
-                if vim.g.rcbufnr ~= nil then
-                    fn.close(vim.fn.bufnr())
+            vim.g.nmap({ "<cr>", "q" }, function()
+                if vim.g.rcbufnr then
+                    vim.g.fn.close(vim.fn.bufnr())
                     vim.g.rcbufnr = nil
                 end
 

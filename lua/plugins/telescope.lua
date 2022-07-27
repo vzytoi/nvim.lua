@@ -1,11 +1,9 @@
 local M = {}
 
-local fn = require("fn")
-
-local telescope = fn.lazy_require("telescope")
-local builtin = fn.lazy_require("telescope.builtin")
-local actions = fn.lazy_require("telescope.actions")
-local themes = fn.lazy_require("telescope.themes")
+local telescope = require("telescope")
+local builtin = require("telescope.builtin")
+local actions = require("telescope.actions")
+local themes = require("telescope.themes")
 
 function M.setup()
 
@@ -13,65 +11,46 @@ function M.setup()
         show_untracked = true
     })
 
-    vim.keymap.set("n", "<leader>f",
-        function()
-            if not pcall(builtin.git_files, ivy) then
-                builtin.find_files(ivy)
-            end
-        end,
-        builtin.opts
-    )
+    vim.g.nmap("<leader>f", function()
+        if not pcall(builtin.git_files, ivy) then
+            builtin.find_files(ivy)
+        end
+    end)
 
-    vim.keymap.set("n", "<leader>fg",
-        function()
-            builtin.live_grep()
-        end,
-        builtin.opts
-    )
+    vim.g.nmap("<leader>fg", function()
+        builtin.live_grep()
+    end)
 
-    vim.keymap.set("n", "<leader>fb",
+    vim.g.nmap("<leader>fb",
         function()
             builtin.buffers(ivy)
-        end,
-        builtin.opts
-    )
+        end)
 
-    vim.keymap.set("n", "<leader>fb",
-        function()
-            builtin.buffers(ivy)
-        end,
-        builtin.opts
-    )
+    vim.g.nmap("<leader>fh", function()
+        builtin.help_tags(ivy)
+    end)
 
-    vim.keymap.set("n", "<leader>fh",
-        function()
-            builtin.help_tags(ivy)
-        end,
-        builtin.opts
-    )
-
-    vim.keymap.set("n", "<leader>ft",
-        function()
-            builtin.grep_string {
-                prompt_prefix = "Search toods > ",
-                search = " :",
-                file_ignore_patterns = {
-                    "snippets/*"
-                }
+    vim.g.nmap("<leader>ft", function()
+        builtin.grep_string {
+            prompt_prefix = "Search toods > ",
+            search = " :",
+            file_ignore_patterns = {
+                "snippets/*"
             }
-        end,
-        builtin.opts
-    )
+        }
+    end)
 
-    vim.keymap.set("n", "<leader>fn",
-        function()
-            builtin.git_files {
-                prompt_prefix = "Neovim > ",
-                cwd = "~/.config/nvim"
-            }
-        end,
-        builtin.opts
-    )
+    vim.g.nmap("<leader>fn", function()
+        builtin.git_files {
+            prompt_prefix = "Neovim > ",
+            cwd = "~/.config/nvim"
+        }
+    end)
+
+    vim.g.nmap("<leader>fp", function()
+        vim.api.nvim_command('Telescope projects')
+    end)
+
 end
 
 function M.config()
@@ -125,6 +104,7 @@ function M.config()
     })
 
     telescope.load_extension("fzf")
+    telescope.load_extension('projects')
 
     M.setup()
 end

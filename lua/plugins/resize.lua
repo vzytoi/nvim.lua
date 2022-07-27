@@ -1,7 +1,5 @@
 local M = {}
 
-local fn = require('fn')
-
 local function reverse(s)
     return (s == "-" and "+" or "-")
 end
@@ -37,8 +35,6 @@ end
 
 function M.setup()
 
-    local map = require('mappings').map
-
     local k = {
         { "Ì", "h" },
         { "¬", "l" },
@@ -50,15 +46,13 @@ function M.setup()
 
         local m
 
-        if fn.is_mac() then
+        if vim.g.fn.os.mac() then
             m = k[i][1]
         else
             m = string.format("<a-%s>", k[i][2])
         end
 
-        map({ "n", "i" })(m, function()
-            resize(k[i][2])
-        end)
+        vim.g.nmap(m, function() resize(k[i][2]) end)
 
     end
 

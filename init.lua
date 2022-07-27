@@ -1,3 +1,5 @@
+vim.g.fn = require('fn')
+
 local modules = {
     { name = "abbr", event = "cmdlineenter" },
     { name = "colors", event = "ColorScheme" },
@@ -11,8 +13,8 @@ local load = function(name)
     if not ok then
         vim.api.nvim_error_writeln("Failed to load" .. name)
     else
-        require(name).config()
-        vim.g[name] = true
+        vim.g[name] = require(name)
+        vim.g[name].config()
     end
 end
 

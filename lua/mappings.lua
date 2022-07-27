@@ -1,12 +1,11 @@
 local M = {}
 
-local fn = require("fn")
 local nest = require("nest")
 
-M.map = function(op, outer)
+local map = function(op, outer)
 
     outer = outer or { silent = true, noremap = true }
-    return function(lhs, rhs, otps)
+    return function(lhs, rhs, opts)
 
         if type(lhs) ~= "table" then
             lhs = { lhs }
@@ -23,6 +22,11 @@ M.map = function(op, outer)
 
     end
 end
+
+vim.g.nmap = map("n")
+vim.g.imap = map("i")
+vim.g.vmap = map("v")
+vim.g.tmap = map("t")
 
 M.config = function()
 
@@ -117,16 +121,20 @@ M.config = function()
         } }
     }
 
-    M.map()("<leader>d", function()
-        fn.toggle("DiffviewOpen", "DiffviewClose")
+    vim.g.nmap("<leader>d", function()
+        vim.g.fn.toggle("DiffviewOpen", "DiffviewClose")
     end)
 
-    M.map()("<leader>l", function()
-        fn.toggle("lop", "lcl")
+    vim.g.nmap("<leader>l", function()
+        vim.g.fn.toggle("lop", "lcl")
     end)
 
-    M.map()("<leader>c", function()
-        fn.toggle("copen", "cclose")
+    vim.g.nmap("<leader>c", function()
+        vim.g.fn.toggle("copen", "cclose")
+    end)
+
+    vim.g.nmap("<leader>s", function()
+        require('spectre').open()
     end)
 
 end

@@ -1,16 +1,17 @@
 local M = {}
 
-local fn = require("fn")
-
 M.buffer = function(name)
-    vim.bo.bufhidden = "delete"
-    vim.bo.buftype = "nofile"
-    vim.bo.swapfile = false
-    vim.bo.buflisted = false
-    vim.wo.winfixheight = true
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-    vim.bo.filetype = name
+
+    if vim.bo.filetype == "" then
+        vim.bo.bufhidden = "delete"
+        vim.bo.buftype = "nofile"
+        vim.bo.swapfile = false
+        vim.bo.buflisted = false
+        vim.wo.winfixheight = true
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        vim.bo.filetype = name
+    end
 end
 
 M.disablePlugins = function()
@@ -36,7 +37,7 @@ M.disablePlugins = function()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = fn.mergeTables(plug_buitlins, { "netrw", "netrwPlugin", "netrwSettings" })
+        plug_buitlins = vim.g.fn.mergeTables(plug_buitlins, { "netrw", "netrwPlugin", "netrwSettings" })
     end
 
     for _, p in pairs(plug_buitlins) do
@@ -100,6 +101,7 @@ M.ColorOpt = function()
     vim.o.termguicolors = true
     vim.o.background = "dark"
 
+    vim.g.gruvbox_contrast_dark = 'dark'
     vim.cmd("colorscheme gruvbox")
 end
 

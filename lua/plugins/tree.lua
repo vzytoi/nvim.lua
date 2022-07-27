@@ -1,31 +1,31 @@
 local M = {}
 
-local fn = require('fn')
-
 M.autocmds = function()
     vim.api.nvim_create_autocmd('BufEnter', {
         nested = true,
         callback = function()
-            if fn.is_last_win() and
-                fn.startswith(vim.fn.bufname(), 'NvimTree')
+            if vim.g.fn.is_last_win() and
+                vim.g.fn.startswith(vim.fn.bufname(), 'NvimTree')
             then
-                fn.close_current_win()
+                vim.g.fn.close_current_win()
             end
         end,
     })
 end
 
 M.setup = function()
-
-    local map = require('mappings').map
-
-    map()("<leader>e", ":NvimTreeToggle<cr>")
+    vim.g.nmap("<leader>e", ":NvimTreeToggle<cr>")
 end
 
 M.config = function()
 
     require "nvim-tree".setup {
-        disable_netrw = true,
+        respect_buf_cwd = true,
+        update_cwd = true,
+        update_focused_file = {
+            enable = true,
+            update_cwd = true
+        },
         open_on_setup = true,
         view = {
             side = "right",
