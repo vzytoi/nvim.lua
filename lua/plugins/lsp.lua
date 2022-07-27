@@ -18,8 +18,6 @@ local function scandir(directory)
     return vim.list_slice(t, 3, #t)
 end
 
-G = vim.api.nvim_create_augroup('formatting', {})
-
 local function on_attach(client, bufnr)
 
     vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
@@ -30,37 +28,19 @@ local function on_attach(client, bufnr)
     vim.g.nmap("gp", function() vim.lsp.diagnostic.goto_prev() end)
     vim.g.nmap("gs", function() vim.diagnostic.show() end)
 
-    --[[ vim.api.nvim_create_autocmd("BufWritePre", {
-        group = vim.api.nvim_create_augroup('LspFormatter', { clear = true }),
-        callback = function()
-            if client.supports_method("textDocument/formatting") then
-                vim.lsp.buf.format()
-            else
-                vim.schedule(function()
-                    print(
-                        'LSP: No formatter configured'
-                    )
-                end)
-            end
-        end
-    })
-]]
-
-    --[[ vim.api.nvim_create_autocmd("BufWritePre", {
-        group = G,
-        callback = function()
-            -- print(client.supports_method("textDocument/formatting"))
-            vim.lsp.buf.format()
-        end ]]
-    -- })
+    local grp = vim.api.nvim_create_augroup("lsp_document_format", { clear = true })
+    local autocmd = vim.api.nvim_create_autocmd
 
     if client.supports_method("textDocument/formatting") then
-        vim.cmd([[
-            augroup lsp_document_format
-                autocmd! * <buffer>
-              autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-              augroup END
-            ]])
+        autocmd("BufWritePre", {
+            callback = function() vim.lsp.buf.format() end,
+            group = grp
+        })
+    else
+        autocmd("BufWritePost", {
+            callback = function() vim.api.nvim_command('FormatWrite') end,
+            group = grp
+        })
     end
 
 end
@@ -107,6 +87,13 @@ local setup = {
 
 M.config = function()
 
+    local servers = scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
+
+    require('nvim-lsp-installer').setup {
+        ensure_installed = servers,
+        automatic_installation = true
+    }
+
     vim.diagnostic.config({
         underline = false,
         update_in_insert = false,
@@ -120,18 +107,14 @@ M.config = function()
         }
     })
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    --[[ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
         vim.lsp.handlers.hover,
         { border = "rounded" }
+    ) ]]
+
+    local capabilities = require("cmp_nvim_lsp").update_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
     )
-
-    local servers = scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
-    local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-    require('nvim-lsp-installer').setup {
-        ensure_installed = servers,
-        automatic_installation = true
-    }
 
     for _, lsp in pairs(servers) do
 
