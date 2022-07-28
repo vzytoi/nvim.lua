@@ -88,7 +88,6 @@ M.loadOptions = function()
         termguicolors = true,
         cursorline = true,
         cursorlineopt = "number",
-        guicursor = ""
     }
 
     for k, v in pairs(options) do
