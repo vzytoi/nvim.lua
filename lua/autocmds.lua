@@ -52,7 +52,9 @@ M.config = function()
     for event, op in pairs(numbers.relative) do
         autocmd(event, {
             callback = function()
-                vim.wo.rnu = op
+                if not vim.g.fn.has(numbers.fts, vim.bo.filetype) then
+                    vim.wo.rnu = op
+                end
             end
         })
     end
