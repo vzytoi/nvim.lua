@@ -25,17 +25,20 @@ function M.config()
 
         use "wbthomason/packer.nvim"
         use "nvim-lua/plenary.nvim"
-
         use "tpope/vim-surround"
         use "tpope/vim-sleuth"
-
         use "wellle/targets.vim"
         use "farmergreg/vim-lastplace"
         use "fedepujol/move.nvim"
-
         use "antoinemadec/FixCursorHold.nvim"
-
         use "ellisonleao/gruvbox.nvim"
+
+        use {
+            "luukvbaal/stabilize.nvim",
+            config = function()
+                require('stabilize').setup()
+            end
+        }
 
         use {
             "chrisbra/NrrwRgn",

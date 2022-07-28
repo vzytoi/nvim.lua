@@ -1,18 +1,5 @@
 local M = {}
 
-M.autocmds = function()
-    vim.api.nvim_create_autocmd('BufEnter', {
-        nested = true,
-        callback = function()
-            if vim.g.fn.is_last_win() and
-                vim.g.fn.startswith(vim.fn.bufname(), 'NvimTree')
-            then
-                vim.g.fn.close_current_win()
-            end
-        end,
-    })
-end
-
 M.setup = function()
     vim.g.nmap("<leader>e", ":NvimTreeToggle<cr>")
 end

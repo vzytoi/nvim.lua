@@ -30,7 +30,7 @@ M.split = function(string, target)
     return results
 end
 
-M.has_value = function(tab, val)
+M.has = function(tab, val)
 
     for _, value in ipairs(tab) do
         if value == val then
@@ -59,8 +59,12 @@ M.is_last_win = function()
     return #vim.api.nvim_list_wins() == 1
 end
 
-M.close = function(bufnr)
+M.closebuf = function(bufnr)
     local _ = pcall(vim.api.nvim_command, bufnr .. 'bd')
+end
+
+M.close = function()
+    vim.api.nvim_command('q')
 end
 
 M.startswith = function(string, search)

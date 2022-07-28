@@ -5,7 +5,7 @@ local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 local themes = require("telescope.themes")
 
-function M.setup()
+M.setup = function()
 
     local ivy = themes.get_ivy({
         show_untracked = true
@@ -40,20 +40,13 @@ function M.setup()
         }
     end)
 
-    vim.g.nmap("<leader>fn", function()
-        builtin.git_files {
-            prompt_prefix = "Neovim > ",
-            cwd = "~/.config/nvim"
-        }
-    end)
-
     vim.g.nmap("<leader>fp", function()
         vim.api.nvim_command('Telescope projects')
     end)
 
 end
 
-function M.config()
+M.config = function()
     telescope.setup({
         defaults = {
             preview = {

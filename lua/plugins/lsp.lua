@@ -18,6 +18,8 @@ local function scandir(directory)
     return vim.list_slice(t, 3, #t)
 end
 
+local autocmd = vim.api.nvim_create_autocmd
+
 local function on_attach(client, bufnr)
 
     vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
@@ -28,35 +30,32 @@ local function on_attach(client, bufnr)
     vim.g.nmap("gp", function() vim.lsp.diagnostic.goto_prev() end)
     vim.g.nmap("gs", function() vim.diagnostic.show() end)
 
-    local grp = vim.api.nvim_create_augroup("lsp_document_format", { clear = true })
-    local autocmd = vim.api.nvim_create_autocmd
-
     if client.supports_method("textDocument/formatting") then
         autocmd("BufWritePre", {
             callback = function() vim.lsp.buf.format() end,
-            group = grp
+            buffer = 0
         })
     else
         autocmd("BufWritePost", {
             callback = function() vim.api.nvim_command('FormatWrite') end,
-            group = grp
+            buffer = 0
         })
     end
 
-end
-
-M.autocmds = function()
-
-    vim.api.nvim_create_autocmd("CursorHold", {
+    autocmd("CursorHold", {
         callback = function()
-            vim.lsp.buf.document_highlight()
-        end
+            if client.supports_method("textDocument/documentHighlight") then
+                vim.lsp.buf.document_highlight()
+            end
+        end,
+        buffer = 0
     })
 
-    vim.api.nvim_create_autocmd("CursorMoved", {
+    autocmd("CursorMoved", {
         callback = function()
             vim.lsp.buf.clear_references()
-        end
+        end,
+        buffer = 0
     })
 
 end
@@ -106,11 +105,6 @@ M.config = function()
             severity = { min = vim.diagnostic.severity.WARN }
         }
     })
-
-    --[[ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover,
-        { border = "rounded" }
-    ) ]]
 
     local capabilities = require("cmp_nvim_lsp").update_capabilities(
         vim.lsp.protocol.make_client_capabilities()

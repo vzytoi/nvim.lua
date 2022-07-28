@@ -19,6 +19,7 @@ M.config = function()
     require('plugins.tree').autocmds()
 
     -- TODO: doesn't work.
+        }
 
     autocmd("BufEnter", {
         pattern = last_close,

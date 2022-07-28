@@ -3,7 +3,7 @@ local M = {}
 local ls = require('plugins.runcode.lang')
 
 local ignore_dirs = {
-    os.getenv("HOME") .. '/.config/nvim'
+    -- os.getenv("HOME") .. '/.config/nvim'
 }
 
 local function resize(dir)
