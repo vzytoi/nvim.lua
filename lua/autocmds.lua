@@ -2,58 +2,60 @@ local M = {}
 
 local autocmd = vim.api.nvim_create_autocmd
 
-local last_close = {
-    'toggleterm'
-}
-
-local no_nu = {
-    'toggleterm',
-    'fugitive',
-    'RunCode'
-}
-
 M.config = function()
 
-    require('plugins.lsp').autocmds()
     require('plugins.runcode').autocmds()
-    require('plugins.tree').autocmds()
 
-    -- TODO: doesn't work.
+    local close = {
+        fts = {
+            'toggleterm',
+            'NvimTree',
+            'RunCode'
         }
+    }
 
     autocmd("BufEnter", {
-        pattern = last_close,
         callback = function()
-            if vim.g.fn.is_last_win() then
-                error('leaving!')
-                vim.g.fn.close(vim.fn.bufnr())
+            if vim.g.fn.has(close.fts, vim.bo.filetype)
+                and vim.g.fn.is_last_win() then
+                vim.g.fn.close()
             end
         end
     })
 
+    local numbers = {
+        fts = {
+            'toggleterm',
+            'fugitive',
+            'RunCode'
+        },
+        relative = {
+            InsertEnter = false,
+            WinLeave = false,
+            FocusLost = false,
+            BufNewFile = false,
+            BufReadPost = false,
+            InsertLeave = true,
+            WinEnter = true,
+            FocusGained = true
+        }
+    }
+
     autocmd('FileType', {
-        pattern = no_nu,
+        pattern = numbers.fts,
         callback = function()
             vim.wo.rnu = false
             vim.wo.nu = false
         end
     })
 
-    autocmd("InsertLeave", {
-        callback = function()
-            if not vim.tbl_contains(no_nu, vim.bo.filetype) then
-                vim.opt.rnu = true
+    for event, op in pairs(numbers.relative) do
+        autocmd(event, {
+            callback = function()
+                vim.wo.rnu = op
             end
-        end
-    })
-
-    autocmd("InsertEnter", {
-        callback = function()
-            if not vim.tbl_contains(no_nu, vim.bo.filetype) then
-                vim.opt.rnu = false
-            end
-        end
-    })
+        })
+    end
 
     autocmd("BufReadPost", {
         callback = function()
