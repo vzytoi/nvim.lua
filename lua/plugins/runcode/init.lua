@@ -3,7 +3,7 @@ local M = {}
 local ls = require('plugins.runcode.lang')
 
 local ignore_dirs = {
-    -- os.getenv("HOME") .. '/.config/nvim'
+    os.getenv("HOME") .. '/.config/nvim'
 }
 
 local function resize(dir)
@@ -98,7 +98,7 @@ local function run(d)
         add(vim.g.rcbufnr, {}, 0)
     end
 
-    add(vim.g.rcbufnr, { "output of: " .. fn, "" }, 0)
+    add(vim.g.rcbufnr, { " => Output of: " .. fn, "" }, 0)
 
     vim.fn.jobstart(cmd, {
         stdout_buffered = true,

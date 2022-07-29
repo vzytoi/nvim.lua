@@ -11,6 +11,7 @@ M.buffer = function(name)
         vim.wo.number = false
         vim.wo.relativenumber = false
         vim.bo.filetype = name
+        vim.wo.readonly = true
     end
 end
 
