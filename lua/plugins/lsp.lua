@@ -26,9 +26,15 @@ local function on_attach(client, bufnr)
     vim.g.nmap("gh", function() vim.lsp.buf.hover() end)
     vim.g.nmap("gd", function() vim.lsp.buf.definition() end)
     vim.g.nmap("gR", function() vim.lsp.buf.references() end)
-    vim.g.nmap("gn", function() vim.lsp.diagnostic.goto_next() end)
-    vim.g.nmap("gp", function() vim.lsp.diagnostic.goto_prev() end)
-    vim.g.nmap("gs", function() vim.diagnostic.show() end)
+    vim.g.nmap("gn", function() vim.diagnostic.goto_next({ float = false }) end)
+    vim.g.nmap("gp", function() vim.diagnostic.goto_prev({ float = false }) end)
+
+    vim.g.nmap("gf", function()
+        vim.diagnostic.open_float({
+            header = "",
+            prefix = ""
+        })
+    end)
 
     if client.supports_method("textDocument/formatting") then
         autocmd("BufWritePre", {
