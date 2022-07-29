@@ -1,7 +1,17 @@
 local M = {}
 
-M.progression = {
+M.mode = {
+    function()
+        return " "
+    end,
+    separator = {
+        left = '',
+        right = ''
+    },
+    padding = 2
+}
 
+M.progression = {
     function()
         local chrs = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇" }
 
@@ -9,42 +19,50 @@ M.progression = {
             math.ceil(vim.fn.line '.' / vim.fn.line '$' * #chrs)
             ]
     end
-
 }
 
 M.lsp = {
-
     function()
         local clients = vim.lsp.buf_get_clients()
         local names = {}
 
         for _, client in pairs(clients) do
-            table.insert(names, client.name)
+            if not vim.g.fn.has(names, client.name) then
+                table.insert(names, client.name)
+            end
         end
 
-        return table.concat(names, ', ')
+        if #names > 0 then
+            return table.concat(names, ', ')
+        else
+            return 'NOLSP'
+        end
     end,
 
     on_click = function()
         vim.api.nvim_command('LspInfo')
     end
-
 }
 
 M.filename = {
-    function()
-        local fn = vim.fn.expand('%:t')
-
-        if string.find(fn, 'NvimTree') then
-            fn = 'NvimTree'
-        end
-
-        return fn
-    end,
-
+    'filename',
     symbols = {
         modified = " ●"
     }
+}
+
+M.diff = {
+    'diff',
+    symbols = {
+        added = "",
+        modified = "",
+        removed = ""
+    }
+}
+
+M.filetype = {
+    'filetype',
+    icon = { align = 'right' }
 }
 
 return M

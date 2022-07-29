@@ -14,37 +14,17 @@ function M.config()
             section_separators = { left = '', right = '' },
         },
         sections = {
-            lualine_a = {
-                { 'mode', separator = { left = '' }, right_padding = 2 },
-            },
-            lualine_b = {
-                components.filename,
-            },
-            lualine_c = {
-                'fileformat',
-                'diagnostics',
-            },
+            lualine_a = { components.mode },
+            lualine_b = { components.filename },
+            lualine_c = { 'fileformat', 'diagnostics', },
             lualine_x = {},
             lualine_y = {
-                {
-                    'diff',
-                    symbols = {
-                        added = "",
-                        modified = "",
-                        removed = ""
-                    }
-                },
-                components.lsp,
+                components.diff,
+                -- components.lsp,
                 components.progression,
-                {
-                    'filetype',
-                    filetype_names = {
-                        TelescopePrompt = 'Telescope',
-                    },
-                    icon = { align = 'right' }
-                },
+                components.filetype
             },
-            lualine_z = {},
+            lualine_z = {}
         },
         inactive_sections = {
             lualine_a = { 'filename' },
