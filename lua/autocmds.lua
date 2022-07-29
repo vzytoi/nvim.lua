@@ -28,7 +28,8 @@ M.config = function()
         fts = {
             'toggleterm',
             'fugitive',
-            'RunCode'
+            'RunCode',
+            'help'
         },
         relative = {
             InsertEnter = false,
@@ -75,6 +76,21 @@ M.config = function()
         pattern = { "gitcommit", "markdown", "text" },
         callback = function()
             vim.opt_local.spell = true
+        end
+    })
+
+    autocmd("FileType", {
+        callback = function()
+            vim.cmd("set fo-=o")
+            vim.cmd("set fo-=a")
+            vim.cmd("set fo-=2")
+
+            vim.cmd("set fo+=t")
+            vim.cmd("set fo+=c")
+            vim.cmd("set fo+=r")
+            vim.cmd("set fo+=q")
+            vim.cmd("set fo+=n")
+            vim.cmd("set fo+=j")
         end
     })
 

@@ -17,28 +17,22 @@ end
 
 M.disablePlugins = function()
     local plug_buitlins = {
-        "gzip",
-        "zip",
-        "zipPlugin",
-        "tar",
-        "tarPlugins",
-        "getscript",
-        "getscriptPlugin",
-        "vimball",
-        "vimballPlugin",
-        "2html_plugin",
-        "matchit",
-        "matchparen",
-        "logiPat",
-        "rrhelper",
-        "remote_plugins",
-        "man",
-        "shada_plugin",
+        "gzip", "zip", "tar",
+        "zipPlugin", "tarPlugins",
+        "getscript", "getscriptPlugin",
+        "vimball", "vimballPlugin",
+        "2html_plugin", "matchit",
+        "matchparen", "logiPat",
+        "rrhelper", "remote_plugins",
+        "man", "shada_plugin",
         "tutor_mode_plugin"
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = vim.g.fn.mergeTables(plug_buitlins, { "netrw", "netrwPlugin", "netrwSettings" })
+        plug_buitlins = vim.g.fn.mergeTables(
+            plug_buitlins,
+            { "netrw", "netrwPlugin", "netrwSettings" }
+        )
     end
 
     for _, p in pairs(plug_buitlins) do
@@ -78,7 +72,7 @@ M.loadOptions = function()
         redrawtime = 1500,
         scrolloff = 8,
         undofile = true,
-        undolevels = 10000,
+        undolevels = 5000,
         writebackup = false,
         swapfile = false,
         fileformat = "unix",
@@ -89,6 +83,7 @@ M.loadOptions = function()
         termguicolors = true,
         cursorline = true,
         cursorlineopt = "number",
+        showmode = false
     }
 
     for k, v in pairs(options) do
