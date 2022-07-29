@@ -5,6 +5,7 @@ local autocmd = vim.api.nvim_create_autocmd
 M.config = function()
 
     require('plugins.runcode').autocmds()
+    require('plugins.treesitter').autocmds()
 
     local close = {
         fts = {
@@ -58,25 +59,6 @@ M.config = function()
             end
         })
     end
-
-    autocmd("BufReadPost", {
-        callback = function()
-            local size = vim.fn.getfsize(vim.fn.expand("%"))
-
-            if size >= 1000000 then
-                for hl_name, _ in pairs(vim.api.nvim__get_hl_defs(0)) do
-                    vim.api.nvim_set_hl(0, hl_name, {})
-                end
-            elseif size >= 500000 then
-                vim.api.nvim_command("silent! TSBufDisable highlight")
-            elseif vim.g.TS_disabled then
-                vim.api.nvim_command("!write | edit | TSBufEnable highlight")
-            end
-
-            vim.g.TS_disabled = size >= 50000
-
-        end
-    })
 
     autocmd("FileType", {
         pattern = "gitcommit",

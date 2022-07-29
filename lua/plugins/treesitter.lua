@@ -1,19 +1,34 @@
 local M = {}
 
+M.autocmds = function()
+    vim.api.nvim_create_autocmd("BufReadPost", {
+        callback = function()
+            local size = vim.fn.getfsize(vim.fn.expand("%"))
+
+            if size >= 1000000 then
+                for hl_name, _ in pairs(vim.api.nvim__get_hl_defs(0)) do
+                    vim.api.nvim_set_hl(0, hl_name, {})
+                end
+            elseif size >= 500000 then
+                vim.api.nvim_command("TSBufDisable highlight")
+            elseif vim.g.TS_disabled then
+                vim.api.nvim_command("TSBufEnable highlight")
+            end
+
+            vim.g.TS_disabled = size >= 500000
+
+        end
+    })
+end
+
 M.config = function()
 
     require("nvim-treesitter.configs").setup({
         autopairs = { enable = true },
         tree_docs = { enable = true },
         autotag = { enable = true },
-        context_commenstring = {
-            enable = true,
-            enable_autocmd = false
-        },
-        highlight = {
-            enable = true,
-            use_language_tree = true
-        },
+        context_commenstring = { enable = true, enable_autocmd = false },
+        highlight = { enable = true, use_language_tree = true },
         textobjects = {
             select = {
                 enable = true,
