@@ -20,10 +20,10 @@ function M.config()
             lualine_x = {},
             lualine_y = {
                 components.diff,
-                components.format.on,
-                components.format.off,
                 components.lsp.on,
                 components.lsp.off,
+                components.format.on,
+                components.format.off,
                 components.spaces,
                 -- components.progression,
                 components.filetype

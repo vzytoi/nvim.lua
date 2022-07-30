@@ -1,9 +1,6 @@
 local M = {}
 
-local colors = {
-    green = "#b8bb26",
-    red = "#fb4934"
-}
+local colors = require('plugins.lualine.themes').colors[vim.g.colors_name]
 
 local filter = function()
     return not vim.tbl_contains({ 'harpoon' }, vim.bo.filetype)
@@ -31,7 +28,6 @@ M.progression = {
             ]
     end,
     cond = filter,
-    color = { fg = '#808080' }
 }
 
 local function lsp(switch)
@@ -94,7 +90,7 @@ M.spaces = {
         end
         return "⇥ " .. size
     end,
-    color = { fg = '#458588' },
+    color = { fg = colors.cyan },
     cond = filter,
 }
 
