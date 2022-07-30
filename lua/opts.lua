@@ -11,7 +11,7 @@ M.buffer = function(name)
         vim.wo.number = false
         vim.wo.relativenumber = false
         vim.bo.filetype = name
-        vim.wo.readonly = true
+
     end
 end
 
@@ -68,7 +68,7 @@ M.loadOptions = function()
         ttimeout = true,
         ttimeoutlen = 1,
         ttyfast = true,
-        updatetime = 300,
+        updatetime = 200,
         redrawtime = 1500,
         scrolloff = 8,
         undofile = true,

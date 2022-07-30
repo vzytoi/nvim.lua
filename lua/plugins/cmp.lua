@@ -49,10 +49,10 @@ function M.config()
             format = require('lspkind').cmp_format {
                 with_text = false,
                 menu = {
+                    nvim_lsp = "[lsp]",
                     cmp_tabnine = "[tabnine]",
                     path = "[path]",
                     calc = "[calc]",
-                    nvim_lsp = "[lsp]",
                     luasnip = "[snip]",
                 }
             }

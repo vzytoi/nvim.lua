@@ -9,6 +9,13 @@ local function exec(s, d)
 end
 
 local function resize(k)
+
+    if vim.fn.winheight(0) + vim.opt.cmdheight:get()
+        + 1 == vim.opt.lines:get() and vim.fn.winwidth(0) ==
+        vim.opt.columns:get() then
+        return
+    end
+
     local wcount = vim.fn.winnr("$")
     local wcurr = vim.fn.winnr()
 
@@ -27,33 +34,31 @@ local function resize(k)
         end
         exec(s, "vert")
     else
-        sl.k = sl.l
-        sl.j = sl.h
+        if wcurr == wcount then
+            sl.k = sl.l
+            sl.j = sl.h
+        else
+            sl.k = sl.h
+            sl.j = sl.l
+        end
         exec(sl[k])
     end
+
 end
 
-function M.setup()
+M.keymaps = function()
 
-    local k = {
-        { "Ì", "h" },
-        { "¬", "l" },
-        { "È", "k" },
-        { "Ï", "j" },
+    local keys = {
+        h = "Ì",
+        l = "¬",
+        k = "È",
+        j = "Ï"
     }
 
-    for i, _ in ipairs(k) do
-
-        local m
-
-        if vim.g.fn.os.mac() then
-            m = k[i][1]
-        else
-            m = string.format("<a-%s>", k[i][2])
-        end
-
-        vim.g.nmap(m, function() resize(k[i][2]) end)
-
+    for k, v in pairs(keys) do
+        vim.g.nmap(v, function()
+            resize(k)
+        end)
     end
 
 end

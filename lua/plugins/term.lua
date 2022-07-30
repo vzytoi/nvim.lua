@@ -24,7 +24,7 @@ local function envGo()
     end
 end
 
-M.setup = function()
+M.keymaps = function()
 
     vim.g.nmap("<leader>t", ":ToggleTerm direction=tab<cr>")
     vim.g.nmap("<leader>tf", ":ToggleTerm direction=float<cr>")

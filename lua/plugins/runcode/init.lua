@@ -119,7 +119,7 @@ local function run(d)
 
 end
 
-function M.setup()
+function M.keymaps()
 
     vim.g.nmap("<leader>x", function()
         run("s")

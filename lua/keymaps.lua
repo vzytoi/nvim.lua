@@ -32,10 +32,10 @@ M.config = function()
 
     vim.g.mapleader = " "
 
-    require("plugins.runcode").setup()
-    require("plugins.resize").setup()
-    require("plugins.term").setup()
-    require("plugins.tree").setup()
+    require("plugins.runcode").keymaps()
+    require("plugins.resize").keymaps()
+    require("plugins.term").keymaps()
+    require("plugins.tree").keymaps()
 
     nest.applyKeymaps {
         { "<c-", {
@@ -43,7 +43,8 @@ M.config = function()
             { "j>", "<c-w>j" },
             { "k>", "<c-w>k" },
             { "l>", "<c-w>w" },
-            { "q>", ":x<cr>" }
+            { "q>", ":x<cr>" },
+            { "c>", "<esc>" }
         } },
         { "<", "<<" },
         { ">", ">>" },
@@ -51,6 +52,7 @@ M.config = function()
         { "<Tab>", ":tabNext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
+            { "w", ":silent write<cr>" },
             { "p", ":PP<cr>" },
             { "g", ":DogeGenerate<cr>" },
             { "z", ":ZenMode<cr>" },

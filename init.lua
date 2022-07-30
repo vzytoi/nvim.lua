@@ -1,3 +1,4 @@
+require('impatient').enable_profile()
 vim.g.fn = require('fn')
 
 local modules = {
@@ -11,7 +12,7 @@ local modules = {
 local load = function(name)
     local ok, _ = pcall(require, name)
     if not ok then
-        vim.api.nvim_error_writeln("Failed to load" .. name)
+        vim.api.nvim_error_writeln("Failed to load " .. name)
     else
         vim.g[name] = require(name)
         vim.g[name].config()

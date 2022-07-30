@@ -29,7 +29,8 @@ M.config = function()
             'toggleterm',
             'fugitive',
             'RunCode',
-            'help'
+            'help',
+            'NvimTree'
         },
         relative = {
             InsertEnter = false,
@@ -91,7 +92,13 @@ M.config = function()
             vim.cmd("set fo+=q")
             vim.cmd("set fo+=n")
             vim.cmd("set fo+=j")
+
+            vim.cmd("set shortmess+=W")
         end
+    })
+
+    autocmd("CursorHold", {
+        command = "echon ''"
     })
 
 end
