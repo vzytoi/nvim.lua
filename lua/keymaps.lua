@@ -52,12 +52,19 @@ M.config = function()
         { "<Tab>", ":tabNext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
+            { "h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
+            { "h", {
+                { "a", "<cmd>lua require('harpoon.mark').add_file()<cr>" },
+                { "&", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>" },
+                { "é", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>" },
+                { '"', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>" },
+                { "'", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>" },
+                { "(", "<cmd>lua require('harpoon.ui').nav_file(5)<cr>" },
+            } },
             { "w", ":silent write<cr>" },
             { "p", ":PP<cr>" },
-            { "g", ":DogeGenerate<cr>" },
             { "z", ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
-            { "n", ":silent set rnu!<cr>" },
             { "q", {
                 { "s", [[<cmd>lua require("persistence").load()<cr>]] },
                 { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
@@ -68,8 +75,6 @@ M.config = function()
                 { "l", ":cprevious<cr>" }
             } },
             { "q", {
-                { "o", ":copen<cr>" },
-                { "c", ":cclose<cr>" },
                 { "k", ":cprev<cr>" },
                 { "j", ":cnext<cr>" }
             } },
@@ -90,9 +95,6 @@ M.config = function()
                     { "h", ":sp|bNext<cr>" },
                     { "l", ":sp|bprevious<cr>" }
                 } }
-            } },
-            { "i", {
-                { "n", ":normal! gg=G<cr><c-o>" }
             } },
             { "g", {
                 { "s", ":G|20wincmd_<cr>" },

@@ -30,18 +30,6 @@ M.split = function(string, target)
     return results
 end
 
-M.has = function(tab, val)
-
-    for _, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-
-    return false
-
-end
-
 M.toggle = function(open, close)
 
     if vim.g[open] == nil then
@@ -67,10 +55,6 @@ M.close = function()
     vim.api.nvim_command('q')
 end
 
-M.startswith = function(string, search)
-    return string:find('^' .. search) ~= nil
-end
-
 M.getbufpath = function()
     return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
 end
@@ -88,5 +72,21 @@ M.os = {
         return package.config:sub(1, 1) == "\\"
     end
 }
+
+M.capabilities = function(capabilitie, bufnr)
+
+    local client = vim.lsp.get_active_clients({ bufnr = bufnr })
+
+    if #client == 0 then
+        return false
+    end
+
+    local a = {
+        format = client[1].server_capabilities.documentFormattingProvider
+    }
+
+    return a[capabilitie]
+
+end
 
 return M

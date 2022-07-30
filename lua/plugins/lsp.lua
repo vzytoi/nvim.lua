@@ -38,12 +38,16 @@ local function on_attach(client, bufnr)
 
     if client.supports_method("textDocument/formatting") then
         autocmd("BufWritePre", {
-            callback = function() vim.lsp.buf.format() end,
+            callback = function()
+                vim.lsp.buf.format()
+            end,
             buffer = 0
         })
     else
         autocmd("BufWritePost", {
-            callback = function() vim.api.nvim_command('FormatWrite') end,
+            callback = function()
+                vim.api.nvim_command('FormatWrite')
+            end,
             buffer = 0
         })
     end
@@ -118,11 +122,7 @@ M.config = function()
 
     for _, lsp in pairs(servers) do
 
-        local s = setup[lsp]
-
-        if s == nil then
-            s = {}
-        end
+        local s = setup[lsp] or {}
 
         require("lspconfig")[lsp].setup(
             vim.tbl_extend('keep', s, {

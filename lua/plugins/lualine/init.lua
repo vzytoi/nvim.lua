@@ -10,32 +10,38 @@ function M.config()
     require('lualine').setup {
         options = {
             theme = themes[cs] or cs,
-            component_separators = '|',
+            component_separators = '',
             section_separators = { left = '', right = '' },
         },
         sections = {
             lualine_a = { components.mode },
             lualine_b = { components.filename },
-            lualine_c = { 'fileformat', 'diagnostics', },
+            lualine_c = { 'diagnostics', },
             lualine_x = {},
             lualine_y = {
                 components.diff,
+                components.format.on,
+                components.format.off,
+                components.lsp.on,
+                components.lsp.off,
                 components.spaces,
-                components.progression,
+                -- components.progression,
                 components.filetype
             },
             lualine_z = {}
         },
         inactive_sections = {
-            lualine_a = { 'filename' },
+            lualine_a = {},
             lualine_b = {},
             lualine_c = {},
             lualine_x = {},
             lualine_y = {},
-            lualine_z = { 'location' },
+            lualine_z = {},
         },
         tabline = {},
         extensions = {},
+        winbar = {}
+
     }
 
 end

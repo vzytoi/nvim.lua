@@ -9,15 +9,14 @@ M.config = function()
 
     local close = {
         fts = {
-            'toggleterm',
-            'NvimTree',
+            'toggleterm', 'NvimTree',
             'RunCode'
         }
     }
 
     autocmd("BufEnter", {
         callback = function()
-            if vim.g.fn.has(close.fts, vim.bo.filetype)
+            if vim.tbl_contains(close.fts, vim.bo.filetype)
                 and vim.g.fn.is_last_win() then
                 vim.g.fn.close()
             end
@@ -26,11 +25,9 @@ M.config = function()
 
     local numbers = {
         fts = {
-            'toggleterm',
-            'fugitive',
-            'RunCode',
-            'help',
-            'NvimTree'
+            'toggleterm', 'fugitive',
+            'RunCode', 'help',
+            'NvimTree', 'harpoon'
         },
         relative = {
             InsertEnter = false,
@@ -55,7 +52,7 @@ M.config = function()
     for event, op in pairs(numbers.relative) do
         autocmd(event, {
             callback = function()
-                if not vim.g.fn.has(numbers.fts, vim.bo.filetype) then
+                if not vim.tbl_contains(numbers.fts, vim.bo.filetype) then
                     vim.wo.rnu = op
                 end
             end
@@ -95,10 +92,6 @@ M.config = function()
 
             vim.cmd("set shortmess+=W")
         end
-    })
-
-    autocmd("CursorHold", {
-        command = "echon ''"
     })
 
 end

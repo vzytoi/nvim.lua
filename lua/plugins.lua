@@ -23,6 +23,13 @@ function M.config()
         use "ellisonleao/gruvbox.nvim"
 
         use {
+            "ThePrimeagen/harpoon",
+            config = function()
+                require('harpoon').setup()
+            end
+        }
+
+        use {
             "LionC/nest.nvim",
             config = function()
                 require("keymaps").config()
@@ -107,20 +114,9 @@ function M.config()
             event = "BufRead"
         }
 
-        use {
-            "windwp/nvim-ts-autotag",
-            after = "nvim-treesitter",
-        }
-
-        use {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-            after = "nvim-treesitter"
-        }
-
-        use {
-            "RRethy/nvim-treesitter-textsubjects",
-            after = "nvim-treesitter"
-        }
+        use { "windwp/nvim-ts-autotag", after = "nvim-treesitter", }
+        use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
+        use { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" }
 
         use {
             "hrsh7th/nvim-cmp",
@@ -174,14 +170,6 @@ function M.config()
             "j-hui/fidget.nvim",
             config = function()
                 require('fidget').setup()
-            end
-        }
-
-        use {
-            "kkoomen/vim-doge",
-            cmd = "DogeGenerate",
-            run = function()
-                vim.fn["doge#install"]()
             end
         }
 
@@ -241,9 +229,10 @@ function M.config()
         use {
             "folke/persistence.nvim",
             event = "BufReadPre",
+            module = "persistence",
             config = function()
                 require("persistence").setup()
-            end,
+            end
         }
 
         use {

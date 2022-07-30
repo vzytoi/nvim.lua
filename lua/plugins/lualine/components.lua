@@ -1,13 +1,15 @@
 local M = {}
 
-local fts = {
-    "TelescopePrompt",
-    "NvimTree",
-    "RunCode",
-    "DiffviewFiles",
-    "help",
-    "qf"
+local colors = {
+    green = "#b8bb26",
+    red = "#fb4934"
 }
+
+local filter = function()
+    return not vim.tbl_contains({ 'harpoon' }, vim.bo.filetype)
+        and vim.bo.modifiable and not vim.bo.readonly
+        and vim.fn.bufname() ~= ""
+end
 
 M.mode = {
     function()
@@ -17,7 +19,7 @@ M.mode = {
         left = '',
         right = ''
     },
-    padding = 2
+    padding = 1
 }
 
 M.progression = {
@@ -28,39 +30,37 @@ M.progression = {
             math.ceil(vim.fn.line '.' / vim.fn.line '$' * #chrs)
             ]
     end,
-    fmt = function(str)
-        for _, v in ipairs(fts) do
-            if vim.bo.filetype == v then
-                return ""
-            end
-        end
-
-        return str
-    end,
+    cond = filter,
     color = { fg = '#808080' }
 }
 
-M.lsp = {
-    function()
-        local clients = vim.lsp.buf_get_clients()
-        local names = {}
+local function lsp(switch)
 
-        for _, client in pairs(clients) do
-            if not vim.g.fn.has(names, client.name) then
-                table.insert(names, client.name)
-            end
-        end
-
-        if #names > 0 then
-            return table.concat(names, ', ')
-        else
-            return 'NOLSP'
-        end
-    end,
-
-    on_click = function()
-        vim.api.nvim_command('LspInfo')
+    if #vim.lsp.buf_get_clients() > 0 then
+        return (switch and "" or "")
+    else
+        return (not switch and "" or "")
     end
+
+end
+
+M.lsp = {
+    on = {
+        function() return lsp(true) end,
+        color = { fg = colors.green },
+        on_click = function()
+            vim.api.nvim_command('LspInfo')
+        end,
+        cond = filter
+    },
+    off = {
+        function() return lsp(false) end,
+        color = { fg = colors.red },
+        on_click = function()
+            vim.api.nvim_command('LspInstall')
+        end,
+        cond = filter
+    }
 }
 
 M.filename = {
@@ -68,15 +68,7 @@ M.filename = {
     symbols = {
         modified = " ●"
     },
-    fmt = function(str)
-        for _, v in ipairs(fts) do
-            if vim.bo.filetype == v then
-                return ""
-            end
-        end
-
-        return str
-    end
+    cond = filter,
 }
 
 M.diff = {
@@ -86,13 +78,12 @@ M.diff = {
         modified = "",
         removed = ""
     },
-    fmt = function(str)
-        if vim.g.DiffviewOpen then
-            return ""
-        end
-
-        return str
+    cond = function()
+        return not vim.g.DiffviewOpen
     end,
+    on_click = function()
+        vim.g.fn.toggle("DiffviewOpen", "DiffviewClose")
+    end
 }
 
 M.spaces = {
@@ -103,12 +94,14 @@ M.spaces = {
         end
         return "⇥ " .. size
     end,
-    color = { fg = '#e07016' }
+    color = { fg = '#458588' },
+    cond = filter,
 }
 
 M.filetype = {
     'filetype',
-    icon = { align = 'right' },
+    icon_only = true,
+    separator = { right = '' },
 
     fmt = function(str)
         local names = {
@@ -126,6 +119,36 @@ M.filetype = {
         return str
     end
 
+}
+
+local format = function(switch)
+    local fconfig = require('formatter.config')
+    local exe = false
+
+    for ft, _ in pairs(fconfig.values.filetype) do
+        if ft ~= "*" and ft == vim.bo.filetype then
+            exe = true
+        end
+    end
+
+    if vim.g.fn.capabilities('format', 0) or exe then
+        return (switch and "⍟" or "")
+    else
+        return (not switch and "⍟" or "")
+    end
+end
+
+M.format = {
+    on = {
+        function() return format(true) end,
+        color = { fg = colors.green },
+        cond = filter
+    },
+    off = {
+        function() return format(false) end,
+        color = { fg = colors.red },
+        cond = filter
+    }
 }
 
 return M

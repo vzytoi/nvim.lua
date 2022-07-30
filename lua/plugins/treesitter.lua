@@ -25,7 +25,6 @@ M.config = function()
 
     require("nvim-treesitter.configs").setup({
         autopairs = { enable = true },
-        tree_docs = { enable = true },
         autotag = { enable = true },
         context_commenstring = { enable = true, enable_autocmd = false },
         highlight = { enable = true, use_language_tree = true },

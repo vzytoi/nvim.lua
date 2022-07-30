@@ -8,7 +8,7 @@ local raw = {
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
         Normal = { fg = "#EEEEEE" },
-        NormalFloat = { bg = "#000000" },
+        NormalFloat = { bg = "#191919", fg = "#ffffff" },
     },
     gruvbox = {
         Visual = { bg = "Grey40" },
@@ -17,7 +17,8 @@ local raw = {
         DiagnosticSignError = { fg = "#cc241d", bold = true },
         DiagnosticSignWarn = { fg = "#fabd2f", bold = true },
         DiagnosticSignHint = { fg = "#b8bb26", bold = true },
-        DiagnosticSignInfo = { fg = "#FFC0CB", bold = true }
+        DiagnosticSignInfo = { fg = "#FFC0CB", bold = true },
+        StatusLine = { bg = "#000000" }
     },
 }
 

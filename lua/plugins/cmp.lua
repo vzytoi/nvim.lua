@@ -28,7 +28,8 @@ function M.config()
             end
         },
         window = {
-            completion = cmp.config.window.bordered()
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered()
         },
         mapping = {
             ["<c-k>"] = cmp.mapping.select_prev_item(),
