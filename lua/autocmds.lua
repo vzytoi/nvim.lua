@@ -94,6 +94,46 @@ M.config = function()
         end
     })
 
+    local com = require('plugins.lualine.components')
+
+    local function file_name()
+
+        if not com.filter() then
+            return
+        end
+
+        local filename = vim.fn.expand "%:t"
+        local extension = vim.fn.expand "%:e"
+
+        if not vim.g.fn.is_empty(filename) then
+            local file_icon, file_icon_color = require("nvim-web-devicons").get_icon_color(
+                filename,
+                extension,
+                { default = true }
+            )
+
+            local hl_group = "FileIconColor" .. extension
+
+            vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
+            if vim.g.fn.is_empty(file_icon) then
+                file_icon = ""
+                file_icon_color = ""
+            end
+            vim.api.nvim_set_hl(0, "Winbar", { fg = "#6b737f" })
+
+            return " " ..
+                "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#Winbar#" .. filename .. "%*"
+        end
+    end
+
+    if vim.fn.has "nvim-0.8" == 1 then
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function()
+                vim.opt_local.winbar = file_name()
+            end
+        })
+    end
+
 end
 
 return M

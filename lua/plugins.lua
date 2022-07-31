@@ -109,9 +109,7 @@ function M.config()
             "nvim-treesitter/nvim-treesitter",
             config = function()
                 require("plugins.treesitter").config()
-            end,
-            run = "TSUpdate",
-            event = "BufRead"
+            end
         }
 
         use { "windwp/nvim-ts-autotag", after = "nvim-treesitter", }

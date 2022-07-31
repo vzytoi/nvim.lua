@@ -15,7 +15,7 @@ function M.config()
         },
         sections = {
             lualine_a = { components.mode },
-            lualine_b = { components.filename },
+            lualine_b = { components.branch },
             lualine_c = { 'diagnostics', },
             lualine_x = {},
             lualine_y = {
@@ -25,7 +25,6 @@ function M.config()
                 components.format.on,
                 components.format.off,
                 components.spaces,
-                -- components.progression,
                 components.filetype
             },
             lualine_z = {}

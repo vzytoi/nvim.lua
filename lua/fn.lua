@@ -89,4 +89,8 @@ M.capabilities = function(capabilitie, bufnr)
 
 end
 
+M.is_empty = function(obj)
+    return obj == nil or obj == ""
+end
+
 return M

@@ -2,7 +2,7 @@ local M = {}
 
 local colors = require('plugins.lualine.themes').colors[vim.g.colors_name]
 
-local filter = function()
+M.filter = function()
     return not vim.tbl_contains({ 'harpoon' }, vim.bo.filetype)
         and vim.bo.modifiable and not vim.bo.readonly
         and vim.fn.bufname() ~= ""
@@ -27,7 +27,7 @@ M.progression = {
             math.ceil(vim.fn.line '.' / vim.fn.line '$' * #chrs)
             ]
     end,
-    cond = filter,
+    cond = M.filter,
 }
 
 local function lsp(switch)
@@ -47,7 +47,7 @@ M.lsp = {
         on_click = function()
             vim.api.nvim_command('LspInfo')
         end,
-        cond = filter
+        cond = M.filter
     },
     off = {
         function() return lsp(false) end,
@@ -55,7 +55,7 @@ M.lsp = {
         on_click = function()
             vim.api.nvim_command('LspInstall')
         end,
-        cond = filter
+        cond = M.filter
     }
 }
 
@@ -64,7 +64,7 @@ M.filename = {
     symbols = {
         modified = " ●"
     },
-    cond = filter,
+    cond = M.filter,
 }
 
 M.diff = {
@@ -91,7 +91,7 @@ M.spaces = {
         return "⇥ " .. size
     end,
     color = { fg = colors.cyan },
-    cond = filter,
+    cond = M.filter,
 }
 
 M.filetype = {
@@ -138,13 +138,22 @@ M.format = {
     on = {
         function() return format(true) end,
         color = { fg = colors.green },
-        cond = filter
+        cond = M.filter
     },
     off = {
         function() return format(false) end,
         color = { fg = colors.red },
-        cond = filter
+        cond = M.filter
     }
+}
+
+M.branch = {
+    'branch',
+    padding = {
+        left = 2,
+        right = 1
+    },
+    cond = M.filter
 }
 
 return M

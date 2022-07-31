@@ -8,7 +8,7 @@ local raw = {
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
         Normal = { fg = "#EEEEEE" },
-        NormalFloat = { bg = "#191919", fg = "#ffffff" },
+        NormalFloat = { bg = "#000000", fg = "#ffffff" },
     },
     gruvbox = {
         Visual = { bg = "Grey40" },
