@@ -1,9 +1,10 @@
 local M = {}
 
-local colors = require('plugins.lualine.themes').colors[vim.g.colors_name]
+local colors = vim.g.colors.colors[vim.g.colors_name]
+local format = require('plugins.format').get()
 
 M.filter = function()
-    return not vim.tbl_contains({ 'harpoon' }, vim.bo.filetype)
+    return not vim.tbl_contains({ 'harpoon', 'spectre_panel' }, vim.bo.filetype)
         and vim.bo.modifiable and not vim.bo.readonly
         and vim.fn.bufname() ~= ""
 end
@@ -78,7 +79,7 @@ M.diff = {
         return not vim.g.DiffviewOpen
     end,
     on_click = function()
-        vim.g.fn.toggle("DiffviewOpen", "DiffviewClose")
+        vim.func.toggle("DiffviewOpen", "DiffviewClose")
     end
 }
 
@@ -118,16 +119,9 @@ M.filetype = {
 }
 
 local format = function(switch)
-    local fconfig = require('formatter.config')
-    local exe = false
+    local exe = vim.tbl_contains(format, vim.bo.filetype)
 
-    for ft, _ in pairs(fconfig.values.filetype) do
-        if ft ~= "*" and ft == vim.bo.filetype then
-            exe = true
-        end
-    end
-
-    if vim.g.fn.capabilities('format', 0) or exe then
+    if vim.func.capabilities('format', 0) or exe then
         return (switch and "⍟" or "")
     else
         return (not switch and "⍟" or "")

@@ -1,5 +1,20 @@
 local M = {}
 
+M.colors = {
+    gruvbox = {
+        blue   = '#48898c',
+        cyan   = '#79dac8',
+        black  = '#000000',
+        white  = '#c6c6c6',
+        red    = '#fb4934',
+        violet = '#b16286',
+        grey   = '#303030',
+        orange = "#e07016",
+        green  = "#b8bb26",
+        yellow = "#fabd2f"
+    }
+}
+
 local raw = {
     all = {
         LineNr = { fg = "#6B6B6B" },
@@ -7,18 +22,21 @@ local raw = {
         LspReferenceText = { bold = true },
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
-        Normal = { fg = "#EEEEEE" },
-        NormalFloat = { bg = "#000000", fg = "#ffffff" },
     },
     gruvbox = {
+        Normal = { fg = "#EEEEEE", bg = M.colors.gruvbox.black },
+        NormalFloat = { bg = M.colors.gruvbox.black, fg = "#ffffff" },
         Visual = { bg = "Grey40" },
         CursorLineNR = { fg = "#458588", bold = true },
-        SignColumn = { bg = "#000000" },
-        DiagnosticSignError = { fg = "#cc241d", bold = true },
-        DiagnosticSignWarn = { fg = "#fabd2f", bold = true },
-        DiagnosticSignHint = { fg = "#b8bb26", bold = true },
-        DiagnosticSignInfo = { fg = "#FFC0CB", bold = true },
-        StatusLine = { bg = "#000000" }
+        DiagnosticSignError = { fg = M.colors.gruvbox.red, bold = true },
+        DiagnosticSignWarn = { fg = M.colors.gruvbox.yellow, bold = true },
+        DiagnosticSignHint = { fg = M.colors.gruvbox.green, bold = true },
+        DiagnosticSignInfo = { fg = M.colors.gruvbox.grey, bold = true },
+        StatusLine = { bg = M.colors.gruvbox.black },
+        SignColumn = { bg = M.colors.gruvbox.black, bold = true },
+        GitSignsAdd = { fg = M.colors.gruvbox.green },
+        GitSignsChange = { fg = M.colors.gruvbox.orange },
+        GitSignsDelete = { fg = M.colors.gruvbox.red },
     },
 }
 

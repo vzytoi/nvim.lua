@@ -3,9 +3,9 @@ local M = {}
 function M.config()
 
     local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
     if fn.empty(fn.glob(install_path)) > 0 then
-        PB = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        PB = fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
             install_path })
     end
 
@@ -21,25 +21,59 @@ function M.config()
         use "fedepujol/move.nvim"
         use "antoinemadec/FixCursorHold.nvim"
         use "ellisonleao/gruvbox.nvim"
+        use "stevearc/dressing.nvim"
+        use "mfussenegger/nvim-lint"
+
+        use {
+            "rcarriga/nvim-notify",
+            config = function()
+                require("notify").setup {
+                    stages = "fade",
+                    fps = 60,
+                    timeout = 0
+                }
+            end
+        }
+
+        use {
+            "lewis6991/gitsigns.nvim",
+            config = function()
+                require 'plugins.gitsigns'.config()
+            end
+        }
+
+        use {
+            "SmiteshP/nvim-navic",
+            config = function()
+                require("nvim-navic").setup()
+            end
+        }
+
+        use {
+            "williamboman/mason.nvim",
+            config = function()
+                require("mason").setup()
+            end
+        }
 
         use {
             "ThePrimeagen/harpoon",
             config = function()
-                require('harpoon').setup()
+                require("harpoon").setup()
             end
         }
 
         use {
             "LionC/nest.nvim",
             config = function()
-                require("keymaps").config()
+                require("core.keymaps").config()
             end,
         }
 
         use {
             "luukvbaal/stabilize.nvim",
             config = function()
-                require('stabilize').setup()
+                require("stabilize").setup()
             end
         }
 
@@ -60,14 +94,15 @@ function M.config()
         use {
             "folke/trouble.nvim",
             config = function()
-                require('trouble').setup()
+                require("trouble").setup()
             end,
             {
-                'folke/lsp-colors.nvim',
+                "folke/lsp-colors.nvim",
                 config = function()
-                    require('lsp-colors').setup()
+                    require("lsp-colors").setup()
                 end,
-            }
+            },
+            cmd = "TroubleToggle"
         }
 
         use {
@@ -132,12 +167,13 @@ function M.config()
             "tzachar/cmp-tabnine",
             run = "./install.sh",
             config = function()
-                require('cmp_tabnine.config'):setup({
+                require("cmp_tabnine.config"):setup({
                     show_prediction_strength = true
                 })
             end,
             after = "nvim-cmp"
         }
+        use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
 
         use {
             "L3MON4D3/LuaSnip",
@@ -146,28 +182,40 @@ function M.config()
         }
 
         use {
-            "mhartington/formatter.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
             config = function()
-                require("plugins.formatter").config()
-            end,
-            event = "BufWritePre"
+                require("plugins.format").config()
+            end
         }
 
         use {
-            "williamboman/nvim-lsp-installer",
-            {
-                "neovim/nvim-lspconfig",
-                config = function()
-                    require("plugins.lsp").config()
-                end,
-                requires = "hrsh7th/cmp-nvim-lsp"
+            "neovim/nvim-lspconfig",
+            config = function()
+                require("plugins.lsp").config()
+            end,
+            requires = {
+                "williamboman/mason-lspconfig.nvim",
             }
         }
 
         use {
             "j-hui/fidget.nvim",
             config = function()
-                require('fidget').setup()
+                require("fidget").setup({
+                    text = { spinner = "dots_negative" },
+                    timer = { spinner_rate = 100 },
+                    fmt = {
+                        leftpad = false,
+                        task = function(task_name, message, percentage)
+                            return ""
+                        end
+                    },
+                    sources = {
+                        ["null-ls"] = {
+                            ignore = true
+                        }
+                    }
+                })
             end
         }
 
@@ -278,7 +326,7 @@ function M.config()
             "hoob3rt/lualine.nvim",
             config = function()
                 require("plugins.lualine").config()
-            end,
+            end
         }
 
         use {
@@ -287,7 +335,7 @@ function M.config()
         }
 
         if PB then
-            require('packer').sync()
+            require("packer").sync()
         end
 
     end

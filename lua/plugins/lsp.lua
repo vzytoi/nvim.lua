@@ -1,26 +1,16 @@
 local M = {}
 
-local function scandir(directory)
-
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen('ls -a "' .. directory .. '"')
-
-    if pfile ~= nil then
-        for filename in pfile:lines() do
-            i = i + 1
-            t[i] = filename
-        end
-        pfile:close()
-    else
-        return false
-    end
-
-    return vim.list_slice(t, 3, #t)
-end
-
 local autocmd = vim.api.nvim_create_autocmd
 
+local navic = require('nvim-navic')
+local cmp_lsp = require("cmp_nvim_lsp")
+local mason_lsp = require('mason-lspconfig')
+local mason_servers = require('mason-lspconfig.mappings.server')
+local format = require('plugins.format').get()
+
 local function on_attach(client, bufnr)
+
+    navic.attach(client, bufnr)
 
     vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
     vim.g.nmap("gh", function() vim.lsp.buf.hover() end)
@@ -36,17 +26,10 @@ local function on_attach(client, bufnr)
         })
     end)
 
-    if client.supports_method("textDocument/formatting") then
+    if vim.func.capabilities('format', bufnr) or vim.tbl_contains(format, vim.bo.filetype) then
         autocmd("BufWritePre", {
             callback = function()
                 vim.lsp.buf.format()
-            end,
-            buffer = 0
-        })
-    else
-        autocmd("BufWritePost", {
-            callback = function()
-                vim.api.nvim_command('FormatWrite')
             end,
             buffer = 0
         })
@@ -54,7 +37,7 @@ local function on_attach(client, bufnr)
 
     autocmd("CursorHold", {
         callback = function()
-            if client.supports_method("textDocument/documentHighlight") then
+            if vim.func.capabilities('hi', bufnr) then
                 vim.lsp.buf.document_highlight()
             end
         end,
@@ -69,6 +52,10 @@ local function on_attach(client, bufnr)
     })
 
 end
+
+local capabilities = cmp_lsp.update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+)
 
 local setup = {
     sumneko_lua = {
@@ -91,17 +78,23 @@ local setup = {
                 }
             }
         }
+    },
+    ['*'] = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        root_dir = vim.loop.cwd
     }
 }
 
 M.config = function()
 
-    local servers = scandir(vim.fn.stdpath('data') .. '/lsp_servers/')
+    local path = vim.fn.stdpath('data') .. '/mason/packages'
 
-    require('nvim-lsp-installer').setup {
-        ensure_installed = servers,
-        automatic_installation = true
-    }
+    local servers = vim.tbl_map(function(e)
+        return mason_servers.package_to_lspconfig[e]
+    end, vim.func.scandir(path))
+
+    mason_lsp.setup { ensure_installed = servers }
 
     vim.diagnostic.config({
         underline = false,
@@ -116,20 +109,18 @@ M.config = function()
         }
     })
 
-    local capabilities = require("cmp_nvim_lsp").update_capabilities(
-        vim.lsp.protocol.make_client_capabilities()
-    )
+    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
+    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or 'rounded'
+
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    end
 
     for _, lsp in pairs(servers) do
-
-        local s = setup[lsp] or {}
-
-        require("lspconfig")[lsp].setup(
-            vim.tbl_extend('keep', s, {
-                on_attach = on_attach,
-                capabilities = capabilities,
-                root_dir = vim.loop.cwd
-            })
+        require('lspconfig')[lsp].setup(
+            vim.tbl_extend('keep', setup[lsp] or {}, setup['*'])
         )
     end
 end

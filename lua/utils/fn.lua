@@ -82,7 +82,8 @@ M.capabilities = function(capabilitie, bufnr)
     end
 
     local a = {
-        format = client[1].server_capabilities.documentFormattingProvider
+        format = client[1].server_capabilities.documentFormattingProvider,
+        hi = client[1].supports_method('textDocument/documentHighlight')
     }
 
     return a[capabilitie]
@@ -91,6 +92,23 @@ end
 
 M.is_empty = function(obj)
     return obj == nil or obj == ""
+end
+
+M.scandir = function(directory)
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('ls -a "' .. directory .. '"')
+
+    if pfile ~= nil then
+        for filename in pfile:lines() do
+            i = i + 1
+            t[i] = filename
+        end
+        pfile:close()
+    else
+        return false
+    end
+
+    return vim.list_slice(t, 3, #t)
 end
 
 return M

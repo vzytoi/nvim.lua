@@ -43,12 +43,11 @@ M.config = function()
             { "j>", "<c-w>j" },
             { "k>", "<c-w>k" },
             { "l>", "<c-w>w" },
-            { "q>", ":x<cr>" },
-            { "c>", "<esc>" }
+            { "c>", "<esc>" },
         } },
         { "<", "<<" },
         { ">", ">>" },
-        { "~", "~h" },
+        { 'gs', '<cmd>Pounce<cr>' },
         { "<Tab>", ":tabNext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
@@ -78,7 +77,7 @@ M.config = function()
                 { "k", ":cprev<cr>" },
                 { "j", ":cnext<cr>" }
             } },
-            { "b", {
+            --[[ { "b", {
                 { "k", ":b#<cr>" },
                 { "h", ":bNext<cr>" },
                 { "l", ":bprevious<cr>" },
@@ -95,7 +94,7 @@ M.config = function()
                     { "h", ":sp|bNext<cr>" },
                     { "l", ":sp|bprevious<cr>" }
                 } }
-            } },
+            } }, ]]
             { "g", {
                 { "s", ":G|20wincmd_<cr>" },
                 { "c", ":G commit|star<cr>" },
@@ -126,21 +125,24 @@ M.config = function()
     }
 
     vim.g.nmap("<leader>d", function()
-        vim.g.fn.toggle("DiffviewOpen", "DiffviewClose")
+        vim.func.toggle("DiffviewOpen", "DiffviewClose")
     end)
 
     vim.g.nmap("<leader>l", function()
-        vim.g.fn.toggle("lop", "lcl")
+        vim.func.toggle("lop", "lcl")
     end)
 
     vim.g.nmap("<leader>c", function()
-        vim.g.fn.toggle("copen", "cclose")
+        vim.func.toggle("copen", "cclose")
     end)
 
     vim.g.nmap("<leader>s", function()
         require('spectre').open()
     end)
 
+    vim.g.nmap('gt', function()
+        vim.api.nvim_command('TroubleToggle')
+    end)
 end
 
 return M

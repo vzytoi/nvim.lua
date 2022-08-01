@@ -79,18 +79,18 @@ local function run(d)
 
     for _, value in ipairs(ignore_dirs) do
         if string.find(vim.fn.getcwd(), value) then
-            print('RunCode: This directory has been ignored')
+            require('notify')("This directory has been ignored", "ERROR", { title = "RunCode" })
             return
         end
     end
 
     if not ls[vim.bo.filetype] then
-        print('RunCode: language not supported')
+        require('notify')("Filetype isn't supported", "ERROR", { title = "RunCode" })
         return
     end
 
     local cmd = command(vim.bo.filetype)
-    local fn = vim.g.fn.getfn()
+    local fn = vim.func.getfn()
 
     if not vim.g.rcbufnr then
         vim.g.rcbufnr = openbuf(d)
@@ -140,7 +140,7 @@ function M.autocmds()
         callback = function()
             vim.g.nmap({ "<cr>", "q" }, function()
                 if vim.g.rcbufnr then
-                    vim.g.fn.close(vim.fn.bufnr())
+                    vim.func.close(vim.fn.bufnr())
                     vim.g.rcbufnr = nil
                 end
 

@@ -23,7 +23,9 @@ M.setup = function()
 
     vim.g.nmap("<leader>fb",
         function()
-            builtin.buffers(ivy)
+            builtin.buffers(themes.get_dropdown({
+                previewer = false
+            }))
         end)
 
     vim.g.nmap("<leader>fh", function()

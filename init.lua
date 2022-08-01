@@ -1,5 +1,5 @@
 require('impatient').enable_profile()
-vim.g.fn = require('fn')
+vim.func = require('utils.fn')
 
 local modules = {
     { name = "abbr", event = "cmdlineenter" },
@@ -10,11 +10,11 @@ local modules = {
 }
 
 local load = function(name)
-    local ok, _ = pcall(require, name)
+    local ok, _ = pcall(require, 'core.' .. name)
     if not ok then
-        vim.api.nvim_error_writeln("Failed to load " .. name)
+        print("Failed to load " .. name)
     else
-        vim.g[name] = require(name)
+        vim.g[name] = require('core.' .. name)
         vim.g[name].config()
     end
 end

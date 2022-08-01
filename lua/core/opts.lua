@@ -29,7 +29,7 @@ M.disablePlugins = function()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = vim.g.fn.mergeTables(
+        plug_buitlins = vim.func.mergeTables(
             plug_buitlins,
             { "netrw", "netrwPlugin", "netrwSettings" }
         )
@@ -89,6 +89,32 @@ M.loadOptions = function()
     for k, v in pairs(options) do
         vim.opt[k] = v
     end
+
+    vim.opt.shortmess = {
+        t = true,
+        A = true,
+        o = true,
+        O = true,
+        T = true,
+        f = true,
+        F = true,
+        s = true,
+        c = true,
+        W = true,
+    }
+
+    vim.opt.formatoptions = {
+        ['1'] = true,
+        ['2'] = true,
+        q = true,
+        c = true,
+        r = true,
+        n = true,
+        t = false,
+        j = true,
+        l = true,
+        v = true,
+    }
 
 end
 

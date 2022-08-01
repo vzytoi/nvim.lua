@@ -17,10 +17,12 @@ M.config = function()
         view = {
             side = "right",
             mappings = {
+                custom_only = false,
                 list = {
                     { key = "v", action = "vsplit" },
                     { key = "s", action = "split" },
-                    { key = "e", action = "edit" }
+                    { key = "e", action = "edit" },
+
                 }
             }
         },
