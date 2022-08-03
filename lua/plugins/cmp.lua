@@ -2,8 +2,9 @@ local M = {}
 
 local cmp = require('cmp')
 local luasnip = require("luasnip")
+local tabnine = require('cmp_tabnine.config')
 
-function M.config()
+M.config = function()
 
     cmp.setup {
         completion = {
@@ -15,12 +16,12 @@ function M.config()
             end,
         },
         sources = {
-            { name = "luasnip" },
-            { name = "cmp_tabnine" },
             { name = "nvim_lsp", max_item_count = 6 },
+            { name = "cmp_tabnine" },
+            { name = "nvim_lua" },
+            { name = "luasnip" },
             { name = "buffer", max_item_count = 6 },
             { name = "path" },
-            { name = "calc" }
         },
         snippet = {
             expand = function(args)
@@ -49,19 +50,23 @@ function M.config()
         formatting = {
             format = require('lspkind').cmp_format {
                 with_text = false,
-                menu = {
-                    nvim_lsp = "[lsp]",
-                    cmp_tabnine = "[tabnine]",
-                    path = "[path]",
-                    calc = "[calc]",
-                    luasnip = "[snip]",
-                }
+                mode = 'symbol',
             }
         },
         experimental = {
             ghost_text = true
         }
     }
+
+    tabnine:setup({
+        max_lines = 1000,
+        max_num_results = 20,
+        sort = true,
+        run_on_every_keystroke = true,
+        snippet_placeholder = '..',
+        show_prediction_strength = true
+    })
+
 end
 
 return M

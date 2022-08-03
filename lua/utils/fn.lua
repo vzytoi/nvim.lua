@@ -1,6 +1,6 @@
-local M = {}
+local FN = {}
 
-M.copy = function(table)
+FN.copy = function(table)
     local ret = {}
 
     for k, v in pairs(table) do
@@ -10,17 +10,20 @@ M.copy = function(table)
     return ret
 end
 
-M.mergeTables = function(a, b)
-    local ret = M.copy(a)
+FN.table = {
+    merge = function(a, b)
+        local ret = FN.copy(a)
 
-    for k, v in pairs(b) do
-        ret[k] = v
-    end
+        for k, v in pairs(b) do
+            ret[k] = v
+        end
 
-    return ret
-end
+        return ret
+    end,
 
-M.split = function(string, target)
+}
+
+FN.split = function(string, target)
     local results = {}
 
     for m in (string .. target):gmatch("(.-)" .. target) do
@@ -30,7 +33,7 @@ M.split = function(string, target)
     return results
 end
 
-M.toggle = function(open, close)
+FN.toggle = function(open, close)
 
     if vim.g[open] == nil then
         vim.g[open] = false
@@ -43,27 +46,27 @@ M.toggle = function(open, close)
     vim.g[open] = not vim.g[open]
 end
 
-M.is_last_win = function()
+FN.is_last_win = function()
     return #vim.api.nvim_list_wins() == 1
 end
 
-M.closebuf = function(bufnr)
+FN.closebuf = function(bufnr)
     local _ = pcall(vim.api.nvim_command, bufnr .. 'bd')
 end
 
-M.close = function()
+FN.close = function()
     vim.api.nvim_command('q')
 end
 
-M.getbufpath = function()
+FN.getbufpath = function()
     return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
 end
 
-M.getfn = function()
+FN.getfn = function()
     return vim.fn.expand('%:t')
 end
 
-M.os = {
+FN.os = {
     mac = function()
         return vim.fn.has('macunix')
     end,
@@ -73,7 +76,7 @@ M.os = {
     end
 }
 
-M.capabilities = function(capabilitie, bufnr)
+FN.capabilities = function(capabilitie, bufnr)
 
     local client = vim.lsp.get_active_clients({ bufnr = bufnr })
 
@@ -90,11 +93,11 @@ M.capabilities = function(capabilitie, bufnr)
 
 end
 
-M.is_empty = function(obj)
+FN.is_empty = function(obj)
     return obj == nil or obj == ""
 end
 
-M.scandir = function(directory)
+FN.scandir = function(directory)
     local i, t, popen = 0, {}, io.popen
     local pfile = popen('ls -a "' .. directory .. '"')
 
@@ -111,4 +114,29 @@ M.scandir = function(directory)
     return vim.list_slice(t, 3, #t)
 end
 
-return M
+FN.str_repeat = function(str, count)
+
+    local res = ""
+
+    for _ = 1, count do
+        res = res .. str
+    end
+
+    return res
+end
+
+-- TODO: check if macos
+
+FN.keycount = {
+    ["&"] = 1,
+    ["é"] = 2,
+    ['"'] = 3,
+    ["'"] = 4,
+    ["("] = 5,
+    ["§"] = 6,
+    ["è"] = 7,
+    ["!"] = 8,
+    ["ç"] = 9
+}
+
+return FN

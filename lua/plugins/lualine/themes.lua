@@ -1,23 +1,23 @@
-local M = {}
+local THEMES = {}
 
-local colors = vim.g.colors.colors
+local c = vim.colors.table.gruvbox
 
-M.gruvbox = {
+THEMES.gruvbox = {
     normal = {
-        a = { fg = colors.gruvbox.black, bg = colors.gruvbox.orange },
-        b = { fg = colors.gruvbox.white, bg = colors.gruvbox.grey },
-        c = { fg = colors.gruvbox.white, bg = colors.gruvbox.black },
+        a = { fg = c.black, bg = c.orange },
+        b = { fg = c.white, bg = c.grey },
+        c = { fg = c.white, bg = c.black },
     },
 
-    insert = { a = { fg = colors.gruvbox.black, bg = colors.gruvbox.blue } },
-    visual = { a = { fg = colors.gruvbox.black, bg = colors.gruvbox.violet } },
-    replace = { a = { fg = colors.gruvbox.black, bg = colors.gruvbox.red } },
+    insert = { a = { fg = c.black, bg = c.blue } },
+    visual = { a = { fg = c.black, bg = c.violet } },
+    replace = { a = { fg = c.black, bg = c.red } },
 
     inactive = {
-        a = { fg = colors.gruvbox.white, bg = colors.gruvbox.black },
-        b = { fg = colors.gruvbox.white, bg = colors.gruvbox.black },
-        c = { fg = colors.gruvbox.black, bg = colors.gruvbox.black },
+        a = { fg = c.white, bg = c.black },
+        b = { fg = c.white, bg = c.black },
+        c = { fg = c.black, bg = c.black },
     }
 }
 
-return M
+return THEMES

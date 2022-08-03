@@ -24,6 +24,8 @@ function M.config()
                 components.lsp.off,
                 components.format.on,
                 components.format.off,
+                components.ts.on,
+                components.ts.off,
                 components.spaces,
                 components.filetype
             },

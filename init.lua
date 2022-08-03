@@ -1,7 +1,9 @@
 require('impatient').enable_profile()
-vim.func = require('utils.fn')
 
-local modules = {
+vim.func = require('utils.fn')
+vim.colors = require('utils.colors')
+
+local mods = {
     { name = "abbr", event = "cmdlineenter" },
     { name = "colors", event = "ColorScheme" },
     { name = "plugins" },
@@ -19,7 +21,8 @@ local load = function(name)
     end
 end
 
-for _, m in pairs(modules) do
+for _, m in pairs(mods) do
+
     if not m.event then
         load(m.name)
     else
@@ -28,7 +31,17 @@ for _, m in pairs(modules) do
                 if vim.g[m.name] == nil then
                     load(m.name)
                 end
-            end
+            end,
+            group = vim.api.nvim_create_augroup(
+                "Loading" .. m.name,
+                { clear = true }
+            )
         })
     end
 end
+
+-- TODO: fix resize
+-- TODO: lazy load telescope
+-- TODO: definition => close qf
+-- TODO: remove comments when pressing o
+-- TODO: use K to go to parent directory nvimtree

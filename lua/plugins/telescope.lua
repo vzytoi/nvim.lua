@@ -11,6 +11,10 @@ M.setup = function()
         show_untracked = true
     })
 
+    if vim.g.nmap == nil then
+        print('non')
+    end
+
     vim.g.nmap("<leader>f", function()
         if not pcall(builtin.git_files, ivy) then
             builtin.find_files(ivy)

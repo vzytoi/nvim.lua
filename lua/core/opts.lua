@@ -29,7 +29,7 @@ M.disablePlugins = function()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = vim.func.mergeTables(
+        plug_buitlins = vim.func.table.merge(
             plug_buitlins,
             { "netrw", "netrwPlugin", "netrwSettings" }
         )
@@ -71,6 +71,7 @@ M.loadOptions = function()
         updatetime = 200,
         redrawtime = 1500,
         scrolloff = 8,
+        cmdheight = 0,
         undofile = true,
         undolevels = 5000,
         writebackup = false,
@@ -124,6 +125,7 @@ M.ColorOpt = function()
 
     vim.g.gruvbox_contrast_dark = 'dark'
     vim.cmd("colorscheme gruvbox")
+
 end
 
 M.config = function()

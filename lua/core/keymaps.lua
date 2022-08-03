@@ -34,8 +34,9 @@ M.config = function()
 
     require("plugins.runcode").keymaps()
     require("plugins.resize").keymaps()
-    require("plugins.term").keymaps()
-    require("plugins.tree").keymaps()
+    require("plugins.toggleterm").keymaps()
+    require("plugins.nvimtree").keymaps()
+    require("plugins.lsp").keymaps()
 
     nest.applyKeymaps {
         { "<c-", {
@@ -54,11 +55,6 @@ M.config = function()
             { "h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
             { "h", {
                 { "a", "<cmd>lua require('harpoon.mark').add_file()<cr>" },
-                { "&", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>" },
-                { "é", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>" },
-                { '"', "<cmd>lua require('harpoon.ui').nav_file(3)<cr>" },
-                { "'", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>" },
-                { "(", "<cmd>lua require('harpoon.ui').nav_file(5)<cr>" },
             } },
             { "w", ":silent write<cr>" },
             { "p", ":PP<cr>" },
@@ -77,24 +73,6 @@ M.config = function()
                 { "k", ":cprev<cr>" },
                 { "j", ":cnext<cr>" }
             } },
-            --[[ { "b", {
-                { "k", ":b#<cr>" },
-                { "h", ":bNext<cr>" },
-                { "l", ":bprevious<cr>" },
-                { "d", {
-                    { "k", ":b#|bd #<cr>" }
-                } },
-                { "v", {
-                    { "k", ":vsp|b#<cr>" },
-                    { "h", ":vsp|bNext<cr>" },
-                    { "l", ":vsp|bprevious<cr>" }
-                } },
-                { "s", {
-                    { "k", ":sp|b#<cr>" },
-                    { "h", ":sp|bNext<cr>" },
-                    { "l", ":sp|bprevious<cr>" }
-                } }
-            } }, ]]
             { "g", {
                 { "s", ":G|20wincmd_<cr>" },
                 { "c", ":G commit|star<cr>" },
@@ -136,13 +114,18 @@ M.config = function()
         vim.func.toggle("copen", "cclose")
     end)
 
-    vim.g.nmap("<leader>s", function()
-        require('spectre').open()
-    end)
+    vim.g.nmap("<leader>s", require('spectre').open)
 
-    vim.g.nmap('gt', function()
-        vim.api.nvim_command('TroubleToggle')
-    end)
+    for k, v in pairs(vim.func.keycount) do
+        vim.g.nmap("<leader>" .. k, function()
+            vim.api.nvim_command("tabn" .. v)
+        end)
+
+        vim.g.nmap("<leader>h" .. k, function()
+            require('harpoon.ui').nav_file(v)
+        end)
+    end
+
 end
 
 return M

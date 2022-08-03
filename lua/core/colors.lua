@@ -1,19 +1,6 @@
 local M = {}
 
-M.colors = {
-    gruvbox = {
-        blue   = '#48898c',
-        cyan   = '#79dac8',
-        black  = '#000000',
-        white  = '#c6c6c6',
-        red    = '#fb4934',
-        violet = '#b16286',
-        grey   = '#303030',
-        orange = "#e07016",
-        green  = "#b8bb26",
-        yellow = "#fabd2f"
-    }
-}
+local c = vim.colors.table.gruvbox
 
 local raw = {
     all = {
@@ -22,21 +9,30 @@ local raw = {
         LspReferenceText = { bold = true },
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
+        Normal = { bg = vim.colors.default.black },
+        NonText = { bg = vim.colors.default.black },
+        StatusLine = { bg = vim.colors.default.black }
+    },
+    spacecamp = {
+        CursorLineNR = { fg = c.violet, bold = true }
     },
     gruvbox = {
-        Normal = { fg = "#EEEEEE", bg = M.colors.gruvbox.black },
-        NormalFloat = { bg = M.colors.gruvbox.black, fg = "#ffffff" },
-        Visual = { bg = "Grey40" },
-        CursorLineNR = { fg = "#458588", bold = true },
-        DiagnosticSignError = { fg = M.colors.gruvbox.red, bold = true },
-        DiagnosticSignWarn = { fg = M.colors.gruvbox.yellow, bold = true },
-        DiagnosticSignHint = { fg = M.colors.gruvbox.green, bold = true },
-        DiagnosticSignInfo = { fg = M.colors.gruvbox.grey, bold = true },
-        StatusLine = { bg = M.colors.gruvbox.black },
-        SignColumn = { bg = M.colors.gruvbox.black, bold = true },
-        GitSignsAdd = { fg = M.colors.gruvbox.green },
-        GitSignsChange = { fg = M.colors.gruvbox.orange },
-        GitSignsDelete = { fg = M.colors.gruvbox.red },
+        NormalFloat = { bg = c.black, fg = c.white },
+        Visual = { bg = c.grey },
+        CursorLineNR = { fg = c.violet, bold = true },
+
+        DiagnosticError = { fg = c.red, bold = true },
+        DiagnosticWarn = { fg = c.orange, bold = true },
+        DiagnosticInfo = { fg = c.green, bold = true },
+        DiagnosticHint = { fg = c.blue, bold = true },
+
+        GitSignsAdd = { fg = c.green },
+        GitSignsChange = { fg = c.orange },
+        GitSignsDelete = { fg = c.red },
+
+        TabLine = { bg = c.black },
+        TabLineFill = { bg = c.black },
+        TabLineSel = { bg = c.black, fg = c.blue, bold = true },
     },
 }
 
@@ -82,13 +78,13 @@ M.config = function()
     end
 
     vim.fn.sign_define("DiagnosticSignError",
-        { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "DiagnosticSignError" })
+        { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "DiagnosticError" })
     vim.fn.sign_define("DiagnosticSignWarn",
-        { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "DiagnosticSignWarn" })
+        { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "DiagnosticWarn" })
     vim.fn.sign_define("DiagnosticSignInfo",
-        { text = "", texthl = "DiagnosticSignInfo", linehl = "", numhl = "DiagnosticSignInfo" })
+        { text = "", texthl = "DiagnosticSignInfo", linehl = "", numhl = "DiagnosticInfo" })
     vim.fn.sign_define("DiagnosticSignHint",
-        { text = "", texthl = "DiagnosticSignHint", linehl = "", numhl = "DiagnosticSignHint" })
+        { text = "", texthl = "DiagnosticSignHint", linehl = "", numhl = "DiagnosticHint" })
 
 end
 

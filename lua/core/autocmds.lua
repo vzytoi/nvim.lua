@@ -1,15 +1,18 @@
 local M = {}
 
-local autocmd = vim.api.nvim_create_autocmd
+vim.g.autocmd = vim.api.nvim_create_autocmd
 
-local augroup = function(name)
-    return vim.api.nvim_create_augroup(name, { clear = true })
+vim.g.group = function(name, opts)
+    return vim.api.nvim_create_augroup(name, opts or { clear = true })
 end
 
 M.config = function()
 
-    require('plugins.runcode').autocmds()
-    require('plugins.treesitter').autocmds()
+    vim.g.group('vimrc', {})
+
+    require "plugins.runcode".autocmds()
+    require "plugins.treesitter".autocmds()
+    require "core.winbar".autocmds()
 
     local close = {
         fts = {
@@ -18,21 +21,21 @@ M.config = function()
         }
     }
 
-    autocmd("BufEnter", {
+    vim.g.autocmd("BufEnter", {
         callback = function()
             if vim.tbl_contains(close.fts, vim.bo.filetype)
                 and vim.func.is_last_win() then
                 vim.func.close()
             end
         end,
-        group = augroup('close-last')
+        group = vim.g.group('close-last')
     })
 
     local numbers = {
         fts = {
             'toggleterm', 'fugitive',
             'RunCode', 'help',
-            'NvimTree', 'harpoon'
+            'NvimTree', 'harpoon', 'sagarename'
         },
         relative = {
             InsertLeave = true,
@@ -47,17 +50,17 @@ M.config = function()
         }
     }
 
-    autocmd('FileType', {
+    vim.g.autocmd('FileType', {
         pattern = numbers.fts,
         callback = function()
             vim.wo.rnu = false
             vim.wo.nu = false
         end,
-        group = augroup('no-nu')
+        group = vim.g.group('no-nu')
     })
 
     for event, op in pairs(numbers.relative) do
-        autocmd(event, {
+        vim.g.autocmd(event, {
             callback = function()
                 if not vim.tbl_contains(numbers.fts, vim.bo.filetype) then
                     vim.wo.rnu = op
@@ -66,19 +69,6 @@ M.config = function()
         })
     end
 
-    autocmd("VimResized", {
-        command = "wincmd =",
-        group = augroup('auto-resize')
-    })
-
-    autocmd("FileType", {
-        pattern = { "gitcommit", "markdown", "text" },
-        callback = function()
-            vim.opt_local.spell = true
-        end,
-        group = augroup('set-spell')
-    })
-
     --[[ autocmd({ "BufEnter", "CursorMoved" }, {
         callback = function()
             vim.opt_local.winbar = require('winbar').get()
@@ -86,6 +76,7 @@ M.config = function()
         group = augroup('winbar')
     })
 ]]
+
 end
 
 return M

@@ -1,4 +1,4 @@
-local M = {}
+local WINBAR = {}
 
 local com = require('plugins.lualine.components')
 local navic = require('nvim-navic')
@@ -41,7 +41,7 @@ local gps = function()
     end
 end
 
-M.get = function()
+WINBAR.get = function()
 
     if not com.filter() then
         return
@@ -60,18 +60,24 @@ M.get = function()
         value = value .. "%=" .. tabpage_number .. "/" .. tostring(num_tabs)
     end
 
-    return value
+    local status_ok, _ = pcall(vim.api.nvim_set_option_value, 'winbar', value, { scope = 'local' })
+    if not status_ok then
+        return
+    end
 
 end
 
-M.autocmds = function()
+WINBAR.autocmds = function()
+
     if vim.fn.has "nvim-0.8" == 1 then
-        vim.api.nvim_create_autocmd("FileType", {
+        vim.g.autocmd(
+            { 'DirChanged', 'CursorMoved', 'BufEnter', 'CursorHold' }, {
             callback = function()
-                vim.opt_local.winbar = filename()
+                -- WINBAR.get()
             end
         })
     end
+
 end
 
-return M
+return WINBAR

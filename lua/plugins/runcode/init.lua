@@ -133,9 +133,7 @@ end
 
 function M.autocmds()
 
-    local autocmd = vim.api.nvim_create_autocmd
-
-    autocmd("FileType", {
+    vim.api.nvim_create_autocmd("FileType", {
         pattern = "RunCode",
         callback = function()
             vim.g.nmap({ "<cr>", "q" }, function()

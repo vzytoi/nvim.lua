@@ -1,13 +1,65 @@
 local M = {}
 
-local colors = vim.g.colors.colors[vim.g.colors_name]
 local format = require('plugins.format').get()
+local colors = vim.colors.get()
 
 M.filter = function()
-    return not vim.tbl_contains({ 'harpoon', 'spectre_panel' }, vim.bo.filetype)
-        and vim.bo.modifiable and not vim.bo.readonly
+    return not vim.tbl_contains(
+        { 'harpoon', 'spectre_panel', 'lspsagafinder' },
+        vim.bo.filetype) and vim.bo.modifiable and not vim.bo.readonly
         and vim.fn.bufname() ~= ""
 end
+
+local function inject_toggle(func, icon, cond)
+
+    if not cond then
+        return { on = { func, "", cond }, off = { func, "", cond } }
+    end
+
+    return {
+        on = {
+            function()
+                return func() and icon or ""
+            end,
+            cond = cond,
+            color = { fg = colors.green }
+        },
+        off = {
+            function()
+                return not func() and icon or ""
+            end,
+            cond = cond,
+            color = { fg = colors.red }
+        }
+    }
+end
+
+M.lsp = inject_toggle(
+    function()
+        return #vim.lsp.buf_get_clients() > 0
+    end,
+    "",
+    M.filter
+)
+
+M.format = inject_toggle(
+    function()
+        return vim.func.capabilities('format', 0)
+            or vim.tbl_contains(format, vim.bo.filetype)
+    end,
+    "⍟",
+    M.filter
+)
+
+M.ts = inject_toggle(
+    function()
+        return require "nvim-treesitter.parsers".get_parser(
+            vim.fn.bufnr('%'), vim.bo.filetype
+        ) ~= nil
+    end,
+    "",
+    M.filter
+)
 
 M.mode = {
     function()
@@ -29,35 +81,6 @@ M.progression = {
             ]
     end,
     cond = M.filter,
-}
-
-local function lsp(switch)
-
-    if #vim.lsp.buf_get_clients() > 0 then
-        return (switch and "" or "")
-    else
-        return (not switch and "" or "")
-    end
-
-end
-
-M.lsp = {
-    on = {
-        function() return lsp(true) end,
-        color = { fg = colors.green },
-        on_click = function()
-            vim.api.nvim_command('LspInfo')
-        end,
-        cond = M.filter
-    },
-    off = {
-        function() return lsp(false) end,
-        color = { fg = colors.red },
-        on_click = function()
-            vim.api.nvim_command('LspInstall')
-        end,
-        cond = M.filter
-    }
 }
 
 M.filename = {
@@ -91,7 +114,7 @@ M.spaces = {
         end
         return "⇥ " .. size
     end,
-    color = { fg = colors.cyan },
+    color = { fg = colors.blue },
     cond = M.filter,
 }
 
@@ -116,29 +139,6 @@ M.filetype = {
         return str
     end
 
-}
-
-local format = function(switch)
-    local exe = vim.tbl_contains(format, vim.bo.filetype)
-
-    if vim.func.capabilities('format', 0) or exe then
-        return (switch and "⍟" or "")
-    else
-        return (not switch and "⍟" or "")
-    end
-end
-
-M.format = {
-    on = {
-        function() return format(true) end,
-        color = { fg = colors.green },
-        cond = M.filter
-    },
-    off = {
-        function() return format(false) end,
-        color = { fg = colors.red },
-        cond = M.filter
-    }
 }
 
 M.branch = {
