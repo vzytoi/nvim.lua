@@ -1,22 +1,22 @@
 local THEMES = {}
 
-local c = vim.colors.table.gruvbox
+local colors = vim.colors.get()
 
 THEMES.gruvbox = {
     normal = {
-        a = { fg = c.black, bg = c.orange },
-        b = { fg = c.white, bg = c.grey },
-        c = { fg = c.white, bg = c.black },
+        a = { fg = colors.black, bg = colors.orange },
+        b = { fg = colors.white, bg = colors.grey },
+        c = { fg = colors.white, bg = colors.black },
     },
 
-    insert = { a = { fg = c.black, bg = c.blue } },
-    visual = { a = { fg = c.black, bg = c.violet } },
-    replace = { a = { fg = c.black, bg = c.red } },
+    insert = { a = { fg = colors.black, bg = colors.blue } },
+    visual = { a = { fg = colors.black, bg = colors.violet } },
+    replace = { a = { fg = colors.black, bg = colors.red } },
 
     inactive = {
-        a = { fg = c.white, bg = c.black },
-        b = { fg = c.white, bg = c.black },
-        c = { fg = c.black, bg = c.black },
+        a = { fg = colors.white, bg = colors.black },
+        b = { fg = colors.white, bg = colors.black },
+        c = { fg = colors.black, bg = colors.black },
     }
 }
 
