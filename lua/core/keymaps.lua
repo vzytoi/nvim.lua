@@ -118,7 +118,11 @@ M.config = function()
 
     for k, v in pairs(vim.func.keycount) do
         vim.g.nmap("<leader>" .. k, function()
-            vim.api.nvim_command("tabn" .. v)
+            if vim.fn.tabpagenr('$') >= v then
+                vim.api.nvim_command("tabn" .. v)
+            else
+                vim.api.nvim_command('tabnew')
+            end
         end)
 
         vim.g.nmap("<leader>h" .. k, function()

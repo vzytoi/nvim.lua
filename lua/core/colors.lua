@@ -11,7 +11,7 @@ local raw = {
         LspReferenceWrite = { bold = true },
         Normal = { bg = vim.colors.default.black },
         NonText = { bg = vim.colors.default.black },
-        StatusLine = { bg = vim.colors.default.black }
+        StatusLine = { bg = vim.colors.default.black },
     },
     spacecamp = {
         CursorLineNR = { fg = c.violet, bold = true }
@@ -31,8 +31,14 @@ local raw = {
         GitSignsDelete = { fg = c.red },
 
         TabLine = { bg = c.black },
-        TabLineFill = { bg = c.black },
         TabLineSel = { bg = c.black, fg = c.blue, bold = true },
+        TabLineFill = { bg = c.black },
+        SepOn = { fg = c.blue },
+        SepOff = { fg = c.grey },
+
+        TextOn = { fg = c.white },
+        TextOff = { fg = c.white },
+
     },
 }
 

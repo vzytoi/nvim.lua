@@ -69,13 +69,18 @@ M.config = function()
         })
     end
 
-    --[[ autocmd({ "BufEnter", "CursorMoved" }, {
+    --[[ vim.g.autocmd({ "BufEnter", "CursorMoved" }, {
         callback = function()
-            vim.opt_local.winbar = require('winbar').get()
+            vim.opt_local.winbar = require('core.winbar').get()
         end,
-        group = augroup('winbar')
+        group = vim.g.group('winbar')
+    }) ]]
+
+    vim.g.autocmd("BufEnter", {
+        callback = function()
+            vim.api.nvim_set_option_value("tabline", require('core.tabline').get(), { scope = "local" })
+        end
     })
-]]
 
 end
 
