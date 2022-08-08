@@ -2,6 +2,7 @@ local M = {}
 
 local format = require('plugins.format').get()
 local colors = vim.colors.get()
+local icons = require('utils.icons')
 
 M.filter = function()
     return not vim.tbl_contains(
@@ -38,7 +39,7 @@ M.lsp = inject_toggle(
     function()
         return #vim.lsp.buf_get_clients() > 0
     end,
-    "",
+    icons.lsp,
     M.filter
 )
 
@@ -47,7 +48,7 @@ M.format = inject_toggle(
         return vim.func.capabilities('format', 0)
             or vim.tbl_contains(format, vim.bo.filetype)
     end,
-    "⍟",
+    icons.format,
     M.filter
 )
 
@@ -57,7 +58,7 @@ M.ts = inject_toggle(
             vim.fn.bufnr('%'), vim.bo.filetype
         ) ~= nil
     end,
-    "",
+    icons.treesitter,
     M.filter
 )
 
@@ -74,10 +75,8 @@ M.mode = {
 
 M.progression = {
     function()
-        local chrs = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇" }
-
-        return chrs[
-            math.ceil(vim.fn.line '.' / vim.fn.line '$' * #chrs)
+        return vim.icons.progress[
+            math.ceil(vim.fn.line '.' / vim.fn.line '$' * #vim.icons.progress)
             ]
     end,
     cond = M.filter,
@@ -86,7 +85,7 @@ M.progression = {
 M.filename = {
     'filename',
     symbols = {
-        modified = " ●"
+        modified = " " .. icons.modified
     },
     cond = M.filter,
 }
@@ -99,7 +98,7 @@ M.diff = {
         removed = ""
     },
     cond = function()
-        return not vim.g.DiffviewOpen
+        return not vim.g.DiffviewOpen and M.filter()
     end,
     on_click = function()
         vim.func.toggle("DiffviewOpen", "DiffviewClose")
@@ -112,7 +111,7 @@ M.spaces = {
         if size == 0 then
             size = vim.api.nvim_buf_get_option(0, "tabstop")
         end
-        return "⇥ " .. size
+        return string.format("%s %s", vim.icons.spaces, size)
     end,
     color = { fg = colors.blue },
     cond = M.filter,
@@ -124,16 +123,8 @@ M.filetype = {
     separator = { right = '' },
 
     fmt = function(str)
-        local names = {
-            TelescopePrompt = "",
-            NvimTree = "",
-            DiffviewFiles = "署"
-        }
-
-        for k, v in pairs(names) do
-            if vim.bo.filetype == k then
-                return v
-            end
+        if vim.tbl_contains(vim.tbl_keys(icons), vim.bo.filetype) then
+            return icons[vim.bo.filetype]
         end
 
         return str

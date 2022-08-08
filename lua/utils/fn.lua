@@ -125,8 +125,6 @@ FN.str_repeat = function(str, count)
     return res
 end
 
--- TODO: check if macos
-
 FN.keycount = {
     ["&"] = 1,
     ["é"] = 2,

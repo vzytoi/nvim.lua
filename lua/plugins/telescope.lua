@@ -11,13 +11,9 @@ M.setup = function()
         show_untracked = true
     })
 
-    if vim.g.nmap == nil then
-        print('non')
-    end
-
     vim.g.nmap("<leader>f", function()
         if not pcall(builtin.git_files, ivy) then
-            builtin.find_files(ivy)
+            builtin.find_files(themes.get_ivy({ no_ignore = true }))
         end
     end)
 
@@ -47,7 +43,7 @@ M.setup = function()
     end)
 
     vim.g.nmap("<leader>fp", function()
-        vim.api.nvim_command('Telescope projects')
+        telescope.extensions.project.project {}
     end)
 
 end
@@ -59,28 +55,11 @@ M.config = function()
                 check_mine_type = false,
                 timeout = 100
             },
-            file_ignore_patterns = {
-                ".git/"
-            },
+            file_ignore_patterns = { ".git/" },
             prompt_prefix = "> ",
             selection_caret = "> ",
             sorting_strategy = "ascending",
             color_devicons = true,
-            vimgrep_arguments = {
-                "rg",
-                "--color=never",
-                "--no-heading",
-                "--with-filename",
-                "--line-number",
-                "--column",
-                "--smart-case",
-                "--hidden"
-            },
-            pickers = {
-                find_files = {
-                    find_command = { "rg", "--no-ignore", "--files" },
-                }
-            },
             mappings = {
                 i = {
                     ["<c-k>"] = actions.move_selection_previous,
@@ -98,12 +77,15 @@ M.config = function()
                 override_generic_sorter = true,
                 override_file_sorter = true,
                 case_mode = "smart_case"
+            },
+            project = {
+                hidden_files = true
             }
-        }
+        },
     })
 
+    telescope.load_extension('project')
     telescope.load_extension("fzf")
-    telescope.load_extension('projects')
 
     M.setup()
 end

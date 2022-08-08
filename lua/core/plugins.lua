@@ -10,6 +10,8 @@ M.config = function()
             install_path })
     end
 
+    vim.cmd("packadd packer.nvim")
+
     return require("packer").startup { function(use)
 
         use "lewis6991/impatient.nvim"
@@ -22,9 +24,7 @@ M.config = function()
         use "fedepujol/move.nvim"
         use "antoinemadec/FixCursorHold.nvim"
         use "stevearc/dressing.nvim"
-
         use "ellisonleao/gruvbox.nvim"
-        use "jaredgorski/spacecamp"
 
         use {
             "LionC/nest.nvim",
@@ -41,6 +41,8 @@ M.config = function()
                     fps = 60,
                     timeout = 0
                 }
+
+                vim.notify = require('notify')
             end
         }
 
@@ -95,7 +97,8 @@ M.config = function()
 
             requires = {
                 { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-                { 'nvim-telescope/telescope-symbols.nvim' }
+                { 'nvim-telescope/telescope-symbols.nvim' },
+                { "nvim-telescope/telescope-project.nvim" }
             },
         }
 
@@ -123,15 +126,6 @@ M.config = function()
         use {
             "chrisbra/NrrwRgn",
             cmd = { "NarrowRegion", "NarrowWindow" }
-        }
-
-        use {
-            "ahmedkhalf/project.nvim",
-            config = function()
-                require "project_nvim".setup {
-                    detection_methods = { "!lua" }
-                }
-            end
         }
 
         use {
@@ -196,6 +190,7 @@ M.config = function()
 
         use {
             "j-hui/fidget.nvim",
+            disable = true,
             config = function()
                 require("fidget").setup({
                     text = { spinner = "dots_negative" },
@@ -228,7 +223,7 @@ M.config = function()
             cmd = "PP",
             config = function()
                 require("paperplanes").setup({
-                    provider = "paste.rs",
+                    provider = "paste.rs"
                 })
             end
         }

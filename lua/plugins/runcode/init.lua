@@ -40,7 +40,7 @@ local function command(lang)
 
     local r = ls[lang]
 
-    for k, v in pairs(r) do
+    for k, _ in pairs(r) do
 
         for target, p in pairs(rgx) do
             r[k] = r[k]:gsub(target, vim.fn.expand(p))

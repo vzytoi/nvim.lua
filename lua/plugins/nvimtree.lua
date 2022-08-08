@@ -9,8 +9,8 @@ end
 M.config = function()
 
     require "nvim-tree".setup {
+        sync_root_with_cwd = true,
         respect_buf_cwd = true,
-        update_cwd = true,
         update_focused_file = {
             enable = true,
             update_cwd = true
@@ -46,7 +46,11 @@ M.config = function()
         on_attach = function(bufnr)
             vim.g.nmap("v", api.node.open.vertical, { buffer = bufnr })
             vim.g.nmap("s", api.node.open.horizontal, { buffer = bufnr })
-            vim.g.nmap("t", api.node.open.tab, { buffer = bufnr })
+
+            vim.g.nmap("t", function()
+                api.node.open.tab()
+            end, { buffer = bufnr })
+
             vim.g.nmap("p", api.node.open.preview, { buffer = bufnr })
             vim.g.nmap("e", api.node.open.edit, { buffer = bufnr })
             vim.g.nmap("o", api.node.open.edit, { buffer = bufnr })

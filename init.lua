@@ -2,9 +2,10 @@ require('impatient').enable_profile()
 
 vim.func = require('utils.fn')
 vim.colors = require('utils.colors')
+vim.icons = require('utils.icons')
 
 local mods = {
-    { name = "abbr", event = "cmdlineenter" },
+    { name = "abbr" },
     { name = "colors", event = "ColorScheme" },
     { name = "plugins" },
     { name = "opts" },
@@ -39,9 +40,3 @@ for _, m in pairs(mods) do
         })
     end
 end
-
--- TODO: fix resize
--- TODO: lazy load telescope
--- TODO: definition => close qf
--- TODO: remove comments when pressing o
--- TODO: use K to go to parent directory nvimtree

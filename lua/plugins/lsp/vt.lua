@@ -4,7 +4,7 @@ VT.history = {}
 
 VT.autocmds = function()
 
-    vim.g.autocmd({ "CursorMoved", "CursorHold" }, {
+    vim.g.autocmd({ "CursorMoved", "CursorHold", "BufEnter" }, {
         callback = function()
             local line = vim.fn.line('.') - 1
             local diag = VT.get(0, line)
@@ -21,11 +21,6 @@ VT.autocmds = function()
         buffer = 0
     })
 
-    vim.g.autocmd("BufLeave", {
-        callback = function()
-            VT.clear()
-        end
-    })
 end
 
 VT.print = function(buf, line, content)
@@ -76,7 +71,7 @@ VT.fmt = function(diagnostics)
         end
 
         table.insert(content, {
-            (c == 1 and vim.func.str_repeat(" ", 4) or "") .. "■",
+            (c == 1 and vim.func.str_repeat(" ", 4) or "") .. vim.icons.diagnostics,
             "Diagnostic" .. colors[di.severity]
         })
     end

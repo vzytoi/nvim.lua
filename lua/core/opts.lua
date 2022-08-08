@@ -3,6 +3,7 @@ local M = {}
 M.buffer = function(name)
 
     if vim.bo.filetype == "" then
+        vim.g.called = "ouep"
         vim.bo.bufhidden = "delete"
         vim.bo.buftype = "nofile"
         vim.bo.swapfile = false
@@ -11,7 +12,6 @@ M.buffer = function(name)
         vim.wo.number = false
         vim.wo.relativenumber = false
         vim.bo.filetype = name
-
     end
 end
 
@@ -84,7 +84,7 @@ M.loadOptions = function()
         termguicolors = true,
         cursorline = true,
         cursorlineopt = "number",
-        showmode = false
+        showmode = false,
     }
 
     for k, v in pairs(options) do
@@ -124,7 +124,7 @@ M.ColorOpt = function()
     vim.o.background = "dark"
 
     vim.g.gruvbox_contrast_dark = 'dark'
-    vim.cmd("colorscheme gruvbox")
+    vim.cmd.colorscheme('gruvbox')
 
 end
 

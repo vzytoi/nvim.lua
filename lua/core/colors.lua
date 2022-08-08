@@ -33,11 +33,12 @@ local raw = {
         TabLine = { bg = c.black },
         TabLineSel = { bg = c.black, fg = c.blue, bold = true },
         TabLineFill = { bg = c.black },
+
         SepOn = { fg = c.blue },
         SepOff = { fg = c.grey },
 
-        TextOn = { fg = c.white },
-        TextOff = { fg = c.white },
+        TextOn = { fg = c.white, bold = true },
+        TextOff = { fg = c.lightgrey },
 
     },
 }

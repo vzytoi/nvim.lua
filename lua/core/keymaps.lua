@@ -32,11 +32,12 @@ M.config = function()
 
     vim.g.mapleader = " "
 
-    require("plugins.runcode").keymaps()
-    require("plugins.resize").keymaps()
-    require("plugins.toggleterm").keymaps()
-    require("plugins.nvimtree").keymaps()
-    require("plugins.lsp").keymaps()
+    require "plugins.runcode".keymaps()
+    require "plugins.resize".keymaps()
+    require "plugins.toggleterm".keymaps()
+    require "plugins.nvimtree".keymaps()
+    require "plugins.lsp".keymaps()
+    require "core.rooter".keymaps()
 
     nest.applyKeymaps {
         { "<c-", {
@@ -49,7 +50,7 @@ M.config = function()
         { "<", "<<" },
         { ">", ">>" },
         { 'gs', '<cmd>Pounce<cr>' },
-        { "<Tab>", ":tabNext<cr>" },
+        { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
             { "h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
@@ -60,14 +61,11 @@ M.config = function()
             { "p", ":PP<cr>" },
             { "z", ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
+            { "bk", ":b#" },
             { "q", {
                 { "s", [[<cmd>lua require("persistence").load()<cr>]] },
                 { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
                 { "d", [[<cmd>lua require("persistence").stop()<cr>]] }
-            } },
-            { "c", {
-                { "h", ":cnext<cr>" },
-                { "l", ":cprevious<cr>" }
             } },
             { "q", {
                 { "k", ":cprev<cr>" },

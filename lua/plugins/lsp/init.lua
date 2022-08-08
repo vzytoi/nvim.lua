@@ -78,7 +78,8 @@ M.config = function()
             border = "rounded"
         },
         virtual_text = {
-            severity = { min = vim.diagnostic.severity.ERROR }
+            severity = { min = vim.diagnostic.severity.ERROR },
+            prefix = vim.icons.diagnostics
         }
     })
 

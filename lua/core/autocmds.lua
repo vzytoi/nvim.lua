@@ -13,6 +13,8 @@ M.config = function()
     require "plugins.runcode".autocmds()
     require "plugins.treesitter".autocmds()
     require "core.winbar".autocmds()
+    require "core.tabline".autocmds()
+    require "core.rooter".autocmds()
 
     local close = {
         fts = {
@@ -34,7 +36,7 @@ M.config = function()
     local numbers = {
         fts = {
             'toggleterm', 'fugitive',
-            'RunCode', 'help',
+            'RunCode', 'help', 'TelescopePrompt',
             'NvimTree', 'harpoon', 'sagarename'
         },
         relative = {
@@ -62,25 +64,13 @@ M.config = function()
     for event, op in pairs(numbers.relative) do
         vim.g.autocmd(event, {
             callback = function()
-                if not vim.tbl_contains(numbers.fts, vim.bo.filetype) then
+                local ft = vim.bo.filetype
+                if not vim.tbl_contains(numbers.fts, ft) then
                     vim.wo.rnu = op
                 end
             end
         })
     end
-
-    --[[ vim.g.autocmd({ "BufEnter", "CursorMoved" }, {
-        callback = function()
-            vim.opt_local.winbar = require('core.winbar').get()
-        end,
-        group = vim.g.group('winbar')
-    }) ]]
-
-    vim.g.autocmd("BufEnter", {
-        callback = function()
-            vim.api.nvim_set_option_value("tabline", require('core.tabline').get(), { scope = "local" })
-        end
-    })
 
 end
 
