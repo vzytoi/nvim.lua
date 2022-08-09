@@ -51,3 +51,10 @@ nvim-lsp-installer.u   0.85    2.81 █▋
 done waiting for UI    0.77    2.56 █▌
 vim.lsp.handlers       0.62    2.07 █▎
 ```
+<br/>
+
+<div align="center" id="madewithlua">
+
+[![Lua](https://img.shields.io/badge/Made%20with%20Lua-blue.svg?style=for-the-badge&logo=lua)](https://lua.org)
+
+</div>
