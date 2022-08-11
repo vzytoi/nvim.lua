@@ -62,7 +62,7 @@ FN.getbufpath = function()
     return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
 end
 
-FN.getfn = function()
+FN.get_filename = function()
     return vim.fn.expand('%:t')
 end
 
@@ -136,5 +136,30 @@ FN.keycount = {
     ["!"] = 8,
     ["ç"] = 9
 }
+
+FN.buflst = function()
+
+    return vim.tbl_filter(function(nr)
+        return vim.api.nvim_buf_is_loaded(nr)
+    end, vim.api.nvim_list_bufs())
+
+end
+
+FN.buf = function(bufnr, asked)
+
+    local infos = {
+        filename = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t'),
+        filetype = vim.fn.getbufvar(bufnr, "&filetype"),
+        filepath = vim.fn.bufname(bufnr),
+        bufnr = bufnr
+    }
+
+    if asked then
+        return infos[asked]
+    end
+
+    return infos
+
+end
 
 return FN

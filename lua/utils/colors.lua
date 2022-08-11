@@ -4,15 +4,26 @@ COLORS.table = {
     gruvbox = {
         blue      = '#48898c',
         cyan      = '#79dac8',
-        black     = '#000000',
+        black     = '#0d0d0d',
         white     = '#c6c6c6',
         red       = '#fb4934',
         violet    = '#b16286',
-        grey      = '#262626',
         orange    = "#e07016",
         green     = "#a0bb26",
         yellow    = "#f5bd3b",
-        lightgrey = "#666666"
+        lightgrey = "#666666",
+        grey      = '#262626',
+        darkgrey  = "#191919"
+    },
+    xcodedarkhc = {
+        black = "#1f1f24",
+        orange = "#ff8a7a",
+        green = "#83c9bc",
+        yellow = "#d9c668",
+        blue = "#4ec4e6",
+        pink = "#ff85b8",
+        white = "#ffffff",
+        grey = "#262626"
     }
 }
 

@@ -1,5 +1,6 @@
 local M = {}
 
+local masonlsp = require('mason-lspconfig')
 local servers_lst = require('mason-lspconfig.mappings.server')
 local format = require('plugins.format').get()
 local configs = require('plugins.lsp.configs')
@@ -11,7 +12,7 @@ M.keymaps = function()
     vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
     vim.g.nmap("gR", "<cmd>Telescope lsp_references<cr>")
 
-    vim.g.nmap("ga", function() vim.lsp.buf.code_action() end)
+    vim.g.nmap("ga", function() vim.api.nvim_command('CodeActionMenu') end)
 
     vim.g.nmap("gj", function() vim.diagnostic.goto_next({ float = false }) end)
     vim.g.nmap("gk", function() vim.diagnostic.goto_prev({ float = false }) end)
@@ -61,14 +62,6 @@ local capabilities = require 'cmp_nvim_lsp'.update_capabilities(
 
 M.config = function()
 
-    local path = vim.fn.stdpath('data') .. '/mason/packages'
-
-    local servers = vim.tbl_values(vim.tbl_map(function(e)
-        return servers_lst.package_to_lspconfig[e]
-    end, vim.func.scandir(path)))
-
-    require 'mason-lspconfig'.setup { ensure_installed = servers }
-
     vim.diagnostic.config({
         underline = false,
         update_in_insert = false,
@@ -83,7 +76,9 @@ M.config = function()
         }
     })
 
-    for _, name in pairs(servers) do
+    local servers = masonlsp.get_installed_servers()
+
+    for _, name in ipairs(servers) do
 
         require('lspconfig')[name].setup(
             vim.tbl_extend('keep',
@@ -97,6 +92,7 @@ M.config = function()
         )
 
     end
+
 end
 
 return M

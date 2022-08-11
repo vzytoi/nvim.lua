@@ -3,32 +3,28 @@ local M = {}
 local c = vim.colors.table.gruvbox
 
 local raw = {
-    all = {
+    all = {},
+    gruvbox = {
         LineNr = { fg = "#6B6B6B" },
+        CursorLine = { bg = c.darkgrey },
+        CursorLineNR = { fg = c.white, bold = true },
+
         VertSplit = { fg = "#6B6B6B" },
         LspReferenceText = { bold = true },
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
-        Normal = { bg = vim.colors.default.black },
-        NonText = { bg = vim.colors.default.black },
-        StatusLine = { bg = vim.colors.default.black },
-    },
-    spacecamp = {
-        CursorLineNR = { fg = c.violet, bold = true }
-    },
-    gruvbox = {
+        Normal = { bg = c.black },
+        NonText = { bg = c.black, fg = c.black },
+        StatusLine = { bg = c.black },
         NormalFloat = { bg = c.black, fg = c.white },
         Visual = { bg = c.grey },
-        CursorLineNR = { fg = c.violet, bold = true },
 
         DiagnosticError = { fg = c.red, bold = true },
         DiagnosticWarn = { fg = c.orange, bold = true },
         DiagnosticInfo = { fg = c.green, bold = true },
         DiagnosticHint = { fg = c.blue, bold = true },
 
-        GitSignsAdd = { fg = c.green },
-        GitSignsChange = { fg = c.orange },
-        GitSignsDelete = { fg = c.red },
+        SignColumn = { bg = c.black },
 
         TabLine = { bg = c.black },
         TabLineSel = { bg = c.black, fg = c.blue, bold = true },
@@ -39,6 +35,9 @@ local raw = {
 
         TextOn = { fg = c.white, bold = true },
         TextOff = { fg = c.lightgrey },
+
+        RunCodeOk = { fg = c.green },
+        RunCodeError = { fg = c.red }
 
     },
 }

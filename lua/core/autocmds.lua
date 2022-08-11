@@ -37,7 +37,7 @@ M.config = function()
         fts = {
             'toggleterm', 'fugitive',
             'RunCode', 'help', 'TelescopePrompt',
-            'NvimTree', 'harpoon', 'sagarename'
+            'NvimTree', 'harpoon', 'sagarename', 'mason.nvim'
         },
         relative = {
             InsertLeave = true,

@@ -38,7 +38,7 @@ ROOT.search_root = function(add)
         for name, _ in vim.fs.dir(parent) do
 
             if vim.tbl_contains(options.targets, name) and
-                vim.fn.input(parent .. " ? Y/N ") == "Y" then
+                vim.fn.input(parent .. " ? y/n ") == "y" then
 
                 vim.cmd.cd(parent)
                 write(parent)
@@ -49,6 +49,10 @@ ROOT.search_root = function(add)
 
         ::continue::
     end
+
+    -- si rien n'est trouvé je retourne quand meme
+    -- dans le dossier parent...
+    vim.cmd.cd(path)
 
 end
 

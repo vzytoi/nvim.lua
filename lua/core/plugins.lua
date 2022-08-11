@@ -25,6 +25,12 @@ M.config = function()
         use "antoinemadec/FixCursorHold.nvim"
         use "stevearc/dressing.nvim"
         use "ellisonleao/gruvbox.nvim"
+        use "arzg/vim-colors-xcode"
+
+        use {
+            'weilbith/nvim-code-action-menu',
+            cmd = 'CodeActionMenu',
+        }
 
         use {
             "LionC/nest.nvim",
@@ -190,7 +196,6 @@ M.config = function()
 
         use {
             "j-hui/fidget.nvim",
-            disable = true,
             config = function()
                 require("fidget").setup({
                     text = { spinner = "dots_negative" },

@@ -15,6 +15,7 @@ M.config = function()
             enable = true,
             update_cwd = true
         },
+        filters = { custom = { "^.git$" } },
         open_on_setup = true,
         view = {
             side = "right",

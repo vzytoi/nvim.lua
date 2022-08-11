@@ -1,121 +1,110 @@
 local M = {}
 
-local ls = require('plugins.runcode.lang')
+local ls = require('plugins.runcode.commands')
 
-local ignore_dirs = {
-    os.getenv("HOME") .. '/.config/nvim'
-}
+local function resize_win(bufnr, dir)
 
-local function resize(dir)
-    local lines = vim.fn.getline(1, "$")
-    local m = 0
+    if vim.bo.filetype ~= "RunCode" then
+        return
+    end
 
-    if dir == "s" then
-        m = #lines
-    else
-        for _, v in pairs(lines) do
-            if string.len(v) > m then
-                m = string.len(v)
+    local size = (function()
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+        if dir == "s" then
+            return #lines
+        else
+            local m
+
+            for _, v in ipairs(lines) do
+                if not m or m < #v then
+                    m = #v
+                end
             end
+
+            return m
         end
-        if m > 150 then
-            m = 75
-        end
-    end
+    end)()
 
-    local sd = ""
-    if dir == "v" then
-        sd = "vert"
-    end
-
-    vim.api.nvim_command(string.format("%s res %s", sd, m + 10))
-end
-
-local function command(lang)
-
-    local rgx = {
-        ["#"] = "%:p",
-        ["@"] = "%:t:r"
-    }
-
-    local r = ls[lang]
-
-    for k, _ in pairs(r) do
-
-        for target, p in pairs(rgx) do
-            r[k] = r[k]:gsub(target, vim.fn.expand(p))
-        end
-
-    end
-
-    return r
+    vim.api.nvim_command(string.format(
+        "%s res %s", dir == "v" and "vert" or "", size
+    ))
 
 end
 
-local function add(bufnr, content, start)
+local function is_open()
 
-    vim.api.nvim_buf_set_lines(
-        bufnr or vim.api.nvim_get_current_buf(),
-        start, -1, false,
-        content
-    )
+    local bufs = vim.func.buflst()
+
+    for _, buf in ipairs(bufs) do
+        if vim.func.buf(buf, 'filetype') == 'RunCode' then
+            return buf
+        end
+    end
+
+    return false
 
 end
 
-local function openbuf(d)
+local function openbuf(dir)
 
-    local dirs = {
+    local commands = {
         s = "bo new",
-        v = "vnew"
+        v = "vnew",
+        t = "tabnew"
     }
 
-    vim.api.nvim_command(dirs[d])
+    vim.api.nvim_command(
+        commands[dir]
+    )
 
     return vim.fn.bufnr()
 
 end
 
-local function run(d)
+local function run(dir)
 
-    for _, value in ipairs(ignore_dirs) do
-        if string.find(vim.fn.getcwd(), value) then
-            require('notify')("This directory has been ignored", "ERROR", { title = "RunCode" })
-            return
-        end
-    end
+    vim.g.target = vim.tbl_extend("keep",
+        vim.func.buf(vim.fn.bufnr()),
+        { winhandler = vim.api.nvim_get_current_win() }
+    )
 
-    if not ls[vim.bo.filetype] then
-        require('notify')("Filetype isn't supported", "ERROR", { title = "RunCode" })
-        return
-    end
+    local rc_bufnr = is_open()
 
-    local cmd = command(vim.bo.filetype)
-    local fn = vim.func.getfn()
-
-    if not vim.g.rcbufnr then
-        vim.g.rcbufnr = openbuf(d)
+    if rc_bufnr then
+        vim.api.nvim_buf_set_lines(rc_bufnr, 0, -1, true, {})
     else
-        add(vim.g.rcbufnr, {}, 0)
+        rc_bufnr = openbuf(dir)
     end
 
-    add(vim.g.rcbufnr, { " => Output of: " .. fn, "" }, 0)
+    local error
 
-    vim.fn.jobstart(cmd, {
+    vim.fn.jobstart(ls.get(vim.g.target.bufnr), {
         stdout_buffered = true,
         on_stdout = function(_, data)
             if data then
-                add(vim.g.rcbufnr, data, -1)
+                vim.api.nvim_buf_set_lines(
+                    rc_bufnr, -1, -1, true, data
+                )
             end
         end,
         on_stderr = function(_, data)
-            if data then
-                add(vim.g.rcbufnr, data, -1)
+            if data and string.len(table.concat(data, "")) > 0 then
+                vim.api.nvim_buf_set_lines(
+                    rc_bufnr, -1, -1, true, data
+                )
+                print(vim.inspect(data))
+                error = true
             end
+        end,
+        on_exit = function()
+            vim.g.opts.buffer("RunCode")
+            resize_win(rc_bufnr, dir)
         end
     })
 
-    vim.g.opts.buffer("RunCode")
-    resize(d)
+    vim.api.nvim_buf_set_lines(rc_bufnr, 1, 1, true, { "  => Output of: " .. vim.g.target.filename, "" })
+    vim.api.nvim_buf_add_highlight(rc_bufnr, -1, error ~= nil and "RunCodeError" or "RunCodeOk", 1, 0, -1)
 
 end
 
@@ -129,6 +118,10 @@ function M.keymaps()
         run("v")
     end)
 
+    vim.g.nmap("<leader>xt", function()
+        run("t")
+    end)
+
 end
 
 function M.autocmds()
@@ -137,12 +130,20 @@ function M.autocmds()
         pattern = "RunCode",
         callback = function()
             vim.g.nmap({ "<cr>", "q" }, function()
-                if vim.g.rcbufnr then
-                    vim.func.close(vim.fn.bufnr())
-                    vim.g.rcbufnr = nil
-                end
+                vim.func.close(vim.fn.bufnr())
+                vim.api.nvim_set_current_win(
+                    vim.g.target.winhandler
+                )
+            end, { buffer = 0 })
+        end
+    })
 
-            end)
+    vim.api.nvim_create_autocmd("BufWinLeave", {
+        pattern = "RunCode",
+        callback = function()
+            vim.api.nvim_set_current_win(
+                vim.g.target.winhandler
+            )
         end
     })
 

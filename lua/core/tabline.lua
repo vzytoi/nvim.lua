@@ -1,20 +1,19 @@
 local TL = {}
 
 local devicons = require('nvim-web-devicons')
-
 local ic = 0
 
-local getbufnr = function(v)
+local get_bufnr = function(v)
     return vim.fn.tabpagebuflist(v)[
         vim.fn.tabpagewinnr(v)
         ]
 end
 
-local getft = function(bufnr)
+local get_filetype = function(bufnr)
     return vim.fn.getbufvar(bufnr, "&filetype")
 end
 
-local getfn = function(bufnr)
+local get_filename = function(bufnr)
     return vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t')
 end
 
@@ -27,8 +26,8 @@ TL.components = {
 
     icon = function(bufnr)
 
-        local ft = getft(bufnr)
-        local fn = getfn(bufnr)
+        local ft = get_filetype(bufnr)
+        local fn = get_filename(bufnr)
 
         local icon, color = devicons.get_icon_color(fn, ft, { default = false })
 
@@ -38,7 +37,7 @@ TL.components = {
         end
 
         ic = ic + 1
-        vim.cmd("hi Icon" .. ic .. " guifg=" .. color)
+        vim.cmd("hi Icon" .. ic .. " guifg=" .. (color or "NONE"))
 
         return icon, "%#Icon" .. ic .. "#"
     end,
@@ -48,24 +47,24 @@ TL.components = {
         local tab_name = {
             toggleterm = "zsh",
             NvimTree = "NvimTree",
+            RunCode = "RunCode"
         }
 
         local bn = vim.fn.bufname(bufnr)
-        local ft = getft(bufnr)
 
         for k, v in pairs(tab_name) do
-            if ft == k then
+            if vim.func.buf(bufnr, 'filetype') == k then
                 return v
             end
         end
 
-        return bn == "" and "Empty" or getfn(bufnr)
+        return (bn == "" and "Empty" or vim.func.buf(bufnr, 'filename'))
     end,
 
     color = {
         sep = function(v)
 
-            local diags = vim.diagnostic.get(getbufnr(v), {
+            local diags = vim.diagnostic.get(get_bufnr(v), {
                 severity = { min = vim.diagnostic.severity.WARN }
             })
 
@@ -105,7 +104,7 @@ TL.get = function()
             v, v == vim.fn.tabpagenr() and '%#TabLineSel#' or '%#TabLine#'
         )
 
-        local bufnr = getbufnr(v)
+        local bufnr = get_bufnr(v)
         local icon, color = TL.components.icon(bufnr)
 
         local modified = vim.fn.getbufvar(bufnr, "&mod") == 1

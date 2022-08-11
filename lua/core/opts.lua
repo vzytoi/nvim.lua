@@ -3,7 +3,6 @@ local M = {}
 M.buffer = function(name)
 
     if vim.bo.filetype == "" then
-        vim.g.called = "ouep"
         vim.bo.bufhidden = "delete"
         vim.bo.buftype = "nofile"
         vim.bo.swapfile = false
