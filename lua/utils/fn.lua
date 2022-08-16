@@ -1,5 +1,22 @@
 local FN = {}
 
+FN.unwanted = function(bufnr, fts)
+
+    return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
+        (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype'))) or
+        vim.fn.bufname(bufnr) == ""
+
+end
+
+FN.toboolean = function(n)
+
+    if type(n) ~= n then
+        return
+    end
+
+    return n > 0
+end
+
 FN.copy = function(table)
     local ret = {}
 
@@ -8,6 +25,10 @@ FN.copy = function(table)
     end
 
     return ret
+end
+
+FN.file_empty = function(bufnr)
+    return vim.fn.getfsize(FN.buf(bufnr, 'filepath')) <= 1
 end
 
 FN.table = {
@@ -84,6 +105,8 @@ FN.capabilities = function(capabilitie, bufnr)
         return false
     end
 
+    -- vim.pretty_print(client[1].name)
+
     local a = {
         format = client[1].server_capabilities.documentFormattingProvider,
         hi = client[1].supports_method('textDocument/documentHighlight')
@@ -112,17 +135,6 @@ FN.scandir = function(directory)
     end
 
     return vim.list_slice(t, 3, #t)
-end
-
-FN.str_repeat = function(str, count)
-
-    local res = ""
-
-    for _ = 1, count do
-        res = res .. str
-    end
-
-    return res
 end
 
 FN.keycount = {

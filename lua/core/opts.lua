@@ -79,6 +79,7 @@ M.loadOptions = function()
         spell = false,
         spl = { "fr", "en_us" },
         encoding = "utf-8",
+        showtabline = 2,
         laststatus = 3,
         termguicolors = true,
         cursorline = true,

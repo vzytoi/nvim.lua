@@ -1,20 +1,16 @@
 local VT = {}
 
-VT.history = {}
+local ns = vim.api.nvim_create_namespace("VT")
 
 VT.autocmds = function()
 
     vim.g.autocmd({ "CursorMoved", "CursorHold", "BufEnter" }, {
         callback = function()
-            local line = vim.fn.line('.') - 1
-            local diag = VT.get(0, line)
+            local ln = vim.fn.line('.') - 1
             VT.clear()
 
-            if VT.cond(0, line, diag) then
-                table.insert(
-                    VT.history,
-                    VT.print(0, line, VT.fmt(diag))
-                )
+            if VT.cond(ln) then
+                VT.print(ln, VT.get(ln))
             end
 
         end,
@@ -23,37 +19,33 @@ VT.autocmds = function()
 
 end
 
-VT.print = function(buf, line, content)
-    local ns = vim.api.nvim_create_namespace(buf .. line)
+VT.print = function(ln, content)
 
+    -- j'affiche le vt après le contenue déjà présent
+    -- sur la ligne.
     local col = string.len(vim.api.nvim_buf_get_lines(
-        buf, line, line + 1, false
+        0, ln, ln + 1, false
     )[1])
 
-    local ext = vim.api.nvim_buf_set_extmark(
-        buf, ns, line, col, { virt_text = content }
-    )
+    vim.api.nvim_buf_set_extmark(0, ns, ln, col, {
+        virt_text = VT.fmt(content)
+    })
 
-    return {
-        buf = buf,
-        ns = ns,
-        ext = ext
-    }
 end
 
-VT.get = function(buf, line)
-    return vim.diagnostic.get(buf, {
-        lnum = line,
+VT.get = function(ln)
+    return vim.diagnostic.get(0, {
+        lnum = ln,
         severity = { max = vim.diagnostic.severity.WARN }
     })
 end
 
 VT.clear = function()
-    for _, v in pairs(VT.history) do
-        vim.api.nvim_buf_del_extmark(v.buf, v.ns, v.ext)
-    end
+    vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
 end
 
+-- permet de formatter la liste des diagnostic
+-- en un text affichable en tant que vt.
 VT.fmt = function(diagnostics)
     local colors = {
         "Error",
@@ -63,6 +55,10 @@ VT.fmt = function(diagnostics)
     }
 
     local content = {}
+
+    -- si pleusieurs diagnostic sur la même ln
+    -- alors la couleur est celle du diag avec la sévérité
+    -- la plue élevée.
     local max
 
     for c, di in pairs(diagnostics) do
@@ -71,7 +67,7 @@ VT.fmt = function(diagnostics)
         end
 
         table.insert(content, {
-            (c == 1 and vim.func.str_repeat(" ", 4) or "") .. vim.icons.diagnostics,
+            string.rep(c == 1 and " " or "", 4) .. vim.icons.diagnostics,
             "Diagnostic" .. colors[di.severity]
         })
     end
@@ -84,13 +80,14 @@ VT.fmt = function(diagnostics)
     return content
 end
 
-VT.cond = function(buf, line, diagnostics)
-    -- Je vérifie qu'un diagnostic superieur n'est pas déjà affiché
-    -- et qu'un diagnostic non affiché à été trouvé.
-    return #vim.diagnostic.get(buf, {
-        lnum = line,
+-- je vérifie qu'aucun diagnostic (=> vt) d'une
+-- autre source est déjà présent sur ln && que il
+-- y a un diagnostic à inserrer.
+VT.cond = function(ln)
+    return #vim.diagnostic.get(0, {
+        lnum = ln,
         severity = vim.diagnostic.severity.ERROR
-    }) == 0 and #diagnostics > 0
+    }) == 0 and #VT.get(ln) > 0
 end
 
 return VT

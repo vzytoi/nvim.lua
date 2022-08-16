@@ -5,8 +5,9 @@ local navic = require('nvim-navic')
 local icons = require('nvim-web-devicons')
 
 local filename = function()
-    local filename = vim.fn.expand "%:t"
-    local extension = vim.fn.expand "%:e"
+
+    local filename = vim.func.buf(0, 'filename')
+    local extension = vim.func.buf(0, 'filetype')
 
     if not vim.func.is_empty(filename) then
 
@@ -21,8 +22,9 @@ local filename = function()
         vim.api.nvim_set_hl(0, hl_group, { fg = file_icon_color })
         vim.api.nvim_set_hl(0, "Winbar", { fg = "#6b737f" })
 
-        return " " ..
-            "%#" .. hl_group .. "#" .. file_icon .. "%*" .. " " .. "%#Winbar#" .. filename .. "%*"
+        return " " .. "%#" .. hl_group .. "#"
+            .. file_icon .. "%*" .. " " .. "%#Winbar#" ..
+            (vim.fn.tabpagenr('$') > 1 and "" or filename) .. "%*"
     end
 end
 
@@ -43,11 +45,11 @@ end
 
 WINBAR.get = function()
 
-    if not com.filter() then
-        return
-    end
+    --if not com.filter() then
+    --jj  return
+    --end
 
-    local value = filename()
+    local value = ""
 
     if not vim.func.is_empty(value) then
         value = value .. gps()
@@ -73,7 +75,7 @@ WINBAR.autocmds = function()
         vim.g.autocmd(
             { 'DirChanged', 'CursorMoved', 'BufEnter', 'CursorHold' }, {
             callback = function()
-                -- WINBAR.get()
+                WINBAR.get()
             end
         })
     end

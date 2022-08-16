@@ -16,8 +16,9 @@ M.config = function()
             end,
         },
         sources = {
-            { name = "nvim_lsp", max_item_count = 6 },
-            { name = "cmp_tabnine" },
+            { name = "nvim_lsp", max_item_count = 4 },
+            { name = "cmp_tabnine", max_item_count = 4 },
+            { name = "rg" },
             { name = "nvim_lua" },
             { name = "luasnip" },
             { name = "buffer", max_item_count = 6 },
@@ -55,17 +56,17 @@ M.config = function()
         },
         experimental = {
             ghost_text = true
-        }
+        },
+        enable = function()
+            local context = require 'cmp.config.context'
+            if vim.api.nvim_get_mode().mode == 'c' then
+                return true
+            else
+                return not context.in_treesitter_capture("comment")
+                    and not context.in_syntax_group("Comment")
+            end
+        end
     }
-
-    tabnine:setup({
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-        run_on_every_keystroke = true,
-        snippet_placeholder = '..',
-        show_prediction_strength = true
-    })
 
 end
 

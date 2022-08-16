@@ -14,6 +14,7 @@ M.config = function()
     require "plugins.treesitter".autocmds()
     require "core.winbar".autocmds()
     require "core.tabline".autocmds()
+    require "utils.ft".autocmds()
     require "core.rooter".autocmds()
 
     local close = {
@@ -37,7 +38,8 @@ M.config = function()
         fts = {
             'toggleterm', 'fugitive',
             'RunCode', 'help', 'TelescopePrompt',
-            'NvimTree', 'harpoon', 'sagarename', 'mason.nvim'
+            'NvimTree', 'harpoon', 'sagarename', 'mason.nvim',
+            'packer'
         },
         relative = {
             InsertLeave = true,

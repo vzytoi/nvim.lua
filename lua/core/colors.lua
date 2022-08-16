@@ -37,7 +37,13 @@ local raw = {
         TextOff = { fg = c.lightgrey },
 
         RunCodeOk = { fg = c.green },
-        RunCodeError = { fg = c.red }
+        RunCodeError = { fg = c.red },
+
+        --[[ PmenuSel = { bg = "#2446b3" },
+        Pmenu = { bg = c.black }, ]]
+
+        CmpItemAbbr = { fg = "#a6a6a6" },
+        CmpItemAbbrMatch = { fg = c.white, bold = true }
 
     },
 }

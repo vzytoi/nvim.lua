@@ -76,12 +76,13 @@ M.config = function()
             run = "./install.sh",
             config = function()
                 require("cmp_tabnine.config"):setup({
-                    show_prediction_strength = true
+                    show_prediction_strength = false
                 })
             end,
             after = "nvim-cmp"
         }
-        use { "hrsh7th/cmp-nvim-lua" }
+        use { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
+        use { "lukas-reineke/cmp-rg", after = "nvim-cmp" }
 
         use {
             "nvim-treesitter/nvim-treesitter",
@@ -97,6 +98,7 @@ M.config = function()
         use {
             "nvim-telescope/telescope.nvim",
             keys = "<leader>f",
+            cmd = "Telescope",
             config = function()
                 require "plugins.telescope".config()
             end,
@@ -176,7 +178,7 @@ M.config = function()
         }
 
         use {
-            "jose-elias-alvarez/null-ls.nvim",
+            "mhartington/formatter.nvim",
             config = function()
                 require("plugins.format").config()
             end
@@ -261,7 +263,8 @@ M.config = function()
                     "JoosepAlviste/nvim-ts-context-commentstring",
                     after = "nvim-treesitter"
                 }
-            }
+            },
+            event = { "BufRead", "BufNewFile" },
         }
 
         use {
@@ -283,7 +286,14 @@ M.config = function()
             config = function()
                 require("nvim-autopairs").setup()
             end,
-            event = 'InsertCharPre',
+            keys = {
+                { "i", "(" },
+                { "i", "[" },
+                { "i", "{" },
+                { "i", "'" },
+                { "i", '"' },
+                { "i", "<BS>" },
+            }
         }
 
         use {
@@ -299,7 +309,8 @@ M.config = function()
             config = function()
                 require("plugins.toggleterm").config()
             end,
-            cmd = "ToggleTerm"
+            --[[ cmd = "ToggleTerm",
+            module = { "toggleterm", "toggleterm.terminal" }, ]]
         }
 
         use {

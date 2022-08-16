@@ -2,7 +2,7 @@ local M = {}
 
 local masonlsp = require('mason-lspconfig')
 local servers_lst = require('mason-lspconfig.mappings.server')
-local format = require('plugins.format').get()
+local format = require('plugins.format').get
 local configs = require('plugins.lsp.configs')
 
 M.keymaps = function()
@@ -24,14 +24,25 @@ M.autocmds = function()
 
     require "plugins.lsp.vt".autocmds()
 
-    if vim.func.capabilities('format', 0) or vim.tbl_contains(format, vim.bo.filetype) then
-        vim.g.autocmd("BufWritePre", {
-            callback = function()
+    vim.g.autocmd("BufWritePre", {
+        callback = function()
+            if vim.func.capabilities('format', 0) then
                 vim.lsp.buf.format()
-            end,
-            buffer = 0
-        })
-    end
+            end
+        end,
+        buffer = 0
+    })
+
+    vim.g.autocmd("BufWritePost", {
+        callback = function()
+            if format(vim.bo.filetype) then
+                if not vim.func.file_empty(vim.fn.bufnr()) then
+                    vim.api.nvim_command("FormatWrite")
+                end
+            end
+        end,
+        buffer = 0
+    })
 
     vim.g.autocmd("CursorHold", {
         callback = function()
@@ -52,8 +63,16 @@ M.autocmds = function()
 end
 
 local on_attach = function(client, bufnr)
+
     require 'nvim-navic'.attach(client, bufnr)
     M.autocmds()
+
+    -- si un formatter est configuré dans formatter.nvim
+    -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
+    if format(vim.func.buf(bufnr, 'filetype')) then
+        client.server_capabilities.documentFormattingProvider = false
+    end
+
 end
 
 local capabilities = require 'cmp_nvim_lsp'.update_capabilities(

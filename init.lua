@@ -3,6 +3,7 @@ require('impatient').enable_profile()
 vim.func = require('utils.fn')
 vim.colors = require('utils.colors')
 vim.icons = require('utils.icons')
+vim.ft = require('utils.ft')
 
 local mods = {
     { name = "abbr" },

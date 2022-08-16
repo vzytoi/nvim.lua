@@ -8,7 +8,8 @@ FT.get_lst = function(args)
         php = { "php", args.filepath },
         python = { "python3", args.filepath },
         lua = { "lua", args.filepath },
-        swift = { "swift", args.filepath }
+        swift = { "swift", args.filepath },
+        ocaml = { "ocaml", args.filepath }
     }
 
     return lst[args.filetype]

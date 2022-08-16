@@ -1,14 +1,11 @@
 local M = {}
 
-local format = require('plugins.format').get()
+local format = require('plugins.format').get
 local colors = vim.colors.get()
 local icons = require('utils.icons')
 
 M.filter = function()
-    return not vim.tbl_contains(
-        { 'harpoon', 'spectre_panel', 'lspsagafinder' },
-        vim.bo.filetype) and vim.bo.modifiable and not vim.bo.readonly
-        and vim.fn.bufname() ~= ""
+    return not vim.ft.is_disabled(vim.fn.bufnr(), 'lualine')
 end
 
 local function inject_toggle(func, icon, cond)
@@ -37,7 +34,7 @@ end
 
 M.lsp = inject_toggle(
     function()
-        return #vim.lsp.buf_get_clients() > 0
+        return #vim.lsp.get_active_clients({ bufnr = 0 }) > 0
     end,
     icons.lsp,
     M.filter
@@ -46,7 +43,7 @@ M.lsp = inject_toggle(
 M.format = inject_toggle(
     function()
         return vim.func.capabilities('format', 0)
-            or vim.tbl_contains(format, vim.bo.filetype)
+            or format(vim.bo.filetype)
     end,
     icons.format,
     M.filter

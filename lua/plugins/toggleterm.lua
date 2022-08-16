@@ -4,7 +4,8 @@ local cmds = {
     javascript = { cmd = "node" },
     typescript = { cmd = "ts-node" },
     lua = { cmd = "lua" },
-    python = { cmd = "python3" }
+    python = { cmd = "python3" },
+    ocaml = { cmd = "ocaml" }
 }
 
 local function envInit()
@@ -17,8 +18,8 @@ local function envInit()
 end
 
 local function envGo()
-    if M.cmds[vim.bo.filetype] then
-        M.cmds[vim.bo.filetype].term:toggle()
+    if cmds[vim.bo.filetype] then
+        cmds[vim.bo.filetype].term:toggle()
     else
         print("Not configured yet.")
     end
@@ -35,10 +36,10 @@ M.keymaps = function()
     vim.g.tmap("<esc>", [[<C-\><C-n>]])
     vim.g.tmap("<c-v>", [[<C-\><C-n>"*pA"]])
 
+    envInit()
 end
 
 M.config = function()
-    envInit()
 
     require("toggleterm").setup {
         hide_numbers = true,

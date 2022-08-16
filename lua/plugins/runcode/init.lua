@@ -2,6 +2,21 @@ local M = {}
 
 local ls = require('plugins.runcode.commands')
 
+local write = {
+    clear = function(nr)
+        vim.api.nvim_buf_set_lines(nr, 0, -1, true, {})
+    end,
+    append = function(nr, data, l, hl)
+
+        data = (type(data) == "table" and data or { data })
+        vim.api.nvim_buf_set_lines(nr, l, l, true, data)
+
+        if hl then
+            vim.api.nvim_buf_add_highlight(nr, -1, hl, l, 0, -1)
+        end
+    end,
+}
+
 local function resize_win(bufnr, dir)
 
     if vim.bo.filetype ~= "RunCode" then
@@ -66,45 +81,43 @@ local function run(dir)
 
     vim.g.target = vim.tbl_extend("keep",
         vim.func.buf(vim.fn.bufnr()),
-        { winhandler = vim.api.nvim_get_current_win() }
+        { view = vim.fn.winsaveview() }
     )
 
     local rc_bufnr = is_open()
 
     if rc_bufnr then
-        vim.api.nvim_buf_set_lines(rc_bufnr, 0, -1, true, {})
+        write.clear(rc_bufnr)
     else
         rc_bufnr = openbuf(dir)
     end
 
-    local error
+    local error = false
 
     vim.fn.jobstart(ls.get(vim.g.target.bufnr), {
         stdout_buffered = true,
         on_stdout = function(_, data)
             if data then
-                vim.api.nvim_buf_set_lines(
-                    rc_bufnr, -1, -1, true, data
-                )
+                write.append(rc_bufnr, data, -1)
             end
         end,
         on_stderr = function(_, data)
-            if data and string.len(table.concat(data, "")) > 0 then
-                vim.api.nvim_buf_set_lines(
-                    rc_bufnr, -1, -1, true, data
-                )
-                print(vim.inspect(data))
+            if data then
+                write.append(rc_bufnr, data, -1)
                 error = true
             end
         end,
         on_exit = function()
+
+            write.append(
+                rc_bufnr, { "  => Output of: " .. vim.g.target.filename }, 0,
+                "RunCode" .. (error and "Error" or "Ok")
+            )
+
             vim.g.opts.buffer("RunCode")
             resize_win(rc_bufnr, dir)
         end
     })
-
-    vim.api.nvim_buf_set_lines(rc_bufnr, 1, 1, true, { "  => Output of: " .. vim.g.target.filename, "" })
-    vim.api.nvim_buf_add_highlight(rc_bufnr, -1, error ~= nil and "RunCodeError" or "RunCodeOk", 1, 0, -1)
 
 end
 
@@ -131,9 +144,7 @@ function M.autocmds()
         callback = function()
             vim.g.nmap({ "<cr>", "q" }, function()
                 vim.func.close(vim.fn.bufnr())
-                vim.api.nvim_set_current_win(
-                    vim.g.target.winhandler
-                )
+                vim.fn.winrestview(vim.g.target.view)
             end, { buffer = 0 })
         end
     })
@@ -141,9 +152,7 @@ function M.autocmds()
     vim.api.nvim_create_autocmd("BufWinLeave", {
         pattern = "RunCode",
         callback = function()
-            vim.api.nvim_set_current_win(
-                vim.g.target.winhandler
-            )
+            vim.fn.winrestview(vim.g.target.view)
         end
     })
 
