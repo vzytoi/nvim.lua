@@ -4,14 +4,14 @@ local M = {}
 local ls = require('plugins.runcode.commands')
 
 local write = {
-    -- @usage permet de clear l'entièreté du text
+    -- @description permet de clear l'entièreté du text
     -- dans un buffer donné. Est utilisé lorsque RunCode
     -- est executé pour un buffer pour lequel une fenêtre
     -- RunCode avait déjà été ouverte
     clear = function(nr)
         vim.api.nvim_buf_set_lines(nr, 0, -1, true, {})
     end,
-    -- @usage ajouté du text à un buffer, sur une ligne
+    -- @description ajouté du text à un buffer, sur une ligne
     -- donnée avec un highlighting donné.
     append = function(nr, data, l, hl)
 
@@ -26,7 +26,7 @@ local write = {
     end,
 }
 
--- @usage permet de change la taille d'un buffer relativement
+-- @description permet de change la taille d'un buffer relativement
 -- à son comptenue et donc de sa direction (vertical, horizontal).
 -- TODO: trouver une solution plus propre pour dir.
 -- @param dir: les valeurs acceptées sont "s" ou "v"
@@ -66,7 +66,7 @@ local function resize_win(bufnr, dir)
 
 end
 
--- @usage permet de savoir si un buffer RunCode est déjà
+-- @description permet de savoir si un buffer RunCode est déjà
 -- ouvert ou non dans la session.
 -- @return le numéro du buffer RunCode si
 -- trouvé ou false sinon.
@@ -86,6 +86,10 @@ local function is_open()
 
 end
 
+-- @description ouvre un nouveau buffer
+-- @param dir: direction dans laquelle le buffer va
+-- être ouvre (s, v, t)
+-- @returns le numéro du nouveau buffer juste ouvert.
 local function openbuf(dir)
 
     local commands = {

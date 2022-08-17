@@ -33,28 +33,20 @@ M.config = function()
         group = vim.g.group('close-last')
     })
 
-    local numbers = {
-        fts = {
-            'toggleterm', 'fugitive',
-            'RunCode', 'help', 'TelescopePrompt',
-            'NvimTree', 'harpoon', 'sagarename', 'mason.nvim',
-            'packer'
-        },
-        relative = {
-            InsertLeave = true,
-            WinEnter = true,
-            BufEnter = true,
-            FocusGained = true,
-            InsertEnter = false,
-            WinLeave = false,
-            FocusLost = false,
-            BufNewFile = false,
-            BufReadPost = false,
-        }
+    local events = {
+        InsertLeave = true,
+        WinEnter = true,
+        BufEnter = true,
+        FocusGained = true,
+        InsertEnter = false,
+        WinLeave = false,
+        FocusLost = false,
+        BufNewFile = false,
+        BufReadPost = false,
     }
 
     vim.g.autocmd('FileType', {
-        pattern = numbers.fts,
+        pattern = vim.ft.disabled.ln,
         callback = function()
             vim.wo.rnu = false
             vim.wo.nu = false
@@ -62,11 +54,11 @@ M.config = function()
         group = vim.g.group('no-nu')
     })
 
-    for event, op in pairs(numbers.relative) do
+    for event, op in pairs(events) do
         vim.g.autocmd(event, {
             callback = function()
                 local ft = vim.bo.filetype
-                if not vim.tbl_contains(numbers.fts, ft) then
+                if not vim.tbl_contains(events, ft) then
                     vim.wo.rnu = op
                 end
             end

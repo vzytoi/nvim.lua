@@ -3,25 +3,26 @@ local VT = {}
 
 local ns = vim.api.nvim_create_namespace("VT")
 
--- @description permet d'afficher du text virtuel sur le buffer courrant
--- avec comme argument le numéro de la ligne et le contenu.
+-- @description permet d'afficher du text virtuel sur le
+-- buffer courant avec comme argument le numéro de la
+-- ligne et le contenu.
 VT.print = function(ln, content)
 
-    -- j'affiche le vt après le contenue déjà présent
-    -- sur la ligne.
+    -- le text virtuel doit être affiché à la fin de la ligne,
+    -- pour cela je récupère la longueur de celle-ci.
     local col = string.len(vim.api.nvim_buf_get_lines(
         0, ln, ln + 1, false
     )[1])
 
-    -- TODO: see :h nvim_buf_set_extmark for more options
     vim.api.nvim_buf_set_extmark(0, ns, ln, col, {
         virt_text = VT.fmt(content)
     })
 
 end
 
--- @description récupère tous les diagnostics présent
--- sur le buffer courrant à une ligne donné.
+-- @description récupère tous les diagnostics
+-- présent sur le buffer courant à une ligne donné avec
+-- une sévérité maximale d'avertissement.
 VT.get = function(ln)
     return vim.diagnostic.get(0, {
         lnum = ln,
@@ -29,15 +30,19 @@ VT.get = function(ln)
     })
 end
 
--- @description permet d'enlever tous les text virtuel
--- présent dans le buffer courant apparenants au namespace ns.
+-- @description permet de retirer tous les text virtuel
+-- appartenant au namespace "VT" et tous
+-- les buffers chargé dans la session.
 VT.clear = function()
-    vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
+    for _, bufnr in ipairs(vim.func.buflst()) do
+        vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
+    end
 end
 
--- @description permet de formatter une lsite de dictionnaire de diagnostics
--- en une chaine de caractère qui sera ensuite affiché sous la forme
--- de text virtuel. Gère l'affichage de plusieurs dignostics sur la même ligne.
+-- @description permet de formater une liste de dictionnaire
+-- de diagnostics en une chaine de caractère qui sera ensuite
+-- affiché sous la forme de text virtuel. Gère l'affichage de
+-- plusieurs diagnostics sur la même ligne.
 VT.fmt = function(diagnostics)
     local colors = {
         "Error",
@@ -47,13 +52,13 @@ VT.fmt = function(diagnostics)
     }
 
     local content = {}
-
-    -- si pleusieurs diagnostic sur la même ln
-    -- alors la couleur est celle du diag avec la sévérité
-    -- la plue élevée.
     local max
 
     for c, di in pairs(diagnostics) do
+
+        -- je cherche le diagnostic avec la sévérité la plus
+        -- élevé. C'est celui-ci dont
+        -- la couleur sera celle du virtuel text.
         if max == nil or di.severity >= max then
             max = di.severity
         end
@@ -73,9 +78,10 @@ VT.fmt = function(diagnostics)
 end
 
 -- @description permet de vérifier si la ligne est disponible
--- pour l'affichage d'un disagnostic. Si un diagnostic est déjà
--- présent sur cette ligne ou que aucun diagnostic n'est à affiché alors
--- la ligne n'est pas disponible à l'affichage d'un diagnostic supplémentaire.
+-- pour l'affichage d'un diagnostic. Si un diagnostic est
+-- déjà présent sur cette ligne ou que aucun diagnostic n'est
+-- à affiché alors la ligne n'est pas disponible à
+-- l'affichage d'un diagnostic supplémentaire.
 VT.cond = function(ln)
     return #vim.diagnostic.get(0, {
         lnum = ln,

@@ -18,7 +18,7 @@ M.config = function()
         use "wbthomason/packer.nvim"
         use "nvim-lua/plenary.nvim"
         use "tpope/vim-surround"
-        use "tpope/vim-sleuth"
+        -- use "tpope/vim-sleuth"
         use "wellle/targets.vim"
         use "farmergreg/vim-lastplace"
         use "fedepujol/move.nvim"
@@ -26,6 +26,13 @@ M.config = function()
         use "stevearc/dressing.nvim"
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
+
+        use {
+            "lewis6991/spellsitter.nvim",
+            config = function()
+                require('spellsitter').setup()
+            end
+        }
 
         use {
             'weilbith/nvim-code-action-menu',

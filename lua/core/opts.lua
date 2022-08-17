@@ -76,8 +76,6 @@ M.loadOptions = function()
         writebackup = false,
         swapfile = false,
         fileformat = "unix",
-        spell = false,
-        spl = { "fr", "en_us" },
         encoding = "utf-8",
         showtabline = 2,
         laststatus = 3,
@@ -85,6 +83,8 @@ M.loadOptions = function()
         cursorline = true,
         cursorlineopt = "number",
         showmode = false,
+        spell = true,
+        spl = { "fr", "en_us" }
     }
 
     for k, v in pairs(options) do
