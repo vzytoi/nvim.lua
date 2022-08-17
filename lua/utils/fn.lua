@@ -1,29 +1,31 @@
 local FN = {}
 
+-- @usage permet de savoir si un buffer est non voulu.
+-- Cela regroupe les buffer non modifiable, en readonly, sans nom
+-- de buffer ou dont le type est comtenu dans "fts".
+-- @param bufnr: numéro du buffer à vérifier
+-- @param fts: liste des filetypes exclus (nil si aucun).
+-- @returns true si non velu, false sinon
 FN.unwanted = function(bufnr, fts)
-
     return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
         (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype'))) or
         vim.fn.bufname(bufnr) == ""
-
 end
 
+-- @usage permet de convertir un entier en boolean.
+-- @param n: l'entier à couvertir
 FN.toboolean = function(n)
-
     if type(n) ~= n then
         return
     end
-
     return n > 0
 end
 
 FN.copy = function(table)
     local ret = {}
-
     for k, v in pairs(table) do
         ret[k] = v
     end
-
     return ret
 end
 

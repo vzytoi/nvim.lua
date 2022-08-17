@@ -1,26 +1,39 @@
+-- @author Cyprien Henner
 local M = {}
 
 local ls = require('plugins.runcode.commands')
 
 local write = {
+    -- @usage permet de clear l'entièreté du text
+    -- dans un buffer donné. Est utilisé lorsque RunCode
+    -- est executé pour un buffer pour lequel une fenêtre
+    -- RunCode avait déjà été ouverte
     clear = function(nr)
         vim.api.nvim_buf_set_lines(nr, 0, -1, true, {})
     end,
+    -- @usage ajouté du text à un buffer, sur une ligne
+    -- donnée avec un highlighting donné.
     append = function(nr, data, l, hl)
 
         data = (type(data) == "table" and data or { data })
         vim.api.nvim_buf_set_lines(nr, l, l, true, data)
 
+        -- si hl n'est pas null alors j'applique hl sur la
+        -- ligne l donné en entrée.
         if hl then
             vim.api.nvim_buf_add_highlight(nr, -1, hl, l, 0, -1)
         end
     end,
 }
 
+-- @usage permet de change la taille d'un buffer relativement
+-- à son comptenue et donc de sa direction (vertical, horizontal).
+-- TODO: trouver une solution plus propre pour dir.
+-- @param dir: les valeurs acceptées sont "s" ou "v"
 local function resize_win(bufnr, dir)
 
     -- je ne veux utilliser cette fonction
-    -- que pour resize les buffer RunCode
+    -- que pour resize les fenêtre de RunCode
     if vim.bo.filetype ~= "RunCode" then
         return
     end
@@ -29,10 +42,14 @@ local function resize_win(bufnr, dir)
         local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
         if dir == "s" then
+            -- si horizontal alors je retourne le nombre de
+            -- lignes présentes dans le buffer.
             return #lines
         else
             local m
 
+            -- si vertical alors je retourne le longueur
+            -- de la plus longue lignée présente dans le buffer.
             for _, v in ipairs(lines) do
                 if not m or m < #v then
                     m = #v
@@ -49,8 +66,14 @@ local function resize_win(bufnr, dir)
 
 end
 
+-- @usage permet de savoir si un buffer RunCode est déjà
+-- ouvert ou non dans la session.
+-- @return le numéro du buffer RunCode si
+-- trouvé ou false sinon.
 local function is_open()
 
+    -- bufs est la liste de tous les buffers
+    -- chargés.
     local bufs = vim.func.buflst()
 
     for _, buf in ipairs(bufs) do

@@ -2,6 +2,8 @@ local ROOT = {}
 
 local options = {
     history_path = vim.fn.stdpath('data') .. '/rooter/history',
+    -- liste des fichiers, qui s'ils sont comptenus dans un dossier
+    -- alors celui-ci est considéré comme root.
     targets = { '.git', '.gitignore', 'README.md' }
 }
 
@@ -13,6 +15,12 @@ local read = function()
     return vim.fn.readfile(options.history_path)
 end
 
+-- @usage permet de trouver le fichier root d'un projet
+-- selon plusieurs méthode, soit le chemin est enregistré
+-- ou alors trouvé avec les fichiers qu'il contient. Si aucun
+-- dossier root n'est trouvé alors il est demandé.
+-- @param add -> bool: si false alors seule la verifications
+-- sur les roots déjà enregistrés est effectué.
 ROOT.search_root = function(add)
 
     -- unwanted(bufnr, {}fts or nil)
@@ -27,13 +35,12 @@ ROOT.search_root = function(add)
 
     for parent, _ in vim.fs.parents(path) do
 
+        -- si un chemin déjà enregistré est trouvé alors
+        -- je cd et je return
         if vim.tbl_contains(read(), parent) then
             vim.cmd.cd(parent)
             return
         end
-
-        -- si je ne cherche que les paths déjà enregistré
-        -- alors je passe la détection de fn.
         if not add then
             goto continuel1
         end
@@ -60,8 +67,9 @@ ROOT.search_root = function(add)
     end
 
     if add then
-        -- en cas de recherche échouée si add est activé
+        -- en cas de recherche échouée si add est true
         -- alors je demande à l'utilisateur le dossier racine.
+        -- TODO: vérifié que le chemin donné est valid.
         vim.cmd.cd(write(vim.fn.input("", path)))
     else
         -- si rien n'est trouvé je retourne quand meme
