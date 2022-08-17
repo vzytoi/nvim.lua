@@ -8,6 +8,8 @@ local get_bufnr = function(v)
         ]
 end
 
+-- is triggered when the close icon on each tab is clicked on
+-- TODO: search a way to close
 vim.cmd [[
     function! Close(minwid, clicks, button, modifiers) abort
     endfunction
@@ -17,7 +19,7 @@ local components = {
 
     icon = function(bufnr)
 
-        local ft = vim.func.buf(bufnr, 'filetype')
+        local ft = vim.func.buf('filetype', bufnr)
         local icon, color, _ = devicons.get_icon_colors_by_filetype(ft)
 
         if not icon then
@@ -33,7 +35,17 @@ local components = {
     filename = function(bufnr)
 
         local bn = vim.fn.bufname(bufnr)
-        return (bn == "" and "Empty" or vim.func.buf(bufnr, 'filename'))
+        local alias = vim.ft.get_alias(bufnr)
+
+        if alias then
+            return alias
+        end
+
+        if bn == "" then
+            return "Empty"
+        end
+
+        return vim.func.buf('filename', bufnr)
     end,
 
     modified = function(bufnr)
@@ -82,6 +94,8 @@ TL.get = function()
 
         local tab = ""
 
+        -- une section nécessaire pour pouvoir
+        -- différencier la tab courrente des autres pour la couleur.
         tab = tab .. string.format(
             "%%%dT%s",
             tabnr, tabnr == vim.fn.tabpagenr() and '%#TabLineSel#' or '%#TabLine#'
@@ -100,7 +114,7 @@ TL.get = function()
             components.color.txt(tabnr),
             components.filename(bufnr),
             s(3),
-            components.modified(bufnr),
+            components.modified(tabnr),
             s(3)
         })
 

@@ -6,11 +6,11 @@ vim.icons = require('utils.icons')
 vim.ft = require('utils.ft')
 
 local mods = {
-    { name = "abbr" },
+    { name = "abbr", event = "CmdlineEnter" },
     { name = "colors", event = "ColorScheme" },
     { name = "plugins" },
     { name = "opts" },
-    { name = "autocmds" },
+    { name = "autocmds", },
 }
 
 local load = function(name)

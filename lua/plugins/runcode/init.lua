@@ -19,6 +19,8 @@ local write = {
 
 local function resize_win(bufnr, dir)
 
+    -- je ne veux utilliser cette fonction
+    -- que pour resize les buffer RunCode
     if vim.bo.filetype ~= "RunCode" then
         return
     end
@@ -52,7 +54,7 @@ local function is_open()
     local bufs = vim.func.buflst()
 
     for _, buf in ipairs(bufs) do
-        if vim.func.buf(buf, 'filetype') == 'RunCode' then
+        if vim.func.buf('filetype', buf) == 'RunCode' then
             return buf
         end
     end
@@ -79,13 +81,21 @@ end
 
 local function run(dir)
 
-    vim.g.target = vim.tbl_extend("keep",
-        vim.func.buf(vim.fn.bufnr()),
-        { view = vim.fn.winsaveview() }
-    )
+    -- je garde les informations nécéssaires sur le buffer
+    -- sur lequel est éxecuté runcode
+    vim.g.target = {
+        view = vim.fn.winsaveview(),
+        bufnr = vim.fn.bufnr(),
+        filename = vim.func.buf('filename'),
+    }
+
+    if not ls.get(vim.g.target.bufnr) then
+        return
+    end
 
     local rc_bufnr = is_open()
 
+    -- je clear si déjà ouvert, sinon j'ouvre.
     if rc_bufnr then
         write.clear(rc_bufnr)
     else
@@ -94,7 +104,7 @@ local function run(dir)
 
     local error = false
 
-    vim.fn.jobstart(ls.get(vim.g.target.bufnr), {
+    vim.fn.jobstart(vim.fn.join(ls.get(vim.g.target.bufnr), " "), {
         stdout_buffered = true,
         on_stdout = function(_, data)
             if data then

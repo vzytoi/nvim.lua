@@ -32,16 +32,6 @@ M.setup = function()
         builtin.help_tags(ivy)
     end)
 
-    vim.g.nmap("<leader>ft", function()
-        builtin.grep_string {
-            prompt_prefix = "Search toods > ",
-            search = " :",
-            file_ignore_patterns = {
-                "snippets/*"
-            }
-        }
-    end)
-
     vim.g.nmap("<leader>fp", function()
         telescope.extensions.project.project {}
     end)

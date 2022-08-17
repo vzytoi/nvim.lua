@@ -5,7 +5,7 @@ local colors = vim.colors.get()
 local icons = require('utils.icons')
 
 M.filter = function()
-    return not vim.ft.is_disabled(vim.fn.bufnr(), 'lualine')
+    return not vim.ft.is_disabled('lualine')
 end
 
 local function inject_toggle(func, icon, cond)

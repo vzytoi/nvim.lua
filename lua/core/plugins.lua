@@ -94,6 +94,12 @@ M.config = function()
         use { "windwp/nvim-ts-autotag", after = "nvim-treesitter", }
         use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
         use { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" }
+        use { 'nvim-treesitter/nvim-tree-docs', after = "nvim-treesitter" }
+
+        use {
+            "kkoomen/vim-doge",
+            run = "npm i --no-save && npm run build:binary:unix"
+        }
 
         use {
             "nvim-telescope/telescope.nvim",

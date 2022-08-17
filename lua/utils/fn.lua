@@ -105,8 +105,6 @@ FN.capabilities = function(capabilitie, bufnr)
         return false
     end
 
-    -- vim.pretty_print(client[1].name)
-
     local a = {
         format = client[1].server_capabilities.documentFormattingProvider,
         hi = client[1].supports_method('textDocument/documentHighlight')
@@ -157,20 +155,19 @@ FN.buflst = function()
 
 end
 
-FN.buf = function(bufnr, asked)
+FN.buf = function(asked, bufnr)
+
+    bufnr = bufnr or vim.fn.bufnr()
 
     local infos = {
         filename = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t'),
         filetype = vim.fn.getbufvar(bufnr, "&filetype"),
         filepath = vim.fn.bufname(bufnr),
+        filetag = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t:r'),
         bufnr = bufnr
     }
 
-    if asked then
-        return infos[asked]
-    end
-
-    return infos
+    return infos[asked]
 
 end
 
