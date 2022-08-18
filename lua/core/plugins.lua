@@ -28,13 +28,6 @@ M.config = function()
         use "arzg/vim-colors-xcode"
 
         use {
-            "lewis6991/spellsitter.nvim",
-            config = function()
-                require('spellsitter').setup()
-            end
-        }
-
-        use {
             'weilbith/nvim-code-action-menu',
             cmd = 'CodeActionMenu',
         }
@@ -102,6 +95,13 @@ M.config = function()
         use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
         use { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" }
         use { 'nvim-treesitter/nvim-tree-docs', after = "nvim-treesitter" }
+        use {
+            "lewis6991/spellsitter.nvim",
+            config = function()
+                require('spellsitter').setup()
+            end,
+            after = "nvim-treesitter"
+        }
 
         use {
             "kkoomen/vim-doge",

@@ -27,10 +27,10 @@ M.config = function()
         autopairs = { enable = true },
         autotag = { enable = true },
         tree_docs = { enable = true },
-        indent = { enable = true },
-        incremental_selection = { enable = true },
-        context_commenstring = { enable = true, enable_autocmd = false },
-        highlight = { enable = true, use_language_tree = true },
+        -- indent = { enable = true },
+        -- incremental_selection = { enable = true },
+        context_commenstring = { enable = true },
+        highlight = { enable = true },
         textobjects = {
             select = {
                 enable = true,

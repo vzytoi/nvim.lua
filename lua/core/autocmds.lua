@@ -33,6 +33,8 @@ M.config = function()
         group = vim.g.group('close-last')
     })
 
+    local dis = vim.ft.disabled
+
     local events = {
         InsertLeave = true,
         WinEnter = true,
@@ -45,25 +47,34 @@ M.config = function()
         BufReadPost = false,
     }
 
-    vim.g.autocmd('FileType', {
-        pattern = vim.ft.disabled.ln,
-        callback = function()
-            vim.wo.rnu = false
-            vim.wo.nu = false
-        end,
-        group = vim.g.group('no-nu')
-    })
-
     for event, op in pairs(events) do
         vim.g.autocmd(event, {
             callback = function()
                 local ft = vim.bo.filetype
-                if not vim.tbl_contains(events, ft) then
+
+                if not vim.tbl_contains(dis.ln, ft) then
                     vim.wo.rnu = op
+                else
+                    vim.wo.rnu = false
+                    vim.wo.nu = false
                 end
             end
         })
     end
+
+    vim.g.autocmd("FileType", {
+        callback = function()
+            local ft = vim.bo.filetype
+            local unwanted = vim.func.unwanted(0)
+
+            if vim.tbl_contains(dis.spell, ft) or unwanted then
+                vim.schedule(function()
+                    vim.wo.spell = false
+                end)
+            end
+        end,
+        group = vim.g.group('no-nu')
+    })
 
 end
 

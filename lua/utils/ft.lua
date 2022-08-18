@@ -10,12 +10,16 @@ local alias = {
 FT.disabled = {
     lualine = {
         "TelescopePrompt", "NvimTree", "toggleterm",
-        "harpoon", "spectre_panel", "lspsagafinder"
+        "harpoon", "spectre_panel", "lspsagafinder",
+        "RunCode"
     },
     ln = {
-        "fugitive", "RunCode", "help",
+        "fugitive", "RunCode", "help", "toggleterm",
         "TelescopePrompt", "NvimTree", "harpoon",
         "sagarename", "mason.nvim", "packer"
+    },
+    spell = {
+        "toggleterm", "RunCode"
     }
 }
 

@@ -6,7 +6,7 @@ local ls = require('plugins.runcode.commands')
 local write = {
     -- @description permet de clear l'entièreté du text
     -- dans un buffer donné. Est utilisé lorsque RunCode
-    -- est executé pour un buffer pour lequel une fenêtre
+    -- est exécuté pour un buffer pour lequel une fenêtre
     -- RunCode avait déjà été ouverte
     clear = function(nr)
         vim.api.nvim_buf_set_lines(nr, 0, -1, true, {})
@@ -27,12 +27,12 @@ local write = {
 }
 
 -- @description permet de change la taille d'un buffer relativement
--- à son comptenue et donc de sa direction (vertical, horizontal).
+-- à son contenue et donc de sa direction (vertical, horizontal).
 -- TODO: trouver une solution plus propre pour dir.
 -- @param dir: les valeurs acceptées sont "s" ou "v"
 local function resize_win(bufnr, dir)
 
-    -- je ne veux utilliser cette fonction
+    -- je ne veux utiliser cette fonction
     -- que pour resize les fenêtre de RunCode
     if vim.bo.filetype ~= "RunCode" then
         return
@@ -72,8 +72,6 @@ end
 -- trouvé ou false sinon.
 local function is_open()
 
-    -- bufs est la liste de tous les buffers
-    -- chargés.
     local bufs = vim.func.buflst()
 
     for _, buf in ipairs(bufs) do
@@ -86,11 +84,11 @@ local function is_open()
 
 end
 
--- @description ouvre un nouveau buffer
--- @param dir: direction dans laquelle le buffer va
--- être ouvre (s, v, t)
--- @returns le numéro du nouveau buffer juste ouvert.
-local function openbuf(dir)
+-- @description permet de clear un potentiel buffer
+-- RunCode déjà existant sans le fermé pour laisser la place
+-- à un nouveau output ou d'en ouvrir un nouveau dans le cas
+-- contraire. La fonction retourne le bufnr du buffer clear ou ouvert.
+local function prepare_buf(dir)
 
     local commands = {
         s = "bo new",
@@ -98,18 +96,23 @@ local function openbuf(dir)
         t = "tabnew"
     }
 
-    vim.api.nvim_command(
-        commands[dir]
-    )
+    local bufnr = is_open()
 
-    return vim.fn.bufnr()
+    if bufnr then
+        write.clear(bufnr)
+    else
+        vim.api.nvim_command(
+            commands[dir]
+        )
 
+        bufnr = vim.fn.bufnr()
+    end
+
+    return bufnr
 end
 
 local function run(dir)
 
-    -- je garde les informations nécéssaires sur le buffer
-    -- sur lequel est éxecuté runcode
     vim.g.target = {
         view = vim.fn.winsaveview(),
         bufnr = vim.fn.bufnr(),
@@ -120,36 +123,39 @@ local function run(dir)
         return
     end
 
-    local rc_bufnr = is_open()
-
-    -- je clear si déjà ouvert, sinon j'ouvre.
-    if rc_bufnr then
-        write.clear(rc_bufnr)
-    else
-        rc_bufnr = openbuf(dir)
-    end
-
+    vim.func.timer_start()
     local error = false
+    local output = {}
 
     vim.fn.jobstart(vim.fn.join(ls.get(vim.g.target.bufnr), " "), {
         stdout_buffered = true,
         on_stdout = function(_, data)
-            if data then
-                write.append(rc_bufnr, data, -1)
-            end
+            if data then table.insert(output, data) end
         end,
         on_stderr = function(_, data)
-            if data then
-                write.append(rc_bufnr, data, -1)
-                error = true
-            end
+            if data then table.insert(output, data) end
         end,
         on_exit = function()
 
+            local rc_bufnr = prepare_buf(dir)
+
             write.append(
-                rc_bufnr, { "  => Output of: " .. vim.g.target.filename }, 0,
+                rc_bufnr,
+                "In: " .. vim.func.timer_end() .. " ms | " ..
+                "Lines: " .. vim.api.nvim_buf_line_count(vim.g.target.bufnr),
+                0, "RunCodeInfo"
+            )
+
+            write.append(
+                rc_bufnr, "=> Output of: " .. vim.g.target.filename, 2,
                 "RunCode" .. (error and "Error" or "Ok")
             )
+
+            write.append(rc_bufnr, "", -1)
+
+            for _, data in ipairs(output) do
+                write.append(rc_bufnr, data, -1)
+            end
 
             vim.g.opts.buffer("RunCode")
             resize_win(rc_bufnr, dir)

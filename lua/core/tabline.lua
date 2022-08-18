@@ -8,8 +8,6 @@ local get_bufnr = function(v)
         ]
 end
 
--- is triggered when the close icon on each tab is clicked on
--- TODO: search a way to close
 vim.cmd [[
     function! Close(minwid, clicks, button, modifiers) abort
     endfunction
@@ -17,6 +15,10 @@ vim.cmd [[
 
 local components = {
 
+    -- @description permet de récupérer l'icon avec sa
+    -- couleur associé à un bufnr donné en argument.
+    -- Si aucun icon n'est trouvé dans nvim-web-devicons
+    -- alors un icon dans vim.icons est récupéré.
     icon = function(bufnr)
 
         local ft = vim.func.buf('filetype', bufnr)
@@ -32,22 +34,28 @@ local components = {
         return icon, "%#Icon" .. ft .. "#"
     end,
 
+    -- @description permet de récupérer le nom associé au
+    -- bufnr donné. Un alias est cherché, une valeur par défaut
+    -- est générée si aucun nom n'est trouvé,
+    -- sinon le filename est retourné.
     filename = function(bufnr)
 
-        local bn = vim.fn.bufname(bufnr)
         local alias = vim.ft.get_alias(bufnr)
 
         if alias then
             return alias
         end
 
-        if bn == "" then
+        if vim.func.is_empty(vim.fn.bufname(bufnr)) then
             return "Empty"
         end
 
         return vim.func.buf('filename', bufnr)
     end,
 
+    -- @description retourne un icon modified si le bufnr est
+    -- modifié, sinon retourne un croix qui permet de fermé la
+    -- tab. Pour cela une fonction Close() est exécutée.
     modified = function(bufnr)
 
         local is_modified = vim.func.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
@@ -94,8 +102,6 @@ TL.get = function()
 
         local tab = ""
 
-        -- une section nécessaire pour pouvoir
-        -- différencier la tab courrente des autres pour la couleur.
         tab = tab .. string.format(
             "%%%dT%s",
             tabnr, tabnr == vim.fn.tabpagenr() and '%#TabLineSel#' or '%#TabLine#'

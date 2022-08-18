@@ -8,8 +8,7 @@ local FN = {}
 -- @returns true si non velu, false sinon
 FN.unwanted = function(bufnr, fts)
     return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
-        (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype'))) or
-        vim.fn.bufname(bufnr) == ""
+        (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype')))
 end
 
 -- @usage permet de convertir un entier en boolean.
@@ -19,6 +18,25 @@ FN.toboolean = function(n)
         return
     end
     return n > 0
+end
+
+-- @description permet d'arrondir un nombre x à un nombre
+-- x de chiffres après la virgule.
+FN.round = function(x, n)
+    n = math.pow(10, n or 0)
+    x = x * n
+    if x >= 0 then x = math.floor(x + 0.5) else x = math.ceil(x - 0.5) end
+    return x / n
+end
+
+FN.timer_start = function()
+    FN.timer = vim.fn.reltime()
+end
+
+FN.timer_end = function()
+    return FN.round(vim.fn.reltimefloat(
+        vim.fn.reltime(FN.timer)
+    ) * 1000, 0)
 end
 
 FN.copy = function(table)

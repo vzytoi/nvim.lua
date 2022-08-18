@@ -10,10 +10,10 @@ FT.get_lst = function(args)
         lua = { "lua", args.filepath },
         swift = { "swift", args.filepath },
         ocaml = { "ocaml", args.filepath },
-        c = { "gcc", "-o", args.filetag, args.filepath, "&&", "./" .. args.filetag }
+        c = { "gcc", "-o", args.filetag, args.filepath, "&&", "./" .. args.filetag },
+        cpp = { "g++", args.filepath, "-o", args.filetag, "&&", "./" .. args.filetag }
     }
 
-    print(vim.fn.join(lst[args.filetype], " "))
     return lst[args.filetype]
 end
 

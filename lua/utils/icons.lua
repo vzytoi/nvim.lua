@@ -3,6 +3,7 @@ return {
     NvimTree = "",
     DiffviewFiles = "署",
     toggleterm = "",
+    RunCode = "",
     treesitter = "",
     format = "",
     lsp = "",
