@@ -6,10 +6,10 @@ local icons = require('nvim-web-devicons')
 
 local filename = function()
 
-    local filename = vim.func.buf(0, 'filename')
-    local extension = vim.func.buf(0, 'filetype')
+    local filename = vim.fun.buf(0, 'filename')
+    local extension = vim.fun.buf(0, 'filetype')
 
-    if not vim.func.is_empty(filename) then
+    if not vim.fun.is_empty(filename) then
 
         local file_icon, file_icon_color = icons.get_icon_color(
             filename,
@@ -36,7 +36,7 @@ local gps = function()
         return ""
     end
 
-    if not vim.func.is_empty(loc) then
+    if not vim.fun.is_empty(loc) then
         return " > " .. loc
     else
         return " "
@@ -51,13 +51,13 @@ WINBAR.get = function()
 
     local value = ""
 
-    if not vim.func.is_empty(value) then
+    if not vim.fun.is_empty(value) then
         value = value .. gps()
     end
 
     local num_tabs = #vim.api.nvim_list_tabpages()
 
-    if num_tabs > 1 and not vim.func.is_empty(value) then
+    if num_tabs > 1 and not vim.fun.is_empty(value) then
         local tabpage_number = tostring(vim.api.nvim_tabpage_get_number(0))
         value = value .. "%=" .. tabpage_number .. "/" .. tostring(num_tabs)
     end

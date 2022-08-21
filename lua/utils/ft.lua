@@ -11,7 +11,7 @@ FT.disabled = {
     lualine = {
         "TelescopePrompt", "NvimTree", "toggleterm",
         "harpoon", "spectre_panel", "lspsagafinder",
-        "RunCode"
+        "RunCode", "qf"
     },
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",
@@ -28,7 +28,7 @@ FT.is_disabled = function(package, bufnr)
     bufnr = bufnr or vim.fn.bufnr()
 
     local packagelst = FT.disabled[package]
-    local ft = vim.func.buf('filetype', bufnr)
+    local ft = vim.fun.buf('filetype', bufnr)
 
     if not packagelst then
         return false
@@ -38,7 +38,7 @@ FT.is_disabled = function(package, bufnr)
 end
 
 FT.get_alias = function(bufnr)
-    return alias[vim.func.buf('filetype', bufnr)]
+    return alias[vim.fun.buf('filetype', bufnr)]
 end
 
 return FT

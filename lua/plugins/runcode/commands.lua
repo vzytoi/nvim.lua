@@ -20,9 +20,9 @@ end
 FT.get = function(bufnr)
 
     return FT.get_lst({
-        filepath = vim.func.buf('filepath', bufnr),
-        filetype = vim.func.buf('filetype', bufnr),
-        filetag = vim.func.buf('filetag', bufnr)
+        filepath = vim.fun.buf('filepath', bufnr),
+        filetype = vim.fun.buf('filetype', bufnr),
+        filetag = vim.fun.buf('filetag', bufnr)
     }) or false
 
 end

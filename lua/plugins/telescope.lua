@@ -53,7 +53,8 @@ M.config = function()
             mappings = {
                 i = {
                     ["<c-k>"] = actions.move_selection_previous,
-                    ["<c-j>"] = actions.move_selection_next
+                    ["<c-j>"] = actions.move_selection_next,
+                    ['<c-d>'] = actions.delete_buffer
                 },
                 n = {
                     ["<Esc>"] = actions.close

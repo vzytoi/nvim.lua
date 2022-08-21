@@ -24,6 +24,8 @@ local raw = {
         DiagnosticInfo = { fg = c.green, bold = true },
         DiagnosticHint = { fg = c.blue, bold = true },
 
+        GruvboxGreenSign = { bg = c.black, fg = c.green },
+
         SignColumn = { bg = c.black },
 
         TabLine = { bg = c.black },
@@ -41,7 +43,7 @@ local raw = {
         RunCodeInfo = { fg = c.blue },
 
         CmpItemAbbr = { fg = "#a6a6a6" },
-        CmpItemAbbrMatch = { fg = c.white, bold = true }
+        CmpItemAbbrMatch = { fg = c.white, bold = true },
 
     },
 }

@@ -28,7 +28,7 @@ M.disablePlugins = function()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = vim.func.table.merge(
+        plug_buitlins = vim.fun.table.merge(
             plug_buitlins,
             { "netrw", "netrwPlugin", "netrwSettings" }
         )

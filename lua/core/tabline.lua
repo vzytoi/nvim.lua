@@ -21,7 +21,7 @@ local components = {
     -- alors un icon dans vim.icons est récupéré.
     icon = function(bufnr)
 
-        local ft = vim.func.buf('filetype', bufnr)
+        local ft = vim.fun.buf('filetype', bufnr)
         local icon, color, _ = devicons.get_icon_colors_by_filetype(ft)
 
         if not icon then
@@ -46,11 +46,11 @@ local components = {
             return alias
         end
 
-        if vim.func.is_empty(vim.fn.bufname(bufnr)) then
+        if vim.fun.is_empty(vim.fn.bufname(bufnr)) then
             return "Empty"
         end
 
-        return vim.func.buf('filename', bufnr)
+        return vim.fun.buf('filename', bufnr)
     end,
 
     -- @description retourne un icon modified si le bufnr est
@@ -58,7 +58,7 @@ local components = {
     -- tab. Pour cela une fonction Close() est exécutée.
     modified = function(bufnr)
 
-        local is_modified = vim.func.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
+        local is_modified = vim.fun.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
         return is_modified and vim.icons.modified or "%42@Close@%X"
 
     end,

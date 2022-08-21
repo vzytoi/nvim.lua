@@ -12,6 +12,8 @@ M.keymaps = function()
     vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
     vim.g.nmap("gR", "<cmd>Telescope lsp_references<cr>")
 
+    vim.g.nmap("gh", function() vim.lsp.buf.hover() end)
+
     vim.g.nmap("ga", function() vim.api.nvim_command('CodeActionMenu') end)
 
     vim.g.nmap("gj", function() vim.diagnostic.goto_next({ float = false }) end)
@@ -26,7 +28,7 @@ M.autocmds = function()
 
     vim.g.autocmd("BufWritePre", {
         callback = function()
-            if vim.func.capabilities('format', 0) then
+            if vim.fun.capabilities('format', 0) then
                 vim.lsp.buf.format()
             end
         end,
@@ -36,7 +38,7 @@ M.autocmds = function()
     vim.g.autocmd("BufWritePost", {
         callback = function()
             if format(vim.bo.filetype) then
-                if not vim.func.file_empty(vim.fn.bufnr()) then
+                if not vim.fun.file_empty(vim.fn.bufnr()) then
                     vim.api.nvim_command("FormatWrite")
                 end
             end
@@ -46,7 +48,7 @@ M.autocmds = function()
 
     vim.g.autocmd("CursorHold", {
         callback = function()
-            if vim.func.capabilities('hi', 0) then
+            if vim.fun.capabilities('hi', 0) then
                 vim.lsp.buf.document_highlight()
             end
         end,
@@ -69,7 +71,7 @@ local on_attach = function(client, bufnr)
 
     -- si un formatter est configuré dans formatter.nvim
     -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
-    if format(vim.func.buf(bufnr, 'filetype')) then
+    if format(vim.fun.buf(bufnr, 'filetype')) then
         client.server_capabilities.documentFormattingProvider = false
     end
 

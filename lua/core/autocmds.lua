@@ -26,8 +26,8 @@ M.config = function()
     vim.g.autocmd("BufEnter", {
         callback = function()
             if vim.tbl_contains(close.fts, vim.bo.filetype)
-                and vim.func.is_last_win() then
-                vim.func.close()
+                and vim.F.is_last_win() then
+                vim.fun.close()
             end
         end,
         group = vim.g.group('close-last')
@@ -65,7 +65,7 @@ M.config = function()
     vim.g.autocmd("FileType", {
         callback = function()
             local ft = vim.bo.filetype
-            local unwanted = vim.func.unwanted(0)
+            local unwanted = vim.fun.unwanted(0)
 
             if vim.tbl_contains(dis.spell, ft) or unwanted then
                 vim.schedule(function()

@@ -53,6 +53,7 @@ M.config = function()
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
+            { "<leader>x", ":w|so<cr>" },
             { "h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
             { "h", {
                 { "a", "<cmd>lua require('harpoon.mark').add_file()<cr>" },
@@ -101,20 +102,20 @@ M.config = function()
     }
 
     vim.g.nmap("<leader>d", function()
-        vim.func.toggle("DiffviewOpen", "DiffviewClose")
+        vim.fun.toggle("DiffviewOpen", "DiffviewClose")
     end)
 
     vim.g.nmap("<leader>l", function()
-        vim.func.toggle("lop", "lcl")
+        vim.fun.toggle("lop", "lcl")
     end)
 
     vim.g.nmap("<leader>c", function()
-        vim.func.toggle("copen", "cclose")
+        vim.fun.toggle("copen", "cclose")
     end)
 
     vim.g.nmap("<leader>s", require('spectre').open)
 
-    for k, v in pairs(vim.func.keycount) do
+    for k, v in pairs(vim.fun.keycount) do
         vim.g.nmap("<leader>" .. k, function()
             if vim.fn.tabpagenr('$') >= v then
                 vim.api.nvim_command("tabn" .. v)

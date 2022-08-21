@@ -25,7 +25,7 @@ ROOT.search_root = function(add)
 
     -- unwanted(bufnr, {}fts or nil)
     -- check if has fn, is modifable...
-    if vim.func.unwanted(vim.fn.bufnr()) then
+    if vim.fun.unwanted(vim.fn.bufnr()) then
         return
     end
 

@@ -42,7 +42,7 @@ M.lsp = inject_toggle(
 
 M.format = inject_toggle(
     function()
-        return vim.func.capabilities('format', 0)
+        return vim.fun.capabilities('format', 0)
             or format(vim.bo.filetype)
     end,
     icons.format,
@@ -98,7 +98,7 @@ M.diff = {
         return not vim.g.DiffviewOpen and M.filter()
     end,
     on_click = function()
-        vim.func.toggle("DiffviewOpen", "DiffviewClose")
+        vim.fun.toggle("DiffviewOpen", "DiffviewClose")
     end
 }
 

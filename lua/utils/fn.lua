@@ -1,18 +1,10 @@
 local FN = {}
 
--- @usage permet de savoir si un buffer est non voulu.
--- Cela regroupe les buffer non modifiable, en readonly, sans nom
--- de buffer ou dont le type est comtenu dans "fts".
--- @param bufnr: numéro du buffer à vérifier
--- @param fts: liste des filetypes exclus (nil si aucun).
--- @returns true si non velu, false sinon
 FN.unwanted = function(bufnr, fts)
     return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
         (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype')))
 end
 
--- @usage permet de convertir un entier en boolean.
--- @param n: l'entier à couvertir
 FN.toboolean = function(n)
     if type(n) ~= n then
         return
@@ -20,8 +12,6 @@ FN.toboolean = function(n)
     return n > 0
 end
 
--- @description permet d'arrondir un nombre x à un nombre
--- x de chiffres après la virgule.
 FN.round = function(x, n)
     n = math.pow(10, n or 0)
     x = x * n
@@ -34,9 +24,16 @@ FN.timer_start = function()
 end
 
 FN.timer_end = function()
-    return FN.round(vim.fn.reltimefloat(
+    local time = vim.fn.reltimefloat(
         vim.fn.reltime(FN.timer)
-    ) * 1000, 0)
+    )
+
+    local sec = time > 1
+
+    return {
+        time = sec and FN.round(time, 2) or FN.round(time * 1000),
+        unit = sec and "s" or "ms"
+    }
 end
 
 FN.copy = function(table)
@@ -87,9 +84,9 @@ FN.toggle = function(open, close)
     vim.g[open] = not vim.g[open]
 end
 
-FN.is_last_win = function()
+--[[ FN.is_last_win = function()
     return #vim.api.nvim_list_wins() == 1
-end
+end ]]
 
 FN.closebuf = function(bufnr)
     local _ = pcall(vim.api.nvim_command, bufnr .. 'bd')

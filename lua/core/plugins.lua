@@ -112,6 +112,7 @@ M.config = function()
             "nvim-telescope/telescope.nvim",
             keys = "<leader>f",
             cmd = "Telescope",
+            package = "telescope",
             config = function()
                 require "plugins.telescope".config()
             end,
