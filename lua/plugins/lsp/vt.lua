@@ -1,14 +1,14 @@
 local VT = {}
 
-local ns = vim.api.nvim_create_namespace("VT")
+local ns = nvim.create_namespace("VT")
 
 VT.print = function(ln, content)
 
-    local col = string.len(vim.api.nvim_buf_get_lines(
+    local col = string.len(nvim.buf_get_lines(
         0, ln, ln + 1, false
     )[1])
 
-    vim.api.nvim_buf_set_extmark(0, ns, ln, col, {
+    nvim.buf_set_extmark(0, ns, ln, col, {
         virt_text = VT.fmt(content)
     })
 
@@ -22,8 +22,8 @@ VT.get = function(ln)
 end
 
 VT.clear = function()
-    for _, bufnr in ipairs(vim.fun.buflst()) do
-        vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
+    for _, bufnr in ipairs(u.fun.buflst()) do
+        nvim.buf_clear_namespace(bufnr, ns, 0, -1)
     end
 end
 
@@ -45,7 +45,7 @@ VT.fmt = function(diagnostics)
         end
 
         table.insert(content, {
-            string.rep(c == 1 and " " or "", 4) .. vim.icons.diagnostics,
+            string.rep(c == 1 and " " or "", 4) .. u.icons.diagnostics,
             "Diagnostic" .. colors[di.severity]
         })
     end

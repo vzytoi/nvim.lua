@@ -1,6 +1,6 @@
 local M = {}
 
-local c = vim.colors.table.gruvbox
+local c = u.colors.table.gruvbox
 
 local raw = {
     all = {},
@@ -49,7 +49,7 @@ local raw = {
 }
 
 local apply = function(name, args)
-    vim.api.nvim_set_hl(0, name, args)
+    nvim.set_hl(0, name, args)
 end
 
 local undeep = function(v)

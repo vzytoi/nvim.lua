@@ -1,9 +1,9 @@
 local M = {}
 
-vim.g.autocmd = vim.api.nvim_create_autocmd
+vim.g.autocmd = nvim.create_autocmd
 
 vim.g.group = function(name, opts)
-    return vim.api.nvim_create_augroup(name, opts or { clear = true })
+    return nvim.create_augroup(name, opts or { clear = true })
 end
 
 M.config = function()
@@ -12,7 +12,6 @@ M.config = function()
 
     require "plugins.runcode".autocmds()
     require "plugins.treesitter".autocmds()
-    require "core.winbar".autocmds()
     require "core.tabline".autocmds()
     require "core.rooter".autocmds()
 
@@ -26,14 +25,14 @@ M.config = function()
     vim.g.autocmd("BufEnter", {
         callback = function()
             if vim.tbl_contains(close.fts, vim.bo.filetype)
-                and vim.F.is_last_win() then
-                vim.fun.close()
+                and u.fun.is_last_win() then
+                u.fun.close()
             end
         end,
         group = vim.g.group('close-last')
     })
 
-    local dis = vim.ft.disabled
+    local dis = u.ft.disabled
 
     local events = {
         InsertLeave = true,
@@ -65,7 +64,7 @@ M.config = function()
     vim.g.autocmd("FileType", {
         callback = function()
             local ft = vim.bo.filetype
-            local unwanted = vim.fun.unwanted(0)
+            local unwanted = u.fun.unwanted(0)
 
             if vim.tbl_contains(dis.spell, ft) or unwanted then
                 vim.schedule(function()

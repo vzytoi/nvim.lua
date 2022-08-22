@@ -2,8 +2,6 @@ local ROOT = {}
 
 local options = {
     history_path = vim.fn.stdpath('data') .. '/rooter/history',
-    -- liste des fichiers, qui s'ils sont comptenus dans un dossier
-    -- alors celui-ci est considéré comme root.
     targets = { '.git', '.gitignore', 'README.md' }
 }
 
@@ -15,17 +13,9 @@ local read = function()
     return vim.fn.readfile(options.history_path)
 end
 
--- @usage permet de trouver le fichier root d'un projet
--- selon plusieurs méthode, soit le chemin est enregistré
--- ou alors trouvé avec les fichiers qu'il contient. Si aucun
--- dossier root n'est trouvé alors il est demandé.
--- @param add -> bool: si false alors seule la verifications
--- sur les roots déjà enregistrés est effectué.
 ROOT.search_root = function(add)
 
-    -- unwanted(bufnr, {}fts or nil)
-    -- check if has fn, is modifable...
-    if vim.fun.unwanted(vim.fn.bufnr()) then
+    if u.fun.unwanted(vim.fn.bufnr()) then
         return
     end
 
@@ -35,10 +25,8 @@ ROOT.search_root = function(add)
 
     for parent, _ in vim.fs.parents(path) do
 
-        -- si un chemin déjà enregistré est trouvé alors
-        -- je cd et je return
         if vim.tbl_contains(read(), parent) then
-            vim.cmd.cd(parent)
+            vim.cmd.lcd(parent)
             return
         end
         if not add then
@@ -50,13 +38,10 @@ ROOT.search_root = function(add)
             if vim.tbl_contains(options.targets, name) then
                 if vim.fn.input(parent .. " ? y/n ") == "y" then
 
-                    vim.cmd.cd(write(parent))
+                    vim.cmd.lcd(write(parent))
 
                     return
                 else
-                    -- si le path est refusé sur l'un des fichiers
-                    -- alors je passe la potentielle sur-proposition
-                    -- lors de la détection des autre fichiers du même dossier
                     goto continuel1
                 end
             end
@@ -67,14 +52,9 @@ ROOT.search_root = function(add)
     end
 
     if add then
-        -- en cas de recherche échouée si add est true
-        -- alors je demande à l'utilisateur le dossier racine.
-        -- TODO: vérifié que le chemin donné est valid.
-        vim.cmd.cd(write(vim.fn.input("", path)))
+        vim.cmd.lcd(write(vim.fn.input("", path)))
     else
-        -- si rien n'est trouvé je retourne quand meme
-        -- dans le dossier parent...
-        vim.cmd.cd(path)
+        vim.cmd.lcd(path)
     end
 
 end
@@ -91,8 +71,6 @@ ROOT.autocmds = function()
 
     vim.g.autocmd({ "DirChanged", "BufEnter" }, {
         callback = function()
-            -- je ne veux pas être input() sur un autocmd.
-            -- (contrairement à <leader>cd)
             require('core.rooter').search_root(false)
         end
     })

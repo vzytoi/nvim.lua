@@ -4,19 +4,19 @@ local ls = require('plugins.runcode.commands')
 
 local write = {
     clear = function(nr)
-        vim.api.nvim_buf_set_lines(nr, 0, -1, true, {})
+        nvim.buf_set_lines(nr, 0, -1, true, {})
     end,
     lines = function(nr, data, l, hl)
 
         data = (type(data) == "table" and data or { data })
-        vim.api.nvim_buf_set_lines(nr, l, l, true, data)
+        nvim.buf_set_lines(nr, l, l, true, data)
 
         if hl then
-            vim.api.nvim_buf_add_highlight(nr, -1, hl, l, 0, -1)
+            nvim.buf_add_highlight(nr, -1, hl, l, 0, -1)
         end
     end,
     endl = function(nr, l)
-        vim.api.nvim_buf_set_lines(nr, l, l, true, { "" })
+        nvim.buf_set_lines(nr, l, l, true, { "" })
     end
 }
 
@@ -37,7 +37,7 @@ local function resize_window(bufnr, win)
     end)(win)
 
     local size = (function(bufnrh)
-        local lines = vim.api.nvim_buf_get_lines(bufnrh, 0, -1, false)
+        local lines = nvim.buf_get_lines(bufnrh, 0, -1, false)
 
         if direction == "horizontal" then
             return #lines
@@ -54,7 +54,7 @@ local function resize_window(bufnr, win)
         end
     end)(bufnr)
 
-    vim.api[
+    nvim[
         "nvim_win_set_" ..
             (direction == "vertical" and "width" or "height")
         ](win, size)
@@ -63,10 +63,10 @@ end
 
 local function is_open()
 
-    local bufs = vim.fun.buflst()
+    local bufs = u.fun.buflst()
 
     for _, buf in ipairs(bufs) do
-        if vim.fun.buf('filetype', buf) == 'RunCode' then
+        if u.fun.buf('filetype', buf) == 'RunCode' then
             return buf
         end
     end
@@ -88,14 +88,14 @@ local function prepare_buffer(direction)
     if bufnr then
         write.clear(bufnr)
     else
-        vim.api.nvim_command(
+        nvim.command(
             commands[direction]
         )
 
         bufnr = vim.fn.bufnr()
     end
 
-    return bufnr, vim.api.nvim_get_current_win()
+    return bufnr, nvim.get_current_win()
 end
 
 local execute = function(direction)
@@ -103,14 +103,14 @@ local execute = function(direction)
     vim.g.target = {
         view = vim.fn.winsaveview(),
         bufnr = vim.fn.bufnr(),
-        filename = vim.fun.buf('filename'),
+        filename = u.fun.buf('filename'),
     }
 
     if not ls.get(vim.g.target.bufnr) then
         return
     end
 
-    vim.fun.timer_start()
+    u.fun.timer_start()
 
     local error = false
     local output = {}
@@ -128,14 +128,14 @@ local execute = function(direction)
         on_exit = function()
 
             local bufnr, winhandle = prepare_buffer(direction)
-            local timer = vim.fun.timer_end()
+            local timer = u.fun.timer_end()
 
             write.lines(
                 bufnr,
                 string.format(
                     "In: %s %s | Lines: %s",
                     timer.time, timer.unit,
-                    vim.api.nvim_buf_line_count(vim.g.target.bufnr)
+                    nvim.buf_line_count(vim.g.target.bufnr)
                 ),
                 0,
                 "RunCodeInfo"
@@ -184,17 +184,17 @@ end
 
 M.autocmds = function()
 
-    vim.api.nvim_create_autocmd("FileType", {
+    nvim.create_autocmd("FileType", {
         pattern = "RunCode",
         callback = function()
             vim.g.nmap({ "<cr>", "q" }, function()
-                vim.fun.close(vim.fn.bufnr())
+                u.fun.close(vim.fn.bufnr())
                 vim.fn.winrestview(vim.g.target.view)
             end, { buffer = 0 })
         end
     })
 
-    vim.api.nvim_create_autocmd("BufLeave", {
+    nvim.create_autocmd("BufLeave", {
         pattern = "RunCode",
         callback = function()
             vim.fn.winrestview(vim.g.target.view)

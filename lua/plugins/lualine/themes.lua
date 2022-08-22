@@ -1,6 +1,6 @@
 local THEMES = {}
 
-local colors = vim.colors.get()
+local colors = u.colors.get()
 
 THEMES.gruvbox = {
     normal = {

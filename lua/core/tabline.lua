@@ -18,18 +18,18 @@ local components = {
     -- @description permet de récupérer l'icon avec sa
     -- couleur associé à un bufnr donné en argument.
     -- Si aucun icon n'est trouvé dans nvim-web-devicons
-    -- alors un icon dans vim.icons est récupéré.
+    -- alors un icon dans u.icons est récupéré.
     icon = function(bufnr)
 
-        local ft = vim.fun.buf('filetype', bufnr)
+        local ft = u.fun.buf('filetype', bufnr)
         local icon, color, _ = devicons.get_icon_colors_by_filetype(ft)
 
         if not icon then
-            icon = vim.icons[ft] or vim.icons.file
-            color = vim.colors.get().lightgrey
+            icon = u.icons[ft] or u.icons.file
+            color = u.colors.get().lightgrey
         end
 
-        vim.api.nvim_set_hl(0, 'Icon' .. ft, { fg = (color or "NONE") })
+        nvim.set_hl(0, 'Icon' .. ft, { fg = (color or "NONE") })
 
         return icon, "%#Icon" .. ft .. "#"
     end,
@@ -40,17 +40,17 @@ local components = {
     -- sinon le filename est retourné.
     filename = function(bufnr)
 
-        local alias = vim.ft.get_alias(bufnr)
+        local alias = u.ft.get_alias(bufnr)
 
         if alias then
             return alias
         end
 
-        if vim.fun.is_empty(vim.fn.bufname(bufnr)) then
+        if u.fun.is_empty(vim.fn.bufname(bufnr)) then
             return "Empty"
         end
 
-        return vim.fun.buf('filename', bufnr)
+        return u.fun.buf('filename', bufnr)
     end,
 
     -- @description retourne un icon modified si le bufnr est
@@ -58,8 +58,8 @@ local components = {
     -- tab. Pour cela une fonction Close() est exécutée.
     modified = function(bufnr)
 
-        local is_modified = vim.fun.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
-        return is_modified and vim.icons.modified or "%42@Close@%X"
+        local is_modified = u.fun.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
+        return is_modified and u.icons.modified or "%42@Close@%X"
 
     end,
 
@@ -138,7 +138,7 @@ TL.autocmds = function()
 
     vim.g.autocmd({ "BufEnter", "TextChanged", "TextChangedI", "CursorHold" }, {
         callback = function()
-            vim.api.nvim_set_option_value(
+            nvim.set_option_value(
                 "tabline", tabline.get(), { scope = "local" }
             )
         end

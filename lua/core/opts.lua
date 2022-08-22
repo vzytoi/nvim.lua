@@ -27,12 +27,12 @@ M.disablePlugins = function()
         "tutor_mode_plugin"
     }
 
-    if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = vim.fun.table.merge(
+    --[[ if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
+        plug_buitlins = u.fun.table.merge(
             plug_buitlins,
             { "netrw", "netrwPlugin", "netrwSettings" }
         )
-    end
+    end ]]
 
     for _, p in pairs(plug_buitlins) do
         vim.g["loaded_" .. p] = 1

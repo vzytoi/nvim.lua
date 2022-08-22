@@ -1,7 +1,7 @@
 local FN = {}
 
 FN.unwanted = function(bufnr, fts)
-    return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
+    return not nvim.buf_get_option(bufnr, 'modifiable') or
         (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype')))
 end
 
@@ -79,25 +79,25 @@ FN.toggle = function(open, close)
 
     local calling = (vim.g[open] and close or open)
 
-    vim.api.nvim_command(calling)
+    nvim.command(calling)
 
     vim.g[open] = not vim.g[open]
 end
 
---[[ FN.is_last_win = function()
-    return #vim.api.nvim_list_wins() == 1
-end ]]
+FN.is_last_win = function()
+    return #nvim.list_wins() == 1
+end
 
 FN.closebuf = function(bufnr)
-    local _ = pcall(vim.api.nvim_command, bufnr .. 'bd')
+    local _ = pcall(nvim.command, bufnr .. 'bd')
 end
 
 FN.close = function()
-    vim.api.nvim_command('q')
+    nvim.command('q')
 end
 
 FN.getbufpath = function()
-    return vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+    return vim.fn.fnameescape(nvim.buf_get_name(0))
 end
 
 FN.get_filename = function()
@@ -167,8 +167,8 @@ FN.keycount = {
 FN.buflst = function()
 
     return vim.tbl_filter(function(nr)
-        return vim.api.nvim_buf_is_loaded(nr)
-    end, vim.api.nvim_list_bufs())
+        return nvim.buf_is_loaded(nr)
+    end, nvim.list_bufs())
 
 end
 

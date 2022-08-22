@@ -1,9 +1,5 @@
 require('impatient').enable_profile()
-
-vim.fun = require('utils.fn')
-vim.colors = require('utils.colors')
-vim.icons = require('utils.icons')
-vim.ft = require('utils.ft')
+require('utils.globals')
 
 local mods = {
     { name = "abbr", event = "CmdlineEnter" },
@@ -28,13 +24,13 @@ for _, m in pairs(mods) do
     if not m.event then
         load(m.name)
     else
-        vim.api.nvim_create_autocmd(m.event, {
+        nvim.create_autocmd(m.event, {
             callback = function()
                 if vim.g[m.name] == nil then
                     load(m.name)
                 end
             end,
-            group = vim.api.nvim_create_augroup(
+            group = nvim.create_augroup(
                 "Loading" .. m.name,
                 { clear = true }
             )

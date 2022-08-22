@@ -5,7 +5,7 @@ local function reverse(s)
 end
 
 local function exec(s, d)
-    vim.api.nvim_command(string.format("%s res%s5", d or "", s))
+    nvim.command(string.format("%s res%s5", d or "", s))
 end
 
 local function resize(k)

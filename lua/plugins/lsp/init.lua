@@ -14,11 +14,11 @@ M.keymaps = function()
 
     vim.g.nmap("gh", function() vim.lsp.buf.hover() end)
 
-    vim.g.nmap("ga", function() vim.api.nvim_command('CodeActionMenu') end)
+    vim.g.nmap("ga", function() nvim.command('CodeActionMenu') end)
 
     vim.g.nmap("gj", function() vim.diagnostic.goto_next({ float = false }) end)
     vim.g.nmap("gk", function() vim.diagnostic.goto_prev({ float = false }) end)
-    vim.g.nmap('gt', function() vim.api.nvim_command('TroubleToggle') end)
+    vim.g.nmap('gt', function() nvim.command('TroubleToggle') end)
     vim.g.nmap("gf", function() vim.diagnostic.open_float({ header = "", prefix = "" }) end)
 end
 
@@ -28,7 +28,7 @@ M.autocmds = function()
 
     vim.g.autocmd("BufWritePre", {
         callback = function()
-            if vim.fun.capabilities('format', 0) then
+            if u.fun.capabilities('format', 0) then
                 vim.lsp.buf.format()
             end
         end,
@@ -38,8 +38,8 @@ M.autocmds = function()
     vim.g.autocmd("BufWritePost", {
         callback = function()
             if format(vim.bo.filetype) then
-                if not vim.fun.file_empty(vim.fn.bufnr()) then
-                    vim.api.nvim_command("FormatWrite")
+                if not u.fun.file_empty(vim.fn.bufnr()) then
+                    nvim.command("FormatWrite")
                 end
             end
         end,
@@ -48,7 +48,7 @@ M.autocmds = function()
 
     vim.g.autocmd("CursorHold", {
         callback = function()
-            if vim.fun.capabilities('hi', 0) then
+            if u.fun.capabilities('hi', 0) then
                 vim.lsp.buf.document_highlight()
             end
         end,
@@ -71,7 +71,7 @@ local on_attach = function(client, bufnr)
 
     -- si un formatter est configuré dans formatter.nvim
     -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
-    if format(vim.fun.buf(bufnr, 'filetype')) then
+    if format(u.fun.buf(bufnr, 'filetype')) then
         client.server_capabilities.documentFormattingProvider = false
     end
 
@@ -93,7 +93,7 @@ M.config = function()
         },
         virtual_text = {
             severity = { min = vim.diagnostic.severity.ERROR },
-            prefix = vim.icons.diagnostics
+            prefix = u.icons.diagnostics
         }
     })
 

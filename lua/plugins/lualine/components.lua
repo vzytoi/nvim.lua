@@ -1,11 +1,11 @@
 local M = {}
 
 local format = require('plugins.format').get
-local colors = vim.colors.get()
+local colors = u.colors.get()
 local icons = require('utils.icons')
 
 M.filter = function()
-    return not vim.ft.is_disabled('lualine')
+    return not u.ft.is_disabled('lualine')
 end
 
 local function inject_toggle(func, icon, cond)
@@ -42,7 +42,7 @@ M.lsp = inject_toggle(
 
 M.format = inject_toggle(
     function()
-        return vim.fun.capabilities('format', 0)
+        return u.fun.capabilities('format', 0)
             or format(vim.bo.filetype)
     end,
     icons.format,
@@ -72,8 +72,8 @@ M.mode = {
 
 M.progression = {
     function()
-        return vim.icons.progress[
-            math.ceil(vim.fn.line '.' / vim.fn.line '$' * #vim.icons.progress)
+        return u.icons.progress[
+            math.ceil(vim.fn.line '.' / vim.fn.line '$' * #u.icons.progress)
             ]
     end,
     cond = M.filter,
@@ -98,17 +98,17 @@ M.diff = {
         return not vim.g.DiffviewOpen and M.filter()
     end,
     on_click = function()
-        vim.fun.toggle("DiffviewOpen", "DiffviewClose")
+        u.fun.toggle("DiffviewOpen", "DiffviewClose")
     end
 }
 
 M.spaces = {
     function()
-        local size = vim.api.nvim_buf_get_option(0, "shiftwidth")
+        local size = nvim.buf_get_option(0, "shiftwidth")
         if size == 0 then
-            size = vim.api.nvim_buf_get_option(0, "tabstop")
+            size = nvim.buf_get_option(0, "tabstop")
         end
-        return string.format("%s %s", vim.icons.spaces, size)
+        return string.format("%s %s", u.icons.spaces, size)
     end,
     color = { fg = colors.blue },
     cond = M.filter,

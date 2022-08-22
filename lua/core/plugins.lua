@@ -311,11 +311,14 @@ M.config = function()
         }
 
         use {
-            "justinmk/vim-sneak",
+            "ggandor/leap.nvim",
             keys = {
                 { "n", "S" },
                 { "n", "s" }
-            }
+            },
+            config = function()
+                require('leap').set_default_keymaps()
+            end
         }
 
         use {

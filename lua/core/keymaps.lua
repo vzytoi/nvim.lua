@@ -53,11 +53,19 @@ M.config = function()
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
+
+            { 'c', function()
+                vim.g.nmap("<leader>c", function()
+                    u.fun.toggle("copen", "cclose")
+                end)
+            end },
+            { 'ck', ':cp<cr>' },
+            { 'cj', ':cn<cr>' },
+
+            { "h", function() require('harpoon.ui').toggle_quick_menu() end },
+            { "ha", function() require('harpoon.mark').add_file() end },
+
             { "<leader>x", ":w|so<cr>" },
-            { "h", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>" },
-            { "h", {
-                { "a", "<cmd>lua require('harpoon.mark').add_file()<cr>" },
-            } },
             { "w", ":silent write<cr>" },
             { "p", ":PP<cr>" },
             { "z", ":ZenMode<cr>" },
@@ -102,25 +110,21 @@ M.config = function()
     }
 
     vim.g.nmap("<leader>d", function()
-        vim.fun.toggle("DiffviewOpen", "DiffviewClose")
+        u.fun.toggle("DiffviewOpen", "DiffviewClose")
     end)
 
     vim.g.nmap("<leader>l", function()
-        vim.fun.toggle("lop", "lcl")
-    end)
-
-    vim.g.nmap("<leader>c", function()
-        vim.fun.toggle("copen", "cclose")
+        u.fun.toggle("lop", "lcl")
     end)
 
     vim.g.nmap("<leader>s", require('spectre').open)
 
-    for k, v in pairs(vim.fun.keycount) do
+    for k, v in pairs(u.fun.keycount) do
         vim.g.nmap("<leader>" .. k, function()
             if vim.fn.tabpagenr('$') >= v then
-                vim.api.nvim_command("tabn" .. v)
+                nvim.command("tabn" .. v)
             else
-                vim.api.nvim_command('tabnew')
+                nvim.command('tabnew')
             end
         end)
 

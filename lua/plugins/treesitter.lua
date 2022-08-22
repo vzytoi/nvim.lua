@@ -1,18 +1,18 @@
 local M = {}
 
 M.autocmds = function()
-    vim.api.nvim_create_autocmd("BufReadPost", {
+    nvim.create_autocmd("BufReadPost", {
         callback = function()
             local size = vim.fn.getfsize(vim.fn.expand("%"))
 
             if size >= 1000000 then
-                for hl_name, _ in pairs(vim.api.nvim__get_hl_defs(0)) do
-                    vim.api.nvim_set_hl(0, hl_name, {})
+                for hl_name, _ in pairs(nvim._get_hl_defs(0)) do
+                    nvim.set_hl(0, hl_name, {})
                 end
             elseif size >= 500000 then
-                vim.api.nvim_command("TSBufDisable highlight")
+                nvim.command("TSBufDisable highlight")
             elseif vim.g.TS_disabled then
-                vim.api.nvim_command("TSBufEnable highlight")
+                nvim.command("TSBufEnable highlight")
             end
 
             vim.g.TS_disabled = size >= 500000
