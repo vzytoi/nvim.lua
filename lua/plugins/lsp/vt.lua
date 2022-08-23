@@ -67,7 +67,7 @@ end
 
 VT.autocmds = function()
 
-    vim.g.autocmd({ "CursorMoved", "CursorHold", "BufEnter" }, {
+    vim.g.autocmd("DiagnosticChanged", {
         callback = function()
             local ln = vim.fn.line('.') - 1
             VT.clear()
