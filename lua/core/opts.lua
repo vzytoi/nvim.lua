@@ -27,12 +27,12 @@ M.disablePlugins = function()
         "tutor_mode_plugin"
     }
 
-    --[[ if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
+    if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
         plug_buitlins = u.fun.table.merge(
             plug_buitlins,
             { "netrw", "netrwPlugin", "netrwSettings" }
         )
-    end ]]
+    end
 
     for _, p in pairs(plug_buitlins) do
         vim.g["loaded_" .. p] = 1
@@ -83,8 +83,8 @@ M.loadOptions = function()
         cursorline = true,
         cursorlineopt = "number",
         showmode = false,
-        spell = true,
-        spl = { "fr", "en_us" }
+        spell = false,
+        spl = { "fr", "en_us" },
     }
 
     for k, v in pairs(options) do
@@ -124,7 +124,7 @@ M.ColorOpt = function()
     vim.o.background = "dark"
 
     vim.g.gruvbox_contrast_dark = 'dark'
-    vim.cmd.colorscheme('gruvbox')
+    vim.cmd.colorscheme('xcodedarkhc')
 
 end
 
@@ -138,7 +138,37 @@ M.config = function()
     vim.g.explorer_is_open = false
     vim.g.rooter_silent_chdir = true
     vim.g["sneak#use_ic_scs"] = true
+    -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
     vim.g.doge_mapping = "<leader>nop"
+
+    --[[ vim.api.nvim_set_hl(0, "NavicIconsFile", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsModule", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsNamespace", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsPackage", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsClass", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsMethod", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsProperty", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsField", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsConstructor", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsEnum", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsInterface", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsFunction", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsVariable", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsConstant", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsString", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsNumber", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsBoolean", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsArray", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsObject", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsKey", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsNull", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsEnumMember", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsStruct", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsEvent", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsOperator", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicIconsTypeParameter", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicText", { default = true, bg = "#1f1f24", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = "#1f1f24", fg = "#ffffff" }) ]]
 end
 
 return M

@@ -14,6 +14,7 @@ M.config = function()
     require "plugins.treesitter".autocmds()
     require "core.tabline".autocmds()
     require "core.rooter".autocmds()
+    require "core.winbar".autocmds()
 
     local close = {
         fts = {
@@ -35,7 +36,7 @@ M.config = function()
     local dis = u.ft.disabled
 
     local events = {
-        InsertLeave = true,
+        --[[ InsertLeave = true,
         WinEnter = true,
         BufEnter = true,
         FocusGained = true,
@@ -43,7 +44,7 @@ M.config = function()
         WinLeave = false,
         FocusLost = false,
         BufNewFile = false,
-        BufReadPost = false,
+        BufReadPost = false, ]]
     }
 
     for event, op in pairs(events) do

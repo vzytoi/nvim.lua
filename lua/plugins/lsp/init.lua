@@ -66,8 +66,11 @@ end
 
 local on_attach = function(client, bufnr)
 
-    require 'nvim-navic'.attach(client, bufnr)
     M.autocmds()
+
+    if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+    end
 
     -- si un formatter est configuré dans formatter.nvim
     -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
@@ -77,7 +80,7 @@ local on_attach = function(client, bufnr)
 
 end
 
-local capabilities = require 'cmp_nvim_lsp'.update_capabilities(
+local capabilities = require 'cmp_nvim_lsp'.default_capabilities(
     vim.lsp.protocol.make_client_capabilities()
 )
 

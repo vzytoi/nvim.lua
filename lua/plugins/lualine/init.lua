@@ -16,7 +16,7 @@ function M.config()
         sections = {
             lualine_a = { components.mode },
             lualine_b = { components.branch },
-            lualine_c = { 'diagnostics', },
+            lualine_c = { 'diagnostics' },
             lualine_x = {},
             lualine_y = {
                 components.diff,

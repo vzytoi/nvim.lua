@@ -2,7 +2,6 @@ local M = {}
 
 local cmp = require('cmp')
 local luasnip = require("luasnip")
--- local tabnine = require('cmp_tabnine.config')
 
 M.config = function()
 

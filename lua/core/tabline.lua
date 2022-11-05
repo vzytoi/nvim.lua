@@ -8,11 +8,6 @@ local get_bufnr = function(v)
         ]
 end
 
-vim.cmd [[
-    function! Close(minwid, clicks, button, modifiers) abort
-    endfunction
-]]
-
 local components = {
 
     -- @description permet de récupérer l'icon avec sa
@@ -136,7 +131,7 @@ TL.autocmds = function()
 
     local tabline = require('core.tabline')
 
-    vim.g.autocmd({ "BufEnter", "TextChanged", "TextChangedI", "CursorHold" }, {
+    vim.g.autocmd({ "DiagnosticChanged", "BufEnter", "TextChanged", "TextChangedI", "CursorHold" }, {
         callback = function()
             nvim.set_option_value(
                 "tabline", tabline.get(), { scope = "local" }

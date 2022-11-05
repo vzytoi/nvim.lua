@@ -16,14 +16,17 @@ COLORS.table = {
         darkgrey  = "#191919"
     },
     xcodedarkhc = {
+        darkerblack = "#000000",
         black = "#1f1f24",
         orange = "#ff8a7a",
-        green = "#83c9bc",
+        green = "#83c979",
         yellow = "#d9c668",
         blue = "#4ec4e6",
         pink = "#ff85b8",
         white = "#ffffff",
-        grey = "#262626"
+        grey = "#262626",
+        lightgrey = "#484848",
+        violet = "#cda1ff"
     }
 }
 

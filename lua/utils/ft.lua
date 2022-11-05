@@ -16,10 +16,13 @@ FT.disabled = {
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",
         "TelescopePrompt", "NvimTree", "harpoon",
-        "sagarename", "mason.nvim", "packer"
+        "sagarename", "mason.nvim", "packer", "gitcommit"
     },
     spell = {
         "toggleterm", "RunCode"
+    },
+    winbar = {
+        "RunCode", "toggleterm"
     }
 }
 

@@ -5,7 +5,7 @@ local cmds = {
     typescript = { cmd = "ts-node" },
     lua = { cmd = "lua" },
     python = { cmd = "python3" },
-    ocaml = { cmd = "ocaml" }
+    ocaml = { cmd = "utop" }
 }
 
 local function envInit()

@@ -1,6 +1,6 @@
 local M = {}
 
-local c = u.colors.table.gruvbox
+local c = u.colors.get()
 
 local raw = {
     all = {},
@@ -46,6 +46,20 @@ local raw = {
         CmpItemAbbrMatch = { fg = c.white, bold = true },
 
     },
+    xcodedarkhc = {
+        TabLine = { bg = c.darkerblack },
+        TabLineSel = { bg = c.black, fg = c.blue, bold = true },
+        TabLineFill = { bg = c.black },
+
+        SepOn = { fg = c.violet },
+        SepOff = { fg = c.lightgrey },
+
+        StatusLine = { bg = c.black },
+
+        LspReferenceText = { bold = true },
+        LspReferenceRead = { bold = true },
+        LspReferenceWrite = { bold = true },
+    }
 }
 
 local apply = function(name, args)

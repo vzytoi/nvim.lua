@@ -32,6 +32,10 @@ M.setup = function()
         builtin.help_tags(ivy)
     end)
 
+    vim.g.nmap("<leader>fr", function()
+        telescope.extensions.recent_files.pick()
+    end)
+
     vim.g.nmap("<leader>fp", function()
         telescope.extensions.project.project {}
     end)
@@ -77,6 +81,7 @@ M.config = function()
 
     telescope.load_extension('project')
     telescope.load_extension("fzf")
+    telescope.load_extension("recent_files")
 
     M.setup()
 end

@@ -16,7 +16,6 @@ M.autocmds = function()
             end
 
             vim.g.TS_disabled = size >= 500000
-
         end
     })
 end
@@ -27,8 +26,8 @@ M.config = function()
         autopairs = { enable = true },
         autotag = { enable = true },
         tree_docs = { enable = true },
-        -- indent = { enable = true },
-        -- incremental_selection = { enable = true },
+        indent = { enable = true },
+        incremental_selection = { enable = true },
         context_commenstring = { enable = true },
         highlight = { enable = true },
         textobjects = {
@@ -61,7 +60,10 @@ M.config = function()
                 ["."] = "textsubjects-smart",
                 [";"] = "textsubjects-container-outer"
             }
-        }
+        },
+        disable = function(lang, bufnr)
+            return nvim.buf_line_count(bufnr) > 50000
+        end
     })
 
 end

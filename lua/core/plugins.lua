@@ -18,7 +18,6 @@ M.config = function()
         use "wbthomason/packer.nvim"
         use "nvim-lua/plenary.nvim"
         use "tpope/vim-surround"
-        -- use "tpope/vim-sleuth"
         use "wellle/targets.vim"
         use "farmergreg/vim-lastplace"
         use "fedepujol/move.nvim"
@@ -26,6 +25,7 @@ M.config = function()
         use "stevearc/dressing.nvim"
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
+        use "smartpde/telescope-recent-files"
 
         use {
             'weilbith/nvim-code-action-menu',
@@ -40,23 +40,13 @@ M.config = function()
         }
 
         use {
-            "rcarriga/nvim-notify",
-            config = function()
-                require("notify").setup {
-                    stages = "fade",
-                    fps = 60,
-                    timeout = 0
-                }
-
-                vim.notify = require('notify')
-            end
-        }
-
-        use {
             "SmiteshP/nvim-navic",
             config = function()
-                require "nvim-navic".setup()
-            end
+                require("nvim-navic").setup {
+                    highlight = true
+                }
+            end,
+            requires = "neovim/nvim-lspconfig",
         }
 
         use {
@@ -95,6 +85,7 @@ M.config = function()
         use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
         use { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" }
         use { 'nvim-treesitter/nvim-tree-docs', after = "nvim-treesitter" }
+
         use {
             "lewis6991/spellsitter.nvim",
             config = function()
@@ -128,6 +119,18 @@ M.config = function()
             "williamboman/mason.nvim",
             config = function()
                 require "mason".setup()
+            end
+        }
+
+        use {
+            'https://github.com/nat-418/boole.nvim',
+            config = function()
+                require('boole').setup {
+                    mappings = {
+                        increment = '<up>',
+                        decrement = '<down>'
+                    },
+                }
             end
         }
 
@@ -326,8 +329,6 @@ M.config = function()
             config = function()
                 require("plugins.toggleterm").config()
             end,
-            --[[ cmd = "ToggleTerm",
-            module = { "toggleterm", "toggleterm.terminal" }, ]]
         }
 
         use {

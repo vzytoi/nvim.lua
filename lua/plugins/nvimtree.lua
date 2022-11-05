@@ -23,9 +23,10 @@ M.config = function()
             mappings = {
                 custom_only = false,
                 list = {
-                    -- { key = "v", action = "vsplit" },
+                    { key = "v", action = "vsplit" },
                     { key = "s", action = "split" },
                     { key = "e", action = "edit" },
+                    { key = "K", action = "parent_node" },
 
                 }
             }
