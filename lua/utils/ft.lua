@@ -5,13 +5,14 @@ local alias = {
     NvimTree = "NvimTree",
     toggleterm = "zsh",
     DiffviewFilePannel = "Diff",
+    man = "Man"
 }
 
 FT.disabled = {
     lualine = {
         "TelescopePrompt", "NvimTree", "toggleterm",
         "harpoon", "spectre_panel", "lspsagafinder",
-        "RunCode", "qf"
+        "RunCode", "qf", "packer"
     },
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",
@@ -22,7 +23,8 @@ FT.disabled = {
         "toggleterm", "RunCode"
     },
     winbar = {
-        "RunCode", "toggleterm"
+        "RunCode", "toggleterm", "NvimTree",
+        "packer", "startuptime"
     }
 }
 

@@ -23,9 +23,22 @@ M.config = function()
         use "fedepujol/move.nvim"
         use "antoinemadec/FixCursorHold.nvim"
         use "stevearc/dressing.nvim"
+        use "smartpde/telescope-recent-files"
+        use "samjwill/nvim-unception"
+
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
-        use "smartpde/telescope-recent-files"
+        use "folke/tokyonight.nvim"
+
+        use {
+            'mrjones2014/dash.nvim',
+            run = 'make install',
+        }
+
+        use {
+            "vim-utils/vim-man",
+            cmd = "Man"
+        }
 
         use {
             'weilbith/nvim-code-action-menu',
@@ -50,6 +63,18 @@ M.config = function()
         }
 
         use {
+            "ray-x/lsp_signature.nvim",
+            config = function()
+                require("lsp_signature").setup({
+                    floating_window = false,
+                    hint_prefix = "",
+                    hint_scheme = "Comment",
+                })
+            end,
+            requires = "neovim/nvim-lspconfig",
+        }
+
+        use {
             "hrsh7th/nvim-cmp",
             event = "InsertEnter",
             config = function()
@@ -65,9 +90,7 @@ M.config = function()
             "tzachar/cmp-tabnine",
             run = "./install.sh",
             config = function()
-                require("cmp_tabnine.config"):setup({
-                    show_prediction_strength = false
-                })
+                require("cmp_tabnine.config"):setup({ show_prediction_strength = false })
             end,
             after = "nvim-cmp"
         }
@@ -85,14 +108,6 @@ M.config = function()
         use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
         use { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" }
         use { 'nvim-treesitter/nvim-tree-docs', after = "nvim-treesitter" }
-
-        use {
-            "lewis6991/spellsitter.nvim",
-            config = function()
-                require('spellsitter').setup()
-            end,
-            after = "nvim-treesitter"
-        }
 
         use {
             "kkoomen/vim-doge",
@@ -119,8 +134,30 @@ M.config = function()
             "williamboman/mason.nvim",
             config = function()
                 require "mason".setup()
+            end,
+            requires = {
+                {
+                    "mfussenegger/nvim-lint",
+                    config = function()
+                        require('core.linter').config()
+                    end
+                },
+            }
+        }
+
+        use "mfussenegger/nvim-dap"
+        use "jayp0521/mason-nvim-dap.nvim"
+        use {
+            "rcarriga/nvim-dap-ui",
+            config = function()
+                require("mason").setup()
+                require("mason-nvim-dap").setup({
+                    automatic_setup = true,
+                })
+                require 'mason-nvim-dap'.setup_handlers()
             end
         }
+
 
         use {
             'https://github.com/nat-418/boole.nvim',
@@ -178,10 +215,8 @@ M.config = function()
         }
 
         use {
-            "kyazdani42/nvim-tree.lua",
-            requires = {
-                "kyazdani42/nvim-web-devicons",
-            },
+            "nvim-tree/nvim-tree.lua",
+            requires = { "nvim-tree/nvim-web-devicons" },
             config = function()
                 require "plugins.nvimtree".config()
             end,

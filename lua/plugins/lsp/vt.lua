@@ -71,13 +71,13 @@ VT.autocmds = function()
         callback = function()
             local ln = vim.fn.line('.') - 1
             VT.clear()
-
             if VT.cond(ln) then
                 VT.print(ln, VT.get(ln))
             end
 
         end,
-        buffer = 0
+        -- buffer = 0
+        -- pourquoi j'avais eu besoins de mettre ça???
     })
 
 end

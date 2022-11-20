@@ -15,6 +15,7 @@ M.config = function()
     require "core.tabline".autocmds()
     require "core.rooter".autocmds()
     require "core.winbar".autocmds()
+    require "core.linter".autocmds()
 
     local close = {
         fts = {

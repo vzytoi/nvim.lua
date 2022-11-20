@@ -31,19 +31,11 @@ M.config = function()
                 }
             }
         },
-        git = {
-            ignore = false
-        },
+        git = { ignore = false },
+        diagnostics = { enable = true, debounce_delay = 10 },
         renderer = {
-            indent_markers = {
-                enable = true,
-                icons = {
-                    corner = "└",
-                    edge = "│",
-                    item = "│",
-                    none = " ",
-                },
-            },
+            indent_markers = { enable = false },
+            icons = { show = { git = false } }
         },
         on_attach = function(bufnr)
             vim.g.nmap("v", api.node.open.vertical, { buffer = bufnr })

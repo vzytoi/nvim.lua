@@ -1,6 +1,7 @@
 local TL = {}
 
 local devicons = require('nvim-web-devicons')
+local c = u.colors.get()
 
 local get_bufnr = function(v)
     return vim.fn.tabpagebuflist(v)[
@@ -24,7 +25,7 @@ local components = {
             color = u.colors.get().lightgrey
         end
 
-        nvim.set_hl(0, 'Icon' .. ft, { fg = (color or "NONE") })
+        nvim.set_hl(0, 'Icon' .. ft, { bg = c.black, fg = (color or "NONE") })
 
         return icon, "%#Icon" .. ft .. "#"
     end,
@@ -54,7 +55,7 @@ local components = {
     modified = function(bufnr)
 
         local is_modified = u.fun.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
-        return is_modified and u.icons.modified or "%42@Close@%X"
+        return "%#TabLineSel#" .. (is_modified and u.icons.modified or "%42@Close@%X")
 
     end,
 
@@ -105,7 +106,7 @@ TL.get = function()
         local bufnr = get_bufnr(tabnr)
         local icon, color = components.icon(bufnr)
 
-        tab = table.concat({
+        tab = tab .. table.concat({
             components.color.sep(tabnr),
             "▎",
             s(3),
@@ -113,17 +114,17 @@ TL.get = function()
             icon,
             s(3),
             components.color.txt(tabnr),
-            components.filename(bufnr),
+            "%#TabLineSel#" .. components.filename(bufnr),
             s(3),
             components.modified(tabnr),
             s(3)
-        })
+        }, "")
 
         table.insert(tabs, tab)
 
     end
 
-    return table.concat(tabs, "")
+    return table.concat(tabs, "") .. "%#TabLineFill#"
 
 end
 

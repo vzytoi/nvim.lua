@@ -85,7 +85,7 @@ M.config = function()
                 { "c", ":G commit|star<cr>" },
                 { "p", ":G push<cr>" },
                 { "l", ":G log<cr>" },
-                { "d", ":Gdiff<cr>" },
+                -- { "d", ":Gdiff<cr>" },
                 { "q", ":q<cr>" }
             } }
         } },
@@ -109,7 +109,7 @@ M.config = function()
         } }
     }
 
-    vim.g.nmap("<leader>d", function()
+    vim.g.nmap("<leader>gd", function()
         u.fun.toggle("DiffviewOpen", "DiffviewClose")
     end)
 
@@ -132,6 +132,17 @@ M.config = function()
             require('harpoon.ui').nav_file(v)
         end)
     end
+
+    -- dap keymaps
+    local dap = require('dap')
+
+    vim.g.nmap('<leader>db', function()
+        dap.toggle_breakpoint();
+    end)
+
+    vim.g.nmap('<leader>dc', function()
+        dap.continue();
+    end)
 
 end
 

@@ -38,9 +38,7 @@ M.autocmds = function()
     vim.g.autocmd("BufWritePost", {
         callback = function()
             if format(vim.bo.filetype) then
-                if not u.fun.file_empty(vim.fn.bufnr()) then
-                    nvim.command("FormatWrite")
-                end
+                local _ = pcall(nvim.command, "FormatWrite")
             end
         end,
         buffer = 0
@@ -67,6 +65,8 @@ end
 local on_attach = function(client, bufnr)
 
     M.autocmds()
+
+    require "lsp_signature".on_attach({}, bufnr)
 
     if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)

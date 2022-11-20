@@ -55,9 +55,9 @@ local function resize_window(bufnr, win)
     end)(bufnr)
 
     nvim[
-        "nvim_win_set_" ..
+        "win_set_" ..
             (direction == "vertical" and "width" or "height")
-        ](win, size)
+        ](win, size + 10)
 
 end
 
@@ -124,7 +124,10 @@ local execute = function(direction)
     vim.fn.jobstart(vim.fn.join(ls.get(vim.g.target.bufnr), " "), {
         stdout_buffered = true,
         on_stdout = add,
-        on_stderr = add,
+        on_stderr = function(_, data)
+            error = true
+            add(_, data)
+        end,
         on_exit = function()
 
             local bufnr, winhandle = prepare_buffer(direction)
@@ -191,6 +194,14 @@ M.autocmds = function()
                 u.fun.close(vim.fn.bufnr())
                 vim.fn.winrestview(vim.g.target.view)
             end, { buffer = 0 })
+
+            local ns = nvim.create_namespace('RunCode')
+            nvim.win_set_hl_ns(0, ns)
+
+            local c = u.colors.get()
+
+            nvim.set_hl(ns, 'Normal', { bg = c.darkerblack })
+            nvim.set_hl(ns, 'EndOfBuffer', { fg = c.darkerblack })
         end
     })
 

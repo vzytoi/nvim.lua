@@ -82,6 +82,7 @@ M.config = function()
     telescope.load_extension('project')
     telescope.load_extension("fzf")
     telescope.load_extension("recent_files")
+    telescope.load_extension("dash")
 
     M.setup()
 end

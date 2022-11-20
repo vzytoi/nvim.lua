@@ -47,11 +47,13 @@ local raw = {
 
     },
     xcodedarkhc = {
-        TabLine = { bg = c.darkerblack },
-        TabLineSel = { bg = c.black, fg = c.blue, bold = true },
-        TabLineFill = { bg = c.black },
+        TabLine = { bg = c.black },
+        TabLineSel = { bg = c.black, bold = true },
+        TabLineFill = { bg = c.darkerblack },
 
-        SepOn = { fg = c.violet },
+        TextOn = { bg = c.black },
+
+        SepOn = { bg = c.black, fg = c.pink },
         SepOff = { fg = c.lightgrey },
 
         StatusLine = { bg = c.black },
@@ -59,6 +61,21 @@ local raw = {
         LspReferenceText = { bold = true },
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
+
+        CursorLineNr = { bold = true, fg = c.white },
+
+        RunCodeOk    = { fg = c.green },
+        RunCodeError = { fg = c.red },
+        RunCodeInfo  = { fg = c.blue },
+
+        NvimTreeNormal           = { bg = c.darkerblack },
+        NvimTreeEndOfBuffer      = { fg = c.darkerblack, bg = c.darkerblack },
+        NvimTreeFolderName       = { fg = c.white },
+        NvimTreeOpenedFolderName = { fg = c.white },
+        NvimTreeFolderIcon       = { fg = c.darkgrey },
+        NvimTreeWinSeparator     = { bg = c.black },
+        NvimTreeOpenedFile       = { fg = c.pink },
+        NvimTreeIndentMarker     = { fg = c.darkgrey },
     }
 }
 
