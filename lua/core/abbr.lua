@@ -6,7 +6,8 @@ function M.config()
         nowrap = "set nowrap",
         nws = "set nowrapscan! nowrapscan?",
         ps = "PackerSync",
-        msg = "messages"
+        msg = "messages",
+        WA = "wa"
     }
 
     for l, r in pairs(abbreviations) do

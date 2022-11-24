@@ -7,7 +7,9 @@ M.linters = {
 M.autocmds = function()
     vim.api.nvim_create_autocmd({ "BufWritePost", "CursorHold", "InsertLeave", "DiagnosticChanged" }, {
         callback = function()
-            require("lint").try_lint()
+            if M.get() then
+                require("lint").try_lint()
+            end
         end,
     })
 end
@@ -19,7 +21,7 @@ M.config = function()
 end
 
 M.get = function()
-    return M.linters[u.fun.buf('filetype')] or ''
+    return M.linters[u.fun.buf('filetype')]
 end
 
 return M

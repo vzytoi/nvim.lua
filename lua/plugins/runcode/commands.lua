@@ -1,5 +1,28 @@
 local FT = {}
 
+local buildpath = function(name)
+    return vim.fn.stdpath('data') .. "/runcode/" .. name
+end
+
+local get_projects = function(ft)
+    return ({
+        ocaml = { 'dune-workspace', 'dune-project' }
+    })[ft]
+end
+
+local is_in_project = function(args)
+
+    local files = get_projects(args.filetype)
+
+    for _, v in ipairs(files) do
+        if #vim.fs.find(v, { upward = true }) > 0 then
+            return true
+        end
+    end
+
+    return false
+end
+
 FT.get_lst = function(args)
     local lst = {
         typescript = { "ts-node", args.filepath },
@@ -10,12 +33,12 @@ FT.get_lst = function(args)
         lua = { "lua", args.filepath },
         swift = { "swift", args.filepath },
         ocaml = { "ocaml", args.filepath },
-        c = { "gcc", "-o", args.filetag, args.filepath, "&&", "./" .. args.filetag },
-        cpp = { "g++", args.filepath, "-o", args.filetag, "&&", "./" .. args.filetag }
+        c = { "gcc", args.filepath, "-o", buildpath(args.filetag), "&&", buildpath(args.filetag) }
     }
 
     return lst[args.filetype]
 end
+
 
 FT.get = function(bufnr)
 
@@ -26,5 +49,7 @@ FT.get = function(bufnr)
     }) or false
 
 end
+
+FT.get(vim.fn.bufnr())
 
 return FT

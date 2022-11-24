@@ -12,6 +12,7 @@ M.config = function()
 
     require "plugins.runcode".autocmds()
     require "plugins.treesitter".autocmds()
+    require "plugins.time".autocmds()
     require "core.tabline".autocmds()
     require "core.rooter".autocmds()
     require "core.winbar".autocmds()

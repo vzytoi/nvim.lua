@@ -33,9 +33,9 @@ M.config = function()
     vim.g.mapleader = " "
 
     require "plugins.runcode".keymaps()
+    require "plugins.nvimtree".keymaps()
     require "plugins.resize".keymaps()
     require "plugins.toggleterm".keymaps()
-    require "plugins.nvimtree".keymaps()
     require "plugins.lsp".keymaps()
     require "core.rooter".keymaps()
 
@@ -53,7 +53,7 @@ M.config = function()
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
-
+            { 'u', ':UndotreeToggle<cr>' },
             { 'c', function()
                 vim.g.nmap("<leader>c", function()
                     u.fun.toggle("copen", "cclose")
@@ -132,17 +132,6 @@ M.config = function()
             require('harpoon.ui').nav_file(v)
         end)
     end
-
-    -- dap keymaps
-    local dap = require('dap')
-
-    vim.g.nmap('<leader>db', function()
-        dap.toggle_breakpoint();
-    end)
-
-    vim.g.nmap('<leader>dc', function()
-        dap.continue();
-    end)
 
 end
 

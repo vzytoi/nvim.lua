@@ -8,6 +8,7 @@ local formatters = {
 
     python = {
         function()
+
             -- seule solution trouvée pour l'instant pour pas avoir
             -- d'erreurs de formattage
             local diag = vim.diagnostic.get(0)
@@ -32,6 +33,11 @@ local formatters = {
     },
     ocaml = {
         function()
+
+            if vim.fn.getfsize(vim.fn.expand('%')) <= 1 then
+                return nil
+            end
+
             return {
                 exe = "ocamlformat",
                 args = {

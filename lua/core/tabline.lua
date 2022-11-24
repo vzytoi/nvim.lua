@@ -134,9 +134,7 @@ TL.autocmds = function()
 
     vim.g.autocmd({ "DiagnosticChanged", "BufEnter", "TextChanged", "TextChangedI", "CursorHold" }, {
         callback = function()
-            nvim.set_option_value(
-                "tabline", tabline.get(), { scope = "local" }
-            )
+            nvim.set_option_value("tabline", not u.ft.is_disabled('tabline') and tabline.get() or "", { scope = "local" })
         end
     })
 

@@ -24,6 +24,18 @@ nvim = setmetatable({}, {
 
 })
 
+req = setmetatable({}, {
+    __index = function(t, i)
+        local f, _ = pcall(require, i)
+
+        if f then
+            rawset(t, i, f)
+        end
+
+        return f
+    end
+})
+
 P = function(obj)
     print(vim.inspect(obj))
     return obj

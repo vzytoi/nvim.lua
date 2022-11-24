@@ -2,7 +2,7 @@ local ROOT = {}
 
 local options = {
     history_path = vim.fn.stdpath('data') .. '/rooter/history',
-    targets = { '.git', '.gitignore', 'README.md' }
+    targets = { '.git', '.gitignore', 'README.md', 'dune-project', 'dune-workspace' }
 }
 
 local write = function(path)

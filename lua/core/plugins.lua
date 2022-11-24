@@ -10,13 +10,13 @@ M.config = function()
             install_path })
     end
 
-    vim.cmd("packadd packer.nvim")
-
     return require("packer").startup { function(use)
 
-        use "lewis6991/impatient.nvim"
         use "wbthomason/packer.nvim"
+        use "lewis6991/impatient.nvim"
         use "nvim-lua/plenary.nvim"
+        use "nvim-tree/nvim-web-devicons"
+
         use "tpope/vim-surround"
         use "wellle/targets.vim"
         use "farmergreg/vim-lastplace"
@@ -25,24 +25,17 @@ M.config = function()
         use "stevearc/dressing.nvim"
         use "smartpde/telescope-recent-files"
         use "samjwill/nvim-unception"
+        use "mbbill/undotree"
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
-        use "folke/tokyonight.nvim"
 
         use {
-            'mrjones2014/dash.nvim',
-            run = 'make install',
-        }
-
-        use {
-            "vim-utils/vim-man",
-            cmd = "Man"
-        }
-
-        use {
-            'weilbith/nvim-code-action-menu',
-            cmd = 'CodeActionMenu',
+            'goolord/alpha-nvim',
+            requires = { 'kyazdani42/nvim-web-devicons' },
+            config = function()
+                require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+            end
         }
 
         use {
@@ -110,11 +103,6 @@ M.config = function()
         use { 'nvim-treesitter/nvim-tree-docs', after = "nvim-treesitter" }
 
         use {
-            "kkoomen/vim-doge",
-            run = "npm i --no-save && npm run build:binary:unix"
-        }
-
-        use {
             "nvim-telescope/telescope.nvim",
             keys = "<leader>f",
             cmd = "Telescope",
@@ -146,9 +134,9 @@ M.config = function()
         }
 
         use "mfussenegger/nvim-dap"
-        use "jayp0521/mason-nvim-dap.nvim"
+        use "rcarriga/nvim-dap-ui"
         use {
-            "rcarriga/nvim-dap-ui",
+            "jayp0521/mason-nvim-dap.nvim",
             config = function()
                 require("mason").setup()
                 require("mason-nvim-dap").setup({
@@ -218,14 +206,16 @@ M.config = function()
             "nvim-tree/nvim-tree.lua",
             requires = { "nvim-tree/nvim-web-devicons" },
             config = function()
-                require "plugins.nvimtree".config()
+                require('plugins.nvimtree').config()
             end,
             cmd = "NvimTreeToggle"
         }
 
         use {
             "L3MON4D3/LuaSnip",
-            config = function() require("luasnip.loaders.from_snipmate").lazy_load() end,
+            config = function()
+                require("luasnip.loaders.from_snipmate").lazy_load()
+            end,
             after = "nvim-cmp"
         }
 

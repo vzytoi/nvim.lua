@@ -49,7 +49,7 @@ M.config = function()
                 check_mine_type = false,
                 timeout = 100
             },
-            file_ignore_patterns = { ".git/" },
+            file_ignore_patterns = { ".git/", "_build/" },
             prompt_prefix = "> ",
             selection_caret = "> ",
             sorting_strategy = "ascending",
@@ -82,7 +82,6 @@ M.config = function()
     telescope.load_extension('project')
     telescope.load_extension("fzf")
     telescope.load_extension("recent_files")
-    telescope.load_extension("dash")
 
     M.setup()
 end

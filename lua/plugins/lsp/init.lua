@@ -38,7 +38,7 @@ M.autocmds = function()
     vim.g.autocmd("BufWritePost", {
         callback = function()
             if format(vim.bo.filetype) then
-                local _ = pcall(nvim.command, "FormatWrite")
+                local _ = pcall(nvim.command, "FormatWriteLock")
             end
         end,
         buffer = 0

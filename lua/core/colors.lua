@@ -76,6 +76,7 @@ local raw = {
         NvimTreeWinSeparator     = { bg = c.black },
         NvimTreeOpenedFile       = { fg = c.pink },
         NvimTreeIndentMarker     = { fg = c.darkgrey },
+
     }
 }
 

@@ -5,7 +5,8 @@ local alias = {
     NvimTree = "NvimTree",
     toggleterm = "zsh",
     DiffviewFilePannel = "Diff",
-    man = "Man"
+    man = "Man",
+    alpha = "Alpha"
 }
 
 FT.disabled = {
@@ -24,7 +25,7 @@ FT.disabled = {
     },
     winbar = {
         "RunCode", "toggleterm", "NvimTree",
-        "packer", "startuptime"
+        "packer", "startuptime", "harpoon"
     }
 }
 
