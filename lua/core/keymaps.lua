@@ -67,7 +67,6 @@ M.config = function()
 
             { "<leader>x", ":w|so<cr>" },
             { "w", ":silent write<cr>" },
-            { "p", ":PP<cr>" },
             { "z", ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
             { "bk", ":b#" },
@@ -132,6 +131,19 @@ M.config = function()
             require('harpoon.ui').nav_file(v)
         end)
     end
+
+    vim.g.nmap('<leader>w', function()
+        nvim.command("AerialToggle")
+
+        vim.g.nmap('K', function()
+            nvim.command("AerialPrev")
+        end, { buffer = 0 })
+
+        vim.g.nmap('J', function()
+            nvim.command("AerialNext")
+        end, { buffer = 0 })
+
+    end)
 
 end
 

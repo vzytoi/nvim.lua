@@ -376,6 +376,12 @@ M.config = function()
             cmd = { "G", "Gdiff" }
         }
 
+        use {
+            "stevearc/aerial.nvim",
+            config = function() require('aerial').setup() end,
+            cmd = { "AerialToggle" }
+        }
+
         if PB then
             require("packer").sync()
         end
