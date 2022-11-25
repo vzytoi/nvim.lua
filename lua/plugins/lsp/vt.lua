@@ -4,9 +4,15 @@ local ns = nvim.create_namespace("VT")
 
 VT.print = function(ln, content)
 
-    local col = string.len(nvim.buf_get_lines(
+    local line_content = nvim.buf_get_lines(
         0, ln, ln + 1, false
-    )[1])
+    )
+
+    if not line_content then
+        return
+    end
+
+    local col = string.len(table.concat(line_content, ''))
 
     nvim.buf_set_extmark(0, ns, ln, col, {
         virt_text = VT.fmt(content)
@@ -67,7 +73,7 @@ end
 
 VT.autocmds = function()
 
-    vim.g.autocmd({ "DiagnosticChanged", "InsertLeave", "CursorHold", "InsertEnter", "CursorMoved" }, {
+    vim.g.autocmd({ "CursorMoved" }, {
         callback = function()
             local ln = vim.fn.line('.') - 1
             VT.clear()
@@ -76,8 +82,7 @@ VT.autocmds = function()
             end
 
         end,
-        -- buffer = 0
-        -- pourquoi j'avais eu besoins de mettre ça???
+        buffer = 0
     })
 
 end

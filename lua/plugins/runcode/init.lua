@@ -106,6 +106,10 @@ local execute = function(direction)
         filename = u.fun.buf('filename'),
     }
 
+    if u.fun.toboolean(vim.fn.getbufvar(vim.fn.bufnr(), '&mod')) then
+        nvim.command('noa w')
+    end
+
     if not ls.get(vim.g.target.bufnr) then
         return
     end

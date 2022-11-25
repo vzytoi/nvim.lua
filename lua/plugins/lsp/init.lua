@@ -1,7 +1,7 @@
 local M = {}
 
 local masonlsp = require('mason-lspconfig')
-local servers_lst = require('mason-lspconfig.mappings.server')
+-- local servers_lst = require('mason-lspconfig.mappings.server')
 local format = require('plugins.format').get
 local configs = require('plugins.lsp.configs')
 

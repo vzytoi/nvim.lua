@@ -9,7 +9,7 @@ M.autocmds = function()
                 for hl_name, _ in pairs(nvim._get_hl_defs(0)) do
                     nvim.set_hl(0, hl_name, {})
                 end
-            elseif size >= 500000 then
+            elseif size >= 100 * 1024 then -- 100 KB
                 nvim.command("TSBufDisable highlight")
             elseif vim.g.TS_disabled then
                 nvim.command("TSBufEnable highlight")

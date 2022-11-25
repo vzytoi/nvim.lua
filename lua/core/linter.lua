@@ -1,11 +1,25 @@
 local M = {}
 
-M.linters = {
-    python = 'flake8'
-}
+local get_installed_linters = function()
+
+    local packages = require('mason-registry').get_installed_packages()
+    local list = {}
+
+    for _, v in ipairs(packages) do
+        if vim.tbl_contains(v.spec.categories, "Linter") then
+            list[v.spec.name] = u.fun.map(string.lower, v.spec.languages)
+        end
+    end
+
+    return list
+
+end
+
+M.linters = get_installed_linters()
+
 
 M.autocmds = function()
-    vim.api.nvim_create_autocmd({ "BufWritePost", "CursorHold", "InsertLeave", "DiagnosticChanged" }, {
+    vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave" }, {
         callback = function()
             if M.get() then
                 require("lint").try_lint()
@@ -15,13 +29,45 @@ M.autocmds = function()
 end
 
 M.config = function()
-    require('lint').linters_by_ft = {
-        python = { M.linters.python }
+
+    local luacheck = require('lint.linters.luacheck')
+
+    luacheck.args = {
+        '--globals',
+        'u',
+        'nvim',
+        'vim',
+        '--formatter',
+        'plain',
+        '--codes',
+        '--ranges',
+        '-',
     }
+
+    local linters = {}
+    local lint = require('lint')
+
+    for k, v in pairs(M.linters) do
+        for _, lang in ipairs(v) do
+            linters[lang] = { k }
+        end
+    end
+
+    lint.linters_by_ft = linters
 end
 
-M.get = function()
-    return M.linters[u.fun.buf('filetype')]
+M.get = function(ft)
+
+    ft = ft or u.fun.buf('filetype')
+
+    for k, v in pairs(M.linters) do
+        if vim.tbl_contains(v, ft) then
+            return k
+        end
+    end
+
+    return false
 end
+
 
 return M

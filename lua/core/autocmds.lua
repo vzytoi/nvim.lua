@@ -38,7 +38,7 @@ M.config = function()
     local dis = u.ft.disabled
 
     local events = {
-        --[[ InsertLeave = true,
+        InsertLeave = true,
         WinEnter = true,
         BufEnter = true,
         FocusGained = true,
@@ -46,7 +46,7 @@ M.config = function()
         WinLeave = false,
         FocusLost = false,
         BufNewFile = false,
-        BufReadPost = false, ]]
+        BufReadPost = false,
     }
 
     for event, op in pairs(events) do

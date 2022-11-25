@@ -55,7 +55,7 @@ local components = {
     modified = function(bufnr)
 
         local is_modified = u.fun.toboolean(vim.fn.getbufvar(bufnr, '&mod'))
-        return "%#TabLineSel#" .. (is_modified and u.icons.modified or "%42@Close@%X")
+        return "%#TabLineSel#" .. (is_modified and u.icons.modified or "%43@Close@%X")
 
     end,
 
