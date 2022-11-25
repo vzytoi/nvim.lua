@@ -118,7 +118,7 @@ FN.capabilities = function(capabilitie, bufnr)
 
     local client = vim.lsp.get_active_clients({ bufnr = bufnr })
 
-    if #client == 0 then
+    if vim.tbl_isempty(client) then
         return false
     end
 

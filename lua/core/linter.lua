@@ -7,7 +7,9 @@ local get_installed_linters = function()
 
     for _, v in ipairs(packages) do
         if vim.tbl_contains(v.spec.categories, "Linter") then
-            list[v.spec.name] = u.fun.map(string.lower, v.spec.languages)
+            list[v.spec.name] = vim.tbl_map(function(m)
+                return string.lower(m)
+            end, v.spec.languages)
         end
     end
 

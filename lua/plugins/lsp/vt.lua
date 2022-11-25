@@ -68,7 +68,7 @@ VT.cond = function(ln)
     return #vim.diagnostic.get(0, {
         lnum = ln,
         severity = vim.diagnostic.severity.ERROR
-    }) == 0 and #VT.get(ln) > 0
+    }) == 0 and not vim.tbl_isempty(VT.get(ln))
 end
 
 VT.autocmds = function()

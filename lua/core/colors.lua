@@ -47,6 +47,10 @@ local raw = {
 
     },
     xcodedarkhc = {
+        Normal = { bg = c.black },
+        NonText = { bg = c.black, fg = c.black },
+        EndOfBuffer = { bg = c.black, fg = c.black },
+
         TabLine = { bg = c.black },
         TabLineSel = { bg = c.black, bold = true },
         TabLineFill = { bg = c.darkerblack },

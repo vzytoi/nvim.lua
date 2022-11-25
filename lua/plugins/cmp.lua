@@ -17,7 +17,8 @@ M.config = function()
         sources = {
             { name = "nvim_lsp", max_item_count = 2 },
             { name = "cmp_tabnine", max_item_count = 2 },
-            { name = "rg" },
+            { name = 'omni' },
+            { name = "rg", max_item_count = 2 },
             { name = "nvim_lua" },
             { name = "luasnip" },
             { name = "buffer", max_item_count = 6 },
@@ -49,8 +50,8 @@ M.config = function()
         },
         formatting = {
             format = require('lspkind').cmp_format {
-                with_text = false,
-                mode = 'symbol',
+                with_text = true,
+                mode = 'symbol_text',
             }
         },
         experimental = {

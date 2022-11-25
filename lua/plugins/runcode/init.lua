@@ -164,7 +164,7 @@ local execute = function(direction)
             write.endl(bufnr, -1)
 
             for _, data in ipairs(output) do
-                if #vim.fn.join(data, "") ~= 0 then
+                if not vim.tbl_isempty(data) then
                     write.lines(bufnr, data, -1)
                 end
             end

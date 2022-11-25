@@ -71,7 +71,7 @@ local components = {
                 "Warn"
             }
 
-            if #diags > 0 then
+            if not vim.tbl_isempty(diags) then
                 return "%#Diagnostic" .. severities[diags[1].severity] .. "#"
             end
 

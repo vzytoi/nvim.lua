@@ -34,7 +34,7 @@ end
 
 M.lsp = inject_toggle(
     function()
-        return #vim.lsp.get_active_clients({ bufnr = 0 }) > 0
+        return not vim.tbl_isempty(vim.lsp.get_active_clients({ bufnr = 0 }))
     end,
     icons.lsp,
     M.filter

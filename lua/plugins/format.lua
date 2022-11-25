@@ -19,12 +19,12 @@ local formatters = {
             local is_linter = true
 
             for _, din in pairs(diag) do
-                if not din.source == linter.get() then
+                if din.source ~= linter.get() then
                     is_linter = false
                 end
             end
 
-            if #diag > 0 and not is_linter then
+            if not vim.tbl_isempty(diag) and not is_linter then
                 return nil
             end
 

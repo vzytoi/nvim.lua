@@ -25,7 +25,6 @@ M.config = function()
         use "antoinemadec/FixCursorHold.nvim"
         use "stevearc/dressing.nvim"
         use "samjwill/nvim-unception"
-        -- use "mbbill/undotree"
         use "AndrewRadev/splitjoin.vim"
 
         use "ellisonleao/gruvbox.nvim"
@@ -84,6 +83,7 @@ M.config = function()
             requires = {
                 { "onsails/lspkind-nvim" },
                 { "hrsh7th/cmp-path", after = "nvim-cmp" },
+                { "hrsh7th/cmp-omni", after = "nvim-cmp" },
                 { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
                 { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
                 {
@@ -119,14 +119,34 @@ M.config = function()
             "nvim-telescope/telescope.nvim",
             keys = "<leader>f",
             config = function()
+                vim.g.telescope = require('telescope')
                 require "plugins.telescope".config()
             end,
 
             requires = {
-                { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-                { 'nvim-telescope/telescope-symbols.nvim' },
-                { "nvim-telescope/telescope-project.nvim" },
-                { "smartpde/telescope-recent-files" }
+                {
+                    "nvim-telescope/telescope-fzf-native.nvim",
+                    after = "telescope.nvim",
+                    run = "make",
+                    config = function()
+                        vim.g.telescope.load_extension('fzf')
+                    end
+                },
+                { 'nvim-telescope/telescope-symbols.nvim', after = "telescope.nvim" },
+                {
+                    "nvim-telescope/telescope-project.nvim",
+                    after = "telescope.nvim",
+                    config = function()
+                        vim.g.telescope.load_extension('project')
+                    end
+                },
+                {
+                    "smartpde/telescope-recent-files",
+                    after = "telescope.nvim",
+                    config = function()
+                        vim.g.telescope.load_extension("recent_files")
+                    end
+                }
             },
         }
 
@@ -349,6 +369,7 @@ M.config = function()
 
         use {
             "akinsho/toggleterm.nvim",
+            cmd = "ToggleTerm",
             config = function()
                 require("plugins.toggleterm").config()
             end,
@@ -370,11 +391,9 @@ M.config = function()
         }
 
         use {
-            "tpope/vim-fugitive",
-            cmd = { "G", "Gdiff" }
+            "TimUntersberger/neogit",
+            cmd = "Neogit"
         }
-
-        use "TimUntersberger/neogit"
 
         use {
             "stevearc/aerial.nvim",

@@ -1,9 +1,9 @@
 local M = {}
 
-local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 local themes = require("telescope.themes")
+local telescope = require('telescope')
 
 M.setup = function()
 
@@ -18,7 +18,7 @@ M.setup = function()
     end)
 
     vim.g.nmap("<leader>fg", function()
-        builtin.live_grep()
+        builtin.live_grep(themes.get_ivy())
     end)
 
     vim.g.nmap("<leader>fb",
@@ -37,13 +37,17 @@ M.setup = function()
     end)
 
     vim.g.nmap("<leader>fp", function()
-        telescope.extensions.project.project {}
+        telescope.extensions.project.project(themes.get_dropdown())
+    end)
+
+    vim.g.nmap("<leader>ft", function()
+        builtin.treesitter(themes.get_ivy())
     end)
 
 end
 
 M.config = function()
-    telescope.setup({
+    require('telescope').setup({
         defaults = {
             preview = {
                 check_mine_type = false,
@@ -78,10 +82,6 @@ M.config = function()
             }
         },
     })
-
-    telescope.load_extension('project')
-    telescope.load_extension("fzf")
-    telescope.load_extension("recent_files")
 
     M.setup()
 end

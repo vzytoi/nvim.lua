@@ -32,12 +32,11 @@ M.config = function()
 
     vim.g.mapleader = " "
 
+    require "plugins.toggleterm".keymaps()
     require "plugins.runcode".keymaps()
     require "plugins.nvimtree".keymaps()
     require "plugins.resize".keymaps()
-    require "plugins.toggleterm".keymaps()
     require "plugins.lsp".keymaps()
-    require "core.rooter".keymaps()
 
     nest.applyKeymaps {
         { "<c-", {
@@ -53,7 +52,6 @@ M.config = function()
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
-            { 'u', ':UndotreeToggle<cr>' },
             { 'c', function()
                 vim.g.nmap("<leader>c", function()
                     u.fun.toggle("copen", "cclose")
@@ -79,14 +77,8 @@ M.config = function()
                 { "k", ":cprev<cr>" },
                 { "j", ":cnext<cr>" }
             } },
-            { "g", {
-                { "s", ":G|20wincmd_<cr>" },
-                { "c", ":G commit|star<cr>" },
-                { "p", ":G push<cr>" },
-                { "l", ":G log<cr>" },
-                -- { "d", ":Gdiff<cr>" },
-                { "q", ":q<cr>" }
-            } }
+            { "g", ":Neogit kind=split<cr>" },
+            { "g", { "c", ":Neogit commit<cr>" } },
         } },
         { "n", "nzzzv" },
         { "N", "Nzzzv" },

@@ -17,8 +17,8 @@ COLORS.table = {
     },
     xcodedarkhc = {
         darkerblack = "#171719",
-        black = "#1f1f24",
-        orange = "#ff8a7a",
+        black = "#1e1e21",
+        orange = "#181819",
         green = "#83c979",
         yellow = "#d9c668",
         blue = "#4ec4e6",
