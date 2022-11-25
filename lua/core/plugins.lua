@@ -22,9 +22,9 @@ M.config = function()
         use "fedepujol/move.nvim"
         use "antoinemadec/FixCursorHold.nvim"
         use "stevearc/dressing.nvim"
-        use "smartpde/telescope-recent-files"
         use "samjwill/nvim-unception"
-        use "mbbill/undotree"
+        -- use "mbbill/undotree"
+        use "AndrewRadev/splitjoin.vim"
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
@@ -79,40 +79,43 @@ M.config = function()
             config = function()
                 require("plugins.cmp").config()
             end,
-            requires = "onsails/lspkind-nvim"
+            requires = {
+                { "onsails/lspkind-nvim" },
+                { "hrsh7th/cmp-path", after = "nvim-cmp" },
+                { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+                { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+                {
+                    "tzachar/cmp-tabnine",
+                    run = "./install.sh",
+                    config = function()
+                        require("cmp_tabnine.config"):setup({ show_prediction_strength = false })
+                    end,
+                    after = "nvim-cmp"
+                },
+                { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+                { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
+            }
+
         }
 
-        use { "hrsh7th/cmp-path", after = "nvim-cmp" }
-        use { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" }
-        use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
-        use {
-            "tzachar/cmp-tabnine",
-            run = "./install.sh",
-            config = function()
-                require("cmp_tabnine.config"):setup({ show_prediction_strength = false })
-            end,
-            after = "nvim-cmp"
-        }
-        use { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
-        use { "lukas-reineke/cmp-rg", after = "nvim-cmp" }
 
         use {
             "nvim-treesitter/nvim-treesitter",
             config = function()
                 require "plugins.treesitter".config()
-            end
+            end,
+            requires = {
+                { "windwp/nvim-ts-autotag" },
+                { "nvim-treesitter/nvim-treesitter-textobjects" },
+                { "RRethy/nvim-treesitter-textsubjects" },
+                { 'nvim-treesitter/nvim-tree-docs' }
+            }
         }
 
-        use { "windwp/nvim-ts-autotag", after = "nvim-treesitter", }
-        use { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" }
-        use { "RRethy/nvim-treesitter-textsubjects", after = "nvim-treesitter" }
-        use { 'nvim-treesitter/nvim-tree-docs', after = "nvim-treesitter" }
 
         use {
             "nvim-telescope/telescope.nvim",
             keys = "<leader>f",
-            cmd = "Telescope",
-            package = "telescope",
             config = function()
                 require "plugins.telescope".config()
             end,
@@ -120,7 +123,8 @@ M.config = function()
             requires = {
                 { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
                 { 'nvim-telescope/telescope-symbols.nvim' },
-                { "nvim-telescope/telescope-project.nvim" }
+                { "nvim-telescope/telescope-project.nvim" },
+                { "smartpde/telescope-recent-files" }
             },
         }
 
@@ -139,27 +143,13 @@ M.config = function()
             }
         }
 
-        use "mfussenegger/nvim-dap"
-        use "rcarriga/nvim-dap-ui"
-        use {
-            "jayp0521/mason-nvim-dap.nvim",
-            config = function()
-                require("mason").setup()
-                require("mason-nvim-dap").setup({
-                    automatic_setup = true,
-                })
-                require 'mason-nvim-dap'.setup_handlers()
-            end
-        }
-
-
         use {
             'https://github.com/nat-418/boole.nvim',
             config = function()
                 require('boole').setup {
                     mappings = {
                         increment = '<up>',
-                        decrement = '<down>'
+                        decrement = '<down>',
                     },
                 }
             end
@@ -384,8 +374,10 @@ M.config = function()
 
         use {
             "stevearc/aerial.nvim",
-            config = function() require('aerial').setup() end,
-            cmd = { "AerialToggle" }
+            cmd = { "AerialToggle" },
+            config = function()
+                require('aerial').setup()
+            end
         }
 
         if PB then
