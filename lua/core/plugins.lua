@@ -1,12 +1,14 @@
 local M = {}
 
+M.PB = false
+
 M.config = function()
 
     local fn = vim.fn
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
     if fn.empty(fn.glob(install_path)) > 0 then
-        PB = fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
+        M.PB = fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
             install_path })
     end
 
@@ -372,6 +374,8 @@ M.config = function()
             cmd = { "G", "Gdiff" }
         }
 
+        use "TimUntersberger/neogit"
+
         use {
             "stevearc/aerial.nvim",
             cmd = { "AerialToggle" },
@@ -380,7 +384,7 @@ M.config = function()
             end
         }
 
-        if PB then
+        if M.PB then
             require("packer").sync()
         end
 

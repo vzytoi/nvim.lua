@@ -15,8 +15,8 @@ M.config = function()
             end,
         },
         sources = {
-            { name = "nvim_lsp", max_item_count = 4 },
-            { name = "cmp_tabnine", max_item_count = 4 },
+            { name = "nvim_lsp", max_item_count = 2 },
+            { name = "cmp_tabnine", max_item_count = 2 },
             { name = "rg" },
             { name = "nvim_lua" },
             { name = "luasnip" },
@@ -68,5 +68,6 @@ M.config = function()
     }
 
 end
+
 
 return M
