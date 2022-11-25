@@ -44,7 +44,7 @@ M.autocmds = function()
             "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
         { callback = function()
             if not u.ft.is_disabled('winbar') then
-                require("core.winbar").set()
+                -- require("core.winbar").set()
             end
         end }
     )

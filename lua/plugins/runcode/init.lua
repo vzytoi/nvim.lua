@@ -125,7 +125,10 @@ local execute = function(direction)
         stdout_buffered = true,
         on_stdout = add,
         on_stderr = function(_, data)
-            error = true
+            if #vim.fn.join(data) > 0 then
+                error = true
+            end
+
             add(_, data)
         end,
         on_exit = function()

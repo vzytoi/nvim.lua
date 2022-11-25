@@ -19,7 +19,6 @@ M.config = function()
 
         use "tpope/vim-surround"
         use "wellle/targets.vim"
-        use "farmergreg/vim-lastplace"
         use "fedepujol/move.nvim"
         use "antoinemadec/FixCursorHold.nvim"
         use "stevearc/dressing.nvim"
@@ -29,6 +28,13 @@ M.config = function()
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
+
+        use {
+            'ethanholz/nvim-lastplace',
+            config = function()
+                require 'nvim-lastplace'.setup {}
+            end
+        }
 
         use {
             'goolord/alpha-nvim',

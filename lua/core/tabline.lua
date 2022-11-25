@@ -78,12 +78,16 @@ local components = {
             return "%#Sep" .. (tabnr == vim.fn.tabpagenr() and "On#" or "Off#")
 
         end,
-        txt = function(v)
-            return "%#Text" .. (v == vim.fn.tabpagenr() and "On#" or "Off#")
+        txt = function(tabnr)
+            return "%#Text" .. (tabnr == vim.fn.tabpagenr() and "On#" or "Off#")
         end
     },
 
 }
+
+local currtab = function(tabnr)
+    return tabnr == vim.fn.tabpagenr()
+end
 
 TL.get = function()
 
@@ -106,18 +110,23 @@ TL.get = function()
         local bufnr = get_bufnr(tabnr)
         local icon, color = components.icon(bufnr)
 
+        if not currtab(tabnr) then
+            color = '%#TextOff#'
+        end
+
         tab = tab .. table.concat({
             components.color.sep(tabnr),
             "▎",
             s(3),
+            "%#TabLineSel#",
+            components.color.txt(tabnr),
+            components.filename(bufnr),
+            s(3),
             color,
             icon,
-            s(3),
-            components.color.txt(tabnr),
-            "%#TabLineSel#" .. components.filename(bufnr),
-            s(3),
+            s(2),
             components.modified(tabnr),
-            s(3)
+            s(2)
         }, "")
 
         table.insert(tabs, tab)
