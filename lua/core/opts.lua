@@ -134,7 +134,8 @@ M.config = function()
     M.ColorOpt()
 
     vim.g.loaded_python_provider = false
-    vim.g.python3_host_prog = vim.fn.system("which python"):gsub("\n", "")
+    vim.g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
+
     vim.g.explorer_is_open = false
     vim.g.rooter_silent_chdir = true
     vim.g["sneak#use_ic_scs"] = true

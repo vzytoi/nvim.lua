@@ -9,6 +9,11 @@ local alias = {
     alpha = "Alpha"
 }
 
+FT.patterns = {
+    ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json",
+    "dune-project",
+}
+
 FT.disabled = {
     lualine = {
         "TelescopePrompt", "NvimTree", "toggleterm",

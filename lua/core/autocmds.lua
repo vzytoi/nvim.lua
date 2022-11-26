@@ -16,6 +16,7 @@ M.config = function()
     require "core.tabline".autocmds()
     require "core.winbar".autocmds()
     require "core.linter".autocmds()
+    require "core.rooter".autocmds()
 
     local close = {
         fts = {
@@ -54,7 +55,7 @@ M.config = function()
                 local ft = vim.bo.filetype
 
                 if not vim.tbl_contains(dis.ln, ft) then
-                    vim.wo.rnu = op
+                    vim.wo.rnu = op and vim.bo.modifiable
                 else
                     vim.wo.rnu = false
                     vim.wo.nu = false

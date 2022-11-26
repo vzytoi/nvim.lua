@@ -9,6 +9,8 @@ local mods = {
     { name = "autocmds", },
 }
 
+vim.g.instant_username = "Cyprien"
+
 local load = function(name)
     local ok, _ = pcall(require, 'core.' .. name)
     if not ok then

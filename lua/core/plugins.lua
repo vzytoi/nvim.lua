@@ -23,43 +23,92 @@ M.config = function()
         use "wellle/targets.vim"
         use "fedepujol/move.nvim"
         use "antoinemadec/FixCursorHold.nvim"
-        use "stevearc/dressing.nvim"
         use "samjwill/nvim-unception"
         use "AndrewRadev/splitjoin.vim"
+        use "jbyuki/instant.nvim"
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
 
+        use { "dstein64/vim-startuptime", cmd = "StartupTime" }
+        use { "windwp/nvim-spectre", module = "spectre" }
+        use { "romainl/vim-cool", event = "cmdlineenter" }
+        use { "TimUntersberger/neogit", cmd = "Neogit" }
+
         use {
             'ethanholz/nvim-lastplace',
-            config = function()
-                require 'nvim-lastplace'.setup {}
-            end
+            config = function() require("nvim-lastplace").setup() end
         }
 
         use {
+            "hoob3rt/lualine.nvim",
+            config = function() require("plugins.lualine").config() end
+        }
+
+        use {
+            "LionC/nest.nvim",
+            config = function() require("core.keymaps").config() end
+        }
+
+
+        use {
+            "ThePrimeagen/harpoon",
+            config = function() require("harpoon").setup() end
+        }
+
+        use {
+            "stevearc/aerial.nvim",
+            cmd = "AerialToggle",
+            config = function() require('aerial').setup() end
+        }
+
+
+        use {
+            "luukvbaal/stabilize.nvim",
+            config = function() require "stabilize".setup() end
+        }
+
+        use {
+            "folke/zen-mode.nvim",
+            cmd = "ZenMode",
+            config = function() require("zen-mode").setup() end
+        }
+
+
+        use {
+            "sindrets/diffview.nvim",
+            cmd = "DiffviewOpen",
+            config = function() require("diffview").setup() end
+        }
+
+
+        use {
+            "L3MON4D3/LuaSnip",
+            config = function() require("luasnip.loaders.from_snipmate").lazy_load() end,
+            after = "nvim-cmp",
+        }
+
+        use {
+            "mhartington/formatter.nvim",
+            config = function() require("plugins.format").config() end
+        }
+
+
+
+        use {
             'goolord/alpha-nvim',
-            requires = { 'kyazdani42/nvim-web-devicons' },
             config = function()
                 require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
             end
         }
 
-        use {
-            "LionC/nest.nvim",
-            config = function()
-                require "core.keymaps".config()
-            end
-        }
 
         use {
             "SmiteshP/nvim-navic",
-            config = function()
-                require("nvim-navic").setup {
-                    highlight = true
-                }
-            end,
             requires = "neovim/nvim-lspconfig",
+            config = function()
+                require("nvim-navic").setup { highlight = true }
+            end,
         }
 
         use {
@@ -77,9 +126,7 @@ M.config = function()
         use {
             "hrsh7th/nvim-cmp",
             event = "InsertEnter",
-            config = function()
-                require("plugins.cmp").config()
-            end,
+            config = function() require("plugins.cmp").config() end,
             requires = {
                 { "onsails/lspkind-nvim" },
                 { "hrsh7th/cmp-path", after = "nvim-cmp" },
@@ -103,14 +150,22 @@ M.config = function()
 
         use {
             "nvim-treesitter/nvim-treesitter",
-            config = function()
-                require "plugins.treesitter".config()
-            end,
+            config = require "plugins.treesitter".config,
             requires = {
                 { "windwp/nvim-ts-autotag" },
                 { "nvim-treesitter/nvim-treesitter-textobjects" },
                 { "RRethy/nvim-treesitter-textsubjects" },
-                { 'nvim-treesitter/nvim-tree-docs' }
+                { 'nvim-treesitter/nvim-tree-docs' },
+                {
+                    'Wansmer/sibling-swap.nvim',
+                    requires = { 'nvim-treesitter' },
+                    config = function()
+                        require('sibling-swap').setup({ keymaps = {
+                            ['<left>'] = 'swap_with_left',
+                            ['<right>'] = 'swap_with_right',
+                        } })
+                    end,
+                }
             }
         }
 
@@ -119,7 +174,6 @@ M.config = function()
             "nvim-telescope/telescope.nvim",
             keys = "<leader>f",
             config = function()
-                vim.g.telescope = require('telescope')
                 require "plugins.telescope".config()
             end,
 
@@ -129,7 +183,7 @@ M.config = function()
                     after = "telescope.nvim",
                     run = "make",
                     config = function()
-                        vim.g.telescope.load_extension('fzf')
+                        require("telescope").load_extension('fzf')
                     end
                 },
                 { 'nvim-telescope/telescope-symbols.nvim', after = "telescope.nvim" },
@@ -137,14 +191,14 @@ M.config = function()
                     "nvim-telescope/telescope-project.nvim",
                     after = "telescope.nvim",
                     config = function()
-                        vim.g.telescope.load_extension('project')
+                        require("telescope").load_extension('project')
                     end
                 },
                 {
                     "smartpde/telescope-recent-files",
                     after = "telescope.nvim",
                     config = function()
-                        vim.g.telescope.load_extension("recent_files")
+                        require("telescope").load_extension("recent_files")
                     end
                 }
             },
@@ -152,16 +206,10 @@ M.config = function()
 
         use {
             "williamboman/mason.nvim",
-            config = function()
-                require "mason".setup()
-            end,
+            config = function() require("mason").setup() end,
             requires = {
-                {
-                    "mfussenegger/nvim-lint",
-                    config = function()
-                        require('core.linter').config()
-                    end
-                },
+                { "mfussenegger/nvim-lint",
+                    config = function() require('core.linter').config() end },
             }
         }
 
@@ -178,20 +226,6 @@ M.config = function()
         }
 
         use {
-            "ThePrimeagen/harpoon",
-            config = function()
-                require "harpoon".setup()
-            end
-        }
-
-        use {
-            "luukvbaal/stabilize.nvim",
-            config = function()
-                require "stabilize".setup()
-            end
-        }
-
-        use {
             "chrisbra/NrrwRgn",
             cmd = { "NarrowRegion", "NarrowWindow" }
         }
@@ -203,52 +237,20 @@ M.config = function()
             end,
             {
                 "folke/lsp-colors.nvim",
-                config = function()
-                    require "lsp-colors".setup()
-                end,
+                config = function() require("lsp-colors").setup() end,
             },
             cmd = "TroubleToggle"
         }
 
         use {
-            "windwp/nvim-spectre",
-            module = "spectre"
-        }
-
-        use {
-            "romainl/vim-cool",
-            event = "cmdlineenter"
-        }
-
-        use {
             "nvim-tree/nvim-tree.lua",
-            requires = { "nvim-tree/nvim-web-devicons" },
-            config = function()
-                require('plugins.nvimtree').config()
-            end,
+            config = function() require('plugins.nvimtree').config() end,
             cmd = "NvimTreeToggle"
         }
 
         use {
-            "L3MON4D3/LuaSnip",
-            config = function()
-                require("luasnip.loaders.from_snipmate").lazy_load()
-            end,
-            after = "nvim-cmp"
-        }
-
-        use {
-            "mhartington/formatter.nvim",
-            config = function()
-                require("plugins.format").config()
-            end
-        }
-
-        use {
             "neovim/nvim-lspconfig",
-            config = function()
-                require("plugins.lsp").config()
-            end,
+            config = function() require("plugins.lsp").config() end,
             requires = {
                 "williamboman/mason-lspconfig.nvim",
                 "hrsh7th/cmp-nvim-lsp"
@@ -278,14 +280,6 @@ M.config = function()
         }
 
         use {
-            "folke/zen-mode.nvim",
-            cmd = "ZenMode",
-            config = function()
-                require("zen-mode").setup()
-            end
-        }
-
-        use {
             "rktjmp/paperplanes.nvim",
             cmd = "PP",
             config = function()
@@ -301,14 +295,6 @@ M.config = function()
                 require("accelerated-jk").setup()
             end,
             keys = { { "n", "j" }, { "n", "k" } }
-        }
-
-        use {
-            "sindrets/diffview.nvim",
-            cmd = "DiffviewOpen",
-            config = function()
-                require("diffview").setup {}
-            end
         }
 
         use {
@@ -334,11 +320,6 @@ M.config = function()
             config = function()
                 require("persistence").setup()
             end
-        }
-
-        use {
-            "dstein64/vim-startuptime",
-            cmd = "StartupTime"
         }
 
         use {
@@ -381,26 +362,6 @@ M.config = function()
             config = function()
                 require("trim").setup()
             end,
-        }
-
-        use {
-            "hoob3rt/lualine.nvim",
-            config = function()
-                require("plugins.lualine").config()
-            end
-        }
-
-        use {
-            "TimUntersberger/neogit",
-            cmd = "Neogit"
-        }
-
-        use {
-            "stevearc/aerial.nvim",
-            cmd = { "AerialToggle" },
-            config = function()
-                require('aerial').setup()
-            end
         }
 
         if M.PB then

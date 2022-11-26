@@ -101,7 +101,6 @@ end
 local execute = function(direction)
 
     vim.g.target = {
-        view = vim.fn.winsaveview(),
         bufnr = vim.fn.bufnr(),
         filename = u.fun.buf('filename'),
     }
@@ -199,7 +198,6 @@ M.autocmds = function()
         callback = function()
             vim.g.nmap({ "<cr>", "q" }, function()
                 u.fun.close(vim.fn.bufnr())
-                vim.fn.winrestview(vim.g.target.view)
             end, { buffer = 0 })
 
             local ns = nvim.create_namespace('RunCode')
@@ -209,13 +207,6 @@ M.autocmds = function()
 
             nvim.set_hl(ns, 'Normal', { bg = c.darkerblack })
             nvim.set_hl(ns, 'EndOfBuffer', { fg = c.darkerblack })
-        end
-    })
-
-    nvim.create_autocmd("BufLeave", {
-        pattern = "RunCode",
-        callback = function()
-            vim.fn.winrestview(vim.g.target.view)
         end
     })
 
