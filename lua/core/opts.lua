@@ -67,7 +67,7 @@ M.loadOptions = function()
         ttimeoutlen = 1,
         ttyfast = true,
         -- for telescope to be faster to open. bad idea?
-        updatetime = 100,
+        updatetime = 150,
         redrawtime = 1500,
         scrolloff = 8,
         cmdheight = 0,
@@ -135,7 +135,7 @@ M.config = function()
 
     vim.g.loaded_python_provider = false
     vim.g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
-
+    vim.g.instant_username = "Cyprien"
     vim.g.explorer_is_open = false
     vim.g.rooter_silent_chdir = true
     vim.g["sneak#use_ic_scs"] = true

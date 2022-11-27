@@ -37,6 +37,7 @@ M.config = function()
     require "plugins.nvimtree".keymaps()
     require "plugins.resize".keymaps()
     require "plugins.lsp".keymaps()
+    require "core.rooter".keymaps()
 
     nest.applyKeymaps {
         { "<c-", {

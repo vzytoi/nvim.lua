@@ -14,6 +14,10 @@ FT.patterns = {
     "dune-project",
 }
 
+FT.close_when_last = {
+    "toggleterm", "NvimTree", "RunCode"
+}
+
 FT.disabled = {
     lualine = {
         "TelescopePrompt", "NvimTree", "toggleterm",

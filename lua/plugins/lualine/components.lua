@@ -138,4 +138,12 @@ M.branch = {
     cond = M.filter
 }
 
+M.searchcount = {
+    function()
+        local search = vim.fn.searchcount({ maxcount = 0 })
+        return search.total > 0 and search.current .. "/" .. search.total or ""
+    end,
+    cond = M.filter
+}
+
 return M

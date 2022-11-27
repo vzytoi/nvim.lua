@@ -82,6 +82,9 @@ local raw = {
         NvimTreeOpenedFile       = { fg = c.pink },
         NvimTreeIndentMarker     = { fg = c.darkgrey },
 
+        Pmenu = { bg = c.black },
+        FloatBorder = { bg = c.black },
+        NormalFloat = { bg = c.black },
     }
 }
 

@@ -7,14 +7,14 @@ local configs = require('plugins.lsp.configs')
 
 M.keymaps = function()
 
-    vim.g.nmap("gd", function() vim.lsp.buf.definition() end)
+    vim.g.nmap("gd", vim.lsp.buf.definition)
 
-    vim.g.nmap("gr", function() vim.lsp.buf.rename() end)
+    vim.g.nmap("gr", vim.lsp.buf.rename)
     vim.g.nmap("gR", "<cmd>Telescope lsp_references<cr>")
 
-    vim.g.nmap("gh", function() vim.lsp.buf.hover() end)
+    vim.g.nmap("gh", vim.lsp.buf.hover)
 
-    vim.g.nmap("ga", function() nvim.command('CodeActionMenu') end)
+    vim.g.nmap("ga", vim.lsp.buf.code_action)
 
     vim.g.nmap("gj", function() vim.diagnostic.goto_next({ float = false }) end)
     vim.g.nmap("gk", function() vim.diagnostic.goto_prev({ float = false }) end)
@@ -80,9 +80,7 @@ local on_attach = function(client, bufnr)
 
 end
 
-local capabilities = require 'cmp_nvim_lsp'.default_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
 
 M.config = function()
 

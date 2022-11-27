@@ -18,16 +18,9 @@ M.config = function()
     require "core.linter".autocmds()
     require "core.rooter".autocmds()
 
-    local close = {
-        fts = {
-            'toggleterm', 'NvimTree',
-            'RunCode'
-        }
-    }
-
     vim.g.autocmd("BufEnter", {
         callback = function()
-            if vim.tbl_contains(close.fts, vim.bo.filetype)
+            if vim.tbl_contains(u.ft.close_when_last, vim.bo.filetype)
                 and u.fun.is_last_win() then
                 u.fun.close()
             end
@@ -37,32 +30,39 @@ M.config = function()
 
     local dis = u.ft.disabled
 
-    local events = {
-        InsertLeave = true,
-        WinEnter = true,
-        BufEnter = true,
-        FocusGained = true,
-        InsertEnter = false,
-        WinLeave = false,
-        FocusLost = false,
-        BufNewFile = false,
-        BufReadPost = false,
-    }
-
-    for event, op in pairs(events) do
-        vim.g.autocmd(event, {
-            callback = function()
-                local ft = vim.bo.filetype
-
-                if not vim.tbl_contains(dis.ln, ft) then
-                    vim.wo.rnu = op and vim.bo.modifiable
-                else
-                    vim.wo.rnu = false
-                    vim.wo.nu = false
-                end
-            end
-        })
+    local disln = function()
+        if vim.tbl_contains(dis.ln, vim.bo.filetype) then
+            vim.wo.rnu = false
+            vim.wo.nu = false
+        end
     end
+
+    vim.g.autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+        callback = function()
+            if vim.fn.mode() ~= "i" then
+                vim.wo.rnu = true
+                vim.wo.nu = true
+            end
+
+
+            disln()
+        end
+    })
+
+    vim.g.autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+        callback = function()
+            vim.wo.rnu = false
+            vim.wo.nu = true
+
+            disln()
+        end
+    })
+
+    vim.g.autocmd("FileType", {
+        callback = function()
+            disln()
+        end
+    })
 
     vim.g.autocmd("FileType", {
         callback = function()

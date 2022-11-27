@@ -1,7 +1,7 @@
 local M = {}
 
 local cmp = require('cmp')
-local luasnip = require("luasnip")
+local luasnip = require('luasnip')
 
 M.config = function()
 
@@ -16,13 +16,10 @@ M.config = function()
         },
         sources = {
             { name = "nvim_lsp", max_item_count = 2 },
-            { name = "cmp_tabnine", max_item_count = 2 },
-            { name = 'omni' },
+            { name = 'luasnip', max_item_count = 2 },
+            { name = 'nvim_lsp_signature_help', max_item_count = 2 },
             { name = "rg", max_item_count = 2 },
-            { name = "nvim_lua" },
-            { name = "luasnip" },
-            { name = "buffer", max_item_count = 6 },
-            { name = "path" },
+            { name = "treesitter", max_item_count = 2 },
         },
         snippet = {
             expand = function(args)
@@ -39,36 +36,21 @@ M.config = function()
             ["<tab>"] = cmp.mapping(
                 function(fallback)
                     if cmp.visible() then
-                        cmp.confirm({ select = true })
-                    elseif luasnip.expand_or_jumpable() then
+                        cmp.confirm()
+                    elseif luasnip.expand_or_jump() then
                         luasnip.expand_or_jump()
                     else
+                        -- actually tab
                         fallback()
                     end
                 end
             )
         },
-        formatting = {
-            format = require('lspkind').cmp_format {
-                with_text = true,
-                mode = 'symbol_text',
-            }
-        },
         experimental = {
             ghost_text = true
         },
-        enable = function()
-            local context = require 'cmp.config.context'
-            if nvim.get_mode().mode == 'c' then
-                return true
-            else
-                return not context.in_treesitter_capture("comment")
-                    and not context.in_syntax_group("Comment")
-            end
-        end
     }
 
 end
-
 
 return M

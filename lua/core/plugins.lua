@@ -16,28 +16,70 @@ M.config = function()
 
         use "wbthomason/packer.nvim"
         use "lewis6991/impatient.nvim"
+        use "nathom/filetype.nvim"
         use "nvim-lua/plenary.nvim"
         use "nvim-tree/nvim-web-devicons"
-
         use "tpope/vim-surround"
         use "wellle/targets.vim"
         use "fedepujol/move.nvim"
-        use "antoinemadec/FixCursorHold.nvim"
         use "samjwill/nvim-unception"
         use "AndrewRadev/splitjoin.vim"
         use "jbyuki/instant.nvim"
-
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
+        use "chaoren/vim-wordmotion"
 
+        -- use "tpope/vim-sleuth"
+        use { "davidgranstrom/nvim-markdown-preview", cmd = "MarkdownPreview" }
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
         use { "windwp/nvim-spectre", module = "spectre" }
-        use { "romainl/vim-cool", event = "cmdlineenter" }
+        -- use { "vzytoi/vim-cool", event = "cmdlineenter" }
         use { "TimUntersberger/neogit", cmd = "Neogit" }
 
         use {
+            "lewis6991/hover.nvim",
+            config = function()
+                require("hover").setup {
+                    init = function()
+                        require("hover.providers.lsp")
+                        require('hover.providers.man')
+                        require('hover.providers.gh')
+                    end,
+                    title = false
+                }
+                vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+            end
+        }
+
+        use {
+            'lewis6991/satellite.nvim',
+            -- '/Users/cyprien/Documents/satellite.nvim',
+            config = function()
+                require('satellite').setup()
+            end
+        }
+
+        use {
+            "kazhala/close-buffers.nvim",
+            cmd = "Bdelete",
+            config = function()
+                require('close_buffers').setup()
+            end
+        }
+
+        use {
+            "seandewar/killersheep.nvim",
+            cmd = "KillKillKill",
+            config = function()
+                require("killersheep").setup()
+            end
+        }
+
+        use {
             'ethanholz/nvim-lastplace',
-            config = function() require("nvim-lastplace").setup() end
+            config = function()
+                require("nvim-lastplace").setup()
+            end,
         }
 
         use {
@@ -48,6 +90,13 @@ M.config = function()
         use {
             "LionC/nest.nvim",
             config = function() require("core.keymaps").config() end
+        }
+
+
+        use {
+            "cappyzawa/trim.nvim",
+            event = "BufWritePre",
+            config = function() require("trim").setup() end,
         }
 
 
@@ -81,12 +130,6 @@ M.config = function()
             config = function() require("diffview").setup() end
         }
 
-
-        use {
-            "L3MON4D3/LuaSnip",
-            config = function() require("luasnip.loaders.from_snipmate").lazy_load() end,
-            after = "nvim-cmp",
-        }
 
         use {
             "mhartington/formatter.nvim",
@@ -125,28 +168,18 @@ M.config = function()
 
         use {
             "hrsh7th/nvim-cmp",
-            event = "InsertEnter",
-            config = function() require("plugins.cmp").config() end,
+            config = function()
+                require('plugins.cmp').config()
+            end,
             requires = {
-                { "onsails/lspkind-nvim" },
-                { "hrsh7th/cmp-path", after = "nvim-cmp" },
-                { "hrsh7th/cmp-omni", after = "nvim-cmp" },
-                { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-                { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-                {
-                    "tzachar/cmp-tabnine",
-                    run = "./install.sh",
-                    config = function()
-                        require("cmp_tabnine.config"):setup({ show_prediction_strength = false })
-                    end,
-                    after = "nvim-cmp"
-                },
-                { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-                { "lukas-reineke/cmp-rg", after = "nvim-cmp" },
+                'hrsh7th/cmp-nvim-lsp',
+                'L3MON4D3/LuaSnip',
+                'saadparwaiz1/cmp_luasnip',
+                "hrsh7th/cmp-nvim-lsp-signature-help",
+                "lukas-reineke/cmp-rg",
+                "ray-x/cmp-treesitter",
             }
-
         }
-
 
         use {
             "nvim-treesitter/nvim-treesitter",
@@ -253,7 +286,7 @@ M.config = function()
             config = function() require("plugins.lsp").config() end,
             requires = {
                 "williamboman/mason-lspconfig.nvim",
-                "hrsh7th/cmp-nvim-lsp"
+                -- "hrsh7th/cmp-nvim-lsp"
 
             }
         }
@@ -353,14 +386,6 @@ M.config = function()
             cmd = "ToggleTerm",
             config = function()
                 require("plugins.toggleterm").config()
-            end,
-        }
-
-        use {
-            "cappyzawa/trim.nvim",
-            event = "BufWritePre",
-            config = function()
-                require("trim").setup()
             end,
         }
 
