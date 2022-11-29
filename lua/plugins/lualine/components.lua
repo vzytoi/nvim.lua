@@ -5,7 +5,7 @@ local colors = u.colors.get()
 local icons = require('utils.icons')
 
 M.filter = function()
-    return not u.ft.is_disabled('lualine')
+    return vim.bo.modifiable and not u.ft.is_disabled('lualine')
 end
 
 local function inject_toggle(func, icon, cond)
@@ -141,7 +141,12 @@ M.branch = {
 M.searchcount = {
     function()
         local search = vim.fn.searchcount({ maxcount = 0 })
-        return search.total > 0 and search.current .. "/" .. search.total or ""
+
+        if vim.g.cool_is_searching == 1 then
+            return search.current .. "/" .. search.total
+        end
+
+        return ""
     end,
     cond = M.filter
 }

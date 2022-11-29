@@ -20,9 +20,7 @@ FT.close_when_last = {
 
 FT.disabled = {
     lualine = {
-        "TelescopePrompt", "NvimTree", "toggleterm",
-        "harpoon", "spectre_panel", "lspsagafinder",
-        "RunCode", "qf", "packer"
+        "TelescopePrompt", "harpoon"
     },
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",
