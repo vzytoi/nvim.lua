@@ -53,17 +53,36 @@ M.config = function()
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {
+            { 'gd', function()
+                u.fun.toggle("DiffviewOpen", "DiffviewClose")
+            end },
+            { 'l', function()
+                u.fun.toggle("lop", "lcl")
+            end },
             { 'c', function()
                 vim.g.nmap("<leader>c", function()
                     u.fun.toggle("copen", "cclose")
                 end)
             end },
+            { 'w', function()
+                nvim.command("AerialToggle")
+
+                vim.g.nmap('K', function()
+                    nvim.command("AerialPrev")
+                end, { buffer = 0 })
+
+                vim.g.nmap('J', function()
+                    nvim.command("AerialNext")
+                end, { buffer = 0 })
+            end },
             { 'ck', ':cp<cr>' },
             { 'cj', ':cn<cr>' },
-
-            { "h", function() require('harpoon.ui').toggle_quick_menu() end },
-            { "ha", function() require('harpoon.mark').add_file() end },
-
+            { "h", function()
+                require('harpoon.ui').toggle_quick_menu()
+            end },
+            { "ha", function()
+                require('harpoon.mark').add_file()
+            end },
             { "<leader>x", ":w|so<cr>" },
             { "w", ":silent write<cr>" },
             { "z", ":ZenMode<cr>" },
@@ -101,16 +120,6 @@ M.config = function()
         } }
     }
 
-    vim.g.nmap("<leader>gd", function()
-        u.fun.toggle("DiffviewOpen", "DiffviewClose")
-    end)
-
-    vim.g.nmap("<leader>l", function()
-        u.fun.toggle("lop", "lcl")
-    end)
-
-    vim.g.nmap("<leader>s", require('spectre').open)
-
     for k, v in pairs(u.fun.keycount) do
         vim.g.nmap("<leader>" .. k, function()
             if vim.fn.tabpagenr('$') >= v then
@@ -124,19 +133,6 @@ M.config = function()
             require('harpoon.ui').nav_file(v)
         end)
     end
-
-    vim.g.nmap('<leader>w', function()
-        nvim.command("AerialToggle")
-
-        vim.g.nmap('K', function()
-            nvim.command("AerialPrev")
-        end, { buffer = 0 })
-
-        vim.g.nmap('J', function()
-            nvim.command("AerialNext")
-        end, { buffer = 0 })
-
-    end)
 
 end
 
