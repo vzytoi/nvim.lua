@@ -1,0 +1,14 @@
+{
+    "ocaml": {
+        "default": "ocaml %",
+        "project": "dune exec ^"
+    },
+    "typescript": "ts-node %",
+    "javascript": "node %",
+    "go": "go run %",
+    "php": "php %",
+    "python": "python3 %",
+    "lua": "lua %",
+    "c": "gcc % -o && $",
+    "cpp": "gcc % -o && $"
+}

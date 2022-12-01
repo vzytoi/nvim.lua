@@ -1,71 +1,90 @@
 local FT = {}
 
+local read_commands = function()
+    local path = vim.fn.stdpath('config') .. "/lua/plugins/runcode/commands.json"
+    local cmds = vim.fn.json_decode(vim.fn.readfile(path))
 
-local check_project = function(ft)
-    local names = ({
-        ocaml = { 'dune-workspace', 'dune-project' }
-    })[ft]
-
-    for _, v in ipairs(names) do
-        if #vim.fs.find(v, { upward = true }) > 0 then
-            return true
-        end
-    end
-
-    return false
+    return cmds
 end
 
-FT.get_lst = function(args)
-    local lst = {
-        typescript = function() return { "ts-node", args.filepath } end,
-        javascript = function() return { "node", args.filepath } end,
-        go = function() return { "go", "run", args.filepath } end,
-        php = function() return { "php", args.filepath } end,
-        python = function() return { "python3", args.filepath } end,
-        lua = function() return { "lua", args.filepath } end,
-        swift = function() return { "swift", args.filepath } end,
-        ocaml = function()
-            if not check_project(args.filetype) then
-                return { "ocaml", args.filepath }
-            else
-                local grep = vim.split(
-                    vim.fn.system("grep public_name **/dune")
-                    , " ")
+FT.cmds = read_commands()
 
-                local i = -1
+local parse_command = function(cmd, name)
 
-                for k, v in ipairs(grep) do
-                    if string.find(v, 'public_name') then
-                        i = k + 1
-                    end
-                end
-
-                local name = grep[i]:gsub('%)', '')
-                return { "dune exec", name }
-            end
-        end,
-        c = function()
-            local bd = vim.fn.stdpath('data') .. "/runcode/" .. args.filetag
-            return { "gcc", args.filepath, "-o", bd, "&&", bd }
-        end,
-        cpp = function()
-            local bd = vim.fn.stdpath('data') .. "/runcode/" .. args.filetag
-            return { "gcc", args.filepath, "-o", bd, "&&", bd }
-        end
+    local parsing_table = {
+        ["%"] = vim.fn.expand('%:p'),
+        ["$"] = vim.fn.stdpath('data') .. "/runcode/" .. vim.fn.expand('%:t:r'),
+        ["^"] = name or ""
     }
 
-    return lst[args.filetype]
+    for sub, rep in pairs(parsing_table) do
+        cmd = string.gsub(cmd, "%" .. sub, rep)
+    end
+
+    return vim.fn.split(cmd, "")
 end
 
+
+local look_for_project = function(ft)
+
+    if ft == "ocaml" then
+
+        local names = {
+            "dune-workspace", "dune-project"
+        }
+
+        for _, v in ipairs(names) do
+            if #vim.fs.find(v, { upward = true }) > 0 then
+                return true
+            end
+        end
+
+        return false
+
+    end
+
+end
+
+local get_project_name = function(ft)
+    if ft == "ocaml" then
+        local grep = vim.split(
+            vim.fn.system("grep public_name **/dune")
+            , " ")
+
+        local i = -1
+
+        for k, v in ipairs(grep) do
+            if string.find(v, 'public_name') then
+                i = k + 1
+            end
+        end
+
+        local name = grep[i]:gsub('%)', '')
+
+        return name
+    end
+end
 
 FT.get = function(bufnr)
 
-    return FT.get_lst({
-        filepath = u.fun.buf('filepath', bufnr),
-        filetype = u.fun.buf('filetype', bufnr),
-        filetag = u.fun.buf('filetag', bufnr)
-    })() or false
+    local ft = vim.fn.getbufvar(bufnr, "&filetype")
+    local cmd = FT.cmds[ft]
 
+    if not cmd then
+        return nil
+    end
+
+    if type(cmd) == "table" then
+        if look_for_project(ft) then
+            local name = get_project_name(ft)
+
+            return parse_command(cmd.project, name)
+        end
+
+        return parse_command(cmd.default)
+    end
+
+    return parse_command(cmd)
 end
 
 return FT

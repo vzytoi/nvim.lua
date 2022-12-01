@@ -85,6 +85,9 @@ local raw = {
         Pmenu = { bg = c.black },
         FloatBorder = { bg = c.black },
         NormalFloat = { bg = c.black },
+
+        GlancePreviewNormal = { bg = c.grey },
+        GlanceListNormal = { bg = c.grey }
     }
 }
 

@@ -207,7 +207,7 @@ M.autocmds = function()
     nvim.create_autocmd("FileType", {
         pattern = "RunCode",
         callback = function()
-            -- vim.g.runcode_executing = false
+            vim.g.runcode_executing = false
 
             vim.g.nmap({ "<cr>", "q" }, function()
                 u.fun.close(vim.fn.bufnr())

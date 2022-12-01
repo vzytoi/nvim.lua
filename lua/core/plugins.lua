@@ -28,6 +28,7 @@ M.config = function()
         use "samjwill/nvim-unception"
         use "jbyuki/instant.nvim"
         use "chaoren/vim-wordmotion"
+        use "rcarriga/nvim-notify"
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
@@ -282,6 +283,13 @@ M.config = function()
 
             }
         }
+
+        use({
+            "dnlhc/glance.nvim",
+            config = function()
+                require('glance').setup()
+            end,
+        })
 
         use {
             "j-hui/fidget.nvim",

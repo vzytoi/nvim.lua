@@ -8,9 +8,10 @@ local configs = require('plugins.lsp.configs')
 M.keymaps = function()
 
     vim.g.nmap("gd", vim.lsp.buf.definition)
+    vim.g.nmap("gD", "<cmd>Glance definitions<CR>")
 
     vim.g.nmap("gr", vim.lsp.buf.rename)
-    vim.g.nmap("gR", "<cmd>Telescope lsp_references<cr>")
+    vim.g.nmap("gR", "<cmd>Glance references<CR>")
 
     vim.g.nmap("gh", vim.lsp.buf.hover)
 

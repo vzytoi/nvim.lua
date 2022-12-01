@@ -8,7 +8,7 @@ local configs = {
                     version = "LuaJIT"
                 },
                 diagnostics = {
-                    globals = { "vim", "u", "nvim" }
+                    globals = { "vim", "u", "nvim", "P" }
                 },
                 workspaces = {
                     library = {
