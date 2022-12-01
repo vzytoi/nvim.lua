@@ -49,7 +49,9 @@ M.config = function()
         } },
         { "<", "<<" },
         { ">", ">>" },
-        { 'gs', '<cmd>Pounce<cr>' },
+        { 'gJ', function()
+            require('trevj').format_at_cursor()
+        end },
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<leader>", {

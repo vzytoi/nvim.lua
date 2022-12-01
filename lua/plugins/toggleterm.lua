@@ -26,7 +26,6 @@ local function envGo()
 end
 
 M.keymaps = function()
-
     vim.g.nmap("<leader>t", ":ToggleTerm direction=tab<cr>")
     vim.g.nmap("<leader>tf", ":ToggleTerm direction=float<cr>")
     vim.g.nmap("<leader>ts", ":ToggleTerm direction=horizontal<cr>")

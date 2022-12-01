@@ -47,6 +47,10 @@ FT.get_lst = function(args)
         c = function()
             local bd = vim.fn.stdpath('data') .. "/runcode/" .. args.filetag
             return { "gcc", args.filepath, "-o", bd, "&&", bd }
+        end,
+        cpp = function()
+            local bd = vim.fn.stdpath('data') .. "/runcode/" .. args.filetag
+            return { "gcc", args.filepath, "-o", bd, "&&", bd }
         end
     }
 

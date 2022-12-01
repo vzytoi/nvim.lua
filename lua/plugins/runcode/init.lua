@@ -178,6 +178,7 @@ end
 M.keymaps = function()
 
     vim.g.nmap("<leader>x", function()
+        vim.g.runcode_executing = true
         execute("s")
     end)
 
@@ -196,6 +197,8 @@ M.autocmds = function()
     nvim.create_autocmd("FileType", {
         pattern = "RunCode",
         callback = function()
+            vim.g.runcode_executing = false
+
             vim.g.nmap({ "<cr>", "q" }, function()
                 u.fun.close(vim.fn.bufnr())
             end, { buffer = 0 })

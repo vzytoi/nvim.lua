@@ -11,7 +11,7 @@ local alias = {
 
 FT.patterns = {
     ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json",
-    "dune-project",
+    "dune-project", ".root", "stylua.toml"
 }
 
 FT.close_when_last = {
@@ -20,12 +20,14 @@ FT.close_when_last = {
 
 FT.disabled = {
     lualine = {
-        "TelescopePrompt", "harpoon"
+        "TelescopePrompt", "harpoon", "NeogitCommitMessage",
+        "RunCode"
     },
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",
         "TelescopePrompt", "NvimTree", "harpoon",
-        "sagarename", "mason.nvim", "packer", "gitcommit"
+        "sagarename", "mason.nvim", "packer", "gitcommit",
+        "NeogitCommitMessage"
     },
     spell = {
         "toggleterm", "RunCode"

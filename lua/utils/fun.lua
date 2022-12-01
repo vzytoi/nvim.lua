@@ -180,7 +180,7 @@ FN.buf = function(asked, bufnr)
         filename = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t'),
         filetype = vim.fn.getbufvar(bufnr, "&filetype"),
         filepath = vim.fn.expand('%:p'),
-        filetag = vim.fn.fnamemodify(vim.fn.bufname(bufnr), ':t:r'),
+        filetag = vim.fn.expand('%:t:r'),
         bufnr = bufnr
     }
 

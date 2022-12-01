@@ -16,25 +16,30 @@ M.config = function()
 
         use "wbthomason/packer.nvim"
         use "lewis6991/impatient.nvim"
-        use "nathom/filetype.nvim"
+
+        -- waiting for merge.
+        -- use "nathom/filetype.nvim"
+        use "/Users/cyprien/Documents/filetype.nvim"
         use "nvim-lua/plenary.nvim"
         use "nvim-tree/nvim-web-devicons"
         use "tpope/vim-surround"
         use "wellle/targets.vim"
         use "fedepujol/move.nvim"
         use "samjwill/nvim-unception"
-        use "AndrewRadev/splitjoin.vim"
         use "jbyuki/instant.nvim"
-        use "ellisonleao/gruvbox.nvim"
-        use "arzg/vim-colors-xcode"
         use "chaoren/vim-wordmotion"
 
-        -- use "tpope/vim-sleuth"
-        use { "davidgranstrom/nvim-markdown-preview", cmd = "MarkdownPreview" }
+        use "ellisonleao/gruvbox.nvim"
+        use "arzg/vim-colors-xcode"
+        use {
+            "davidgranstrom/nvim-markdown-preview",
+            cmd = "MarkdownPreview",
+        }
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
-        use { "windwp/nvim-spectre", module = "spectre" }
-        -- use { "vzytoi/vim-cool", event = "cmdlineenter" }
+        use { "/Users/cyprien/Documents/vim-cool", event = "cmdlineenter" }
         use { "TimUntersberger/neogit", cmd = "Neogit" }
+
+        use "AckslD/nvim-trevJ.lua"
 
         use {
             "lewis6991/hover.nvim",
@@ -53,7 +58,6 @@ M.config = function()
 
         use {
             'lewis6991/satellite.nvim',
-            -- '/Users/cyprien/Documents/satellite.nvim',
             config = function()
                 require('satellite').setup()
             end
@@ -90,13 +94,6 @@ M.config = function()
         use {
             "LionC/nest.nvim",
             config = function() require("core.keymaps").config() end
-        }
-
-
-        use {
-            "cappyzawa/trim.nvim",
-            event = "BufWritePre",
-            config = function() require("trim").setup() end,
         }
 
 
@@ -256,11 +253,6 @@ M.config = function()
                     },
                 }
             end
-        }
-
-        use {
-            "chrisbra/NrrwRgn",
-            cmd = { "NarrowRegion", "NarrowWindow" }
         }
 
         use {

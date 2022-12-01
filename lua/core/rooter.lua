@@ -110,8 +110,8 @@ M.autocmds = function()
             local cmd = M.main()
 
             if cmd then
-                -- nvim.command("cd " .. cmd)
-                vim.cmd.lcd = cmd
+                nvim.command("lcd " .. cmd)
+                -- vim.cmd.lcd = cmd
             end
         end
     })

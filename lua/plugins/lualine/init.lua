@@ -15,7 +15,7 @@ function M.config()
         },
         sections = {
             lualine_a = { components.mode },
-            lualine_b = { components.branch, components.searchcount },
+            lualine_b = { components.runcode, components.branch, components.searchcount },
             lualine_c = { 'diagnostics' },
             lualine_x = {},
             lualine_y = {

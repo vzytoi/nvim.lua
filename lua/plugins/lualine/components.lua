@@ -151,4 +151,26 @@ M.searchcount = {
     cond = M.filter
 }
 
+local state
+
+M.runcode = {
+    function()
+        if vim.g.runcode_executing then
+            state = state + 1
+
+            if not u.icons.progress[state] then
+                state = 1
+            end
+
+            return u.icons.progress[state]
+        else
+            state = 0
+            return ""
+        end
+    end,
+    padding = {
+        left = 2,
+    }
+}
+
 return M
