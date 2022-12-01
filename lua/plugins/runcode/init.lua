@@ -194,10 +194,20 @@ end
 
 M.autocmds = function()
 
+    nvim.create_autocmd("BufLeave", {
+        callback = function()
+            vim.defer_fn(function()
+                if vim.bo.filetype == "RunCode" then
+                    vim.g.runcode_executing = false
+                end
+            end, 0)
+        end
+    })
+
     nvim.create_autocmd("FileType", {
         pattern = "RunCode",
         callback = function()
-            vim.g.runcode_executing = false
+            -- vim.g.runcode_executing = false
 
             vim.g.nmap({ "<cr>", "q" }, function()
                 u.fun.close(vim.fn.bufnr())
