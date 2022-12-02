@@ -4,7 +4,7 @@ require('utils.globals')
 local mods = {
     { name = "abbr", event = "CmdlineEnter" },
     { name = "colors", event = "ColorScheme" },
-    { name = "plugins" },
+    { name = "packer" },
     { name = "opts" },
     { name = "autocmds", },
 }

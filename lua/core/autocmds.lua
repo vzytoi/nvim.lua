@@ -10,7 +10,6 @@ M.config = function()
 
     vim.g.group('vimrc', {})
 
-    require "plugins.runcode".autocmds()
     require "plugins.treesitter".autocmds()
     require "plugins.time".autocmds()
     require "core.tabline".autocmds()

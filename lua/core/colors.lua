@@ -69,9 +69,10 @@ local raw = {
 
         CursorLineNr = { bold = true, fg = c.white },
 
-        RunCodeOk    = { fg = c.green },
-        RunCodeError = { fg = c.red },
-        RunCodeInfo  = { fg = c.blue },
+        RunCodeNormal = { bg = c.darkerblack },
+        RunCodeOk     = { fg = c.green },
+        RunCodeError  = { fg = c.red },
+        RunCodeInfo   = { fg = c.blue },
 
         NvimTreeNormal           = { bg = c.darkerblack },
         NvimTreeEndOfBuffer      = { fg = c.darkerblack, bg = c.darkerblack },

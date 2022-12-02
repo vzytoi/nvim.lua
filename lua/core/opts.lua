@@ -12,6 +12,7 @@ M.buffer = function(name)
         vim.wo.relativenumber = false
         vim.bo.filetype = name
     end
+
 end
 
 M.disablePlugins = function()

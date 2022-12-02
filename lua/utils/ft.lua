@@ -27,7 +27,7 @@ FT.disabled = {
         "fugitive", "RunCode", "help", "toggleterm",
         "TelescopePrompt", "NvimTree", "harpoon",
         "sagarename", "mason.nvim", "packer", "gitcommit",
-        "NeogitCommitMessage"
+        "NeogitCommitMessage", "alpha"
     },
     spell = {
         "toggleterm", "RunCode"

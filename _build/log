@@ -1,5 +1,0 @@
-# dune init project test
-# OCAMLPARAM: unset
-# Shared cache: disabled
-# Workspace root: /Users/cyprien/.config/nvim
-# Auto-detected concurrency: 8

@@ -33,7 +33,6 @@ M.config = function()
     vim.g.mapleader = " "
 
     require "plugins.toggleterm".keymaps()
-    require "plugins.runcode".keymaps()
     require "plugins.nvimtree".keymaps()
     require "plugins.resize".keymaps()
     require "plugins.lsp".keymaps()
@@ -135,6 +134,25 @@ M.config = function()
             require('harpoon.ui').nav_file(v)
         end)
     end
+
+    vim.keymap.set("n", "<leader>x", function()
+        require('runcode').run()
+    end)
+
+    vim.keymap.set("n", "<leader>xx", function()
+        require('runcode').run { method = "compile" }
+    end)
+
+    vim.keymap.set("n", "<leader>xt", function()
+        require('runcode').run { dir = "tab" }
+    end)
+
+
+    vim.keymap.set("n", "<leader>xv", function()
+        require('runcode').run { dir = "vertical" }
+    end)
+
+    vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 end
 

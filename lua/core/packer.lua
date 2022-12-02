@@ -28,7 +28,10 @@ M.config = function()
         use "samjwill/nvim-unception"
         use "jbyuki/instant.nvim"
         use "chaoren/vim-wordmotion"
-        use "rcarriga/nvim-notify"
+        use 'eandrju/cellular-automaton.nvim'
+        use "rhysd/conflict-marker.vim"
+
+        use { "/Users/cyprien/Documents/nvim/runcode.nvim", }
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"

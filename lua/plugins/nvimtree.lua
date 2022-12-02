@@ -15,7 +15,7 @@ M.config = function()
             enable = true,
             update_cwd = true
         },
-        filters = { custom = { "^.git$", ".root" } },
+        filters = { custom = { "^.git$", ".root", ".DS_Store" } },
         open_on_setup = true,
         view = {
             side = "right",
