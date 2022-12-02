@@ -11,9 +11,7 @@ M.config = function()
     vim.g.group('vimrc', {})
 
     require "plugins.treesitter".autocmds()
-    require "plugins.time".autocmds()
     require "core.tabline".autocmds()
-    require "core.winbar".autocmds()
     require "core.linter".autocmds()
     require "core.rooter".autocmds()
 

@@ -25,8 +25,6 @@ end
 
 M.autocmds = function()
 
-    require "plugins.lsp.vt".autocmds()
-
     vim.g.autocmd("BufWritePre", {
         callback = function()
             if u.fun.capabilities('format', 0) then
@@ -94,7 +92,9 @@ M.config = function()
             border = "rounded"
         },
         virtual_text = {
-            severity = { min = vim.diagnostic.severity.ERROR },
+            severity = require('virtual').grab {
+                min = vim.diagnostic.severity.ERROR,
+            },
             prefix = u.icons.diagnostics
         }
     })

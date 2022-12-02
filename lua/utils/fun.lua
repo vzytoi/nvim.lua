@@ -61,16 +61,6 @@ FN.table = {
 
 }
 
-FN.split = function(string, target)
-    local results = {}
-
-    for m in (string .. target):gmatch("(.-)" .. target) do
-        table.insert(results, m)
-    end
-
-    return results
-end
-
 FN.toggle = function(open, close)
 
     if vim.g[open] == nil then
@@ -87,32 +77,6 @@ end
 FN.is_last_win = function()
     return #nvim.list_wins() == 1
 end
-
-FN.closebuf = function(bufnr)
-    local _ = pcall(nvim.command, bufnr .. 'bd')
-end
-
-FN.close = function()
-    nvim.command('q')
-end
-
-FN.getbufpath = function()
-    return vim.fn.fnameescape(nvim.buf_get_name(0))
-end
-
-FN.get_filename = function()
-    return vim.fn.expand('%:t')
-end
-
-FN.os = {
-    mac = function()
-        return vim.fn.has('macunix')
-    end,
-
-    win = function()
-        return package.config:sub(1, 1) == "\\"
-    end
-}
 
 FN.capabilities = function(capabilitie, bufnr)
 
@@ -135,23 +99,6 @@ FN.is_empty = function(obj)
     return obj == nil or obj == ""
 end
 
-FN.scandir = function(directory)
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen('ls -a "' .. directory .. '"')
-
-    if pfile ~= nil then
-        for filename in pfile:lines() do
-            i = i + 1
-            t[i] = filename
-        end
-        pfile:close()
-    else
-        return false
-    end
-
-    return vim.list_slice(t, 3, #t)
-end
-
 FN.keycount = {
     ["&"] = 1,
     ["é"] = 2,
@@ -164,13 +111,6 @@ FN.keycount = {
     ["ç"] = 9
 }
 
-FN.buflst = function()
-
-    return vim.tbl_filter(function(nr)
-        return nvim.buf_is_loaded(nr)
-    end, nvim.list_bufs())
-
-end
 
 FN.buf = function(asked, bufnr)
 
@@ -186,15 +126,6 @@ FN.buf = function(asked, bufnr)
 
     return infos[asked]
 
-end
-
-FN.map = function(f, t)
-    local t1 = {}
-    local t_len = #t
-    for i = 1, t_len do
-        t1[i] = f(t[i])
-    end
-    return t1
 end
 
 return FN

@@ -6,20 +6,22 @@ M.config = function()
 
     local fn = vim.fn
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    local packer = require('packer')
 
     if fn.empty(fn.glob(install_path)) > 0 then
         M.PB = fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
             install_path })
     end
 
-    return require("packer").startup { function(use)
+    packer.init {
+        max_jobs = 20
+    }
+
+    return packer.startup { function(use)
 
         use "wbthomason/packer.nvim"
         use "lewis6991/impatient.nvim"
 
-        -- waiting for merge.
-        -- use "nathom/filetype.nvim"
-        use "/Users/cyprien/Documents/filetype.nvim"
         use "nvim-lua/plenary.nvim"
         use "nvim-tree/nvim-web-devicons"
         use "tpope/vim-surround"
@@ -31,7 +33,9 @@ M.config = function()
         use 'eandrju/cellular-automaton.nvim'
         use "rhysd/conflict-marker.vim"
 
-        use { "/Users/cyprien/Documents/nvim/runcode.nvim", }
+        use "vzytoi/runcode.nvim"
+        use "vzytoi/virtual.nvim"
+        use "/Users/cyprien/Documents/nvim/filetype.nvim"
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
@@ -40,10 +44,10 @@ M.config = function()
             cmd = "MarkdownPreview",
         }
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
-        use { "/Users/cyprien/Documents/vim-cool", event = "cmdlineenter" }
         use { "TimUntersberger/neogit", cmd = "Neogit" }
 
         use "AckslD/nvim-trevJ.lua"
+        use { "romainl/vim-cool", event = "cmdlineenter" }
 
         use {
             "lewis6991/hover.nvim",
@@ -393,7 +397,7 @@ M.config = function()
         }
 
         if M.PB then
-            require("packer").sync()
+            packer.sync()
         end
 
     end,

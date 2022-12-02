@@ -16,7 +16,7 @@ M.buffer = function(name)
 end
 
 M.disablePlugins = function()
-    local plug_buitlins = {
+    local plug_builtins = {
         "gzip", "zip", "tar",
         "zipPlugin", "tarPlugin",
         "getscript", "getscriptPlugin",
@@ -29,13 +29,12 @@ M.disablePlugins = function()
     }
 
     if vim.fn.isdirectory(vim.fn.argv()[1]) == 0 then
-        plug_buitlins = u.fun.table.merge(
-            plug_buitlins,
+        plug_builtins = vim.tbl_extend("force", plug_builtins,
             { "netrw", "netrwPlugin", "netrwSettings" }
         )
     end
 
-    for _, p in pairs(plug_buitlins) do
+    for _, p in pairs(plug_builtins) do
         vim.g["loaded_" .. p] = 1
     end
 end
