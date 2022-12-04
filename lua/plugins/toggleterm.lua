@@ -5,9 +5,8 @@ M.keymaps = function()
     vim.g.nmap("<leader>tf", ":ToggleTerm direction=float<cr>")
     vim.g.nmap("<leader>ts", ":ToggleTerm direction=horizontal<cr>")
     vim.g.nmap("<leader>tv", ":ToggleTerm direction=vertical<cr>")
-    -- vim.g.tmap("<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
-    -- vim.g.tmap("<esc>", [[<C-\><C-n>]])
-    -- vim.g.tmap("<c-v>", [[<C-\><C-n>"*pA"]])
+    vim.g.tmap("<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
+    vim.g.tmap("<esc>", [[<C-\><C-n>]])
 end
 
 M.config = function()

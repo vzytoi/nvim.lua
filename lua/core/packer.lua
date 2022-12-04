@@ -6,7 +6,7 @@ M.config = function()
 
     local fn = vim.fn
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-    local packer = require('packer')
+    local packer = require("packer")
 
     if fn.empty(fn.glob(install_path)) > 0 then
         M.PB = fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim",
@@ -14,7 +14,7 @@ M.config = function()
     end
 
     packer.init {
-        max_jobs = 20
+        max_jobs = 30
     }
 
     return packer.startup { function(use)
@@ -29,29 +29,25 @@ M.config = function()
         use "fedepujol/move.nvim"
         use "samjwill/nvim-unception"
         use "jbyuki/instant.nvim"
-        use 'eandrju/cellular-automaton.nvim'
+        use "eandrju/cellular-automaton.nvim"
 
-        -- use "vzytoi/runcode.nvim"
-        use "/Users/cyprien/Documents/nvim/runcode.nvim"
-
+        use "vzytoi/runcode.nvim"
         use "vzytoi/virtual.nvim"
-        use "vzytoi/resize.nvim"
+        use "vzytoi/quickterm.nvim"
 
-        use "/Users/cyprien/Documents/nvim/quickterm.nvim"
+        use "mrjones2014/smart-splits.nvim"
 
         use {
             "alvarosevilla95/luatab.nvim",
+            requires = "nvim-tree/nvim-web-devicons",
             config = function()
-                require('luatab').setup {
+                require("luatab").setup {
                     modified = function() return "" end,
                     windowCount = function() return "" end
                 }
-            end,
-            requires = "nvim-tree/nvim-web-devicons"
+            end
         }
 
-        -- J'ai fait un PR pour la mauvaise gestion du C.
-        -- Toujours pas merge pour le moment.
         use "vzytoi/filetype.nvim"
 
         use "ellisonleao/gruvbox.nvim"
@@ -75,27 +71,12 @@ M.config = function()
                 require("hover").setup {
                     init = function()
                         require("hover.providers.lsp")
-                        require('hover.providers.man')
-                        require('hover.providers.gh')
+                        require("hover.providers.man")
+                        require("hover.providers.gh")
                     end,
                     title = false
                 }
                 vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-            end
-        }
-
-        use {
-            'lewis6991/satellite.nvim',
-            config = function()
-                require('satellite').setup()
-            end
-        }
-
-        use {
-            "kazhala/close-buffers.nvim",
-            cmd = "Bdelete",
-            config = function()
-                require('close_buffers').setup()
             end
         }
 
@@ -108,7 +89,7 @@ M.config = function()
         }
 
         use {
-            'ethanholz/nvim-lastplace',
+            "ethanholz/nvim-lastplace",
             config = function()
                 require("nvim-lastplace").setup()
             end,
@@ -133,7 +114,7 @@ M.config = function()
         use {
             "stevearc/aerial.nvim",
             cmd = "AerialToggle",
-            config = function() require('aerial').setup() end
+            config = function() require("aerial").setup() end
         }
 
 
@@ -164,9 +145,9 @@ M.config = function()
 
 
         use {
-            'goolord/alpha-nvim',
+            "goolord/alpha-nvim",
             config = function()
-                require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+                require "alpha".setup(require "alpha.themes.dashboard".config)
             end
         }
 
@@ -194,12 +175,12 @@ M.config = function()
         use {
             "hrsh7th/nvim-cmp",
             config = function()
-                require('plugins.cmp').config()
+                require("plugins.cmp").config()
             end,
             requires = {
-                'hrsh7th/cmp-nvim-lsp',
-                'L3MON4D3/LuaSnip',
-                'saadparwaiz1/cmp_luasnip',
+                "hrsh7th/cmp-nvim-lsp",
+                "L3MON4D3/LuaSnip",
+                "saadparwaiz1/cmp_luasnip",
                 "hrsh7th/cmp-nvim-lsp-signature-help",
                 "lukas-reineke/cmp-rg",
                 "ray-x/cmp-treesitter",
@@ -213,14 +194,14 @@ M.config = function()
                 { "windwp/nvim-ts-autotag" },
                 { "nvim-treesitter/nvim-treesitter-textobjects" },
                 { "RRethy/nvim-treesitter-textsubjects" },
-                { 'nvim-treesitter/nvim-tree-docs' },
+                { "nvim-treesitter/nvim-tree-docs" },
                 {
-                    'Wansmer/sibling-swap.nvim',
-                    requires = { 'nvim-treesitter' },
+                    "Wansmer/sibling-swap.nvim",
+                    requires = { "nvim-treesitter" },
                     config = function()
-                        require('sibling-swap').setup({ keymaps = {
-                            ['<left>'] = 'swap_with_left',
-                            ['<right>'] = 'swap_with_right',
+                        require("sibling-swap").setup({ keymaps = {
+                            ["<left>"] = "swap_with_left",
+                            ["<right>"] = "swap_with_right",
                         } })
                     end,
                 }
@@ -241,15 +222,15 @@ M.config = function()
                     after = "telescope.nvim",
                     run = "make",
                     config = function()
-                        require("telescope").load_extension('fzf')
+                        require("telescope").load_extension("fzf")
                     end
                 },
-                { 'nvim-telescope/telescope-symbols.nvim', after = "telescope.nvim" },
+                { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" },
                 {
                     "nvim-telescope/telescope-project.nvim",
                     after = "telescope.nvim",
                     config = function()
-                        require("telescope").load_extension('project')
+                        require("telescope").load_extension("project")
                     end
                 },
                 {
@@ -267,17 +248,17 @@ M.config = function()
             config = function() require("mason").setup() end,
             requires = {
                 { "mfussenegger/nvim-lint",
-                    config = function() require('core.linter').config() end },
+                    config = function() require("core.linter").config() end },
             }
         }
 
         use {
-            'https://github.com/nat-418/boole.nvim',
+            "https://github.com/nat-418/boole.nvim",
             config = function()
-                require('boole').setup {
+                require("boole").setup {
                     mappings = {
-                        increment = '<up>',
-                        decrement = '<down>',
+                        increment = "<up>",
+                        decrement = "<down>",
                     },
                 }
             end
@@ -297,7 +278,7 @@ M.config = function()
 
         use {
             "nvim-tree/nvim-tree.lua",
-            config = function() require('plugins.nvimtree').config() end,
+            config = function() require("plugins.nvimtree").config() end,
             cmd = "NvimTreeToggle"
         }
 
@@ -314,7 +295,7 @@ M.config = function()
         use({
             "dnlhc/glance.nvim",
             config = function()
-                require('glance').setup()
+                require("glance").setup()
             end,
         })
 
@@ -391,7 +372,7 @@ M.config = function()
                 { "i", "(" },
                 { "i", "[" },
                 { "i", "{" },
-                { "i", "'" },
+                { "i", '"' },
                 { "i", '"' },
                 { "i", "<BS>" },
             }
@@ -404,7 +385,7 @@ M.config = function()
                 { "n", "s" }
             },
             config = function()
-                require('leap').set_default_keymaps()
+                require("leap").set_default_keymaps()
             end
         }
 
@@ -423,7 +404,7 @@ M.config = function()
     end,
         config = {
             display = {
-                open_fn = require('packer.util').float
+                open_fn = require("packer.util").float
             }
         }
     }

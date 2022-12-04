@@ -21,7 +21,7 @@ FT.close_when_last = {
 FT.disabled = {
     lualine = {
         "TelescopePrompt", "harpoon", "NeogitCommitMessage",
-        "RunCode"
+        "RunCode", "log"
     },
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",

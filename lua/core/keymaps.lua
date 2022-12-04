@@ -37,7 +37,7 @@ M.config = function()
     require "plugins.lsp".keymaps()
     require "core.rooter".keymaps()
 
-    local resize = require("resize")
+    local resize = require("smart-splits")
 
     nest.applyKeymaps {
         { "<c-", {
@@ -47,10 +47,10 @@ M.config = function()
             { "l>", "<c-w>w" },
             { "c>", "<esc>" },
         } },
-        { "Ì", function() resize.resize("left") end },
-        { "¬", function() resize.resize("right") end },
-        { "È", function() resize.resize("up") end },
-        { "Ï", function() resize.resize("down") end },
+        { "Ì", function() resize.resize_left(5) end },
+        { "¬", function() resize.resize_right(5) end },
+        { "È", function() resize.resize_up(5) end },
+        { "Ï", function() resize.resize_down(5) end },
         { "<", "<<" },
         { ">", ">>" },
         { 'gJ', function()

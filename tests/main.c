@@ -18,7 +18,6 @@ int pow_(int a, int b) {
 }
 
 int main() {
-
     printf("%d^%d=%d", 12, 3, pow_(12, 3));
 
     return 0;
