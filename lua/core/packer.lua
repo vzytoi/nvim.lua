@@ -29,16 +29,36 @@ M.config = function()
         use "fedepujol/move.nvim"
         use "samjwill/nvim-unception"
         use "jbyuki/instant.nvim"
-        use "chaoren/vim-wordmotion"
         use 'eandrju/cellular-automaton.nvim'
-        use "rhysd/conflict-marker.vim"
 
-        use "vzytoi/runcode.nvim"
+        -- use "vzytoi/runcode.nvim"
+        use "/Users/cyprien/Documents/nvim/runcode.nvim"
+
         use "vzytoi/virtual.nvim"
-        use "/Users/cyprien/Documents/nvim/filetype.nvim"
+        use "vzytoi/resize.nvim"
+
+        use "/Users/cyprien/Documents/nvim/quickterm.nvim"
+
+        use {
+            "alvarosevilla95/luatab.nvim",
+            config = function()
+                require('luatab').setup {
+                    modified = function() return "" end,
+                    windowCount = function() return "" end
+                }
+            end,
+            requires = "nvim-tree/nvim-web-devicons"
+        }
+
+        -- J'ai fait un PR pour la mauvaise gestion du C.
+        -- Toujours pas merge pour le moment.
+        use "vzytoi/filetype.nvim"
 
         use "ellisonleao/gruvbox.nvim"
         use "arzg/vim-colors-xcode"
+        use "habamax/vim-polar"
+        use "jaredgorski/fogbell.vim"
+
         use {
             "davidgranstrom/nvim-markdown-preview",
             cmd = "MarkdownPreview",

@@ -73,6 +73,7 @@ local on_attach = function(client, bufnr)
 
     -- si un formatter est configuré dans formatter.nvim
     -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
+
     if format(u.fun.buf(bufnr, 'filetype')) then
         client.server_capabilities.documentFormattingProvider = false
     end

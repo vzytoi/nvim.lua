@@ -34,9 +34,10 @@ M.config = function()
 
     require "plugins.toggleterm".keymaps()
     require "plugins.nvimtree".keymaps()
-    require "plugins.resize".keymaps()
     require "plugins.lsp".keymaps()
     require "core.rooter".keymaps()
+
+    local resize = require("resize")
 
     nest.applyKeymaps {
         { "<c-", {
@@ -46,6 +47,10 @@ M.config = function()
             { "l>", "<c-w>w" },
             { "c>", "<esc>" },
         } },
+        { "Ì", function() resize.resize("left") end },
+        { "¬", function() resize.resize("right") end },
+        { "È", function() resize.resize("up") end },
+        { "Ï", function() resize.resize("down") end },
         { "<", "<<" },
         { ">", ">>" },
         { 'gJ', function()
@@ -53,7 +58,24 @@ M.config = function()
         end },
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
+        { "<Space>", "<Nop>" },
         { "<leader>", {
+            { "fml", "<cmd>CellularAutomaton make_it_rain<CR>" },
+            { "ti", function()
+                require('quickterm').open()
+            end },
+            { "x", function()
+                require('runcode').run()
+            end },
+            { "xx", function()
+                require('runcode').run { method = "compile" }
+            end },
+            { "xt", function()
+                require('runcode').run { dir = "tab" }
+            end },
+            { "xv", function()
+                require('runcode').run { dir = "vertical" }
+            end },
             { 'gd', function()
                 u.fun.toggle("DiffviewOpen", "DiffviewClose")
             end },
@@ -105,6 +127,7 @@ M.config = function()
         { "N", "Nzzzv" },
         { "J", "mzJ`z" },
         { mode = "v", {
+            { "<Space>", "<Nop>" },
             { 'L', ":MoveHBlock(1)<CR>" },
             { 'J', ":MoveBlock(1)<CR>" },
             { 'K', ":MoveBlock(-1)<CR>" },
@@ -135,24 +158,7 @@ M.config = function()
         end)
     end
 
-    vim.keymap.set("n", "<leader>x", function()
-        require('runcode').run()
-    end)
 
-    vim.keymap.set("n", "<leader>xx", function()
-        require('runcode').run { method = "compile" }
-    end)
-
-    vim.keymap.set("n", "<leader>xt", function()
-        require('runcode').run { dir = "tab" }
-    end)
-
-
-    vim.keymap.set("n", "<leader>xv", function()
-        require('runcode').run { dir = "vertical" }
-    end)
-
-    vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 end
 

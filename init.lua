@@ -5,7 +5,7 @@ local mods = {
     { name = "abbr", event = "CmdlineEnter" },
     { name = "colors", event = "ColorScheme" },
     { name = "packer" },
-    { name = "opts" },
+    { name = "options" },
     { name = "autocmds", },
 }
 
@@ -27,7 +27,7 @@ for _, m in pairs(mods) do
     else
         nvim.create_autocmd(m.event, {
             callback = function()
-                if vim.g[m.name] == nil then
+                if not vim.g[m.name] then
                     load(m.name)
                 end
             end,

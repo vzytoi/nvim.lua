@@ -123,8 +123,7 @@ M.ColorOpt = function()
     vim.o.termguicolors = true
     vim.o.background = "dark"
 
-    vim.g.gruvbox_contrast_dark = 'dark'
-    vim.cmd.colorscheme('xcodedarkhc')
+    local _ = pcall(vim.cmd.colorscheme, 'xcodedarkhc')
 
 end
 
@@ -136,10 +135,6 @@ M.config = function()
     vim.g.loaded_python_provider = false
     vim.g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
     vim.g.instant_username = "Cyprien"
-    vim.g.explorer_is_open = false
-    vim.g.rooter_silent_chdir = true
-    vim.g["sneak#use_ic_scs"] = true
-    vim.g.doge_mapping = "<leader>nop"
 
 end
 

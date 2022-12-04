@@ -1,41 +1,13 @@
 local M = {}
 
-local cmds = {
-    javascript = { cmd = "node" },
-    typescript = { cmd = "ts-node" },
-    lua = { cmd = "lua" },
-    python = { cmd = "python3" },
-    ocaml = { cmd = "utop" }
-}
-
-local function envInit()
-    local Terminal = require("toggleterm.terminal").Terminal
-
-    for i, v in pairs(cmds) do
-        cmds[i].term = Terminal:new({ cmd = v.cmd, hidden = true, direction = "float" })
-    end
-
-end
-
-local function envGo()
-    if cmds[vim.bo.filetype] then
-        cmds[vim.bo.filetype].term:toggle()
-    else
-        print("Not configured yet.")
-    end
-end
-
 M.keymaps = function()
     vim.g.nmap("<leader>t", ":ToggleTerm direction=tab<cr>")
     vim.g.nmap("<leader>tf", ":ToggleTerm direction=float<cr>")
     vim.g.nmap("<leader>ts", ":ToggleTerm direction=horizontal<cr>")
     vim.g.nmap("<leader>tv", ":ToggleTerm direction=vertical<cr>")
-    vim.g.nmap("<leader>ti", envGo)
-    vim.g.tmap("<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
-    vim.g.tmap("<esc>", [[<C-\><C-n>]])
-    vim.g.tmap("<c-v>", [[<C-\><C-n>"*pA"]])
-
-    envInit()
+    -- vim.g.tmap("<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
+    -- vim.g.tmap("<esc>", [[<C-\><C-n>]])
+    -- vim.g.tmap("<c-v>", [[<C-\><C-n>"*pA"]])
 end
 
 M.config = function()

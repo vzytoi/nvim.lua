@@ -55,10 +55,10 @@ local raw = {
         TabLineSel = { bg = c.black, bold = true },
         TabLineFill = { bg = c.darkerblack },
 
-        TextOn = { bg = c.black, fg = c.white, bold = true },
+        -- TextOn = { bg = c.black, fg = c.white, bold = true },
         TextOff = { bg = c.black, fg = c.lightgrey },
 
-        SepOn = { bg = c.black, fg = c.pink },
+        SepOn = { fg = c.pink },
         SepOff = { fg = c.lightgrey },
 
         StatusLine = { bg = c.black },
