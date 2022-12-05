@@ -25,7 +25,7 @@ end
 
 M.autocmds = function()
 
-    vim.g.autocmd("BufWritePre", {
+    vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
             if u.fun.capabilities('format', 0) then
                 vim.lsp.buf.format()
@@ -34,7 +34,7 @@ M.autocmds = function()
         buffer = 0
     })
 
-    vim.g.autocmd("BufWritePost", {
+    vim.api.nvim_create_autocmd("BufWritePost", {
         callback = function()
             if format(vim.bo.filetype) then
                 local _ = pcall(nvim.command, "FormatWriteLock")
@@ -43,7 +43,7 @@ M.autocmds = function()
         buffer = 0
     })
 
-    vim.g.autocmd("CursorHold", {
+    vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()
             if u.fun.capabilities('hi', 0) then
                 vim.lsp.buf.document_highlight()
@@ -52,7 +52,7 @@ M.autocmds = function()
         buffer = 0
     })
 
-    vim.g.autocmd("CursorMoved", {
+    vim.api.nvim_create_autocmd("CursorMoved", {
         callback = function()
             vim.lsp.buf.clear_references()
         end,

@@ -88,7 +88,9 @@ local raw = {
         NormalFloat = { bg = c.black },
 
         GlancePreviewNormal = { bg = c.grey },
-        GlanceListNormal = { bg = c.grey }
+        GlanceListNormal = { bg = c.grey },
+
+        VertSplit = {}
     }
 }
 

@@ -1,28 +1,8 @@
 local M = {}
 
-vim.g.autocmd = nvim.create_autocmd
+local general = vim.api.nvim_create_augroup("General Settings", { clear = true })
 
-vim.g.group = function(name, opts)
-    return nvim.create_augroup(name, opts or { clear = true })
-end
-
-M.config = function()
-
-    vim.g.group('vimrc', {})
-
-    require "plugins.treesitter".autocmds()
-    require "core.linter".autocmds()
-    require "core.rooter".autocmds()
-
-    vim.g.autocmd("BufEnter", {
-        callback = function()
-            if vim.tbl_contains(u.ft.close_when_last, vim.bo.filetype)
-                and u.fun.is_last_win() then
-                u.fun.close()
-            end
-        end,
-        group = vim.g.group('close-last')
-    })
+local line_number = function()
 
     local dis = u.ft.disabled
 
@@ -33,7 +13,8 @@ M.config = function()
         end
     end
 
-    vim.g.autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+    vim.api.nvim_create_autocmd(
+        { "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
         callback = function()
             if vim.fn.mode() ~= "i" then
                 vim.wo.rnu = true
@@ -42,36 +23,85 @@ M.config = function()
 
 
             disln()
-        end
+        end,
+        group = general
     })
 
-    vim.g.autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+    vim.api.nvim_create_autocmd(
+        { "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
         callback = function()
             vim.wo.rnu = false
             vim.wo.nu = true
 
             disln()
-        end
+        end,
+        group = general
     })
 
-    vim.g.autocmd("FileType", {
+
+    vim.api.nvim_create_autocmd("FileType", {
         callback = function()
             disln()
         end
     })
 
-    vim.g.autocmd("FileType", {
-        callback = function()
-            local ft = vim.bo.filetype
-            local unwanted = u.fun.unwanted(0)
+end
 
-            if vim.tbl_contains(dis.spell, ft) or unwanted then
-                vim.schedule(function()
-                    vim.wo.spell = false
-                end)
+M.config = function()
+
+    require "plugins.treesitter".autocmds()
+    require "core.linter".autocmds()
+    require "core.rooter".autocmds()
+
+
+    vim.api.nvim_create_augroup('vimrc', {})
+
+    -- close certain window when last opened
+    vim.api.nvim_create_autocmd("BufEnter", {
+        callback = function()
+            if vim.tbl_contains(u.ft.close_when_last, vim.bo.filetype)
+                and u.fun.is_last_win() then
+                u.fun.close()
             end
         end,
-        group = vim.g.group('no-nu')
+        group = general
+    })
+
+    -- Disable New Line Comment
+    vim.api.nvim_create_autocmd("BufEnter", {
+        callback = function()
+            vim.opt.formatoptions:remove { "c", "r", "o" }
+        end,
+        group = general
+    })
+
+    -- Update file
+    vim.api.nvim_create_autocmd("FocusGained", {
+        callback = function()
+            vim.cmd "checktime"
+        end,
+        group = general,
+    })
+
+    -- Equalize Splits
+    vim.api.nvim_create_autocmd("VimResized", {
+        callback = function()
+            vim.cmd "wincmd ="
+        end,
+        group = general,
+    })
+
+    -- toggle between nu & rnu depending on mode
+    line_number()
+
+    -- Enable Wrap in these filetypes
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "gitcommit", "markdown", "text", "log" },
+        callback = function()
+            vim.opt_local.wrap = true
+            vim.opt_local.spell = true
+        end,
+        group = general,
     })
 
 end

@@ -105,7 +105,7 @@ end
 
 M.autocmds = function()
 
-    vim.g.autocmd("BufEnter", {
+    vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
             local cmd = M.main()
 

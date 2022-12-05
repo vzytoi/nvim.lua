@@ -53,6 +53,7 @@ M.loadOptions = function()
         smartindent = true,
         cindent = true,
         shiftwidth = 4,
+        fillchars = "",
         softtabstop = 4,
         tabstop = 8,
         wrap = false,
