@@ -60,22 +60,14 @@ M.config = function()
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<Space>", "<Nop>" },
         { "<leader>", {
+            { "p", ':TermExec dir="float" cmd="gcc -fsanitize=undefined % && ./a.out"<cr>' },
+            { "n", ":Neogen<CR>" },
             { "fml", "<cmd>CellularAutomaton make_it_rain<CR>" },
-            { "ti", function()
-                require('quickterm').open()
-            end },
-            { "x", function()
-                require('runcode').run()
-            end },
-            { "xx", function()
-                require('runcode').run { method = "compile" }
-            end },
-            { "xt", function()
-                require('runcode').run { dir = "tab" }
-            end },
-            { "xv", function()
-                require('runcode').run { dir = "vertical" }
-            end },
+            { "ti", function() require('quickterm').open() end },
+            { "x", function() require('runcode').run() end },
+            { "xx", function() require('runcode').run { method = "Compile" } end },
+            { "xt", function() require('runcode').run { dir = "tab" } end },
+            { "xv", function() require('runcode').run { dir = "vertical" } end },
             { 'gd', function()
                 u.fun.toggle("DiffviewOpen", "DiffviewClose")
             end },
@@ -106,11 +98,8 @@ M.config = function()
             { "ha", function()
                 require('harpoon.mark').add_file()
             end },
-            { "<leader>x", ":w|so<cr>" },
-            { "w", ":silent write<cr>" },
             { "z", ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
-            { "bk", ":b#" },
             { "q", {
                 { "s", [[<cmd>lua require("persistence").load()<cr>]] },
                 { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
@@ -140,7 +129,7 @@ M.config = function()
                 { "j>", "<c-n>" },
                 { "k>", "<c-p>" },
                 { "c>", "<esc>" }
-            } }
+            } },
         } }
     }
 
@@ -158,7 +147,11 @@ M.config = function()
         end)
     end
 
+    vim.cmd [[imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' ]]
 
+    vim.keymap.set("i", "<a-space>", function()
+        print('ok')
+    end)
 
 end
 

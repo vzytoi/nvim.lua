@@ -9,7 +9,6 @@ local mods = {
     { name = "autocmds", },
 }
 
-
 local load = function(name)
     local ok, _ = pcall(require, 'core.' .. name)
     if not ok then

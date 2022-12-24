@@ -90,7 +90,17 @@ local raw = {
         GlancePreviewNormal = { bg = c.grey },
         GlanceListNormal = { bg = c.grey },
 
-        VertSplit = {}
+        VertSplit = { fg = c.grey }
+    },
+    github = {
+        CmpItemAbbr = { fg = c.grey },
+        CmpItemAbbrMatch = { fg = c.grey },
+        EndOfBuffer = { bg = c.white, fg = c.white },
+        LineNr = { bg = c.white, fg = c.grey },
+        LspReferenceText = { bold = true },
+
+        RunCodeNormal = { bg = "#ffffff" };
+        VertSplit = { fg = c.grey }
     }
 }
 

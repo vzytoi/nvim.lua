@@ -1,6 +1,7 @@
 plugin/*
 spell/*
 test/*
+tests/*
 start.log
 sessions/*
 lua/packer_compiled.lua

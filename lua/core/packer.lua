@@ -21,7 +21,6 @@ M.config = function()
 
         use "wbthomason/packer.nvim"
         use "lewis6991/impatient.nvim"
-
         use "nvim-lua/plenary.nvim"
         use "nvim-tree/nvim-web-devicons"
         use "tpope/vim-surround"
@@ -30,12 +29,32 @@ M.config = function()
         use "samjwill/nvim-unception"
         use "jbyuki/instant.nvim"
         use "eandrju/cellular-automaton.nvim"
-
-        use "vzytoi/runcode.nvim"
+        use 'lervag/vimtex'
+        use 'tpope/vim-sleuth'
+        use "/Users/cyprien/Documents/runcode.nvim"
         use "vzytoi/virtual.nvim"
         use "vzytoi/quickterm.nvim"
-
+        use 'RishabhRD/popfix'
+        use 'RishabhRD/nvim-cheat.sh'
         use "mrjones2014/smart-splits.nvim"
+        use "ellisonleao/gruvbox.nvim"
+        use "arzg/vim-colors-xcode"
+        use "endel/vim-github-colorscheme"
+        use "projekt0n/github-nvim-theme"
+        use "rafamadriz/friendly-snippets"
+
+        use { "davidgranstrom/nvim-markdown-preview", cmd = "MarkdownPreview", }
+        use { "dstein64/vim-startuptime", cmd = "StartupTime" }
+        use { "TimUntersberger/neogit", cmd = "Neogit" }
+        use "AckslD/nvim-trevJ.lua"
+        use { "romainl/vim-cool", event = "cmdlineenter" }
+
+        use {
+            "zbirenbaum/copilot.lua",
+            config = function()
+                require("copilot").setup()
+            end
+        }
 
         use {
             "alvarosevilla95/luatab.nvim",
@@ -48,22 +67,13 @@ M.config = function()
             end
         }
 
-        use "vzytoi/filetype.nvim"
-
-        use "ellisonleao/gruvbox.nvim"
-        use "arzg/vim-colors-xcode"
-        use "habamax/vim-polar"
-        use "jaredgorski/fogbell.vim"
-
         use {
-            "davidgranstrom/nvim-markdown-preview",
-            cmd = "MarkdownPreview",
+            "cappyzawa/trim.nvim",
+            config = function()
+                require('trim').setup()
+            end
         }
-        use { "dstein64/vim-startuptime", cmd = "StartupTime" }
-        use { "TimUntersberger/neogit", cmd = "Neogit" }
 
-        use "AckslD/nvim-trevJ.lua"
-        use { "romainl/vim-cool", event = "cmdlineenter" }
 
         use {
             "lewis6991/hover.nvim",
@@ -172,6 +182,8 @@ M.config = function()
             requires = "neovim/nvim-lspconfig",
         }
 
+        use "L3MON4D3/LuaSnip"
+
         use {
             "hrsh7th/nvim-cmp",
             config = function()
@@ -179,13 +191,19 @@ M.config = function()
             end,
             requires = {
                 "hrsh7th/cmp-nvim-lsp",
-                "L3MON4D3/LuaSnip",
                 "saadparwaiz1/cmp_luasnip",
                 "hrsh7th/cmp-nvim-lsp-signature-help",
                 "lukas-reineke/cmp-rg",
                 "ray-x/cmp-treesitter",
+                {
+                    "zbirenbaum/copilot-cmp",
+                    config = function()
+                        require("copilot_cmp").setup()
+                    end
+                }
             }
         }
+
 
         use {
             "nvim-treesitter/nvim-treesitter",
@@ -194,6 +212,7 @@ M.config = function()
                 { "windwp/nvim-ts-autotag" },
                 { "nvim-treesitter/nvim-treesitter-textobjects" },
                 { "RRethy/nvim-treesitter-textsubjects" },
+                { "nvim-treesitter/nvim-tree-docs" },
                 { "nvim-treesitter/nvim-tree-docs" },
                 {
                     "Wansmer/sibling-swap.nvim",
@@ -204,6 +223,12 @@ M.config = function()
                             ["<right>"] = "swap_with_right",
                         } })
                     end,
+                },
+                {
+                    "danymat/neogen",
+                    config = function()
+                        require('neogen').setup { snippet_engine = "luasnip" }
+                    end
                 }
             }
         }

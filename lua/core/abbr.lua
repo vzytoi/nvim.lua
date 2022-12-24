@@ -8,7 +8,8 @@ function M.config()
         ps = "PackerSync",
         msg = "messages",
         WA = "wa",
-        svp = "vsp"
+        svp = "vsp",
+        cmp = "lua u.fun.autocompletion()"
     }
 
     for l, r in pairs(abbreviations) do

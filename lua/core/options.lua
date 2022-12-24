@@ -68,7 +68,7 @@ M.loadOptions = function()
         ttimeoutlen = 1,
         ttyfast = true,
         -- for telescope to be faster to open. bad idea?
-        updatetime = 150,
+        updatetime = 50,
         redrawtime = 1500,
         scrolloff = 8,
         cmdheight = 0,
@@ -108,6 +108,7 @@ M.loadOptions = function()
     vim.opt.formatoptions = {
         ['1'] = true,
         ['2'] = true,
+        -- a = true,
         q = true,
         c = true,
         r = true,
@@ -118,13 +119,16 @@ M.loadOptions = function()
         v = true,
     }
 
+    vim.cmd [[ set guicursor= ]]
+
 end
 
 M.ColorOpt = function()
     vim.o.termguicolors = true
-    vim.o.background = "dark"
+    vim.o.background = "light"
 
-    local _ = pcall(vim.cmd.colorscheme, 'xcodedarkhc')
+    local _ = pcall(vim.cmd.colorscheme, 'github')
+    -- local _ = pcall(vim.cmd.colorscheme, 'xcodedarkhc')
 
 end
 

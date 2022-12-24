@@ -2,6 +2,7 @@ local M = {}
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
+local neogen = require('neogen')
 
 M.config = function()
 
@@ -15,10 +16,11 @@ M.config = function()
             end,
         },
         sources = {
+            { name = "copilot" },
             { name = "nvim_lsp", max_item_count = 2 },
             { name = 'luasnip', max_item_count = 2 },
             { name = 'nvim_lsp_signature_help', max_item_count = 2 },
-            { name = "rg", max_item_count = 2 },
+            -- { name = "rg", max_item_count = 2 },
             { name = "treesitter", max_item_count = 2 },
         },
         snippet = {
@@ -35,21 +37,39 @@ M.config = function()
             ["<c-j>"] = cmp.mapping.select_next_item(),
             ["<tab>"] = cmp.mapping(
                 function(fallback)
-                    if cmp.visible() then
-                        cmp.confirm()
-                    elseif luasnip.expand_or_jump() then
+                    if luasnip.expand_or_jump() then
                         luasnip.expand_or_jump()
+                    elseif cmp.visible() then
+                        cmp.confirm { select = true }
+                    elseif neogen.jumpable() then
+                        neogen.jump_next()
                     else
                         -- actually tab
                         fallback()
                     end
-                end
+                end, { "i", "s" }
+            ),
+            ["<s-tab>"] = cmp.mapping(
+                function(fallback)
+                    if neogen.jumpable(true) then
+                        neogen.prev()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }
             )
         },
         experimental = {
             ghost_text = true
         },
     }
+
+    require('luasnip.loaders.from_snipmate').load { paths = "~/.config/nvim/snippets" }
+
+    require("luasnip.loaders.from_vscode").lazy_load {
+        paths = { vim.fn.stdpath('data') .. "/site/pack/packer/start/friendly-snippets" }
+    }
+
 
 end
 

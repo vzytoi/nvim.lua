@@ -128,4 +128,11 @@ FN.buf = function(asked, bufnr)
 
 end
 
+vim.g.cmp = true
+
+FN.autocompletion = function()
+    require('cmp').setup.buffer { enabled = not vim.g.cmp }
+    vim.g.cmp = not vim.g.cmp
+end
+
 return FN

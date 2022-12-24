@@ -62,7 +62,8 @@ M.config = function()
                 i = {
                     ["<c-k>"] = actions.move_selection_previous,
                     ["<c-j>"] = actions.move_selection_next,
-                    ['<c-d>'] = actions.delete_buffer
+                    ["<c-d>"] = actions.delete_buffer,
+                    ["<c-s>"] = actions.file_split
                 },
                 n = {
                     ["<Esc>"] = actions.close

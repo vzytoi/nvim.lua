@@ -38,4 +38,22 @@ THEMES.xcodedarkhc = {
     }
 }
 
+THEMES.github = {
+    normal = {
+        a = { bg = colors.red },
+        b = { bg = colors.grey },
+        c = { fg = colors.white, bg = colors.black },
+    },
+
+    insert = { a = { bg = colors.blue } },
+    visual = { a = { bg = colors.pink } },
+    replace = { a = { bg = colors.green } },
+
+    inactive = {
+        a = { fg = colors.white, bg = colors.black },
+        b = { fg = colors.white, bg = colors.black },
+        c = { fg = colors.black, bg = colors.black },
+    }
+}
+
 return THEMES
