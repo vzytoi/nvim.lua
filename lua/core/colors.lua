@@ -90,7 +90,8 @@ local raw = {
         GlancePreviewNormal = { bg = c.grey },
         GlanceListNormal = { bg = c.grey },
 
-        VertSplit = { fg = c.grey }
+        VertSplit = { fg = c.grey },
+
     },
     github = {
         CmpItemAbbr = { fg = c.grey },
@@ -100,7 +101,14 @@ local raw = {
         LspReferenceText = { bold = true },
 
         RunCodeNormal = { bg = "#ffffff" };
-        VertSplit = { fg = c.grey }
+        VertSplit = { fg = c.grey },
+    },
+    mono = {
+        VertSplit = {},
+        LineNr = {fg = "#cfcfcf"},
+        LspReferenceText = { bold = true },
+        LspReferenceRead = { bold = true },
+        LspReferenceWrite = { bold = true },
     }
 }
 

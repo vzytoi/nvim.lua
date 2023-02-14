@@ -7,6 +7,9 @@ local neogen = require('neogen')
 M.config = function()
 
     cmp.setup {
+        disabled = function()
+            return vim.bo.filetype == "c"
+        end,
         completion = {
             completeopt = 'menu,menuone,noselect',
             get_trigger_characters = function(trigger_characters)

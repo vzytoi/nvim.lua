@@ -5,11 +5,10 @@ function M.config()
         wrap = "set wrap",
         nowrap = "set nowrap",
         nws = "set nowrapscan! nowrapscan?",
-        ps = "PackerSync",
         msg = "messages",
         WA = "wa",
         svp = "vsp",
-        cmp = "lua u.fun.autocompletion()"
+        -- mp = "lua u.fun.mp2i()",
     }
 
     for l, r in pairs(abbreviations) do

@@ -1,9 +1,9 @@
 local M = {}
 
-local api = require('nvim-tree.api')
+local api = require 'nvim-tree.api'
 
 M.keymaps = function()
-    vim.g.nmap("<leader>e", ":NvimTreeToggle<cr>")
+    vim.keymap.set("n", "<leader>e", ":silent NvimTreeToggle<cr>")
 end
 
 M.config = function()
@@ -27,7 +27,6 @@ M.config = function()
                     { key = "s", action = "split" },
                     { key = "e", action = "edit" },
                     { key = "K", action = "parent_node" },
-
                 }
             }
         },
@@ -38,17 +37,17 @@ M.config = function()
             icons = { show = { git = false } }
         },
         on_attach = function(bufnr)
-            vim.g.nmap("v", api.node.open.vertical, { buffer = bufnr })
-            vim.g.nmap("s", api.node.open.horizontal, { buffer = bufnr })
+            vim.keymap.set("n", "v", api.node.open.vertical, { buffer = bufnr })
+            vim.keymap.set("n", "s", api.node.open.horizontal, { buffer = bufnr })
 
-            vim.g.nmap("t", function()
+            vim.keymap.set("n", "t", function()
                 api.node.open.tab()
             end, { buffer = bufnr })
 
-            vim.g.nmap("p", api.node.open.preview, { buffer = bufnr })
-            vim.g.nmap("e", api.node.open.edit, { buffer = bufnr })
-            vim.g.nmap("o", api.node.open.edit, { buffer = bufnr })
-            vim.g.nmap("<cr>", api.node.open.edit, { buffer = bufnr })
+            vim.keymap.set("n", "p", api.node.open.preview, { buffer = bufnr })
+            vim.keymap.set("n", "e", api.node.open.edit, { buffer = bufnr })
+            vim.keymap.set("n", "o", api.node.open.edit, { buffer = bufnr })
+            vim.keymap.set("n", "<cr>", api.node.open.edit, { buffer = bufnr })
         end
     }
 end

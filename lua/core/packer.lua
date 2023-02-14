@@ -30,10 +30,14 @@ M.config = function()
         use "jbyuki/instant.nvim"
         use "eandrju/cellular-automaton.nvim"
         use 'lervag/vimtex'
-        use 'tpope/vim-sleuth'
-        use "/Users/cyprien/Documents/runcode.nvim"
+        -- use 'tpope/vim-sleuth'
+        -- use "/Users/cyprien/Documents/runcode.nvim"
+
         use "vzytoi/virtual.nvim"
+        -- use "~/Documents/nvim/virtual.nvim"
         use "vzytoi/quickterm.nvim"
+        use "vzytoi/runcode.nvim"
+
         use 'RishabhRD/popfix'
         use 'RishabhRD/nvim-cheat.sh'
         use "mrjones2014/smart-splits.nvim"
@@ -42,6 +46,7 @@ M.config = function()
         use "endel/vim-github-colorscheme"
         use "projekt0n/github-nvim-theme"
         use "rafamadriz/friendly-snippets"
+        use "AndrewRadev/sideways.vim"
 
         use { "davidgranstrom/nvim-markdown-preview", cmd = "MarkdownPreview", }
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
@@ -236,11 +241,9 @@ M.config = function()
 
         use {
             "nvim-telescope/telescope.nvim",
-            keys = "<leader>f",
             config = function()
                 require "plugins.telescope".config()
             end,
-
             requires = {
                 {
                     "nvim-telescope/telescope-fzf-native.nvim",
@@ -277,6 +280,8 @@ M.config = function()
             }
         }
 
+        use "felipevolpone/mono-theme"
+
         use {
             "https://github.com/nat-418/boole.nvim",
             config = function()
@@ -304,17 +309,12 @@ M.config = function()
         use {
             "nvim-tree/nvim-tree.lua",
             config = function() require("plugins.nvimtree").config() end,
-            cmd = "NvimTreeToggle"
         }
 
         use {
             "neovim/nvim-lspconfig",
             config = function() require("plugins.lsp").config() end,
-            requires = {
-                "williamboman/mason-lspconfig.nvim",
-                -- "hrsh7th/cmp-nvim-lsp"
-
-            }
+            requires = "williamboman/mason-lspconfig.nvim"
         }
 
         use({

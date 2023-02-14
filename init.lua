@@ -1,11 +1,11 @@
-require('impatient').enable_profile()
 require('utils.globals')
+vim.g.mapleader = " "
 
 local mods = {
     { name = "abbr", event = "CmdlineEnter" },
     { name = "colors", event = "ColorScheme" },
-    { name = "packer" },
     { name = "options" },
+    { name = "packer" },
     { name = "autocmds", },
 }
 
@@ -24,13 +24,13 @@ for _, m in pairs(mods) do
     if not m.event then
         load(m.name)
     else
-        nvim.create_autocmd(m.event, {
+        vim.api.nvim_create_autocmd(m.event, {
             callback = function()
                 if not vim.g[m.name] then
                     load(m.name)
                 end
             end,
-            group = nvim.create_augroup(
+            group = vim.api.nvim_create_augroup(
                 "Loading" .. m.name,
                 { clear = true }
             )

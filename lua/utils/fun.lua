@@ -1,7 +1,7 @@
 local FN = {}
 
 FN.unwanted = function(bufnr, fts)
-    return not nvim.buf_get_option(bufnr, 'modifiable') or
+    return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
         (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype')))
 end
 
@@ -69,13 +69,13 @@ FN.toggle = function(open, close)
 
     local calling = (vim.g[open] and close or open)
 
-    nvim.command(calling)
+    vim.api.nvim_command(calling)
 
     vim.g[open] = not vim.g[open]
 end
 
 FN.is_last_win = function()
-    return #nvim.list_wins() == 1
+    return #vim.api.nvim_list_wins() == 1
 end
 
 FN.capabilities = function(capabilitie, bufnr)
@@ -128,11 +128,22 @@ FN.buf = function(asked, bufnr)
 
 end
 
-vim.g.cmp = true
+local m = false
 
-FN.autocompletion = function()
-    require('cmp').setup.buffer { enabled = not vim.g.cmp }
-    vim.g.cmp = not vim.g.cmp
+FN.mp2i = function()
+    if not m then
+        require('cmp').setup.buffer { enabled = false}
+        vim.g.nvim_virtual_enable = false
+        vim.diagnostic.disable()
+    else
+        require('cmp').setup.buffer { enabled = true}
+        vim.g.nvim_virtual_enable = true
+        vim.diagnostic.enable()
+    end
+
+    m = not m
 end
+
+vim.api.nvim_create_user_command("MP", ":lua u.fun.mp2i()",{})
 
 return FN

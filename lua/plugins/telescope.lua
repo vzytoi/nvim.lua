@@ -11,36 +11,36 @@ M.setup = function()
         show_untracked = true
     })
 
-    vim.g.nmap("<leader>f", function()
+    vim.keymap.set("n", "<leader>f", function()
         if not pcall(builtin.git_files, ivy) then
             builtin.find_files(themes.get_ivy({ no_ignore = true }))
         end
     end)
 
-    vim.g.nmap("<leader>fg", function()
+    vim.keymap.set("n", "<leader>fg", function()
         builtin.live_grep(themes.get_ivy())
     end)
 
-    vim.g.nmap("<leader>fb",
+    vim.keymap.set("n", "<leader>fb",
         function()
             builtin.buffers(themes.get_dropdown({
                 previewer = false
             }))
         end)
 
-    vim.g.nmap("<leader>fh", function()
+    vim.keymap.set("n", "<leader>fh", function()
         builtin.help_tags(ivy)
     end)
 
-    vim.g.nmap("<leader>fr", function()
+    vim.keymap.set("n", "<leader>fr", function()
         telescope.extensions.recent_files.pick()
     end)
 
-    vim.g.nmap("<leader>fp", function()
+    vim.keymap.set("n", "<leader>fp", function()
         telescope.extensions.project.project(themes.get_dropdown())
     end)
 
-    vim.g.nmap("<leader>ft", function()
+    vim.keymap.set("n", "<leader>ft", function()
         builtin.treesitter(themes.get_ivy())
     end)
 

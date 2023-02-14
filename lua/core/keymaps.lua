@@ -30,8 +30,6 @@ vim.g.tmap = map("t")
 
 M.config = function()
 
-    vim.g.mapleader = " "
-
     require "plugins.toggleterm".keymaps()
     require "plugins.nvimtree".keymaps()
     require "plugins.lsp".keymaps()
@@ -56,6 +54,8 @@ M.config = function()
         { 'gJ', function()
             require('trevj').format_at_cursor()
         end },
+        { "<Left>", ":SidewaysLeft<cr>" },
+        { "<Right>", ":SidewaysRight<cr>" },
         { "<Tab>", ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<Space>", "<Nop>" },
@@ -148,10 +148,6 @@ M.config = function()
     end
 
     vim.cmd [[imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' ]]
-
-    vim.keymap.set("i", "<a-space>", function()
-        print('ok')
-    end)
 
 end
 
