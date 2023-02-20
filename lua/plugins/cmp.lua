@@ -5,7 +5,6 @@ local luasnip = require('luasnip')
 local neogen = require('neogen')
 
 M.config = function()
-
     cmp.setup {
         disabled = function()
             return vim.bo.filetype == "c"
@@ -20,11 +19,11 @@ M.config = function()
         },
         sources = {
             { name = "copilot" },
-            { name = "nvim_lsp", max_item_count = 2 },
-            { name = 'luasnip', max_item_count = 2 },
+            { name = "nvim_lsp",                max_item_count = 2 },
+            { name = 'luasnip',                 max_item_count = 2 },
             { name = 'nvim_lsp_signature_help', max_item_count = 2 },
             -- { name = "rg", max_item_count = 2 },
-            { name = "treesitter", max_item_count = 2 },
+            { name = "treesitter",              max_item_count = 2 },
         },
         snippet = {
             expand = function(args)
@@ -72,8 +71,6 @@ M.config = function()
     require("luasnip.loaders.from_vscode").lazy_load {
         paths = { vim.fn.stdpath('data') .. "/site/pack/packer/start/friendly-snippets" }
     }
-
-
 end
 
 return M

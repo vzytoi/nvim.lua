@@ -1,12 +1,10 @@
 local M = {}
 
 local masonlsp = require('mason-lspconfig')
--- local servers_lst = require('mason-lspconfig.mappings.server')
 local format = require('plugins.format').get
 local configs = require('plugins.lsp.configs')
 
 M.keymaps = function()
-
     vim.g.nmap("gd", vim.lsp.buf.definition)
     vim.g.nmap("gD", "<cmd>Glance definitions<CR>")
 
@@ -24,7 +22,6 @@ M.keymaps = function()
 end
 
 M.autocmds = function()
-
     vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
             if u.fun.capabilities('format', 0) then
@@ -58,18 +55,12 @@ M.autocmds = function()
         end,
         buffer = 0
     })
-
 end
 
 local on_attach = function(client, bufnr)
-
     M.autocmds()
 
     require "lsp_signature".on_attach({}, bufnr)
-
-    if client.server_capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, bufnr)
-    end
 
     -- si un formatter est configuré dans formatter.nvim
     -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
@@ -77,14 +68,12 @@ local on_attach = function(client, bufnr)
     if format(u.fun.buf(bufnr, 'filetype')) then
         client.server_capabilities.documentFormattingProvider = false
     end
-
 end
 
 local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
 capabilities.offsetEncoding = { "utf-16" }
 
 M.config = function()
-
     vim.diagnostic.config({
         underline = false,
         update_in_insert = false,
@@ -104,7 +93,6 @@ M.config = function()
     local servers = masonlsp.get_installed_servers()
 
     for _, name in ipairs(servers) do
-
         require('lspconfig')[name].setup(
             vim.tbl_extend('keep',
                 configs.get(name),
@@ -115,9 +103,7 @@ M.config = function()
                 }
             )
         )
-
     end
-
 end
 
 return M

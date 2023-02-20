@@ -8,7 +8,6 @@ function M.config()
         msg = "messages",
         WA = "wa",
         svp = "vsp",
-        -- mp = "lua u.fun.mp2i()",
     }
 
     for l, r in pairs(abbreviations) do

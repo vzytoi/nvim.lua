@@ -128,10 +128,10 @@ FN.buf = function(asked, bufnr)
 
 end
 
-local m = false
+vim.g.mp = false
 
 FN.mp2i = function()
-    if not m then
+    if not vim.g.mp then
         require('cmp').setup.buffer { enabled = false}
         vim.g.nvim_virtual_enable = false
         vim.diagnostic.disable()
@@ -141,7 +141,7 @@ FN.mp2i = function()
         vim.diagnostic.enable()
     end
 
-    m = not m
+    vim.g.mp = not vim.g.mp
 end
 
 vim.api.nvim_create_user_command("MP", ":lua u.fun.mp2i()",{})

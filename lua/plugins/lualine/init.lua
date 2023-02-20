@@ -4,7 +4,6 @@ local themes = require('plugins.lualine.themes')
 local components = require('plugins.lualine.components')
 
 function M.config()
-
     local cs = vim.g.colors_name
 
     require('lualine').setup {
@@ -44,7 +43,6 @@ function M.config()
         winbar = {}
 
     }
-
 end
 
 return M

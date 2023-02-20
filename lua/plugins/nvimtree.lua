@@ -7,7 +7,6 @@ M.keymaps = function()
 end
 
 M.config = function()
-
     require "nvim-tree".setup {
         sync_root_with_cwd = true,
         respect_buf_cwd = true,

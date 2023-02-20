@@ -3,7 +3,6 @@ local M = {}
 local general = vim.api.nvim_create_augroup("General Settings", { clear = true })
 
 local line_number = function()
-
     local dis = u.ft.disabled
 
     local disln = function()
@@ -44,19 +43,16 @@ local line_number = function()
             disln()
         end
     })
-
 end
 
 M.config = function()
-
     require "plugins.treesitter".autocmds()
-    require "core.linter".autocmds()
+    -- require "core.linter".autocmds()
     require "core.rooter".autocmds()
 
 
     vim.api.nvim_create_augroup('vimrc', {})
 
-    -- close certain window when last opened
     vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
             if vim.tbl_contains(u.ft.close_when_last, vim.bo.filetype)
@@ -67,7 +63,6 @@ M.config = function()
         group = general
     })
 
-    -- Disable New Line Comment
     vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
             vim.opt.formatoptions:remove { "c", "r", "o" }
@@ -75,7 +70,6 @@ M.config = function()
         group = general
     })
 
-    -- Update file
     vim.api.nvim_create_autocmd("FocusGained", {
         callback = function()
             vim.cmd "checktime"
@@ -83,7 +77,6 @@ M.config = function()
         group = general,
     })
 
-    -- Equalize Splits
     vim.api.nvim_create_autocmd("VimResized", {
         callback = function()
             vim.cmd "wincmd ="
@@ -91,10 +84,8 @@ M.config = function()
         group = general,
     })
 
-    -- toggle between nu & rnu depending on mode
     line_number()
 
-    -- Enable Wrap in these filetypes
     vim.api.nvim_create_autocmd("FileType", {
         pattern = { "gitcommit", "markdown", "text", "log" },
         callback = function()
@@ -104,6 +95,13 @@ M.config = function()
         group = general,
     })
 
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "ocaml" },
+        callback = function()
+            vim.bo.shiftwidth = 2
+            vim.bo.tabstop = 2
+        end
+    })
 end
 
 return M

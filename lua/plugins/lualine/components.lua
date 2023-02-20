@@ -9,7 +9,6 @@ M.filter = function()
 end
 
 local function inject_toggle(func, icon, cond)
-
     if not cond then
         return { on = { func, "", cond }, off = { func, "", cond } }
     end
@@ -52,8 +51,8 @@ M.format = inject_toggle(
 M.ts = inject_toggle(
     function()
         return require "nvim-treesitter.parsers".get_parser(
-            vim.fn.bufnr('%'), vim.bo.filetype
-        ) ~= nil
+                vim.fn.bufnr('%'), vim.bo.filetype
+            ) ~= nil
     end,
     icons.treesitter,
     M.filter
@@ -73,8 +72,8 @@ M.mode = {
 M.progression = {
     function()
         return u.icons.progress[
-            math.ceil(vim.fn.line '.' / vim.fn.line '$' * #u.icons.progress)
-            ]
+        math.ceil(vim.fn.line '.' / vim.fn.line '$' * #u.icons.progress)
+        ]
     end,
     cond = M.filter,
 }
@@ -118,7 +117,6 @@ M.filetype = {
     'filetype',
     icon_only = true,
     separator = { right = '' },
-
     fmt = function(str)
         if vim.tbl_contains(vim.tbl_keys(icons), vim.bo.filetype) then
             return icons[vim.bo.filetype]
@@ -126,7 +124,6 @@ M.filetype = {
 
         return str
     end
-
 }
 
 M.branch = {

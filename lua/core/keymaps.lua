@@ -3,10 +3,8 @@ local M = {}
 local nest = require("nest")
 
 local map = function(op, outer)
-
     outer = outer or { silent = true, noremap = true }
     return function(lhs, rhs, opts)
-
         if type(lhs) ~= "table" then
             lhs = { lhs }
         end
@@ -19,7 +17,6 @@ local map = function(op, outer)
         for _, v in pairs(lhs) do
             vim.keymap.set(op or "n", v, rhs, opts)
         end
-
     end
 end
 
@@ -29,7 +26,6 @@ vim.g.vmap = map("v")
 vim.g.tmap = map("t")
 
 M.config = function()
-
     require "plugins.toggleterm".keymaps()
     require "plugins.nvimtree".keymaps()
     require "plugins.lsp".keymaps()
@@ -49,25 +45,25 @@ M.config = function()
         { "¬", function() resize.resize_right(5) end },
         { "È", function() resize.resize_up(5) end },
         { "Ï", function() resize.resize_down(5) end },
-        { "<", "<<" },
-        { ">", ">>" },
+        { "<",  "<<" },
+        { ">",  ">>" },
         { 'gJ', function()
             require('trevj').format_at_cursor()
         end },
-        { "<Left>", ":SidewaysLeft<cr>" },
+        { "<Left>",  ":SidewaysLeft<cr>" },
         { "<Right>", ":SidewaysRight<cr>" },
-        { "<Tab>", ":tabnext<cr>" },
+        { "<Tab>",   ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<Space>", "<Nop>" },
         { "<leader>", {
-            { "p", ':TermExec dir="float" cmd="gcc -fsanitize=undefined % && ./a.out"<cr>' },
-            { "n", ":Neogen<CR>" },
+            { "p",   ':TermExec dir="float" cmd="gcc -fsanitize=undefined % && ./a.out"<cr>' },
+            { "n",   ":Neogen<CR>" },
             { "fml", "<cmd>CellularAutomaton make_it_rain<CR>" },
-            { "ti", function() require('quickterm').open() end },
-            { "x", function() require('runcode').run() end },
-            { "xx", function() require('runcode').run { method = "Compile" } end },
-            { "xt", function() require('runcode').run { dir = "tab" } end },
-            { "xv", function() require('runcode').run { dir = "vertical" } end },
+            { "ti",  function() require('quickterm').open() end },
+            { "x",   function() require('runcode').run() end },
+            { "xx",  function() require('runcode').run { method = "Compile" } end },
+            { "xt",  function() require('runcode').run { dir = "tab" } end },
+            { "xv",  function() require('runcode').run { dir = "vertical" } end },
             { 'gd', function()
                 u.fun.toggle("DiffviewOpen", "DiffviewClose")
             end },
@@ -98,7 +94,7 @@ M.config = function()
             { "ha", function()
                 require('harpoon.mark').add_file()
             end },
-            { "z", ":ZenMode<cr>" },
+            { "z",  ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
             { "q", {
                 { "s", [[<cmd>lua require("persistence").load()<cr>]] },
@@ -117,12 +113,12 @@ M.config = function()
         { "J", "mzJ`z" },
         { mode = "v", {
             { "<Space>", "<Nop>" },
-            { 'L', ":MoveHBlock(1)<CR>" },
-            { 'J', ":MoveBlock(1)<CR>" },
-            { 'K', ":MoveBlock(-1)<CR>" },
-            { 'H', ":MoveHBlock(-1)<CR>" },
-            { "<", "<gv" },
-            { ">", ">gv" },
+            { 'L',       ":MoveHBlock(1)<CR>" },
+            { 'J',       ":MoveBlock(1)<CR>" },
+            { 'K',       ":MoveBlock(-1)<CR>" },
+            { 'H',       ":MoveHBlock(-1)<CR>" },
+            { "<",       "<gv" },
+            { ">",       ">gv" },
         } },
         { mode = "i", {
             { "<c-", {
@@ -148,7 +144,6 @@ M.config = function()
     end
 
     vim.cmd [[imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' ]]
-
 end
 
 return M

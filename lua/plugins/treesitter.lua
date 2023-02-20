@@ -21,7 +21,6 @@ M.autocmds = function()
 end
 
 M.config = function()
-
     require("nvim-treesitter.configs").setup({
         autopairs = { enable = true },
         autotag = { enable = true },
@@ -65,7 +64,6 @@ M.config = function()
             return nvim.buf_line_count(bufnr) > 50000
         end
     })
-
 end
 
 return M

@@ -1,20 +1,14 @@
 local M = {}
 
 local configs = {
-    sumneko_lua = {
+    lua_ls = {
         settings = {
             Lua = {
                 runtime = {
                     version = "LuaJIT"
                 },
                 diagnostics = {
-                    globals = { "vim", "u", "nvim", "P" }
-                },
-                workspaces = {
-                    library = {
-                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                        [vim.fn.stdpath("config") .. "/lua"] = true
-                    }
+                    globals = { "vim", "u", "P" }
                 },
                 telemetry = {
                     enable = false

@@ -1,7 +1,6 @@
 local M = {}
 
 M.buffer = function(name)
-
     if vim.bo.filetype == "" then
         vim.bo.bufhidden = "delete"
         vim.bo.buftype = "nofile"
@@ -12,7 +11,6 @@ M.buffer = function(name)
         vim.wo.relativenumber = false
         vim.bo.filetype = name
     end
-
 end
 
 M.disablePlugins = function()
@@ -121,18 +119,17 @@ M.loadOptions = function()
 
     vim.cmd [[ set guicursor= ]]
     vim.cmd [[ set fillchars+=vert:│ ]]
-
 end
 
 M.ColorOpt = function()
     vim.o.termguicolors = true
 
     vim.o.background = "light"
-    -- local _ = pcall(vim.cmd.colorscheme, "github")
+    local _ = pcall(vim.cmd.colorscheme, "github")
 
     -- vim.o.background = "dark"
     -- local _ = pcall(vim.cmd.colorscheme, "xcodedarkhc")
-    local _ = pcall(vim.cmd.colorscheme, "mono")
+    -- local _ = pcall(vim.cmd.colorscheme, "mono")
 end
 
 M.config = function()
@@ -143,7 +140,6 @@ M.config = function()
     vim.g.loaded_python_provider = false
     vim.g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
     vim.g.instant_username = "Cyprien"
-
 end
 
 return M

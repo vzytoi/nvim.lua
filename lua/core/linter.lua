@@ -1,7 +1,6 @@
 local M = {}
 
 local get_installed_linters = function()
-
     local packages = require('mason-registry').get_installed_packages()
     local list = {}
 
@@ -14,7 +13,6 @@ local get_installed_linters = function()
     end
 
     return list
-
 end
 
 M.linters = get_installed_linters()
@@ -31,7 +29,6 @@ M.autocmds = function()
 end
 
 M.config = function()
-
     local luacheck = require('lint.linters.luacheck')
 
     luacheck.args = {
@@ -59,7 +56,6 @@ M.config = function()
 end
 
 M.get = function(ft)
-
     ft = ft or u.fun.buf('filetype')
 
     for k, v in pairs(M.linters) do

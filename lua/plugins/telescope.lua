@@ -6,7 +6,6 @@ local themes = require("telescope.themes")
 local telescope = require('telescope')
 
 M.setup = function()
-
     local ivy = themes.get_ivy({
         show_untracked = true
     })
@@ -43,7 +42,6 @@ M.setup = function()
     vim.keymap.set("n", "<leader>ft", function()
         builtin.treesitter(themes.get_ivy())
     end)
-
 end
 
 M.config = function()

@@ -3,7 +3,6 @@ local M = {}
 M.PB = false
 
 M.config = function()
-
     local fn = vim.fn
     local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
     local packer = require("packer")
@@ -18,7 +17,6 @@ M.config = function()
     }
 
     return packer.startup { function(use)
-
         use "wbthomason/packer.nvim"
         use "lewis6991/impatient.nvim"
         use "nvim-lua/plenary.nvim"
@@ -27,14 +25,9 @@ M.config = function()
         use "wellle/targets.vim"
         use "fedepujol/move.nvim"
         use "samjwill/nvim-unception"
-        use "jbyuki/instant.nvim"
         use "eandrju/cellular-automaton.nvim"
-        use 'lervag/vimtex'
-        -- use 'tpope/vim-sleuth'
-        -- use "/Users/cyprien/Documents/runcode.nvim"
 
         use "vzytoi/virtual.nvim"
-        -- use "~/Documents/nvim/virtual.nvim"
         use "vzytoi/quickterm.nvim"
         use "vzytoi/runcode.nvim"
 
@@ -168,20 +161,13 @@ M.config = function()
 
 
         use {
-            "SmiteshP/nvim-navic",
-            requires = "neovim/nvim-lspconfig",
-            config = function()
-                require("nvim-navic").setup { highlight = true }
-            end,
-        }
-
-        use {
             "ray-x/lsp_signature.nvim",
             config = function()
                 require("lsp_signature").setup({
                     floating_window = false,
                     hint_prefix = "",
                     hint_scheme = "Comment",
+                    floating_window_off_x = 10
                 })
             end,
             requires = "neovim/nvim-lspconfig",
@@ -223,10 +209,12 @@ M.config = function()
                     "Wansmer/sibling-swap.nvim",
                     requires = { "nvim-treesitter" },
                     config = function()
-                        require("sibling-swap").setup({ keymaps = {
-                            ["<left>"] = "swap_with_left",
-                            ["<right>"] = "swap_with_right",
-                        } })
+                        require("sibling-swap").setup({
+                            keymaps = {
+                                ["<left>"] = "swap_with_left",
+                                ["<right>"] = "swap_with_right",
+                            }
+                        })
                     end,
                 },
                 {
@@ -274,10 +262,10 @@ M.config = function()
         use {
             "williamboman/mason.nvim",
             config = function() require("mason").setup() end,
-            requires = {
-                { "mfussenegger/nvim-lint",
-                    config = function() require("core.linter").config() end },
-            }
+            -- requires = {
+            --     { "mfussenegger/nvim-lint",
+            --         config = function() require("core.linter").config() end },
+            -- }
         }
 
         use "felipevolpone/mono-theme"
@@ -389,6 +377,14 @@ M.config = function()
         }
 
         use {
+            'altermo/ultimate-autopair.nvim',
+            event = { 'InsertEnter', 'CmdlineEnter' },
+            config = function()
+                require('ultimate-autopair').setup {}
+            end,
+        }
+
+        --[[ use {
             "windwp/nvim-autopairs",
             config = function()
                 require("nvim-autopairs").setup()
@@ -401,8 +397,7 @@ M.config = function()
                 { "i", '"' },
                 { "i", "<BS>" },
             }
-        }
-
+        } ]]
         use {
             "ggandor/leap.nvim",
             keys = {
@@ -425,7 +420,6 @@ M.config = function()
         if M.PB then
             packer.sync()
         end
-
     end,
         config = {
             display = {

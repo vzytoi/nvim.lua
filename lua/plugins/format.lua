@@ -2,13 +2,11 @@ local M = {}
 
 local fmt = require "formatter"
 local util = require "formatter.util"
-local linter = require "core.linter"
+-- local linter = require "core.linter"
 
 local formatters = {
-
     python = {
         function()
-
             if vim.fn.getfsize(vim.fn.expand('%')) <= 1 then
                 return nil
             end
@@ -37,7 +35,6 @@ local formatters = {
     },
     ocaml = {
         function()
-
             if vim.fn.getfsize(vim.fn.expand('%')) <= 1 then
                 return nil
             end
@@ -74,11 +71,9 @@ local formatters = {
 }
 
 M.config = function()
-
     fmt.setup({
         filetype = formatters
     })
-
 end
 
 M.get = function(ft)

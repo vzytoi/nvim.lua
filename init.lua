@@ -2,12 +2,16 @@ require('utils.globals')
 vim.g.mapleader = " "
 
 local mods = {
-    { name = "abbr", event = "CmdlineEnter" },
-    { name = "colors", event = "ColorScheme" },
+    { name = "abbr",     event = "CmdlineEnter" },
+    { name = "colors",   event = "ColorScheme" },
     { name = "options" },
     { name = "packer" },
     { name = "autocmds", },
 }
+
+-- TODO: cursor moving on save
+-- TODO: remove lsp_signature when :MP
+-- TODO: solve vim global variable
 
 local load = function(name)
     local ok, _ = pcall(require, 'core.' .. name)
@@ -20,7 +24,6 @@ local load = function(name)
 end
 
 for _, m in pairs(mods) do
-
     if not m.event then
         load(m.name)
     else

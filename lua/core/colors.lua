@@ -47,32 +47,32 @@ local raw = {
 
     },
     xcodedarkhc = {
-        Normal = { bg = c.black },
-        NonText = { bg = c.black, fg = c.black },
-        EndOfBuffer = { bg = c.black, fg = c.black },
+        Normal                   = { bg = c.black },
+        NonText                  = { bg = c.black, fg = c.black },
+        EndOfBuffer              = { bg = c.black, fg = c.black },
 
-        TabLine = { bg = c.black },
-        TabLineSel = { bg = c.black, bold = true },
-        TabLineFill = { bg = c.darkerblack },
+        TabLine                  = { bg = c.black },
+        TabLineSel               = { bg = c.black, bold = true },
+        TabLineFill              = { bg = c.darkerblack },
 
         -- TextOn = { bg = c.black, fg = c.white, bold = true },
-        TextOff = { bg = c.black, fg = c.lightgrey },
+        TextOff                  = { bg = c.black, fg = c.lightgrey },
 
-        SepOn = { fg = c.pink },
-        SepOff = { fg = c.lightgrey },
+        SepOn                    = { fg = c.pink },
+        SepOff                   = { fg = c.lightgrey },
 
-        StatusLine = { bg = c.black },
+        StatusLine               = { bg = c.black },
 
-        LspReferenceText = { bold = true },
-        LspReferenceRead = { bold = true },
-        LspReferenceWrite = { bold = true },
+        LspReferenceText         = { bold = true },
+        LspReferenceRead         = { bold = true },
+        LspReferenceWrite        = { bold = true },
 
-        CursorLineNr = { bold = true, fg = c.white },
+        CursorLineNr             = { bold = true, fg = c.white },
 
-        RunCodeNormal = { bg = c.darkerblack },
-        RunCodeOk     = { fg = c.green, bold = true },
-        RunCodeError  = { fg = c.red, bold = true },
-        RunCodeInfo   = { fg = c.blue, bold = true },
+        RunCodeNormal            = { bg = c.darkerblack },
+        RunCodeOk                = { fg = c.green, bold = true },
+        RunCodeError             = { fg = c.red, bold = true },
+        RunCodeInfo              = { fg = c.blue, bold = true },
 
         NvimTreeNormal           = { bg = c.darkerblack },
         NvimTreeEndOfBuffer      = { fg = c.darkerblack, bg = c.darkerblack },
@@ -83,14 +83,14 @@ local raw = {
         NvimTreeOpenedFile       = { fg = c.pink },
         NvimTreeIndentMarker     = { fg = c.darkgrey },
 
-        Pmenu = { bg = c.black },
-        FloatBorder = { bg = c.black },
-        NormalFloat = { bg = c.black },
+        Pmenu                    = { bg = c.black },
+        FloatBorder              = { bg = c.black },
+        NormalFloat              = { bg = c.black },
 
-        GlancePreviewNormal = { bg = c.grey },
-        GlanceListNormal = { bg = c.grey },
+        GlancePreviewNormal      = { bg = c.grey },
+        GlanceListNormal         = { bg = c.grey },
 
-        VertSplit = { fg = c.grey },
+        VertSplit                = { fg = c.grey },
 
     },
     github = {
@@ -100,12 +100,12 @@ local raw = {
         LineNr = { bg = c.white, fg = c.grey },
         LspReferenceText = { bold = true },
 
-        RunCodeNormal = { bg = "#ffffff" };
+        RunCodeNormal = { bg = "#ffffff" },
         VertSplit = { fg = c.grey },
     },
     mono = {
         VertSplit = {},
-        LineNr = {fg = "#cfcfcf"},
+        LineNr = { fg = "#cfcfcf" },
         LspReferenceText = { bold = true },
         LspReferenceRead = { bold = true },
         LspReferenceWrite = { bold = true },
@@ -161,7 +161,6 @@ M.config = function()
         { text = "", texthl = "DiagnosticSignInfo", linehl = "", numhl = "DiagnosticInfo" })
     vim.fn.sign_define("DiagnosticSignHint",
         { text = "", texthl = "DiagnosticSignHint", linehl = "", numhl = "DiagnosticHint" })
-
 end
 
 return M
