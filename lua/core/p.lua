@@ -260,6 +260,22 @@ M.config = function()
         }
 
         use {
+            'mawkler/modicator.nvim',
+            after = 'onedark.nvim', -- Add your colorscheme plugin here
+            setup = function()
+                -- These are required for Modicator to work
+                vim.o.cursorline = true
+                vim.o.number = true
+                vim.o.termguicolors = true
+            end,
+            config = function()
+                require('modicator').setup({
+                    -- ...
+                })
+            end
+        }
+
+        use {
             "williamboman/mason.nvim",
             config = function() require("mason").setup() end,
             -- requires = {
@@ -384,20 +400,6 @@ M.config = function()
             end,
         }
 
-        --[[ use {
-            "windwp/nvim-autopairs",
-            config = function()
-                require("nvim-autopairs").setup()
-            end,
-            keys = {
-                { "i", "(" },
-                { "i", "[" },
-                { "i", "{" },
-                { "i", '"' },
-                { "i", '"' },
-                { "i", "<BS>" },
-            }
-        } ]]
         use {
             "ggandor/leap.nvim",
             keys = {

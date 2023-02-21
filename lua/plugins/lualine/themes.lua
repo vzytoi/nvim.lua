@@ -38,15 +38,15 @@ THEMES.github = {
     normal = {
         a = { bg = colors.red },
         b = { bg = colors.grey },
-        c = { fg = colors.white, bg = colors.black },
+        c = { fg = colors.white, bg = colors.white },
     },
     insert = { a = { bg = colors.blue } },
     visual = { a = { bg = colors.pink } },
     replace = { a = { bg = colors.green } },
     inactive = {
-        a = { fg = colors.white, bg = colors.black },
-        b = { fg = colors.white, bg = colors.black },
-        c = { fg = colors.black, bg = colors.black },
+        a = { fg = colors.white, bg = colors.white },
+        b = { fg = colors.white, bg = colors.white },
+        c = { fg = colors.black, bg = colors.white },
     }
 }
 

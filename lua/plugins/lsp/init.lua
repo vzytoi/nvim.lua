@@ -9,7 +9,7 @@ M.keymaps = function()
     vim.g.nmap("gD", "<cmd>Glance definitions<CR>")
 
     vim.g.nmap("gr", vim.lsp.buf.rename)
-    vim.g.nmap("gR", "<cmd>Glance references<CR>")
+    vim.g.nmap("ge", "<cmd>Glance references<CR>")
 
     vim.g.nmap("gh", vim.lsp.buf.hover)
 
@@ -65,7 +65,7 @@ local on_attach = function(client, bufnr)
     -- si un formatter est configuré dans formatter.nvim
     -- alors je m'assure qu'aucun formatter associé au lsp ne soit executé.
 
-    if format(u.fun.buf(bufnr, 'filetype')) then
+    if format and format(u.fun.buf(bufnr, 'filetype')) then
         client.server_capabilities.documentFormattingProvider = false
     end
 end

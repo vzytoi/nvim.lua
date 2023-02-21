@@ -4,14 +4,12 @@ vim.g.mapleader = " "
 local mods = {
     { name = "abbr",     event = "CmdlineEnter" },
     { name = "colors",   event = "ColorScheme" },
+    { name = "lazy" },
     { name = "options" },
-    { name = "packer" },
     { name = "autocmds", },
 }
 
--- TODO: cursor moving on save
 -- TODO: remove lsp_signature when :MP
--- TODO: solve vim global variable
 
 local load = function(name)
     local ok, _ = pcall(require, 'core.' .. name)

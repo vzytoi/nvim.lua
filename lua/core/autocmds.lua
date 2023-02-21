@@ -47,9 +47,6 @@ end
 
 M.config = function()
     require "plugins.treesitter".autocmds()
-    -- require "core.linter".autocmds()
-    require "core.rooter".autocmds()
-
 
     vim.api.nvim_create_augroup('vimrc', {})
 

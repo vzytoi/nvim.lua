@@ -31,7 +31,7 @@ COLORS.table = {
         red = "#FF0000"
     },
     github = {
-        white = "#f8f8ff",
+        white = "#F8F8FF",
         grey = "#a8a8a8",
         red = "#aa3636",
         blue = "#566795",
@@ -44,7 +44,7 @@ COLORS.default = {
     blue = "#0000FF",
     red = "#FF0000",
     black = "#000000",
-    white = "#ffffff",
+    white = "#0000ff",
     orange = "#FFA500",
     violet = "#EE82EE",
     green = "#008000"

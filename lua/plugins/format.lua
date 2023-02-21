@@ -2,27 +2,11 @@ local M = {}
 
 local fmt = require "formatter"
 local util = require "formatter.util"
--- local linter = require "core.linter"
 
 local formatters = {
     python = {
         function()
             if vim.fn.getfsize(vim.fn.expand('%')) <= 1 then
-                return nil
-            end
-
-            -- seule solution trouvée pour l'instant pour pas avoir
-            -- d'erreurs de formattage
-            local diag = vim.diagnostic.get(0)
-            local is_linter = true
-
-            for _, din in pairs(diag) do
-                if din.source ~= linter.get() then
-                    is_linter = false
-                end
-            end
-
-            if not vim.tbl_isempty(diag) and not is_linter then
                 return nil
             end
 
@@ -71,6 +55,10 @@ local formatters = {
 }
 
 M.config = function()
+    if not (fmt and formatters) then
+        return
+    end
+
     fmt.setup({
         filetype = formatters
     })
