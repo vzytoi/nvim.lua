@@ -27,6 +27,7 @@ vim.g.tmap = map("t")
 
 M.config = function()
     require "plugins.toggleterm".keymaps()
+    require "plugins.dap".keymaps()
     require "plugins.nvimtree".keymaps()
     require "plugins.lsp".keymaps()
     require "core.rooter".keymaps()
@@ -66,9 +67,6 @@ M.config = function()
             { "xv",  function() require('runcode').run { dir = "vertical" } end },
             { 'gd', function()
                 u.fun.toggle("DiffviewOpen", "DiffviewClose")
-            end },
-            { 'l', function()
-                u.fun.toggle("lop", "lcl")
             end },
             { 'c', function()
                 vim.g.nmap("<leader>c", function()

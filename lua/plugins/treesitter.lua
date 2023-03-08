@@ -1,18 +1,37 @@
 local M = {}
 
+M.load = {
+    "nvim-treesitter/nvim-treesitter",
+    config = M.config,
+    dependencies = {
+        "windwp/nvim-ts-autotag",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        "RRethy/nvim-treesitter-textsubjects",
+        "nvim-treesitter/nvim-tree-docs",
+        "nvim-treesitter/nvim-tree-docs",
+        {
+            "danymat/neogen",
+            config = function()
+                require('neogen').setup { snippet_engine = "luasnip" }
+            end
+        }
+    },
+    event = "BufWinEnter"
+}
+
 M.autocmds = function()
-    nvim.create_autocmd("BufReadPost", {
+    vim.api.nvim_create_autocmd("BufReadPost", {
         callback = function()
             local size = vim.fn.getfsize(vim.fn.expand("%"))
 
             if size >= 1000000 then
-                for hl_name, _ in pairs(nvim._get_hl_defs(0)) do
-                    nvim.set_hl(0, hl_name, {})
+                for hl_name, _ in pairs(vim.api.nvim_get_hl_defs(0)) do
+                    vim.api.nvim_set_hl(0, hl_name, {})
                 end
             elseif size >= 100 * 1024 then -- 100 KB
-                nvim.command("TSBufDisable highlight")
+                vim.api.nvim_command("TSBufDisable highlight")
             elseif vim.g.TS_disabled then
-                nvim.command("TSBufEnable highlight")
+                vim.api.nvim_command("TSBufEnable highlight")
             end
 
             vim.g.TS_disabled = size >= 500000
@@ -60,8 +79,8 @@ M.config = function()
                 [";"] = "textsubjects-container-outer"
             }
         },
-        disable = function(lang, bufnr)
-            return nvim.buf_line_count(bufnr) > 50000
+        disable = function(_, bufnr)
+            return vim.api.nvim_buf_line_count(bufnr) > 50000
         end
     })
 end

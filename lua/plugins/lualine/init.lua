@@ -1,9 +1,15 @@
 local M = {}
 
-local themes = require('plugins.lualine.themes')
-local components = require('plugins.lualine.components')
+
+M.load = {
+    "hoob3rt/lualine.nvim",
+    event = "ColorScheme",
+    config = M.config
+}
 
 function M.config()
+    local themes = require('plugins.lualine.themes')
+    local components = require('plugins.lualine.components')
     local cs = vim.g.colors_name
 
     require('lualine').setup {

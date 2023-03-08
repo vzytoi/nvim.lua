@@ -1,6 +1,5 @@
 local M = {}
 
-
 M.config = function()
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
@@ -23,6 +22,8 @@ M.config = function()
         { "vzytoi/quickterm.nvim", lazy = true },
         { "vzytoi/runcode.nvim",   lazy = true },
 
+
+
         {
             "mhartington/formatter.nvim",
             config = function()
@@ -34,15 +35,6 @@ M.config = function()
         },
 
 
-        {
-            "nvim-tree/nvim-tree.lua",
-            config = function()
-                vim.defer_fn(function()
-                    require("plugins.nvimtree").config()
-                end, 0)
-            end
-        },
-
         "endel/vim-github-colorscheme",
         { "felipevolpone/mono-theme",             enabled = false },
 
@@ -50,22 +42,44 @@ M.config = function()
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
 
-        "L3MON4D3/LuaSnip",
-
         "tpope/vim-surround",
         "wellle/targets.vim",
         "fedepujol/move.nvim",
         "samjwill/nvim-unception",
         "mrjones2014/smart-splits.nvim",
         "AckslD/nvim-trevJ.lua",
-        "ethanholz/nvim-lastplace",
+        "farmergreg/vim-lastplace",
         "cappyzawa/trim.nvim",
         "dnlhc/glance.nvim",
         "luukvbaal/stabilize.nvim",
+        "lervag/vimtex",
+
+        "saadparwaiz1/cmp_luasnip",
+
+        {
+            "L3MON4D3/LuaSnip",
+            config = function()
+                require('luasnip').config.setup { enable_autosnippets = true }
+                require('luasnip.loaders.from_lua').load { paths = vim.fn.stdpath('config') .. '/snippets/' }
+            end
+        },
+        {
+            "max397574/better-escape.nvim",
+            config = function()
+                require("better_escape").setup()
+            end
+        },
+
+
+        {
+            "m4xshen/autoclose.nvim",
+            config = function()
+                require("autoclose").setup()
+            end
+        },
 
         { "eandrju/cellular-automaton.nvim",      cmd = "CellularAutomaton" },
         { "AndrewRadev/sideways.vim",             cmd = { "SidewaysLeft", "SidewaysRight" } },
-        { "zbirenbaum/copilot.lua",               lazy = true },
         { "ThePrimeagen/harpoon",                 lazy = true },
         { "davidgranstrom/nvim-markdown-preview", cmd = "MarkdownPreview" },
         { "dstein64/vim-startuptime",             cmd = "StartupTime" },
@@ -75,8 +89,24 @@ M.config = function()
         { "stevearc/aerial.nvim",                 cmd = "AerialToggle" },
         { "folke/zen-mode.nvim",                  cmd = "ZenMode", },
         { "sindrets/diffview.nvim",               cmd = "DiffviewOpen", },
-        { 'altermo/ultimate-autopair.nvim',       event = { 'InsertEnter', 'CmdlineEnter' } },
         { "xiyaowong/accelerated-jk.nvim",        keys = { { "n", "j" }, { "n", "k" } } },
+
+
+        require("plugins.telescope").load,
+        require("plugins.treesitter").load,
+        require("plugins.nvimtree").load,
+        require("plugins.lualine").load,
+        require("plugins.dap").load,
+
+
+        {
+            "ahmedkhalf/project.nvim",
+            config = function()
+                require("project_nvim").setup {
+                    detection_methods = { "pattern" }
+                }
+            end
+        },
 
         {
             "folke/persistence.nvim",
@@ -147,19 +177,10 @@ M.config = function()
             end
         },
 
-
-
-        {
-            "hoob3rt/lualine.nvim",
-            event = "ColorScheme",
-            config = function() require("plugins.lualine").config() end
-        },
-
         {
             "LionC/nest.nvim",
             config = function() require("core.keymaps").config() end
         },
-
 
         {
             "goolord/alpha-nvim",
@@ -167,7 +188,6 @@ M.config = function()
                 require "alpha".setup(require "alpha.themes.dashboard".config)
             end
         },
-
 
         {
             "ray-x/lsp_signature.nvim",
@@ -179,85 +199,25 @@ M.config = function()
                     floating_window_off_x = 10
                 })
             end,
-            dependencies = "neovim/nvim-lspconfig",
+            dependencies = "neovim/nvim-lspconfig"
         },
-
 
         {
             "hrsh7th/nvim-cmp",
+            -- event = "InsertEnter",
             config = function()
                 require("plugins.cmp").config()
             end,
             dependencies = {
                 "hrsh7th/cmp-nvim-lsp",
-                "saadparwaiz1/cmp_luasnip",
                 "hrsh7th/cmp-nvim-lsp-signature-help",
                 "lukas-reineke/cmp-rg",
                 "ray-x/cmp-treesitter",
-                "zbirenbaum/copilot-cmp",
+                "github/copilot.vim",
+                "hrsh7th/cmp-copilot",
             }
         },
 
-
-        {
-            "nvim-treesitter/nvim-treesitter",
-            config = require "plugins.treesitter".config,
-            dependencies = {
-                "windwp/nvim-ts-autotag",
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                "RRethy/nvim-treesitter-textsubjects",
-                "nvim-treesitter/nvim-tree-docs",
-                "nvim-treesitter/nvim-tree-docs",
-                {
-                    "Wansmer/sibling-swap.nvim",
-                    config = function()
-                        require("sibling-swap").setup {
-                            keymaps = {
-                                ["<left>"] = "swap_with_left",
-                                ["<right>"] = "swap_with_right",
-                            }
-                        }
-                    end,
-                },
-                {
-                    "danymat/neogen",
-                    config = function()
-                        require('neogen').setup { snippet_engine = "luasnip" }
-                    end
-                }
-            }
-        },
-
-
-        {
-            "nvim-telescope/telescope.nvim",
-            config = function()
-                require "plugins.telescope".config()
-            end,
-            keys = "<leader>f",
-            dependencies = {
-                {
-                    "nvim-telescope/telescope-fzf-native.nvim",
-                    build = "make",
-                    config = function()
-                        require("telescope").load_extension("fzf")
-                    end
-                },
-                "nvim-telescope/telescope-symbols.nvim",
-                {
-                    "nvim-telescope/telescope-project.nvim",
-                    config = function()
-                        require("telescope").load_extension("project")
-                    end
-                },
-                {
-                    "smartpde/telescope-recent-files",
-                    config = function()
-                        require("telescope").load_extension("recent_files")
-                    end
-                }
-            },
-        },
 
         {
             "nat-418/boole.nvim",

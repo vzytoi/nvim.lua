@@ -70,7 +70,8 @@ local on_attach = function(client, bufnr)
     end
 end
 
-local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
+-- local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
+local capabilities = {}
 capabilities.offsetEncoding = { "utf-16" }
 
 M.config = function()

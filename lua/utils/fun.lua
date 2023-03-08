@@ -58,11 +58,9 @@ FN.table = {
 
         return ret
     end,
-
 }
 
 FN.toggle = function(open, close)
-
     if vim.g[open] == nil then
         vim.g[open] = false
     end
@@ -79,7 +77,6 @@ FN.is_last_win = function()
 end
 
 FN.capabilities = function(capabilitie, bufnr)
-
     local client = vim.lsp.get_active_clients({ bufnr = bufnr })
 
     if vim.tbl_isempty(client) then
@@ -92,7 +89,6 @@ FN.capabilities = function(capabilitie, bufnr)
     }
 
     return a[capabilitie]
-
 end
 
 FN.is_empty = function(obj)
@@ -113,7 +109,6 @@ FN.keycount = {
 
 
 FN.buf = function(asked, bufnr)
-
     bufnr = bufnr or vim.fn.bufnr()
 
     local infos = {
@@ -125,18 +120,19 @@ FN.buf = function(asked, bufnr)
     }
 
     return infos[asked]
-
 end
 
 vim.g.mp = false
 
 FN.mp2i = function()
+    local cmp = require('cmp')
+
     if not vim.g.mp then
-        require('cmp').setup.buffer { enabled = false}
+        cmp.setup.buffer { enabled = false }
         vim.g.nvim_virtual_enable = false
         vim.diagnostic.disable()
     else
-        require('cmp').setup.buffer { enabled = true}
+        cmp.setup.buffer { enabled = true }
         vim.g.nvim_virtual_enable = true
         vim.diagnostic.enable()
     end
@@ -144,6 +140,6 @@ FN.mp2i = function()
     vim.g.mp = not vim.g.mp
 end
 
-vim.api.nvim_create_user_command("MP", ":lua u.fun.mp2i()",{})
+vim.api.nvim_create_user_command("MP", ":lua u.fun.mp2i()", {})
 
 return FN

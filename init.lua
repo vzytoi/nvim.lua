@@ -1,5 +1,6 @@
 require('utils.globals')
 vim.g.mapleader = " "
+vim.g.localleader = " "
 
 local mods = {
     { name = "abbr",     event = "CmdlineEnter" },
@@ -9,7 +10,9 @@ local mods = {
     { name = "autocmds", },
 }
 
+-- TODO: treesitter vif vaf ...
 -- TODO: remove lsp_signature when :MP
+-- TODO: cmp is acting weird with copilot + it's name is "Text"
 
 local load = function(name)
     local ok, _ = pcall(require, 'core.' .. name)

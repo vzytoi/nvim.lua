@@ -1,11 +1,40 @@
 local M = {}
 
-local builtin = require("telescope.builtin")
-local actions = require("telescope.actions")
-local themes = require("telescope.themes")
-local telescope = require('telescope')
+M.load = {
+    "nvim-telescope/telescope.nvim",
+    config = function()
+        require("plugins.telescope").config()
+    end,
+    keys = "<leader>f",
+    dependencies = {
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = "make",
+            config = function()
+                require("telescope").load_extension("fzf")
+            end
+        },
+        "nvim-telescope/telescope-symbols.nvim",
+        {
+            "nvim-telescope/telescope-project.nvim",
+            config = function()
+                require("telescope").load_extension("project")
+            end
+        },
+        {
+            "smartpde/telescope-recent-files",
+            config = function()
+                require("telescope").load_extension("recent_files")
+            end
+        },
+    },
+}
 
 M.setup = function()
+    local _, telescope = pcall(require, 'telescope')
+    local _, builtin = pcall(require, "telescope.builtin")
+    local _, themes = pcall(require, "telescope.themes")
+
     local ivy = themes.get_ivy({
         show_untracked = true
     })
@@ -45,7 +74,10 @@ M.setup = function()
 end
 
 M.config = function()
-    require('telescope').setup({
+    local _, telescope = pcall(require, 'telescope')
+    local _, actions = pcall(require, "telescope.actions")
+
+    telescope.setup({
         defaults = {
             preview = {
                 check_mine_type = false,

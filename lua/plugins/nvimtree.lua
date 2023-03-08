@@ -1,12 +1,38 @@
 local M = {}
 
-local api = require 'nvim-tree.api'
+
+M.load = {
+    "nvim-tree/nvim-tree.lua",
+    -- cmd = "NvimTreeToggle",
+    config = function()
+        vim.defer_fn(M.config, 0)
+    end
+}
 
 M.keymaps = function()
-    vim.keymap.set("n", "<leader>e", ":silent NvimTreeToggle<cr>")
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>")
+end
+
+M.on_attach = function(bufnr)
+    local api = require('nvim-tree.api')
+    local opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
+
+    vim.keymap.set("n", "v", api.node.open.vertical, opts)
+    vim.keymap.set("n", "s", api.node.open.horizontal, opts)
+    vim.keymap.set("n", "d", api.fs.remove, opts)
+    vim.keymap.set("n", "r", api.fs.rename, opts)
+    vim.keymap.set("n", "a", api.fs.create, opts)
+    vim.keymap.set("n", "<tab>", api.node.open.preview, opts)
+    vim.keymap.set("n", "e", api.node.open.edit, opts)
+    vim.keymap.set("n", "o", api.node.open.edit, opts)
+    vim.keymap.set("n", "<cr>", api.node.open.edit, opts)
+    vim.keymap.set('n', 'C', api.fs.copy.absolute_path, opts)
+    vim.keymap.set('n', 'K', api.node.navigate.parent, opts)
 end
 
 M.config = function()
+    local api = require 'nvim-tree.api'
+
     require "nvim-tree".setup {
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
@@ -19,13 +45,7 @@ M.config = function()
             side = "right",
             hide_root_folder = true,
             mappings = {
-                custom_only = false,
-                list = {
-                    { key = "v", action = "vsplit" },
-                    { key = "s", action = "split" },
-                    { key = "e", action = "edit" },
-                    { key = "K", action = "parent_node" },
-                }
+                custom_only = true
             }
         },
         git = { ignore = false },
@@ -34,19 +54,7 @@ M.config = function()
             indent_markers = { enable = false },
             icons = { show = { git = false } }
         },
-        on_attach = function(bufnr)
-            vim.keymap.set("n", "v", api.node.open.vertical, { buffer = bufnr })
-            vim.keymap.set("n", "s", api.node.open.horizontal, { buffer = bufnr })
-
-            vim.keymap.set("n", "t", function()
-                api.node.open.tab()
-            end, { buffer = bufnr })
-
-            vim.keymap.set("n", "p", api.node.open.preview, { buffer = bufnr })
-            vim.keymap.set("n", "e", api.node.open.edit, { buffer = bufnr })
-            vim.keymap.set("n", "o", api.node.open.edit, { buffer = bufnr })
-            vim.keymap.set("n", "<cr>", api.node.open.edit, { buffer = bufnr })
-        end
+        on_attach = M.on_attach
     }
 end
 
