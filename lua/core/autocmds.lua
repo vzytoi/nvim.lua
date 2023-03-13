@@ -67,20 +67,6 @@ M.config = function()
         group = general
     })
 
-    -- vim.api.nvim_create_autocmd("FocusGained", {
-    --     callback = function()
-    --         vim.cmd "checktime"
-    --     end,
-    --     group = general,
-    -- })
-
-    -- vim.api.nvim_create_autocmd("VimResized", {
-    --     callback = function()
-    --         vim.cmd "wincmd ="
-    --     end,
-    --     group = general,
-    -- })
-
     line_number()
 
     vim.api.nvim_create_autocmd("FileType", {
@@ -97,6 +83,13 @@ M.config = function()
         callback = function()
             vim.bo.shiftwidth = 2
             vim.bo.tabstop = 2
+        end
+    })
+
+    -- just to don't get lost
+    vim.api.nvim_create_autocmd("FocusLost", {
+        callback = function()
+            vim.api.nvim_command("stopi")
         end
     })
 end

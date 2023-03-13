@@ -74,6 +74,8 @@ local raw = {
         RunCodeError             = { fg = c.red, bold = true },
         RunCodeInfo              = { fg = c.blue, bold = true },
 
+        testerNormal             = { bg = c.darkerblack },
+
         NvimTreeNormal           = { bg = c.darkerblack },
         NvimTreeEndOfBuffer      = { fg = c.darkerblack, bg = c.darkerblack },
         NvimTreeFolderName       = { fg = c.white },
@@ -112,8 +114,9 @@ local raw = {
     }
 }
 
+
 local apply = function(name, args)
-    nvim.set_hl(0, name, args)
+    vim.api.nvim_set_hl(0, name, args)
 end
 
 local undeep = function(v)

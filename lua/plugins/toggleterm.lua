@@ -8,6 +8,9 @@ M.keymaps = function()
     vim.g.nmap("<leader>tv", ":ToggleTerm direction=vertical<cr>")
     vim.g.tmap("<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
     vim.g.tmap("<esc>", [[<C-\><C-n>]])
+
+
+    vim.keymap.set("n", "<leader>te", require "tester".open)
 end
 
 M.config = function()

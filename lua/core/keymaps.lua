@@ -57,11 +57,10 @@ M.config = function()
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<Space>", "<Nop>" },
         { "<leader>", {
-            { "p",   ':TermExec dir="float" cmd="gcc -fsanitize=undefined % && ./a.out"<cr>' },
             { "n",   ":Neogen<CR>" },
             { "fml", "<cmd>CellularAutomaton make_it_rain<CR>" },
-            { "ti",  function() require('quickterm').open() end },
-            { "x",   function() require('runcode').run() end },
+            { "ti",  require('quickterm').open },
+            { "x",   require('runcode').run },
             { "xx",  function() require('runcode').run { method = "Compile" } end },
             { "xt",  function() require('runcode').run { dir = "tab" } end },
             { "xv",  function() require('runcode').run { dir = "vertical" } end },
@@ -95,9 +94,9 @@ M.config = function()
             { "z",  ":ZenMode<cr>" },
             { "ya", ":%y+<cr>" },
             { "q", {
-                { "s", [[<cmd>lua require("persistence").load()<cr>]] },
-                { "l", [[<cmd>lua require("persistence").load({ last = true })<cr>]] },
-                { "d", [[<cmd>lua require("persistence").stop()<cr>]] }
+                { "s", require("persistence").load },
+                { "l", function() require("persistence").load({ last = true }) end },
+                { "d", function() require("persistence").stop() end }
             } },
             { "q", {
                 { "k", ":cprev<cr>" },
@@ -110,13 +109,18 @@ M.config = function()
         { "N", "Nzzzv" },
         { "J", "mzJ`z" },
         { mode = "v", {
-            { "<Space>", "<Nop>" },
-            { 'L',       ":MoveHBlock(1)<CR>" },
-            { 'J',       ":MoveBlock(1)<CR>" },
-            { 'K',       ":MoveBlock(-1)<CR>" },
-            { 'H',       ":MoveHBlock(-1)<CR>" },
-            { "<",       "<gv" },
-            { ">",       ">gv" },
+            { 'L', ":MoveHBlock(1)<CR>" },
+            { 'J', ":MoveBlock(1)<CR>" },
+            { 'K', ":MoveBlock(-1)<CR>" },
+            { 'H', ":MoveHBlock(-1)<CR>" },
+            { "<", "<gv" },
+            { ">", ">gv" },
+            { "<leader>", {
+                { "r",
+                    { "f", function() require('refactoring').refactor('Extract Function') end },
+                    { "v", function() require('refactoring').refactor('Extract Variable') end },
+                },
+            } }
         } },
         { mode = "i", {
             { "<c-", {
@@ -140,8 +144,6 @@ M.config = function()
             require('harpoon.ui').nav_file(v)
         end)
     end
-
-    vim.cmd [[imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' ]]
 end
 
 return M

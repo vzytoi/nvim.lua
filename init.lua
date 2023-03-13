@@ -10,6 +10,7 @@ local mods = {
     { name = "autocmds", },
 }
 
+-- TODO: remove lazy-packing jsp quoi de telescope
 -- TODO: treesitter vif vaf ...
 -- TODO: remove lsp_signature when :MP
 -- TODO: cmp is acting weird with copilot + it's name is "Text"

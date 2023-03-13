@@ -20,31 +20,16 @@ M.config = function()
     require("lazy").setup {
         { "vzytoi/virtual.nvim",   lazy = true },
         { "vzytoi/quickterm.nvim", lazy = true },
-        { "vzytoi/runcode.nvim",   lazy = true },
+        -- { "vzytoi/runcode.nvim",   lazy = true },
+        { dir = "~/Documents/nvim/runcode.nvim"},
 
-
-
-        {
-            "mhartington/formatter.nvim",
-            config = function()
-                vim.defer_fn(function()
-                    require("plugins.format").config()
-                end, 0
-                )
-            end
-        },
-
-
-        "endel/vim-github-colorscheme",
-        { "felipevolpone/mono-theme",             enabled = false },
-
+        "fedepujol/move.nvim",
+        "tpope/vim-sleuth",
 
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
 
-        "tpope/vim-surround",
         "wellle/targets.vim",
-        "fedepujol/move.nvim",
         "samjwill/nvim-unception",
         "mrjones2014/smart-splits.nvim",
         "AckslD/nvim-trevJ.lua",
@@ -57,12 +42,64 @@ M.config = function()
         "saadparwaiz1/cmp_luasnip",
 
         {
+            "ThePrimeagen/refactoring.nvim",
+            config = function()
+                require('refactoring').setup()
+            end
+        },
+
+        {
+            "chrisgrieser/nvim-various-textobjs",
+            config = function()
+                require("various-textobjs").setup({ useDefaultKeymaps = true })
+            end,
+        },
+
+
+        {
+            dir = "~/Documents/nvim/tester.nvim",
+            config = function()
+                require("tester").setup()
+            end
+        },
+
+        {
+            "mhartington/formatter.nvim",
+            config = function()
+                vim.defer_fn(function()
+                    require("plugins.format").config()
+                end, 0
+                )
+            end
+        },
+
+        {
+            'akinsho/git-conflict.nvim',
+            config = function()
+                require('git-conflict').setup()
+            end
+        },
+
+        "endel/vim-github-colorscheme",
+        "felipevolpone/mono-theme",
+        "arzg/vim-colors-xcode",
+
+        {
+            "windwp/nvim-autopairs",
+            config = function()
+                require("nvim-autopairs").setup {}
+            end
+        },
+
+
+        {
             "L3MON4D3/LuaSnip",
             config = function()
                 require('luasnip').config.setup { enable_autosnippets = true }
                 require('luasnip.loaders.from_lua').load { paths = vim.fn.stdpath('config') .. '/snippets/' }
             end
         },
+
         {
             "max397574/better-escape.nvim",
             config = function()

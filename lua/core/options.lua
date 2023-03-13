@@ -117,6 +117,7 @@ M.loadOptions = function()
         v = true,
     }
 
+    vim.cmd "lang en_US"
     vim.cmd [[ set guicursor= ]]
     vim.cmd [[ set fillchars+=vert:│ ]]
 end
@@ -125,10 +126,11 @@ M.ColorOpt = function()
     vim.o.termguicolors = true
 
     vim.o.background = "light"
-    local _ = pcall(vim.cmd.colorscheme, "github")
+    -- local _ = pcall(vim.cmd.colorscheme, "github")
+    -- local _ = pcall(vim.cmd.colorscheme, "kanagawa")
 
     -- vim.o.background = "dark"
-    -- local _ = pcall(vim.cmd.colorscheme, "xcodedarkhc")
+    local _ = pcall(vim.cmd.colorscheme, "xcodedarkhc")
     -- local _ = pcall(vim.cmd.colorscheme, "mono")
 end
 

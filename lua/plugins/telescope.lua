@@ -83,7 +83,7 @@ M.config = function()
                 check_mine_type = false,
                 timeout = 100
             },
-            file_ignore_patterns = { ".git/", "_build/", "%.pdf" },
+            file_ignore_patterns = { ".git/", "_build/", "%.pdf", "lazy%-lock%.json", "%.ttf", "%.DS%_Store" },
             prompt_prefix = "> ",
             selection_caret = "> ",
             sorting_strategy = "ascending",
