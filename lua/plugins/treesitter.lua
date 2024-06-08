@@ -2,21 +2,25 @@ local M = {}
 
 M.load = {
     "nvim-treesitter/nvim-treesitter",
-    config = M.config,
+    config       = function()
+        require("plugins.treesitter").config()
+    end,
+    lazy         = true,
     dependencies = {
-        "windwp/nvim-ts-autotag",
         "nvim-treesitter/nvim-treesitter-textobjects",
         "RRethy/nvim-treesitter-textsubjects",
         "nvim-treesitter/nvim-tree-docs",
         "nvim-treesitter/nvim-tree-docs",
         {
-            "danymat/neogen",
+            "abecodes/tabout.nvim",
+            lazy = true,
+            event = "VeryLazy",
             config = function()
-                require('neogen').setup { snippet_engine = "luasnip" }
-            end
-        }
+                require("tabout").setup()
+            end,
+        },
     },
-    event = "BufWinEnter"
+    event        = "BufWinEnter"
 }
 
 M.autocmds = function()
@@ -47,7 +51,7 @@ M.config = function()
         indent = { enable = true },
         incremental_selection = { enable = true },
         context_commenstring = { enable = true },
-        highlight = { enable = true },
+        highlight = { enable = true, disable = { "NeogitCommitMessage", "help" } },
         textobjects = {
             select = {
                 enable = true,

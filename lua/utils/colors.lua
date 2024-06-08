@@ -37,6 +37,18 @@ COLORS.table = {
         blue = "#566795",
         pink = "#ab3e91",
         green = "#6abc79"
+    },
+    xcodedark = {
+        black      = "#414453",
+        red        = "#ff8170",
+        green      = "#78c2b3",
+        yellow     = "#d9c97c",
+        blue       = "#4eb0cc",
+        magenta    = "#ff7ab2",
+        cyan       = "#b281eb",
+        white      = "#dfdfe0",
+        foreground = "#dfdfe0",
+        background = " #292a30",
     }
 }
 

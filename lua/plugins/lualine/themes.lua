@@ -34,20 +34,23 @@ THEMES.xcodedarkhc = {
     }
 }
 
-THEMES.github = {
+THEMES.xcodedark = {
     normal = {
-        a = { bg = colors.red },
-        b = { bg = colors.grey },
-        c = { fg = colors.white, bg = colors.white },
+        a = { fg = colors.black, bg = colors.magenta },
+        b = { fg = colors.white, bg = colors.black },
+        c = { fg = colors.white, bg = colors.grey },
     },
-    insert = { a = { bg = colors.blue } },
-    visual = { a = { bg = colors.pink } },
-    replace = { a = { bg = colors.green } },
+    insert = { a = { fg = colors.black, bg = colors.yellow } },
+
+    visual = { a = { fg = colors.black, bg = colors.green } },
+    replace = { a = { fg = colors.black, bg = colors.orange } },
     inactive = {
-        a = { fg = colors.white, bg = colors.white },
-        b = { fg = colors.white, bg = colors.white },
-        c = { fg = colors.black, bg = colors.white },
+        a = { fg = colors.white, bg = colors.black },
+        b = { fg = colors.white, bg = colors.black },
+        c = { fg = colors.black, bg = colors.black },
     }
 }
+
+THEMES.github = "onelight"
 
 return THEMES

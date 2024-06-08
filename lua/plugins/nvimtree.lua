@@ -3,9 +3,9 @@ local M = {}
 
 M.load = {
     "nvim-tree/nvim-tree.lua",
-    -- cmd = "NvimTreeToggle",
+    cmd = "NvimTreeToggle",
     config = function()
-        vim.defer_fn(M.config, 0)
+        require("plugins.nvimtree").config()
     end
 }
 
@@ -28,6 +28,7 @@ M.on_attach = function(bufnr)
     vim.keymap.set("n", "<cr>", api.node.open.edit, opts)
     vim.keymap.set('n', 'C', api.fs.copy.absolute_path, opts)
     vim.keymap.set('n', 'K', api.node.navigate.parent, opts)
+    vim.keymap.set('n', 'x', api.fs.cut, opts)
 end
 
 M.config = function()
@@ -43,14 +44,11 @@ M.config = function()
         filters = { custom = { "^.git$", ".root", ".DS_Store" } },
         view = {
             side = "right",
-            hide_root_folder = true,
-            mappings = {
-                custom_only = true
-            }
         },
         git = { ignore = false },
         diagnostics = { enable = true, debounce_delay = 10 },
         renderer = {
+            root_folder_label = false,
             indent_markers = { enable = false },
             icons = { show = { git = false } }
         },

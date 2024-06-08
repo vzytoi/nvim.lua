@@ -3,9 +3,17 @@ local M = {}
 local format = require('plugins.format').get
 local colors = u.colors.get()
 local icons = require('utils.icons')
+local harpoon = require("harpoon")
+local lualine = require("lualine.themes.onelight")
+local themes = require('plugins.lualine.themes')
+local fun = require("utils.fun")
 
 M.filter = function()
     return vim.bo.modifiable and not u.ft.is_disabled('lualine')
+end
+
+M.test = function()
+    return not M.filter()
 end
 
 local function inject_toggle(func, icon, cond)
@@ -41,7 +49,7 @@ M.lsp = inject_toggle(
 
 M.format = inject_toggle(
     function()
-        return u.fun.capabilities('format', 0)
+        return fun.check_formatting_capability(0)
             or format(vim.bo.filetype)
     end,
     icons.format,
@@ -51,8 +59,8 @@ M.format = inject_toggle(
 M.ts = inject_toggle(
     function()
         return require "nvim-treesitter.parsers".get_parser(
-                vim.fn.bufnr('%'), vim.bo.filetype
-            ) ~= nil
+            vim.fn.bufnr('%'), vim.bo.filetype
+        ) ~= nil
     end,
     icons.treesitter,
     M.filter
@@ -67,6 +75,33 @@ M.mode = {
         right = ''
     },
     padding = 1
+}
+
+M.harpoon = {
+    function()
+        local current = vim.fn.expand("%:t")
+        local marks = harpoon.get_mark_config().marks
+        local output = ""
+
+
+        vim.api.nvim_set_hl(0, "HarpoonCurrent", { fg = colors.magenta, bg = themes[vim.g.colors_name].normal.c.bg })
+        vim.api.nvim_set_hl(0, "HarpoonNormal", { fg = colors.grey, bg = themes[vim.g.colors_name].normal.c.bg })
+
+        for i in pairs(marks) do
+            local bname = vim.fs.basename(marks[i].filename)
+            if bname == current then
+                output = output .. " %#HarpoonCurrent#" .. icons.modified
+            else
+                output = output .. " %#HarpoonNormal#" .. icons.modified
+            end
+        end
+
+        if M.filter() then
+            return output
+        else
+            return ""
+        end
+    end
 }
 
 M.progression = {
@@ -116,7 +151,10 @@ M.spaces = {
 M.filetype = {
     'filetype',
     icon_only = true,
-    separator = { right = '' },
+    -- separator = { right = '' },
+    -- separator = { right = "" },
+    padding = { right = 1 },
+
     fmt = function(str)
         if vim.tbl_contains(vim.tbl_keys(icons), vim.bo.filetype) then
             return icons[vim.bo.filetype]
@@ -124,6 +162,7 @@ M.filetype = {
 
         return str
     end
+
 }
 
 M.branch = {
@@ -132,7 +171,8 @@ M.branch = {
         left = 2,
         right = 1
     },
-    cond = M.filter
+    cond = M.filter,
+    separator = { right = "" },
 }
 
 M.searchcount = {

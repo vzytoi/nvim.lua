@@ -1,5 +1,7 @@
 local FN = {}
 
+local cmp = require('cmp')
+
 FN.unwanted = function(bufnr, fts)
     return not vim.api.nvim_buf_get_option(bufnr, 'modifiable') or
         (fts and vim.tbl_contains(fts, FN.buf(bufnr, 'filetype')))
@@ -31,7 +33,7 @@ FN.timer_end = function()
     local sec = time > 1
 
     return {
-        time = sec and FN.round(time, 2) or FN.round(time * 1000),
+        time = sec and FN.eound(time, 2) or FN.round(time * 1000),
         unit = sec and "s" or "ms"
     }
 end
@@ -76,19 +78,16 @@ FN.is_last_win = function()
     return #vim.api.nvim_list_wins() == 1
 end
 
-FN.capabilities = function(capabilitie, bufnr)
-    local client = vim.lsp.get_active_clients({ bufnr = bufnr })
+FN.check_formatting_capability = function(bufnr)
+    local client = vim.lsp.get_active_clients({ bufnr = 0 })
 
-    if vim.tbl_isempty(client) then
-        return false
+    for i = 1, #client do
+        if client[i].server_capabilities.documentFormattingProvider then
+            return true
+        end
     end
 
-    local a = {
-        format = client[1].server_capabilities.documentFormattingProvider,
-        hi = client[1].supports_method('textDocument/documentHighlight')
-    }
-
-    return a[capabilitie]
+    return false
 end
 
 FN.is_empty = function(obj)
@@ -123,10 +122,19 @@ FN.buf = function(asked, bufnr)
 end
 
 vim.g.mp = false
+vim.g.leet = false
+
+FN.leet = function()
+    if not vim.g.leet then
+        cmp.setup.buffer { enabled = false }
+    else
+        cmp.setup.buffer { enabled = true }
+    end
+
+    vim.g.leet = not vim.g.leet
+end
 
 FN.mp2i = function()
-    local cmp = require('cmp')
-
     if not vim.g.mp then
         cmp.setup.buffer { enabled = false }
         vim.g.nvim_virtual_enable = false
@@ -141,5 +149,8 @@ FN.mp2i = function()
 end
 
 vim.api.nvim_create_user_command("MP", ":lua u.fun.mp2i()", {})
+vim.api.nvim_create_user_command("Leet", ":lua u.fun.leet()", {})
+vim.api.nvim_create_user_command("Count", ":w !wc -m", {})
+vim.api.nvim_create_user_command("Print", ":TOhtml | !rm %.html", {})
 
 return FN

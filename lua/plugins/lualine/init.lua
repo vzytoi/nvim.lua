@@ -1,6 +1,5 @@
 local M = {}
 
-
 M.load = {
     "hoob3rt/lualine.nvim",
     event = "ColorScheme",
@@ -16,15 +15,14 @@ function M.config()
         options = {
             theme = themes[cs] or cs,
             component_separators = '',
-            section_separators = { left = '', right = '' },
+            section_separators = { left = '', right = '' },
         },
         sections = {
             lualine_a = { components.mode },
-            lualine_b = { components.runcode, components.branch, components.searchcount },
-            lualine_c = { 'diagnostics' },
-            lualine_x = {},
+            lualine_b = { components.runcode, components.branch },
+            lualine_c = { components.searchcount, 'diagnostics' },
+            lualine_x = components.harpoon,
             lualine_y = {
-                components.diff,
                 components.lsp.on,
                 components.lsp.off,
                 components.format.on,

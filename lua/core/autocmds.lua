@@ -14,28 +14,34 @@ local line_number = function()
 
     vim.api.nvim_create_autocmd(
         { "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+            callback = function()
+                if vim.fn.mode() ~= "i" then
+                    vim.wo.rnu = true
+                    vim.wo.nu = true
+                end
+
+
+                disln()
+            end,
+            group = general
+        })
+
+    vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
-            if vim.fn.mode() ~= "i" then
-                vim.wo.rnu = true
-                vim.wo.nu = true
-            end
-
-
-            disln()
-        end,
-        group = general
+            require('cmp').setup.buffer { enabled = false }
+        end
     })
 
     vim.api.nvim_create_autocmd(
         { "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-        callback = function()
-            vim.wo.rnu = false
-            vim.wo.nu = true
+            callback = function()
+                vim.wo.rnu = false
+                vim.wo.nu = true
 
-            disln()
-        end,
-        group = general
-    })
+                disln()
+            end,
+            group = general
+        })
 
 
     vim.api.nvim_create_autocmd("FileType", {
@@ -70,15 +76,6 @@ M.config = function()
     line_number()
 
     vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "gitcommit", "markdown", "text", "log" },
-        callback = function()
-            vim.opt_local.wrap = true
-            vim.opt_local.spell = true
-        end,
-        group = general,
-    })
-
-    vim.api.nvim_create_autocmd("FileType", {
         pattern = { "ocaml" },
         callback = function()
             vim.bo.shiftwidth = 2
@@ -87,9 +84,44 @@ M.config = function()
     })
 
     -- just to don't get lost
-    vim.api.nvim_create_autocmd("FocusLost", {
+    -- vim.api.nvim_create_autocmd("FocusLost", {
+    --     callback = function()
+    --         if vim.bo.filetype ~= "tex" then
+    --             vim.api.nvim_command("stopi")
+    --         end
+    --     end
+    -- })
+
+    -- vim.api.nvim_create_autocmd("FileType", {
+    --     pattern = "tex",
+    --     callback = function()
+    --         vim.wo.wrap = true
+    --         vim.wo.lbr = true
+    --     end
+    -- })
+
+    vim.api.nvim_create_autocmd("Filetype", {
         callback = function()
-            vim.api.nvim_command("stopi")
+            vim.schedule(function()
+                if vim.tbl_contains(u.ft.nospell, vim.bo.filetype) then
+                    vim.opt_local.spell = false
+                end
+            end)
+        end
+    })
+
+    vim.api.nvim_create_augroup("neogit-additions", {})
+
+    vim.api.nvim_create_autocmd("FileType", {
+        group = "neogit-additions",
+        pattern = "NeogitCommitMessage",
+        command = "silent! set filetype=gitcommit",
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = "tex",
+        callback = function()
+            vim.cmd("set tw=95")
         end
     })
 end

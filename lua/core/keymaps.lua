@@ -1,6 +1,13 @@
 local M = {}
 
 local nest = require("nest")
+local neogit = require("neogit")
+local runcode = require("runcode")
+local treesj = require("treesj")
+local harpoon_ui = require("harpoon.ui")
+local harpoon_mark = require("harpoon.mark")
+local persistence = require("persistence")
+local trouble = require("trouble")
 
 local map = function(op, outer)
     outer = outer or { silent = true, noremap = true }
@@ -25,9 +32,9 @@ vim.g.imap = map("i")
 vim.g.vmap = map("v")
 vim.g.tmap = map("t")
 
+
 M.config = function()
     require "plugins.toggleterm".keymaps()
-    require "plugins.dap".keymaps()
     require "plugins.nvimtree".keymaps()
     require "plugins.lsp".keymaps()
     require "core.rooter".keymaps()
@@ -42,106 +49,87 @@ M.config = function()
             { "l>", "<c-w>w" },
             { "c>", "<esc>" },
         } },
-        { "Ì", function() resize.resize_left(5) end },
-        { "¬", function() resize.resize_right(5) end },
-        { "È", function() resize.resize_up(5) end },
-        { "Ï", function() resize.resize_down(5) end },
-        { "<",  "<<" },
-        { ">",  ">>" },
-        { 'gJ', function()
-            require('trevj').format_at_cursor()
-        end },
+        { "<",       "<<" },
+        { ">",       ">>" },
         { "<Left>",  ":SidewaysLeft<cr>" },
         { "<Right>", ":SidewaysRight<cr>" },
         { "<Tab>",   ":tabnext<cr>" },
         { "<S-Tab>", ":tabprevious<cr>" },
         { "<Space>", "<Nop>" },
+        { "Ì",       function() resize.resize_left(5) end },
+        { "¬",       function() resize.resize_right(5) end },
+        { "È",       function() resize.resize_up(5) end },
+        { "gt",      function() treesj.toggle() end },
+        { "Ï",       function() resize.resize_down(5) end },
+        { "gt",      function() treesj.toggle() end },
         { "<leader>", {
-            { "n",   ":Neogen<CR>" },
+            { "s",   function() require("dropbar.api").pick() end },
+            { "k",   function() harpoon_ui.nav_next() end },
+            { "apm", function() require("vim-apm"):toggle_monitor() end},
+            { "tr",  function() trouble.toggle() end },
+            { "j",   function() harpoon_ui.nav_prev() end },
             { "fml", "<cmd>CellularAutomaton make_it_rain<CR>" },
             { "ti",  require('quickterm').open },
-            { "x",   require('runcode').run },
-            { "xx",  function() require('runcode').run { method = "Compile" } end },
-            { "xt",  function() require('runcode').run { dir = "tab" } end },
-            { "xv",  function() require('runcode').run { dir = "vertical" } end },
-            { 'gd', function()
-                u.fun.toggle("DiffviewOpen", "DiffviewClose")
-            end },
-            { 'c', function()
-                vim.g.nmap("<leader>c", function()
-                    u.fun.toggle("copen", "cclose")
-                end)
-            end },
-            { 'w', function()
-                nvim.command("AerialToggle")
-
-                vim.g.nmap('K', function()
-                    nvim.command("AerialPrev")
-                end, { buffer = 0 })
-
-                vim.g.nmap('J', function()
-                    nvim.command("AerialNext")
-                end, { buffer = 0 })
-            end },
-            { 'ck', ':cp<cr>' },
-            { 'cj', ':cn<cr>' },
-            { "h", function()
-                require('harpoon.ui').toggle_quick_menu()
-            end },
-            { "ha", function()
-                require('harpoon.mark').add_file()
-            end },
-            { "z",  ":ZenMode<cr>" },
-            { "ya", ":%y+<cr>" },
+            { "x",   function() runcode.run() end },
+            { "xx",  function() runcode.run { method = "Compile" } end },
+            { "xt",  function() runcode.run { dir = "tab" } end },
+            { "xv",  function() runcode.run { dir = "vertical" } end },
+            { 'gd',  function() u.fun.toggle("DiffviewOpen", "DiffviewClose") end },
+            { "h",   function() harpoon_ui.toggle_quick_menu() end },
+            { "ha",  function() harpoon_mark.add_file() end },
+            { "z",   ":ZenMode<cr>" },
+            { "ya",  ":%y+<cr>" },
             { "q", {
-                { "s", require("persistence").load },
-                { "l", function() require("persistence").load({ last = true }) end },
-                { "d", function() require("persistence").stop() end }
+                { "s", persistence.load },
+                { "l", function() persistence.load({ last = true }) end },
+                { "d", function() persistence.stop() end }
             } },
             { "q", {
                 { "k", ":cprev<cr>" },
                 { "j", ":cnext<cr>" }
             } },
             { "g", ":Neogit kind=split<cr>" },
-            { "g", { "c", ":Neogit commit<cr>" } },
+            { "g",
+                { "c", function() neogit.open({ "commit" }) end } },
         } },
         { "n", "nzzzv" },
         { "N", "Nzzzv" },
         { "J", "mzJ`z" },
-        { mode = "v", {
-            { 'L', ":MoveHBlock(1)<CR>" },
-            { 'J', ":MoveBlock(1)<CR>" },
-            { 'K', ":MoveBlock(-1)<CR>" },
-            { 'H', ":MoveHBlock(-1)<CR>" },
-            { "<", "<gv" },
-            { ">", ">gv" },
-            { "<leader>", {
-                { "r",
-                    { "f", function() require('refactoring').refactor('Extract Function') end },
-                    { "v", function() require('refactoring').refactor('Extract Variable') end },
-                },
-            } }
-        } },
-        { mode = "i", {
-            { "<c-", {
-                { "j>", "<c-n>" },
-                { "k>", "<c-p>" },
-                { "c>", "<esc>" }
-            } },
-        } }
+        {
+            mode = "v",
+            {
+                { 'L', ":MoveHBlock(1)<CR>" },
+                { 'J', ":MoveBlock(1)<CR>" },
+                { 'K', ":MoveBlock(-1)<CR>" },
+                { 'H', ":MoveHBlock(-1)<CR>" },
+                { "<", "<gv" },
+                { ">", ">gv" },
+            }
+        },
+        {
+            mode = "i",
+            {
+                { "kj", "<c-c>" },
+                { "<c-", {
+                    { "j>", "<c-n>" },
+                    { "k>", "<c-p>" },
+                    { "c>", "<esc>" }
+                } },
+            }
+        }
     }
 
     for k, v in pairs(u.fun.keycount) do
         vim.g.nmap("<leader>" .. k, function()
             if vim.fn.tabpagenr('$') >= v then
-                nvim.command("tabn" .. v)
+                vim.api.nvim_command("tabn" .. v)
             else
-                nvim.command('tabnew')
+                vim.api.nvim_command('tabnew')
             end
         end)
 
         vim.g.nmap("<leader>h" .. k, function()
-            require('harpoon.ui').nav_file(v)
+            harpoon_ui.nav_file(v)
         end)
     end
 end

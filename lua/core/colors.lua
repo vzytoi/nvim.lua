@@ -46,6 +46,11 @@ local raw = {
         CmpItemAbbrMatch = { fg = c.white, bold = true },
 
     },
+    torte = {
+        CursorLineNr = {fg = "#ffff00"},
+        VertSplit = {},
+        LspReferenceText = {bold = true},
+    },
     xcodedarkhc = {
         Normal                   = { bg = c.black },
         NonText                  = { bg = c.black, fg = c.black },
@@ -55,7 +60,6 @@ local raw = {
         TabLineSel               = { bg = c.black, bold = true },
         TabLineFill              = { bg = c.darkerblack },
 
-        -- TextOn = { bg = c.black, fg = c.white, bold = true },
         TextOff                  = { bg = c.black, fg = c.lightgrey },
 
         SepOn                    = { fg = c.pink },
@@ -107,6 +111,7 @@ local raw = {
     },
     mono = {
         VertSplit = {},
+        CursorLineNr = {},
         LineNr = { fg = "#cfcfcf" },
         LspReferenceText = { bold = true },
         LspReferenceRead = { bold = true },

@@ -1,10 +1,40 @@
 local M = {}
 
-local cmp = require('cmp')
-local neogen = require('neogen')
+M.load =
+{
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    config = function()
+        require("plugins.cmp").config()
+    end,
+    dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "lukas-reineke/cmp-rg",
+        "ray-x/cmp-treesitter",
+        {
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            config = function()
+                require("copilot").setup {
+                    cmp = { enabled = true, method = "getCompletionsCycling", },
+                    panel = { enabled = false, },
+                    suggestion = { enabled = false, },
+                }
+            end
+        },
+        {
+            "zbirenbaum/copilot-cmp",
+            after = { "copilot.lua" },
+            config = function()
+                require("copilot_cmp").setup()
+            end
+        },
+    }
+}
 
 M.config = function()
-    local luasnip = require('luasnip')
+    local cmp = require('cmp')
 
     cmp.setup {
         disabled = function()
@@ -18,33 +48,24 @@ M.config = function()
                 end, trigger_characters)
             end,
         },
+        performance = { max_view_entries = 10 },
         sources = {
             { name = "copilot" },
-            { name = "luasnip",                 max_item_count = 2 },
-            { name = "nvim_lsp",                max_item_count = 2 },
-            { name = 'nvim_lsp_signature_help', max_item_count = 2 },
-            { name = "treesitter",              max_item_count = 2 },
+            { name = "nvim_lsp", },
+            { name = 'nvim_lsp_signature_help' },
+            { name = "treesitter", },
         },
         window = {
             completion = cmp.config.window.bordered(),
             documentation = cmp.config.window.bordered()
-        },
-        snippet = {
-            expand = function(args)
-                require('luasnip').lsp_expand(args.body)
-            end
         },
         mapping = {
             ["<c-k>"] = cmp.mapping.select_prev_item(),
             ["<c-j>"] = cmp.mapping.select_next_item(),
             ["<tab>"] = cmp.mapping(
                 function(fallback)
-                    if luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
-                    elseif cmp.visible() then
+                    if cmp.visible() then
                         cmp.confirm { select = true }
-                    elseif neogen.jumpable() then
-                        neogen.jump_next()
                     else
                         fallback()
                     end
@@ -52,13 +73,7 @@ M.config = function()
             ),
             ["<s-tab>"] = cmp.mapping(
                 function(fallback)
-                    if luasnip.jumpable( -1) then
-                        luasnip.jump( -1)
-                    elseif neogen.jumpable(true) then
-                        neogen.prev()
-                    else
                         fallback()
-                    end
                 end, { "i", "s" }
             )
         },

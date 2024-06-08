@@ -14,19 +14,23 @@ M.load = {
                 require("telescope").load_extension("fzf")
             end
         },
-        "nvim-telescope/telescope-symbols.nvim",
-        {
-            "nvim-telescope/telescope-project.nvim",
-            config = function()
-                require("telescope").load_extension("project")
-            end
-        },
         {
             "smartpde/telescope-recent-files",
             config = function()
                 require("telescope").load_extension("recent_files")
             end
         },
+        {
+            "ahmedkhalf/project.nvim",
+            config = function()
+                require("telescope").load_extension("projects")
+                require("project_nvim").setup {
+                    detection_methods = { "pattern" },
+                    exclude_dirs = {"/Users/Cyprien"}
+                }
+            end
+        },
+
     },
 }
 
@@ -65,11 +69,15 @@ M.setup = function()
     end)
 
     vim.keymap.set("n", "<leader>fp", function()
-        telescope.extensions.project.project(themes.get_dropdown())
+        require'telescope'.extensions.projects.projects(themes.get_dropdown())
     end)
 
     vim.keymap.set("n", "<leader>ft", function()
         builtin.treesitter(themes.get_ivy())
+    end)
+
+    vim.keymap.set("n", "<leader>fs", function()
+        builtin.lsp_workspace_symbols(themes.get_ivy())
     end)
 end
 
@@ -83,7 +91,7 @@ M.config = function()
                 check_mine_type = false,
                 timeout = 100
             },
-            file_ignore_patterns = { ".git/", "_build/", "%.pdf", "lazy%-lock%.json", "%.ttf", "%.DS%_Store" },
+            file_ignore_patterns = { ".git/", "_build/", "%.pdf", "lazy%-lock%.json", "%.ttf", "%.DS%_Store", "sessions/" },
             prompt_prefix = "> ",
             selection_caret = "> ",
             sorting_strategy = "ascending",

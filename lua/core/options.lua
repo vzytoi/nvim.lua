@@ -19,7 +19,7 @@ M.disablePlugins = function()
         "zipPlugin", "tarPlugin",
         "getscript", "getscriptPlugin",
         "vimball", "vimballPlugin",
-        "2html_plugin", "matchit",
+        "2html_plugin", "matchit", "matchit.vim",
         "matchparen", "logiPat", "spellfile_plugin",
         "rrhelper", "remote_plugins",
         "man", "shada_plugin", "syntax_completion",
@@ -61,28 +61,29 @@ M.loadOptions = function()
         splitright = true,
         splitbelow = true,
         timeout = true,
-        timeoutlen = 200,
+        timeoutlen = 150, -- à changer??
         ttimeout = true,
         ttimeoutlen = 1,
         ttyfast = true,
-        -- for telescope to be faster to open. bad idea?
         updatetime = 50,
         redrawtime = 1500,
         scrolloff = 8,
-        cmdheight = 0,
+        cmdheight = 1,
         undofile = true,
         undolevels = 5000,
         writebackup = false,
         swapfile = false,
         fileformat = "unix",
         encoding = "utf-8",
-        showtabline = 2,
+        fileencoding = "utf-8",
+        -- showtabline = 2,
+        showtabline = 0,
         laststatus = 3,
         termguicolors = true,
         cursorline = true,
         cursorlineopt = "number",
         showmode = false,
-        spell = false,
+        spell = true,
         spl = { "fr", "en_us" },
     }
 
@@ -111,7 +112,7 @@ M.loadOptions = function()
         c = true,
         r = true,
         n = true,
-        t = false,
+        t = true,
         j = true,
         l = true,
         v = true,
@@ -125,13 +126,13 @@ end
 M.ColorOpt = function()
     vim.o.termguicolors = true
 
-    vim.o.background = "light"
-    -- local _ = pcall(vim.cmd.colorscheme, "github")
-    -- local _ = pcall(vim.cmd.colorscheme, "kanagawa")
+    -- vim.o.background = "light"
+    vim.o.background = "dark"
 
-    -- vim.o.background = "dark"
-    local _ = pcall(vim.cmd.colorscheme, "xcodedarkhc")
+    -- local _ = pcall(vim.cmd.colorscheme, "github")
     -- local _ = pcall(vim.cmd.colorscheme, "mono")
+    local _ = pcall(vim.cmd.colorscheme, "torte")
+    -- local _ = pcall(vim.cmd.colorscheme, "xcodedark")
 end
 
 M.config = function()
@@ -142,6 +143,7 @@ M.config = function()
     vim.g.loaded_python_provider = false
     vim.g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
     vim.g.instant_username = "Cyprien"
+    --vim.cmd(":NoMatchParen")
 end
 
 return M

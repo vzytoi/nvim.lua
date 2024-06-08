@@ -12,7 +12,7 @@ local formatters = {
 
             return {
                 exe = "black",
-                args = { "--line-length=60", "-q", "--fast", "-" },
+                args = { "--line-length=90", "-q", "--fast", "-" },
                 stdin = true,
             }
         end
@@ -37,12 +37,13 @@ local formatters = {
                     "--match-indent=2",
                     "--match-indent-nested=always",
                     "--cases-exp-indent=2",
+                    "--no-wrap-comments",
                     "--break-separator=before",
                     "--space-around-records",
                     "--space-around-lists",
                     "--space-around-arrays",
+                    "--type-decl=sparse",
                     "--indicate-nested-or-patterns=unsafe-no",
-                    "--wrap-comments",
                     "-q",
                     "--name",
                     util.escape_path(util.get_current_buffer_file_name()),

@@ -26,8 +26,8 @@ FT.disabled = {
     ln = {
         "fugitive", "RunCode", "help", "toggleterm",
         "TelescopePrompt", "NvimTree", "harpoon",
+        "NeogitCommitMessage", "NeogitPopup", "NeogitStatus", "alpha", "lazy",
         "sagarename", "mason.nvim", "packer", "gitcommit",
-        "NeogitCommitMessage", "NeogitPopup", "NeogitStatus", "alpha"
     },
     spell = {
         "toggleterm", "RunCode"
@@ -38,8 +38,11 @@ FT.disabled = {
     }
 }
 
-FT.is_disabled = function(package, bufnr)
+FT.nospell = {
+    "toggleterm", "RunCode", "packer", "gitcommit", "lazy", "help"
+}
 
+FT.is_disabled = function(package, bufnr)
     bufnr = bufnr or vim.fn.bufnr()
 
     local packagelst = FT.disabled[package]
