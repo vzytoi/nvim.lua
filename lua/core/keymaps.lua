@@ -7,7 +7,6 @@ local treesj = require("treesj")
 local harpoon_ui = require("harpoon.ui")
 local harpoon_mark = require("harpoon.mark")
 local persistence = require("persistence")
-local trouble = require("trouble")
 
 local map = function(op, outer)
     outer = outer or { silent = true, noremap = true }
@@ -65,8 +64,6 @@ M.config = function()
         { "<leader>", {
             { "s",   function() require("dropbar.api").pick() end },
             { "k",   function() harpoon_ui.nav_next() end },
-            { "apm", function() require("vim-apm"):toggle_monitor() end},
-            { "tr",  function() trouble.toggle() end },
             { "j",   function() harpoon_ui.nav_prev() end },
             { "fml", "<cmd>CellularAutomaton make_it_rain<CR>" },
             { "ti",  require('quickterm').open },
@@ -77,20 +74,19 @@ M.config = function()
             { 'gd',  function() u.fun.toggle("DiffviewOpen", "DiffviewClose") end },
             { "h",   function() harpoon_ui.toggle_quick_menu() end },
             { "ha",  function() harpoon_mark.add_file() end },
-            { "z",   ":ZenMode<cr>" },
             { "ya",  ":%y+<cr>" },
             { "q", {
                 { "s", persistence.load },
                 { "l", function() persistence.load({ last = true }) end },
                 { "d", function() persistence.stop() end }
             } },
-            { "q", {
-                { "k", ":cprev<cr>" },
-                { "j", ":cnext<cr>" }
-            } },
             { "g", ":Neogit kind=split<cr>" },
             { "g",
                 { "c", function() neogit.open({ "commit" }) end } },
+            { "c", {
+                { "j", ":cnext<cr>" },
+                { "k", ":cprev<cr>" },
+            } }
         } },
         { "n", "nzzzv" },
         { "N", "Nzzzv" },
@@ -120,15 +116,7 @@ M.config = function()
     }
 
     for k, v in pairs(u.fun.keycount) do
-        vim.g.nmap("<leader>" .. k, function()
-            if vim.fn.tabpagenr('$') >= v then
-                vim.api.nvim_command("tabn" .. v)
-            else
-                vim.api.nvim_command('tabnew')
-            end
-        end)
-
-        vim.g.nmap("<leader>h" .. k, function()
+        vim.keymap.set("n", "<leader>" .. k, function()
             harpoon_ui.nav_file(v)
         end)
     end

@@ -47,9 +47,9 @@ local raw = {
 
     },
     torte = {
-        CursorLineNr = {fg = "#ffff00"},
+        CursorLineNr = { fg = "#ffff00" },
         VertSplit = {},
-        LspReferenceText = {bold = true},
+        LspReferenceText = { bold = true },
     },
     xcodedarkhc = {
         Normal                   = { bg = c.black },

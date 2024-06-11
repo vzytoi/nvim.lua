@@ -10,7 +10,7 @@ M.load = {
 }
 
 M.keymaps = function()
-    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>")
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", { silent = true })
 end
 
 M.on_attach = function(bufnr)

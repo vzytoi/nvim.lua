@@ -9,11 +9,18 @@ M.load = {
 function M.config()
     local themes = require('plugins.lualine.themes')
     local components = require('plugins.lualine.components')
-    local cs = vim.g.colors_name
+
+    local theme
+    if themes[vim.g.colors_name] then
+        theme = themes[vim.g.colors_name]
+    else
+        theme = "auto"
+    end
+
 
     require('lualine').setup {
         options = {
-            theme = themes[cs] or cs,
+            theme = theme,
             component_separators = '',
             section_separators = { left = '', right = '' },
         },

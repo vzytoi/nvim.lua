@@ -49,7 +49,7 @@ M.lsp = inject_toggle(
 
 M.format = inject_toggle(
     function()
-        return fun.check_formatting_capability(0)
+        return fun.check_formatting_capability()
             or format(vim.bo.filetype)
     end,
     icons.format,
@@ -97,6 +97,7 @@ M.harpoon = {
         end
 
         if M.filter() then
+            vim.print(output)
             return output
         else
             return ""

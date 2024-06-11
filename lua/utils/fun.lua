@@ -78,7 +78,7 @@ FN.is_last_win = function()
     return #vim.api.nvim_list_wins() == 1
 end
 
-FN.check_formatting_capability = function(bufnr)
+FN.check_formatting_capability = function()
     local client = vim.lsp.get_active_clients({ bufnr = 0 })
 
     for i = 1, #client do

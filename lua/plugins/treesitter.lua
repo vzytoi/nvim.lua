@@ -11,14 +11,6 @@ M.load = {
         "RRethy/nvim-treesitter-textsubjects",
         "nvim-treesitter/nvim-tree-docs",
         "nvim-treesitter/nvim-tree-docs",
-        {
-            "abecodes/tabout.nvim",
-            lazy = true,
-            event = "VeryLazy",
-            config = function()
-                require("tabout").setup()
-            end,
-        },
     },
     event        = "BufWinEnter"
 }

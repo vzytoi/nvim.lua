@@ -5,7 +5,6 @@ M.load = {
     config = function()
         require("plugins.telescope").config()
     end,
-    keys = "<leader>f",
     dependencies = {
         {
             "nvim-telescope/telescope-fzf-native.nvim",
@@ -26,7 +25,7 @@ M.load = {
                 require("telescope").load_extension("projects")
                 require("project_nvim").setup {
                     detection_methods = { "pattern" },
-                    exclude_dirs = {"/Users/Cyprien"}
+                    exclude_dirs = { "/Users/Cyprien" }
                 }
             end
         },
@@ -69,7 +68,7 @@ M.setup = function()
     end)
 
     vim.keymap.set("n", "<leader>fp", function()
-        require'telescope'.extensions.projects.projects(themes.get_dropdown())
+        require 'telescope'.extensions.projects.projects(themes.get_dropdown())
     end)
 
     vim.keymap.set("n", "<leader>ft", function()

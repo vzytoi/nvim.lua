@@ -8,7 +8,6 @@ local fun = require('utils.fun')
 
 M.keymaps = function()
     vim.g.nmap("gd", vim.lsp.buf.definition)
-    vim.g.nmap("gD", "<cmd>Glance definitions<CR>")
 
     vim.g.nmap("gr", vim.lsp.buf.rename)
     vim.g.nmap("ge", vim.lsp.buf.references)
@@ -27,7 +26,7 @@ M.autocmds = function(_, _)
 
     vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
-            if fun.check_formatting_capability(0) then
+            if fun.check_formatting_capability() then
                 vim.lsp.buf.format()
             end
         end,
@@ -56,8 +55,6 @@ end
 
 local on_attach = function(client, bufnr)
     M.autocmds()
-
-    require "lsp_signature".on_attach({}, bufnr)
 
     -- si un formater est configuré dans formater.nvim
     -- alors je m'assure qu'aucun formater associé au lsp ne soit execute.

@@ -26,11 +26,11 @@ local line_number = function()
             group = general
         })
 
-    vim.api.nvim_create_autocmd("BufEnter", {
-        callback = function()
-            require('cmp').setup.buffer { enabled = false }
-        end
-    })
+    -- vim.api.nvim_create_autocmd("BufEnter", {
+    --     callback = function()
+    --         require('cmp').setup.buffer { enabled = false }
+    --     end
+    -- })
 
     vim.api.nvim_create_autocmd(
         { "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
@@ -69,6 +69,16 @@ M.config = function()
     vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
             vim.opt.formatoptions:remove { "c", "r", "o" }
+        end,
+        group = general
+    })
+
+    vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+            if vim.fn.argc() == 0 then
+                local builtin = require("telescope.builtin")
+                builtin.find_files()
+            end
         end,
         group = general
     })
