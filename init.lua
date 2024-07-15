@@ -8,6 +8,7 @@ local mods = {
     { name = "lazy" },
     { name = "options" },
     { name = "autocmds", },
+    { name = "keymaps" }
 }
 
 local load = function(name)

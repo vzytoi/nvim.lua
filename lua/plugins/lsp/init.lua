@@ -7,18 +7,14 @@ local configs = require('plugins.lsp.configs')
 local fun = require('utils.fun')
 
 M.keymaps = function()
-    vim.g.nmap("gd", vim.lsp.buf.definition)
-
-    vim.g.nmap("gr", vim.lsp.buf.rename)
-    vim.g.nmap("ge", vim.lsp.buf.references)
-
-    vim.g.nmap("gh", vim.lsp.buf.hover)
-
-    vim.g.nmap("ga", vim.lsp.buf.code_action)
-
-    vim.g.nmap("gj", function() vim.diagnostic.goto_next({ float = false }) end)
-    vim.g.nmap("gk", function() vim.diagnostic.goto_prev({ float = false }) end)
-    vim.g.nmap("gf", function() vim.diagnostic.open_float({ header = "", prefix = "" }) end)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+    vim.keymap.set("n", "gr", vim.lsp.buf.rename)
+    vim.keymap.set("n", "ge", vim.lsp.buf.references)
+    vim.keymap.set("n", "gh", vim.lsp.buf.hover)
+    vim.keymap.set("n", "ga", vim.lsp.buf.code_action)
+    vim.keymap.set("n", "gj", function() vim.diagnostic.goto_next({ float = false }) end)
+    vim.keymap.set("n", "gk", function() vim.diagnostic.goto_prev({ float = false }) end)
+    vim.keymap.set("n", "gf", function() vim.diagnostic.open_float({ header = "", prefix = "" }) end)
 end
 
 M.autocmds = function(_, _)

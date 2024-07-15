@@ -34,11 +34,7 @@ M.config = function()
     }
 
     local plugins = {
-        -- { "seandewar/killersheep.nvim",          cmd = "KillKillKill" },
-        -- { "folke/zen-mode.nvim",                 cmd = "ZenMode", },
-        -- { "dstein64/vim-startuptime",            cmd = "StartupTime" },
         { "eandrju/cellular-automaton.nvim", cmd = "CellularAutomaton" },
-        -- { dir = "~/Documents/nvim/virtual.nvim" },
         { "vzytoi/virtual.nvim" },
         { "vzytoi/quickterm.nvim",           lazy = true },
         { "vzytoi/runcode.nvim" },
@@ -46,15 +42,7 @@ M.config = function()
         { "AndrewRadev/sideways.vim",        cmd = { "SidewaysLeft", "SidewaysRight" } },
         { "ThePrimeagen/harpoon",            lazy = true },
         { "m4xshen/autoclose.nvim",          lazy = true,                              event = "InsertEnter" },
-        -- {
-        --     "al0den/tester.nvim",
-        --     lazy = true,
-        --     config = function()
-        --         require("tester").setup()
-        --     end
-        -- },
         { 'akinsho/git-conflict.nvim',       config = true,                            main = "git-conflict", },
-        -- { "windwp/nvim-autopairs",              config = true },
         {
             "williamboman/mason.nvim",
             lazy = true,
@@ -62,13 +50,8 @@ M.config = function()
             main =
             "mason"
         },
-        -- { "samjwill/nvim-unception",       lazy = true, event = "VeryLazy" },
+        "lunacookies/vim-colors-xcode",
         { "mrjones2014/smart-splits.nvim", lazy = true, event = "VeryLazy" },
-        -- {
-        --     "jbyuki/instant.nvim",
-        --     cmd = {
-        --         "InstantStartSession", "InstantJoinSession", "InstantStartSingle", "InstantJoinSingle" }
-        -- },
 
         {
             "NeogitOrg/neogit",
@@ -99,19 +82,13 @@ M.config = function()
         },
 
         "Wansmer/treesj",
-        -- "tpope/vim-sleuth",
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         "wellle/targets.vim",
         "AckslD/nvim-trevJ.lua",
         "farmergreg/vim-lastplace",
         "cappyzawa/trim.nvim",
-        -- "endel/vim-github-colorscheme",
-        -- "felipevolpone/mono-theme",
-        -- "arzg/vim-colors-xcode",
-        -- "ryanpcmcquen/true-monochrome_vim",
-        -- "lunacookies/vim-colors-xcode",
-        -- "kawre/leetcode.nvim",
+        "felipevolpone/mono-theme",
         require("plugins.telescope").load,
         require("plugins.treesitter").load,
         require("plugins.nvimtree").load,
@@ -134,37 +111,12 @@ M.config = function()
             dependencies = "nvim-tree/nvim-web-devicons"
         },
 
-        -- {
-        --     "max397574/better-escape.nvim",
-        --     main = "better_escape",
-        --     config = true,
-        --     event = { "CursorHold", "CursorHoldI" },
-        --     lazy = true
-        -- },
-
         {
             "gbprod/stay-in-place.nvim",
             config = function()
                 require("stay-in-place").setup {}
             end
         },
-
-        -- {
-        --     "gaborvecsei/usage-tracker.nvim",
-        --     config = function()
-        --         require('usage-tracker').setup {
-        --             keep_eventlog_days = 14,
-        --             cleanup_freq_days = 7,
-        --             event_wait_period_in_sec = 5,
-        --             inactivity_threshold_in_min = 5,
-        --             inactivity_check_freq_in_sec = 5,
-        --             verbose = 0,
-        --             telemetry_endpoint = ""
-        --         }
-        --     end
-        -- },
-
-        -- "folke/trouble.nvim",
 
         {
             "chrisgrieser/nvim-various-textobjs",
@@ -211,18 +163,6 @@ M.config = function()
             end
         },
 
-        -- {
-        --     "alvarosevilla95/luatab.nvim",
-        --     dependencies = "nvim-tree/nvim-web-devicons",
-        --     config = function()
-        --         require("luatab").setup {
-        --             modified = function() return "" end,
-        --             windowCount =
-        --                 function() return "" end,
-        --         }
-        --     end
-        -- },
-
         {
             "lewis6991/hover.nvim",
             config = function()
@@ -235,13 +175,6 @@ M.config = function()
                     title = false
                 }
                 vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-            end
-        },
-
-        {
-            "LionC/nest.nvim",
-            config = function()
-                require("core.keymaps").config()
             end
         },
 
@@ -269,19 +202,7 @@ M.config = function()
             "j-hui/fidget.nvim",
         },
 
-        {
-            "numToStr/Comment.nvim",
-            config = function()
-                require("Comment").setup {
-                    ignore = "^$"
-                }
-            end,
-            lazy = true,
-            dependencies = {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-            },
-            event = { "BufRead", "BufNewFile" },
-        },
+        "JoosepAlviste/nvim-ts-context-commentstring",
     }
 
     require("lazy").setup(plugins, settings)

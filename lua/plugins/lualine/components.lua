@@ -4,7 +4,6 @@ local format = require('plugins.format').get
 local colors = u.colors.get()
 local icons = require('utils.icons')
 local harpoon = require("harpoon")
-local lualine = require("lualine.themes.onelight")
 local themes = require('plugins.lualine.themes')
 local fun = require("utils.fun")
 
@@ -97,7 +96,6 @@ M.harpoon = {
         end
 
         if M.filter() then
-            vim.print(output)
             return output
         else
             return ""

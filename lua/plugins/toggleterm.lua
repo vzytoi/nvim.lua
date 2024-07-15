@@ -1,18 +1,13 @@
 local M = {}
 
 M.keymaps = function()
-    vim.g.nmap("<leader>t", ":ToggleTerm direction=tab<cr>")
-    vim.g.nmap("<leader>tf", ":ToggleTerm direction=float<cr>")
-    vim.g.nmap("<leader>ts", ":ToggleTerm direction=horizontal<cr>")
-    vim.g.nmap("\\\\", ":ToggleTerm direction=horizontal<cr>")
-    vim.g.nmap("<leader>tv", ":ToggleTerm direction=vertical<cr>")
-    vim.g.tmap("<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
-    vim.g.tmap("<esc>", [[<C-\><C-n>]])
-
-
-    vim.keymap.set("n", "<leader>te", function()
-        require "tester".open {}
-    end)
+    vim.keymap.set("n", "<leader>t", ":ToggleTerm direction=horizontal<cr>")
+    vim.keymap.set("n", "<leader>tf", ":ToggleTerm direction=float<cr>")
+    vim.keymap.set("n", "<leader>ts", ":ToggleTerm direction=horizontal<cr>")
+    vim.keymap.set("n", "\\\\", ":ToggleTerm direction=horizontal<cr>")
+    vim.keymap.set("n", "<leader>tv", ":ToggleTerm direction=vertical<cr>")
+    vim.keymap.set("t", "<c-t>", [[<C-\><C-n>[<C-\><C-n>[<C-\><C-n>:q!<cr>]])
+    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]])
 end
 
 M.config = function()

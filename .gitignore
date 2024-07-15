@@ -1,5 +1,3 @@
-# Gitignore for the following technologies: Lua
-
 luac.out
 
 *.src.rock

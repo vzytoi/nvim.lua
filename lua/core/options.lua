@@ -22,7 +22,7 @@ M.disablePlugins = function()
         "2html_plugin", "matchit", "matchit.vim",
         "matchparen", "logiPat", "spellfile_plugin",
         "rrhelper", "remote_plugins",
-        "man", "shada_plugin", "syntax_completion",
+        "shada_plugin", "syntax_completion",
         "tutor_mode_plugin", "sql_completion"
     }
 
@@ -61,7 +61,7 @@ M.loadOptions = function()
         splitright = true,
         splitbelow = true,
         timeout = true,
-        timeoutlen = 150, -- à changer??
+        timeoutlen = 150,
         ttimeout = true,
         ttimeoutlen = 1,
         ttyfast = true,
@@ -76,13 +76,13 @@ M.loadOptions = function()
         fileformat = "unix",
         encoding = "utf-8",
         fileencoding = "utf-8",
-        -- showtabline = 2,
         showtabline = 0,
         laststatus = 3,
         termguicolors = true,
         cursorline = true,
         cursorlineopt = "number",
         showmode = false,
+        inccommand = "nosplit",
         spell = true,
         spl = { "fr", "en_us" },
     }
@@ -107,7 +107,6 @@ M.loadOptions = function()
     vim.opt.formatoptions = {
         ["1"] = true,
         ["2"] = true,
-        -- a = true,
         q = true,
         c = true,
         r = true,
@@ -125,14 +124,8 @@ end
 
 M.ColorOpt = function()
     vim.o.termguicolors = true
-
-    -- vim.o.background = "light"
     vim.o.background = "dark"
-
-    -- local _ = pcall(vim.cmd.colorscheme, "github")
-    -- local _ = pcall(vim.cmd.colorscheme, "mono")
-    local _ = pcall(vim.cmd.colorscheme, "torte")
-    -- local _ = pcall(vim.cmd.colorscheme, "xcodedark")
+    local _ = pcall(vim.cmd.colorscheme, "xcodedarkhc")
 end
 
 M.config = function()
@@ -143,7 +136,6 @@ M.config = function()
     vim.g.loaded_python_provider = false
     vim.g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
     vim.g.instant_username = "Cyprien"
-    --vim.cmd(":NoMatchParen")
 end
 
 return M
